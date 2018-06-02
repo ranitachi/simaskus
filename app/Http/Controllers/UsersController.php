@@ -9,11 +9,11 @@ class UsersController extends Controller
     //
     public function performLogout(Request $request) {
         Auth::logout();
-        return redirect('/');
+        return redirect('/login');
     }
 
     public function logout() {
         Auth::logout();
-        return redirect('/');
+        return redirect('/login');
     }
 }

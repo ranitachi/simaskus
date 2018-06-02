@@ -19,7 +19,7 @@ Auth::routes();
 Route::post('/logout','UsersController@performLogout');
 Route::get('/logout','UsersController@logout');
 
-Route::get('/login/{jenis}', 'Auth\LoginController@index');
+//Route::get('/login/{jenis}', 'Auth\LoginController@index');
 Route::get('/beranda', 'DashboardController@index')->name('beranda');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('program-studi/{dept_id}', 'ProgamStudiController@by_dept');

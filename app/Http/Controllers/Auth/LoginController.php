@@ -26,7 +26,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/beranda';
-
+    protected $redirectAfterLogout = '/login';
     /**
      * Create a new controller instance.
      *
@@ -37,14 +37,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function index($jenis=null)
+    public function index()
     {
-        if($jenis==null)
-            $jns='admin';
-        else
-            $jns=$jenis;
+        // if($jenis==null)
+        //     $jns='admin';
+        // else
+        //     $jns=$jenis;
 
-        return view('auth.login')->with('jenis',$jenis);
+        return view('auth.login');
     }
     // protected function credentials(Request $request)
     // {

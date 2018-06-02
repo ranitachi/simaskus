@@ -41,7 +41,9 @@
                 <div class="col-md-6 login-container bs-reset">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="login-logo login-6" src="{{asset('img/simaskus.png')}}" style="margin:0 auto;height:50px;"/>
+                            <a href="{{url('/')}}">
+                                <img class="login-logo login-6" src="{{asset('img/simaskus.png')}}" style="margin:0 auto;height:50px;"/>
+                            </a>
                         </div>
                     </div>
                     <div class="login-content">
@@ -83,13 +85,13 @@
                                         <button type="submit" class="btn btn-primary">
                                             Login
                                         </button>
-                                        @if (isset($jenis))
+                                        {{-- @if (isset($jenis))
                                             @if ($jenis=='mahasiswa')
                                             <button type="button" id="register-btn" class="btn btn-success">
                                                 Register
                                             </button>
                                             @endif
-                                        @endif
+                                        @endif --}}
 
                                         {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                                             Forgot Your Password?
