@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Model\Mahasiswa;
+use App\Model\Users;
+use App\Model\MasterDepartemen;
+use App\User;
+use App\Notifikasi;
+use Auth;
+class MahasiswaController extends Controller
+{
+    public function get_by_npm($npm)
+    {
+        $mhs=Mahasiswa::where('npm',$npm)->first();
+        echo json_encode($mhs);
+    }
+    public function profil()
+    {
+        $dept=MasterDepartemen::all();
+        $profil=Mahasiswa::find(Auth::user()->id_user);
+        return view('pages.mahasiswa.profile.index')
+            ->with('dept',$dept)
+            ->with('profil',$profil);
+    }
+
+    public function cekpass($pass)
+    {
+        $ps=bcrypt($pass);
+        $cek=Users::where('email',Auth::user()->email)->where('password',$ps)->first();
+        if(count($cek)!=0)
+            echo 1;
+        else
+            echo 0;
+    }
+
+    public function simpanpassword(Request $request)
+    {
+        // dd($request);
+        $us=Users::where('email',Auth::user()->email)->first();
+        $us->password=bcrypt($request->newpassword);
+        $c=$us->save();
+        //$url=$request->url();
+        // return response()->json([$c]);
+        return redirect('profil')->with('status','Ubah Password Berhasil');
+    }
+    public function simpancollege(Request $request)
+    {
+        // dd($request->all());
+        $mh=Mahasiswa::find(Auth::user()->id_user);
+        $mh->departemen_id=$request->departemen;
+        $mh->program_studi_id=$request->program_studi;
+        $mh->tahun_masuk=$request->tahun_masuk;
+        $mh->save();
+        return redirect('profil')->with('status','Data Departemen dan Program Studi Berhasil Di Edit');
+    }
+    public function simpanprofil(Request $request)
+    {
+        // dd($request->all());
+        $mh=Mahasiswa::find(Auth::user()->id_user);
+        $mh->nama=$request->nama;
+        $mh->tempat_lahir=$request->tempat_lahir;
+        $mh->tanggal_lahir=date('Y-m-d',strtotime($request->tanggal_lahir));
+        $mh->email=$request->email;
+        $mh->hp=$request->hp;
+        $mh->gender=$request->gender;
+        $mh->alamat=$request->alamat;
+        $mh->kota=$request->kota;
+        $mh->save();
+        return redirect('profil')->with('status','Data Profil Mahasiswa Berhasil Di Edit');
+    }
+    public function registrasi(Request $request)
+    {
+        //dd($request->all());
+        $mhs=new Mahasiswa;
+        $mhs->npm=$request->npm;
+        $mhs->nama=$request->nama;
+        $mhs->email=$request->email;
+        $mhs->hp=$request->hp;
+        $mhs->save();
+
+        $us=new Users;
+        $us->id_user=$mhs->id;
+        $us->email=$request->email;
+        $us->name=$request->nama;
+        $us->flag=0;
+        $us->kat_user=3;
+        $us->password=bcrypt($request->password);
+        $us->save();
+
+        $usr = User::where('id',$us->id)->first();
+        Auth::login($usr);
+
+        $getsekre=Users::where('kat_user',1)->get();
+        foreach($getsekre as $k => $v)
+        {
+            $notif=new Notifikasi;
+            $notif->title="Menunggu Verifikasi";
+            $notif->from=$us->id;
+            $notif->to=$v->id_user;
+            $notif->flag_active=1;
+            $notif->pesan="Mahasiswa : ".$request->nama." Melakukan Registrasi, Harap Segera Di Verifikasi";
+            $notif->save();
+        }
+        
+        return redirect('profil')->with('status','Anda Sudah Berhasil Registrasi, Status Akun Anda Akan DI Verifikasi Oleh Sekretariat');
+       
+    }
+}
