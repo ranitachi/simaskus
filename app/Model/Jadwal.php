@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Jadwal extends Model
 {
     use SoftDeletes;
-    protected $table = 'jadwal';
+    protected $table = 'jadwals';
     protected $fillable = ['code','nama','ruangan_id','tanggal','hari','jenis_jadwal','staf_id','created_at','updated_at','deleted_at'];
 
     function ruangan()

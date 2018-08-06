@@ -7,6 +7,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #1 for blank page layout" name="description" />
         <meta content="" name="author" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         @include('include.css')
         <!-- END THEME LAYOUT STYLES -->
@@ -71,3 +72,4 @@
     </body>
     @yield('footscript')
 </html>
+@include('include.modal')

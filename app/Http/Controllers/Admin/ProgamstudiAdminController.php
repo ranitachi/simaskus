@@ -15,7 +15,7 @@ class ProgamstudiAdminController extends Controller
     public function data()
     {
         $dept=MasterDepartemen::with('pimpinan')->orderBy('nama_departemen')->get();
-        $prodi=ProgamStudi::with('pimpinan')->orderBy('nama_program_studi')->get();
+        $prodi=ProgamStudi::with('pimpinan')->orderBy('departemen_id')->orderBy('nama_program_studi')->get();
         return view('pages.administrator.program-studi.data')
                 ->with('prodi',$prodi)
                 ->with('dept',$dept);
@@ -37,7 +37,7 @@ class ProgamstudiAdminController extends Controller
     public function store(Request $request)
     {
         $prodi=new ProgamStudi;
-        $prodi->code=$request->code;
+        // $prodi->code=$request->code;
         $prodi->nama_program_studi=$request->nama_program_studi;
         $prodi->departemen_id=$request->departemen_id;
         $prodi->keterangan=$request->keterangan;
@@ -52,7 +52,7 @@ class ProgamstudiAdminController extends Controller
     public function update(Request $request,$id)
     {
         $prodi=ProgamStudi::find($id);
-        $prodi->code=$request->code;
+        // $prodi->code=$request->code;
         $prodi->nama_program_studi=$request->nama_program_studi;
         $prodi->departemen_id=$request->departemen_id;
         $prodi->keterangan=$request->keterangan;

@@ -34,7 +34,7 @@ class DepartemenAdminController extends Controller
         $dept=new MasterDepartemen;
         $dept->code=$request->code;
         $dept->nama_departemen=$request->nama_departemen;
-        $dept->pimpinan_id=$request->pimpinan_id;
+        // $dept->pimpinan_id=$request->pimpinan_id;
         $dept->flag='1';
         $dept->created_at=date('Y-m-d H:i:s');
         $dept->updated_at=date('Y-m-d H:i:s');
@@ -48,7 +48,7 @@ class DepartemenAdminController extends Controller
         $dept=MasterDepartemen::find($id);
         $dept->code=$request->code;
         $dept->nama_departemen=$request->nama_departemen;
-        $dept->pimpinan_id=$request->pimpinan_id;
+        // $dept->pimpinan_id=$request->pimpinan_id;
         $dept->flag='1';
         $dept->updated_at=date('Y-m-d H:i:s');
         $up=$dept->save();

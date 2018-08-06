@@ -20,7 +20,7 @@ class StafAdminController extends Controller
         $departemen=MasterDepartemen::all();
         if($id!=-1)
         {
-            $det=Staf::find($id);
+            $det=Staf::where('id',$id)->with('staf')->first();
         }
         return view('pages.administrator.staf.form')
                 ->with('id',$id)
@@ -33,6 +33,7 @@ class StafAdminController extends Controller
         $departemen=MasterDepartemen::all();
         $mhs=Staf::orderBy('departemen_id','nama')
                 ->with('departemen')
+                ->with('staf')
                 ->get();
         return view('pages.administrator.staf.data')
             ->with('mhs',$mhs)
@@ -64,7 +65,7 @@ class StafAdminController extends Controller
         $user->email=$request->email;
         $user->password=bcrypt($request->npm);
         $user->flag=1;
-        $user->kat_user=1;
+        $user->kat_user=$request->kat_user;
         $user->id_user=$user_id;
         $user->created_at=date('Y-m-d H:i:s');
         $user->updated_at=date('Y-m-d H:i:s');
@@ -94,6 +95,11 @@ class StafAdminController extends Controller
         $m->departemen_id=$request->departemen;
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
+
+        $user=Users::where('id_user',$id)->first();
+        $user->kat_user=$request->kat_user;
+        $user->updated_at=date('Y-m-d H:i:s');
+        $user->save();
 
         if($cr)
             $pesan="Data Staf Berhasil Di Edit";

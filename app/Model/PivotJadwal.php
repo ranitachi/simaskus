@@ -11,6 +11,10 @@ class PivotJadwal extends Model
     protected $table = 'pivot_jadwal';
     protected $fillable = ['jadwal_id','ruangan_id','mahasiswa_id','judul_id','status','created_at','updated_at','deleted_at'];
 
+    function jadwal()
+    {
+        return $this->belongsTo('App\Model\Jadwal','jadwal_id');
+    }
     function mahasiswa()
     {
         return $this->belongsTo('App\Model\Mahasiswa','mahasiswa_id');
@@ -18,6 +22,10 @@ class PivotJadwal extends Model
     function judul()
     {
         return $this->belongsTo('App\Model\JudulTugasAkhir','judul_id');
+    }
+    function pengajuan()
+    {
+        return $this->belongsTo('App\Model\Pengajuan','judul_id');
     }
     function ruangan()
     {

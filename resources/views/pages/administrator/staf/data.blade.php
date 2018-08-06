@@ -4,7 +4,7 @@
         <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             <div class="btn-group pull-right">
-                <a href="{{url('staf-admin/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                <a href="{{url('staf-admin/-1')}}" id="sample_editable_1_new" class="btn sbold green btn-sm"> Tambah Data
                     <i class="fa fa-plus"></i>
                 </a>
             </div>
@@ -20,6 +20,7 @@
                     <th> Email </th>
                     <th> Telp/HP </th>
                     <th> Departemen </th>
+                    <th> Level </th>
                     <th> # </th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <th> Email </th>
                     <th> Telp/HP</th>
                     <th> Departemen </th>
+                    <th> Level </th>
                     <th> # </th>
                 </tr>
             </tfoot>
@@ -43,6 +45,7 @@
                     <td>{{$v->email}}</td>
                     <td>{{$v->hp}}</td>
                     <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                    <td>{!!isset($v->staf->kat_user) ? ($v->staf->kat_user==1 ? '<span class="badge badge-primary badge-roundless">Sekretariat</span>' : '<span class="badge badge-primary badge-roundless">Administrator</span>') : ''!!}</td>
                     <td>
                         <div style="width:80px;">
                             <a href="{{url('staf-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>

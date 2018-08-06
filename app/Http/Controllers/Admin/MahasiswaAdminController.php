@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Mahasiswa;
+use App\Model\ProgamStudi;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
+use App\Model\Notifikasi;
 use Auth;
 class MahasiswaAdminController extends Controller
 {
@@ -18,6 +20,13 @@ class MahasiswaAdminController extends Controller
     {
         $det=array();
         $departemen=MasterDepartemen::all();
+        $prodi=ProgamStudi::all();
+        $prd=array();
+        foreach($prodi as $kp => $vp)
+        {
+            $prd[$vp->departemen_id][]=$vp;
+        }
+
         if($id!=-1)
         {
             $det=Mahasiswa::find($id);
@@ -25,6 +34,7 @@ class MahasiswaAdminController extends Controller
         return view('pages.administrator.mahasiswa.form')
                 ->with('id',$id)
                 ->with('det',$det)
+                ->with('prodi',$prd)
                 ->with('departemen',$departemen);
     }
 
@@ -109,5 +119,58 @@ class MahasiswaAdminController extends Controller
     {
         $c=Mahasiswa::find($id)->delete();
         return response()->json([$c]);
+    }
+
+    public function detail($id)
+    {
+        $mhs=Mahasiswa::where('id',$id)->with('departemen')->with('programstudi')->with('mahasiswa_user')->first();
+        $dept=MasterDepartemen::all();
+        $jenjang=ProgamStudi::all();
+        return view('pages.administrator.mahasiswa.detail')
+            ->with('profil',$mhs)
+            ->with('id',$id)
+            ->with('dept',$dept)
+            ->with('jenjang',$jenjang);
+    }
+
+    public function verifikasi(Request $request)
+    {
+        $id=$request->idmhs;
+        $users=Users::where('kat_user',3)->where('id_user',$id)->first();
+        $users->flag=1;
+        $users->save();
+
+        $notif=new Notifikasi;
+        $notif->title="Sudah Di Verifikasi";
+        $notif->from=Auth::user()->id;
+        $notif->to=$id;
+        $notif->flag_active=1;
+        $notif->pesan="Akun Anda Sudah Di Verifikasi Oleh Sekretariat, Silahkan Lakukan Update Profil Anda";
+        $notif->save();
+
+        return redirect('mahasiswa-admin')->with('status',"Mahasiswa : ".$users->mahasiswa->nama." Berhasil Di Verifikasi");
+    }
+    
+    public function verifikasi_mahasiswa($id)
+    {
+        // $id=$request->idmhs;
+        $users=Users::where('kat_user',3)->where('id_user',$id)->first();
+        $users->flag=1;
+        $simpan=$users->save();
+
+        $notif=new Notifikasi;
+        $notif->title="Sudah Di Verifikasi";
+        $notif->from=Auth::user()->id;
+        $notif->to=$users->id;
+        $notif->flag_active=1;
+        $notif->pesan="Akun Anda Sudah Di Verifikasi Oleh Sekretariat, Silahkan Lakukan Update Profil Anda<br>
+                        <a href='".url("/")."'>Klik Disini</a>";
+        $notif->save();
+        
+        if($simpan)
+            echo 1;
+        else
+            echo 0;
+        // return redirect('mahasiswa-admin')->with('status',"Mahasiswa : ".$users->mahasiswa->nama." Berhasil Di Verifikasi");
     }
 }

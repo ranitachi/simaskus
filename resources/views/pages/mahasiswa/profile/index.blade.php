@@ -37,6 +37,11 @@
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name"> {{$profil->nama}} </div>
                     <div class="profile-usertitle-job"> NPM : {{$profil->npm}} </div>
+                    <div class="profile-usertitle-job"> 
+                        @if (isset($profil->programstudi->nama_program_studi)) 
+                            {{$profil->programstudi->nama_program_studi}} 
+                        @endif    
+                    </div>
                     <div class="profile-usertitle-job"><span class="label label-primary">{!!$profil->gender==1 ? '<i class="fa fa-mars"></i> Pria' : '<i class="fa fa-venus"></i> Wanita'!!} </span></div>
                 </div>
 
@@ -144,7 +149,10 @@
                                 <select class="bs-select form-control has-success" data-placeholder="Pilih Program Studi" name="program_studi" id="program_studi">
                                     <option value="-1">-Pilih Program Studi-</option>
                                     @if ($profil->program_studi_id!=0)
-                                        <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
+                                        @if (isset($profil->programstudi->nama_program_studi)) 
+                                            <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
+                        
+                                        @endif
                                     @endif
                                 </select>
                             </div>
@@ -163,10 +171,23 @@
                                 @endfor
                             </select>
                         </div>
+                        {{-- <div class="form-group">
+                            <label class="control-label">Jenjang</label>
+                            <select class="bs-select form-control has-success" data-placeholder="Pilih Jenjang" id="jenjang_id" name="jenjang_id">
+                                <option value="-1">-Pilih Jenjang-</option>
+                                @foreach ($jenjang as $i => $v)
+                                    @if ($profil->jenjang_id==$v->id)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->jenjang}}</option>    
+                                    @else
+                                        <option value="{{$v->id}}">{{$v->jenjang}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div> --}}
                         
-                        <div class="margiv-top-10">
+                        {{-- <div class="margiv-top-10">
                             <button type="submit" class="btn green"> Simpan </submit>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
                 <!-- END CHANGE AVATAR TAB -->

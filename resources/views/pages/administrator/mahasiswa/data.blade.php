@@ -20,22 +20,43 @@
                     <th> Email </th>
                     <th> Departemen </th>
                     <th> Program Studi </th>
+                    <th> Status </th>
                     <th> # </th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th> NPM </th>
-                    <th> Nama </th>
-                    <th> Email </th>
-                    <th> Departemen </th>
-                    <th> Program Studi </th>
-                    <th> # </th>
-                </tr>
-            </tfoot>
+            
             <tbody>
+            @php
+                $no=1;
+            @endphp
             @foreach ($mhs as $i => $v)
+            @if (Auth::user()->kat_user!=0)
+                @if (Auth::user()->staf_user->departemen_id==$v->departemen_id)
+                    <tr class="odd gradeX">
+                        <td>{{($no++)}}</td>
+                        <td>{{$v->npm}}</td>
+                        <td>{{$v->nama}}</td>
+                        <td>{{$v->email}}</td>
+                        <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                        <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
+                        <td>
+                            {!!$v->mahasiswa_user->flag==1 ? '<span class="badge badge-primary badge-roundless"> Sudah Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+
+                            @if ($v->mahasiswa_user->flag==0 )
+                                <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a
+                            @endif
+                        </td>
+                        <td>
+                            <div style="width:100px;">
+                                <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                                <a href="{{url('mahasiswa-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
+            @else
+
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
                     <td>{{$v->npm}}</td>
@@ -44,13 +65,17 @@
                     <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
                     <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                     <td>
-                        <div style="width:80px;">
+                        {!!$v->mahasiswa_user->flag==1 ? '<span class="badge badge-primary badge-roundless"> Sudah Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+                    </td>
+                    <td>
+                        <div style="width:100px;">
+                            <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
                             <a href="{{url('mahasiswa-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                             <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>
-
+            @endif
             @endforeach                
             </tbody>
         </table>

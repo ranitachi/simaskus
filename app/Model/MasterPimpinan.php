@@ -17,6 +17,6 @@ class MasterPimpinan extends Model
     }
     function departemen()
     {
-        return $this->belongsTo('App\Model\Departemen','departemen_id');
+        return $this->belongsTo('App\Model\MasterDepartemen','departemen_id');
     }
 }

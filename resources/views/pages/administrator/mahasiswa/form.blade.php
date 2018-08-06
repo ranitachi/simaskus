@@ -129,9 +129,17 @@
                                         <div id="prog_studi">
                                             <select class="bs-select form-control has-success" data-placeholder="Pilih Program Studi" name="program_studi" id="program_studi">
                                                 <option value="-1">-Pilih Program Studi-</option>
-                                                @if ($id!=-1)
-                                                    <option value="{{$det->program_studi_id}}" selected="selected">{{$det->programstudi->nama_program_studi}}</option>    
-                                                @endif
+                                                    @if ($id!=-1)
+                                                        @foreach ($prodi[$det->departemen_id] as $kd => $vd)        
+                                                            @if ($det->program_studi_id==$vd->id))
+                                                                <option value="{{$det->program_studi_id}}" selected="selected">{{$det->programstudi->nama_program_studi}}</option> 
+                                                            @else   
+                                                                <option value="{{$vd->id}}">{{$vd->nama_program_studi}}</option> 
+
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -186,11 +194,11 @@
                             </div>
                         
                         </div>
-                        <div class="form-actions right">
-                            <a href="{{URL::previous()}}" class="btn default">Batal</a>
-                            <button type="button" id="simpan" class="btn blue">
-                                <i class="fa fa-check"></i> Simpan</button>
-                        </div>
+                            <div class="form-actions right">
+                                <a href="{{URL::previous()}}" class="btn default">Batal</a>
+                                <button type="button" id="simpan" class="btn blue">
+                                    <i class="fa fa-check"></i> Simpan</button>
+                            </div>
                     </form>
                     <!-- END FORM-->
                 </div>

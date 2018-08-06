@@ -16,8 +16,9 @@ class CreateSyaratPengajuansTable extends Migration
         Schema::create('syarat_pengajuans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->nullable();
-            $table->string('syarat')->nullable();
+            $table->text('syarat')->nullable();
             $table->integer('pengajuan_id')->default(0);
+            $table->integer('departemen_id')->default(0);
             $table->string('keterangan')->nullable();
             $table->integer('flag')->default(0);
             $table->timestamps();

@@ -134,7 +134,13 @@
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
-                                    
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Level</label>
+                                        <select class="bs-select form-control has-success" name="kat_user">
+                                            <option value="0" {{$id!=-1 ? ($det->staf->kat_user==0 ? 'selected="selected"' : '') : ''}}>Admin</option>
+                                            <option value="1" {{$id!=-1 ? ($det->staf->kat_user==1 ? 'selected="selected"' : '') : ''}}>Sekretariat</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <!--/span-->
                             </div>

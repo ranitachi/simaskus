@@ -1,0 +1,25 @@
+Gedung S::S.101
+Gedung Engineering Center::EC. 101
+Departemen Teknik Sipil::R. Dosen Hidrolika
+R.502::Departemen Teknik Sipil
+R. Lab Struktur dan Material::Departemen Teknik Sipil
+Gedung Engineering Center Lt.5::Lab Transportasi
+Gedung DTS::R. 503
+Departemen Teknik Sipil::Ruang Sayap Kiri 1 - Lt. 1
+Departemen Teknik Sipil::Ruang Kaprodi Teknik Lingkungan - Lt. 1
+Gedung Engineering Center::Kelas Internasional Lt.1
+Departemen Teknik Sipil::R. Rapat Lt.2
+Departemen Teknik Sipil::A. 118 Lt.1
+Departemen Teknik Sipil::A108
+Departemen Teknik Sipil::A.113
+Departemen Teknik Sipil::Ruang KaProdi Teknik Lingkungan
+Departemen Teknik Sipil::Ruang Rapat Lt.5
+Gedung S::S 103
+Gedung S::S 102
+Gedung S::S 101
+Gedung S::S. 201
+Gedung S::S. 202
+Gedung Engineering Center::EC. 103
+Departemen Teknik Sipil::A.114 Lt.1
+DTS::A.104
+Departemen Teknik Sipil::Ruang Rapat PSTL - Lantai 4

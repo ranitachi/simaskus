@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Model\Mahasiswa;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
+use App\Model\Jenjang;
 use App\User;
-use App\Notifikasi;
+use App\Model\Notifikasi;
 use Auth;
 class MahasiswaController extends Controller
 {
@@ -20,8 +21,10 @@ class MahasiswaController extends Controller
     {
         $dept=MasterDepartemen::all();
         $profil=Mahasiswa::find(Auth::user()->id_user);
+        $jenjang=Jenjang::all();
         return view('pages.mahasiswa.profile.index')
             ->with('dept',$dept)
+            ->with('jenjang',$jenjang)
             ->with('profil',$profil);
     }
 
@@ -52,6 +55,7 @@ class MahasiswaController extends Controller
         $mh->departemen_id=$request->departemen;
         $mh->program_studi_id=$request->program_studi;
         $mh->tahun_masuk=$request->tahun_masuk;
+        $mh->jenjang_id=$request->program_studi;
         $mh->save();
         return redirect('profil')->with('status','Data Departemen dan Program Studi Berhasil Di Edit');
     }
@@ -77,6 +81,9 @@ class MahasiswaController extends Controller
         $mhs->npm=$request->npm;
         $mhs->nama=$request->nama;
         $mhs->email=$request->email;
+        $mhs->departemen_id=$request->departemen_id;
+        $mhs->jenjang_id=$request->program_studi;
+        $mhs->program_studi_id=$request->program_studi;
         $mhs->hp=$request->hp;
         $mhs->save();
 
@@ -92,19 +99,24 @@ class MahasiswaController extends Controller
         $usr = User::where('id',$us->id)->first();
         Auth::login($usr);
 
-        $getsekre=Users::where('kat_user',1)->get();
+        $getsekre=Users::where('kat_user',1)->with('staf')->get();
         foreach($getsekre as $k => $v)
         {
-            $notif=new Notifikasi;
-            $notif->title="Menunggu Verifikasi";
-            $notif->from=$us->id;
-            $notif->to=$v->id_user;
-            $notif->flag_active=1;
-            $notif->pesan="Mahasiswa : ".$request->nama." Melakukan Registrasi, Harap Segera Di Verifikasi";
-            $notif->save();
+            if($v->staf->departemen_id==$request->departemen_id)
+            {
+                $notif=new Notifikasi;
+                $notif->title="Menunggu Verifikasi";
+                $notif->from=$us->id;
+                $notif->to=$v->id;
+                $notif->flag_active=1;
+                $notif->pesan="Mahasiswa : ".$request->nama." Melakukan Registrasi, Harap Segera Di Verifikasi";
+                $notif->save();
+            }
         }
         
         return redirect('profil')->with('status','Anda Sudah Berhasil Registrasi, Status Akun Anda Akan DI Verifikasi Oleh Sekretariat');
        
     }
+
+    
 }

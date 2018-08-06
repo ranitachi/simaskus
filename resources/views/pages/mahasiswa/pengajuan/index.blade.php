@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Pengajuan Skripsi :: SIMASKUS</title>
+    <title>Data Pengajuan Mata Kuliah Khusus :: SIMASKUS</title>
 @endsection
 
 @section('konten')
@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Data Pengajuan Skripsi</span>
+                    <span>Data Pengajuan Mata Kuliah Khusus</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Pengajuan Skripsi
+        <h1 class="page-title"> Pengajuan Mata Kuliah Khusus
             <small>Daftar</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -55,7 +55,7 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data').load('{{url("skripsi-pengajuan-data")}}',function(){
+        $('#data').load('{{url("pengajuan-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
@@ -76,7 +76,7 @@
         function(isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : '{{url("skripsi-pengajuan-hapus")}}/'+id,
+                    url : '{{url("pengajuan-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
                     loaddata();

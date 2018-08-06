@@ -46,11 +46,11 @@
                 <span class="title">Program Studi</span>
             </a>
         </li>
-        <li class="nav-item  {{Request::path()=='bidangkhusus-admin' ? 'active' : ''}}">
+        {{-- <li class="nav-item  {{Request::path()=='bidangkhusus-admin' ? 'active' : ''}}">
             <a href="{{url('bidangkhusus-admin')}}" class="nav-link ">
                 <span class="title">Bidang Kekhususan</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </li>
 <li class="nav-item {{strpos(Request::path(),'mahasiswa')!==false ? 'active' : ''}}">
@@ -110,6 +110,25 @@
         </li>
     </ul>
 </li>
+{{-- <li class="nav-item {{strpos(Request::path(),'user-admin')!==false ? 'active' : ''}}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-users font-white"></i>
+        <span class="title">Data Admin</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item {{Request::path()=='user-admin' ? 'active' : ''}}">
+            <a href="{{url('user-admin')}}" class="nav-link ">
+                <span class="title">Daftar Admin</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::path(),'user-admin/')!==false ? 'active' : ''}}">
+            <a href="{{url('user-admin/-1')}}" class="nav-link ">
+                <span class="title">Tambah Admin Baru</span>
+            </a>
+        </li>
+    </ul>
+</li> --}}
 <li class="nav-item {{strpos(Request::path(),'master')!==false ? 'active' : ''}} ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
@@ -132,6 +151,11 @@
                 <span class="title">Data Ruangan</span>
             </a>
         </li>
+        {{-- <li class="nav-item  {{strpos(Request::path(),'jenjang')!==false ? 'active' : ''}} ">
+            <a href="{{url('jenjang')}}" class="nav-link ">
+                <span class="title">Data Jenjang</span>
+            </a>
+        </li> --}}
     </ul>
 </li>
 </ul>

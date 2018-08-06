@@ -22,12 +22,12 @@
             </div>
             <!--/span-->
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
                     <label class="control-label">Nama Pimpinan</label>
-                    <select class="bs-select form-control has-success" data-placeholder="Pilih Pimpinan" name="pimpinan_id" id="pimpinan_id" onchange="pilihdepartemen(this.value)">
+                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Pimpinan" name="pimpinan_id" id="pimpinan_id" onchange="pilihdepartemen(this.value)">
                         <option value="-1">-Pilih Pimpinan-</option>
                         <option value="0">-Input Data Pimpinan Baru-</option>
                         @foreach ($dosen as $i => $v)
@@ -45,7 +45,16 @@
                 </div>
             </div>
             <!--/span-->
-        </div>
+        </div> --}}
         
     </div>
 </form>
+<script>
+    $('.bs-select').select2({'width':'100%'});
+</script>
+<style>
+    #pimpinan_id_chosen,.select2-selection
+    {
+        width:100% !important;
+    }
+</style>

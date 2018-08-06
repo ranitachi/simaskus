@@ -23,34 +23,43 @@
                     <th> # </th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th> NIP </th>
-                    <th> Nama </th>
-                    <th> Email </th>
-                    <th> Telp/HP</th>
-                    <th> Departemen </th>
-                    <th> # </th>
-                </tr>
-            </tfoot>
+            
             <tbody>
             @foreach ($mhs as $i => $v)
-                <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
-                    <td>{{$v->nip}}</td>
-                    <td>{{$v->nama}}</td>
-                    <td>{{$v->email}}</td>
-                    <td>{{$v->hp}}</td>
-                    <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
-                    <td>
-                        <div style="width:80px;">
-                            <a href="{{url('dosen-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
-
+                @if (Auth::user()->kat_user!=0)
+                    @if (Auth::user()->staf_user->departemen_id==$v->departemen_id)
+                        <tr class="odd gradeX">
+                            <td>{{(++$i)}}</td>
+                            <td>{{$v->nip}}</td>
+                            <td>{{$v->nama}}</td>
+                            <td>{{$v->email}}</td>
+                            <td>{{$v->hp}}</td>
+                            <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                            <td>
+                                <div style="width:80px;">
+                                    <a href="{{url('dosen-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
+                @else
+                
+                    <tr class="odd gradeX">
+                        <td>{{(++$i)}}</td>
+                        <td>{{$v->nip}}</td>
+                        <td>{{$v->nama}}</td>
+                        <td>{{$v->email}}</td>
+                        <td>{{$v->hp}}</td>
+                        <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                        <td>
+                            <div style="width:80px;">
+                                <a href="{{url('dosen-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
             @endforeach                
             </tbody>
         </table>

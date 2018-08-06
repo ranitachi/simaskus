@@ -121,15 +121,64 @@
                                             <option value="-1">-Pilih Departemen-</option>
                                             @foreach ($departemen as $i => $v)
                                                 @if ($id!=-1)
-                                                    @if ($det->departemen_id==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                                    @if (Auth::user()->kat_user!=0)
+                                                        @php
+                                                            if (Auth::user()->staf_user->departemen_id==$v->id)
+                                                            {
+                                                                echo '<option value="'.$v->id.'" selected="selected">'.$v->nama_departemen.'</option>';
+                                                                continue;
+                                                            }
+                                                        @endphp
+                                                    @else
+                                                        @if ($det->departemen_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                                        @endif
+                                                    @endif
+                                                @else
+                                                     @if (Auth::user()->kat_user!=0)
+                                                        @php
+                                                            if (Auth::user()->staf_user->departemen_id==$v->id)
+                                                            {
+                                                                echo '<option value="'.$v->id.'" selected="selected">'.$v->nama_departemen.'</option>';
+                                                                continue;
+                                                            }
+                                                        @endphp
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                                     @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                                 @endif
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label>Penugasan</label>
+                                        <input type="text"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Status Ketua Kelompok</label>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_ketua_kelompok" id="status_ketua_kelompok">
+                                            <option value="-1">-Pilih Status-</option>
+                                            <option value="1" {{$id!=-1 ? ($det->status_ketua_kelompok==1 ? 'selected="selected"' : '') : ''}}>Ya</option>
+                                            <option value="0" {{$id!=-1 ? ($det->status_ketua_kelompok==0 ? 'selected="selected"' : '') : ''}}>Tidak</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Status Dosen</label>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_dosen" id="status_dosen">
+                                            <option value="-1">-Pilih Status-</option>
+                                            <option value="Dosen UI" {{$id!=-1 ? ($det->status_dosen=="Dosen UI" ? 'selected="selected"' : '') : ''}}>Dosen UI</option>
+                                            <option value="Dosen Non UI" {{$id!=-1 ? ($det->status_dosen=="Dosen Non UI" ? 'selected="selected"' : '') : ''}}>Dosen Non UI</option>
                                         </select>
                                     </div>
                                 </div>

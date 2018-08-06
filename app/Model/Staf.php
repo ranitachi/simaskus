@@ -18,6 +18,11 @@ class Staf extends Model
 
     function staf()
     {
-        return $this->hasOne('App\Users','foreign_key','user_id');
+        return $this->hasOne('App\Model\Users','id_user');
+    }
+
+    function staf_user()
+    {
+        return $this->hasOne('App\User','id_user');
     }
 }

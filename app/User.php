@@ -29,6 +29,10 @@ class User extends Authenticatable
 
     function mahasiswa_user()
     {
-        return $this->belongsTo('App\Model\Mahasiswa','user_id');
+        return $this->belongsTo('App\Model\Mahasiswa','id_user');
+    }
+    function staf_user()
+    {
+        return $this->belongsTo('App\Model\Staf','id_user');
     }
 }

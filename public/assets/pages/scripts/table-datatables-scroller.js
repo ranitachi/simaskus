@@ -27,9 +27,9 @@ var TableDatatablesScroller = function () {
 
             // setup buttons extension: http://datatables.net/extensions/buttons/
             buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'csv', className: 'btn purple btn-outline ' }
+                // { extend: 'print', className: 'btn dark btn-outline' },
+                // { extend: 'pdf', className: 'btn green btn-outline' },
+                // { extend: 'csv', className: 'btn purple btn-outline ' }
             ],
 
             // scroller extension: http://datatables.net/extensions/scroller/

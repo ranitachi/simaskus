@@ -1,54 +1,29 @@
-<div class="page-content">
-                        
-                        <div class="page-bar">
-                            <ul class="page-breadcrumb">
-                                <li>
-                                    <a href="index.html">Home</a>
-                                    <i class="fa fa-circle"></i>
-                                </li>
-                                <li>
-                                    <a href="#">Blank Page</a>
-                                    <i class="fa fa-circle"></i>
-                                </li>
-                                <li>
-                                    <span>Page Layouts</span>
-                                </li>
-                            </ul>
-                            <div class="page-toolbar">
-                                <div class="btn-group pull-right">
-                                    <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-bell"></i> Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-shield"></i> Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-user"></i> Something else here</a>
-                                        </li>
-                                        <li class="divider"> </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-bag"></i> Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END PAGE BAR -->
-                        <!-- BEGIN PAGE TITLE-->
-                        <h1 class="page-title"> Blank Page Layout
-                            <small>blank page layout</small>
-                        </h1>
-                        <!-- END PAGE TITLE-->
-                        <!-- END PAGE HEADER-->
-                        <div class="note note-info">
-                            <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
-                        </div>
-                    </div>
+<div class="page-content">                        
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="{{url('beranda')}}">Beranda</a>
+                <i class="fa fa-circle"></i>
+            </li>
+           
+        </ul>
+        
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h1 class="page-title"> Sistem Informasi Mata Kuliah Khusus
+    </h1>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="note note-info">
+        @if (Auth::user()->kat_user==1)
+            <p>Selamat Datang <b>{{Auth::user()->name}}</b> Di Halaman Sekretariat</p>
+        @elseif(Auth::user()->kat_user==2)
+            <p>Selamat Datang <b>{{Auth::user()->name}}</b> Di Halaman Dosen</p>
+        @elseif(Auth::user()->kat_user==3)
+            <p>Selamat Datang <b>{{Auth::user()->name}}</b> Di Halaman Mahasiswa</p>
+        @elseif(Auth::user()->kat_user==0)
+            <p>Selamat Datang <b>{{Auth::user()->name}}</b> Di Halaman Admin</p>
+        @endif
+    </div>
+</div>

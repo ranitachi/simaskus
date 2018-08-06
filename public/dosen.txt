@@ -1,0 +1,44 @@
+Dr. Ir. Paulus Kurniawan Koesoemowidagdo;paulus@eng.ui.ac.id;40903011;Geoteknik;0
+Mulia Orientilize, ST. M.Eng;mulia@eng.ui.ac.id;197203061998022001;Struktur;0
+Prof. Dr. Ir. Yusuf Latief, MT;yusuf.latief@eng.ui.ac.id;196003071993031001;MK/MP;1
+Prof. Dr. Ir. Budi Susilo Soepandji;budi.susilo@eng.ui.ac.id;195410271980031012;Geoteknik;0
+Prof. Dr. Ir. Tommy Ilyas, M.Eng;tommy.ilyas@eng.ui.ac.id;1951051978021001;Geoteknik;0
+Prof. Dr. Ir. Irwan Katili, DEA;irwan.katili@eng.ui.ac.id;195811131986021001;Struktur;0
+Prof. Dr. Ir. Sutanto Soehodho;sutanto.soedhono@eng.ui.ac.id;196205061987031003;Transportasi;0
+Ir. Heddy R. Agah, M.Eng;heddy@eng.ui.ac.id;195104111979031001;Transportasi;0
+Dr. Ir. Yuskar Lase, DEA;yuskar.lase@eng.ui.ac.id;196106081987031003;Struktur;0
+Prof. Dr.-Ing.Ir. Dwita Sutjiningsih, Dipl HE;dwita.sutjiningsih@eng.ui.ac.id;195210291979032001;MSDA;1
+Ir. Syahril A. Rahim, M.Eng;syahril@eng.ui.ac.id;194707251979031001;Struktur;0
+Prof. Dr. Ir. Sigit P. Hadiwardoyo, DEA;sigit.hadiwardoyo@eng.ui.ac.id;195805301986091001;Transportasi;0
+Ir. Essy Arijoeni, Ph.D;essy.arijoeni@eng.ui.ac.id;195108101978112002;Struktur;0
+Prof. Dr. Ir. Djoko M. Hartono, SE, M.Eng;djoko.hartono@eng.ui.ac.id;195209011980031005;Teknik Lingkungan;0
+Ir. Tri Tjahjono, Ph.D;tri.tjahjono@eng.ui.ac.id;195611221983031001;Transportasi;1
+Dr. Ir. Damrizal Damoerin, M.Sc;damrizal.damoerin@eng.ui.ac.id;195102101980111001;Geoteknik;0
+Ir. El Khobar M.N, M.Eng;el.khobar@eng.ui.ac.id;195201231985031001;Teknik Lingkungan;0
+Ir. Ellen S.W. Tangkudung, M.Sc;ellen@eng.ui.ac.id;195612081986102001;Transportasi;0
+Ir. Iwan Renadi, M.Sc, Ph.D;iwan.renadi@eng.ui.ac.id;195012101978021001;Struktur;0
+Ir. Madsuri, MT;madsuri@eng.ui.ac.id;195108101979031001;Struktur;0
+Dr. Ir. Heru Purnomo;heru.purnomo@eng.ui.ac.id;195806281986091001;Struktur;1
+Dr. Ir. Elly Tjahjono, DEA;elly.tjahjono@eng.ui.ac.id;195402201981032001;Struktur;0
+Ir. Bambang Setiadi;bambang.setiadi@eng.ui.ac.id;195210251980031006;Struktur;0
+Dr. Ir. Setyo Sarwanto M;setyo.sarwanto@eng.ui.ac.id;195603241985031003;Teknik Lingkungan;0
+Ir. Setyo Supriyadi, M.Si;setyo.supriyadi@eng.ui.ac.id;195009051980031002;Struktur;0
+Ir. Martha Leni Siregar, M.Sc;martha.leni@eng.ui.ac.id;196409241989032002;Transportasi;0
+Ir. Irma Gusniani, M.Sc;irma.gusniani@eng.ui.ac.id;195501031985032001;Teknik Lingkungan;0
+Ir. Siti Murniningsih, M.Sc;siti.murniningsih@eng.ui.ac.id;195512281980032001;MSDA;0
+Ir. Alvinsyah, M.Sc;alviansyah@eng.ui.ac.id;196211081987031003;Transportasi;0
+Dr.-Ing.Ir. Henki W. Ashadi;henki@eng.ui.ac.id;196407091989031001;Struktur;0
+Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D;jachrizal@eng.ui.ac.id;196205281991031009;Transportasi;0
+Ir. Herr Soeryantono, Ph.D;herr.soeryantono@eng.ui.ac.id;195501241985031002;MSDA;0
+Dr. Ir. Firdaus Ali;firdaus.ali@eng.ui.ac.id;196104211990031001;Teknik Lingkungan;0
+Prof. Ir. Widjojo A. Prakoso, Ph.D;widjojo@eng.ui.ac.id;197004271995011001;Geoteknik;0
+Dr. Ir. Wiwik Rahayu;wiwik.rahayu@eng.ui.ac.id;196904211994032001;Geoteknik;0
+Mohammed Ali Berawi, M.Eng.Sc, Ph.D;mohammed.ali.berawi@eng.ui.ac.id;197606152010121002;MK/MP;0
+Dr. Ir. Nahry, MT;nahry@eng.ui.ac.id;196605301991032001;Transportasi;0
+Ir. GS Boedi Andari, Ph.D;boedi.andari@eng.ui.ac.id;196602201993032001;Teknik Lingkungan;0
+Ayomi Dita Rarasati, ST, MT, Ph.D;ayomi.dita@eng.ui.ac.id;198205172008122001;MK/MP;0
+Dr. RR. Dwinanti Rika M, ST, MT;dwinanti.rika@eng.ui.ac.id;198003102008122001;MSDA;0
+Ir. Alan Marino, M.Sc;alan.marino@eng.ui.ac.id;195603181985031002;Transportasi;0
+Dr.-Ing. Josia Irwan R, ST;josia.irwan@eng.ui.ac.id;132207741;Struktur;0
+Dr. Cindy Rianti Priadi, ST, MSc;cindy.rianti@eng.ui.ac.id;198401302012122001;Teknik Lingkungan;0
+Dr. Nyoman Suwartha, ST, MT, MAgr;nyoman.suwartha@eng.ui.ac.id;041003015;Teknik Lingkungan;1

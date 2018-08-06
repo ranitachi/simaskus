@@ -4,14 +4,14 @@
         {{ method_field('PATCH') }}
     @endif
     <div class="form-body">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-12">
                 <div class="form-group has-success">
                     <label class="control-label">Kode Program Studi</label>
                     <input type="text" id="code" name="code" class="form-control input-circle" placeholder="Kode Program Studi" value="{{$id==-1 ? '' : $det->code}}">
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <!--/span-->
             <div class="col-md-12">
@@ -29,16 +29,39 @@
                     <label class="control-label">Departemen</label>
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen_id" id="departemen_id" onchange="pilihdepartemen(this.value)">
                         <option value="-1">-Pilih Departemen-</option>
-                        <option value="0">-Input Data Departemen Baru-</option>
+                        @if (Auth::user()->kat_user==0)
+                            <option value="0">-Input Data Departemen Baru-</option>
+                        @endif
                         @foreach ($dept as $i => $v)
                             @if ($id!=-1)
-                                @if ($det->departemen_id==$v->id)
-                                    <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                @if (Auth::user()->kat_user!=0)
+                                    @php
+                                        if (Auth::user()->staf_user->departemen_id==$v->id)
+                                        {
+                                            echo '<option value="'.$v->id.'" selected="selected">'.$v->nama_departemen.'</option>';
+                                            continue;
+                                        }
+                                    @endphp
+                                @else
+                                    @if ($det->departemen_id==$v->id)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                    @else
+                                        <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                    @endif
+                                @endif
+                            @else
+                                @if (Auth::user()->kat_user!=0)
+                                    @php
+                                        if (Auth::user()->staf_user->departemen_id==$v->id)
+                                        {
+                                            echo '<option value="'.$v->id.'" selected="selected">'.$v->nama_departemen.'</option>';
+                                            continue;
+                                        }
+                                    @endphp
                                 @else
                                     <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                 @endif
-                            @else
-                                <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                               
                             @endif
                         @endforeach
                     </select>

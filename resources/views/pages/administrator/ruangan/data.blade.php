@@ -23,17 +23,7 @@
                     <th> # </th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th> Kode </th>
-                    <th> Nama Ruangan </th>
-                    <th> Lokasi </th>
-                    <th> Departemen </th>
-                    <th> Keterangan</th>
-                    <th> # </th>
-                </tr>
-            </tfoot>
+            
             <tbody>
             @foreach ($ruangan as $i => $v)
                 <tr class="odd gradeX">
