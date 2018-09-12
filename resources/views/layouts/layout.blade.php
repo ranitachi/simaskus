@@ -30,10 +30,8 @@
                 @include('include.sidebar-hidden')
                 <!-- END SIDEBAR -->
                 <!-- BEGIN CONTENT -->
-                <div class="page-content-wrapper">
-                     
-                        @yield('konten')
-                    
+                <div class="page-content-wrapper"> 
+                    @yield('konten')
                 </div>
                 
                 <!-- END QUICK SIDEBAR -->

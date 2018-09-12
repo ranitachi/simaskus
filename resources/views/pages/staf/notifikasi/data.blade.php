@@ -19,6 +19,7 @@
             $us=\App\Model\Users::find($item->from);
             // echo $us->id;
         @endphp
+        @if ($us)
         <tr>
             <td class="text-center">{{++$idx}}</td>
             <td>{{tgl_indo($item->created_at)}}</td>
@@ -35,7 +36,7 @@
                     @endif    
                 </div>
             </td>
-            <td>{{$pesan}}</td>
+            <td>{!!$pesan!!}</td>
             <td>{!!$item->flag_active==0 ? '<span class="badge badge-primary badge-roundless"> Sudah Dibaca </span>' : '<span class="badge badge-danger badge-roundless"> Belum Dibaca </span>'!!}</td>
             <td>
                 <div style="width:70px;">
@@ -48,6 +49,7 @@
                 </div>
             </td>
         </tr>
+        @endif
     @endforeach
 
     </tbody>

@@ -52,19 +52,19 @@
             <div class="col-md-4">
                 <div class="form-group has-success">
                     <label class="control-label">Bobot <br>Pembimbing(%)</label>
-                    <input type="text" id="bobot" name="bobot" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '' : $det->bobot_component}}" value="0">
+                    <input type="text" id="bobot" name="bobot" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '0' : $det->bobot_component}}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group has-success">
                     <label class="control-label">Bobot <br>Penguji(%)</label>
-                    <input type="text" id="bobot" name="bobot_penguji" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '' : $det->bobot_penguji}}" value="0">
+                    <input type="text" id="bobot" name="bobot_penguji" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '0' : $det->bobot_penguji}}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group has-success">
                     <label class="control-label">Bobot Pembimbing Lapangan(%)</label>
-                    <input type="text" id="bobot" name="bobot_pembimbing_lapangan" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '' : $det->bobot_pembimbing_lapangan}}" value="0">
+                    <input type="text" id="bobot" name="bobot_pembimbing_lapangan" class="form-control input-circle" placeholder="Bobot" value="{{$id==-1 ? '0' : $det->bobot_pembimbing_lapangan}}">
                 </div>
             </div>
             <!--/span-->

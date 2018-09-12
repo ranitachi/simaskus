@@ -78,14 +78,16 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->jenis_id==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                @if (strpos(strtolower($v->jenis),'pengajuan skripsi')!==false)
+                                                    @if ($id!=-1)
+                                                        @if ($det->jenis_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->jenis}}</option>
                                                     @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->jenis}}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -141,14 +143,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
-                                        <label class="control-label">Judul (Bahasa Indonesia)</label>
+                                        <label class="control-label">Judul Bahasa Indonesia (<i>* Dapat Menyusul</i>)</label>
                                         <input type="text" id="judul_ind" name="judul_ind" class="form-control input-circle" placeholder="Judul (Bahasa Indonesia)" value="{{$id==-1 ? '' : $det->judul_ind}}">
                                     </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Judul (Bahasa Inggris)</label>
+                                        <label class="control-label">Judul Bahasa Inggris (<i>* Dapat Menyusul</i>)</label>
                                         <input type="text" id="judul_eng" name="judul_eng" class="form-control input-circle" placeholder="Judul (Bahasa Inggris)" value="{{$id==-1 ? '' : $det->judul_eng}}">
                                     </div>
                                 </div>
@@ -194,8 +196,8 @@
                         <div class="row">
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Pengambilan Ke</label>
-                                            <select class="form-control" data-placeholder="Pengambilan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:20%">
+                                        <label class="control-label">Pengajuan Ke</label>
+                                            <select class="form-control" data-placeholder="Pengajuan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:20%">
                                             @for ($x=1;$x<=10;$x++)
                                                 @if ($id!=-1)
                                                     @if ($det->pengambilan_ke==$x)
@@ -328,7 +330,7 @@
                         <div class="row">
                             <div class="col-md-12"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Alasan Mengulang</label>
+                                        <label class="control-label">Alasan Mengulang (* Jika Mengulang)</label>
                                         <textarea class="wysihtml5 form-control" rows="6" name="alasan_mengulang">{{$id!=-1 ? $det->alasan_mengulang : ''}}</textarea>
                                     </div>
                                 </div>

@@ -94,30 +94,31 @@
     }
     function setujusidang(id_pengajuan,id_mahasiswa)
     {
-        swal({
-            title: "Apakah Anda Yakin",
-            text: "Ingin Menyetujui Pengajuan Sidang Mahasiswa Ini ?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-info",
-            confirmButtonText: "Ya, Setujui",
-            cancelButtonText: "Tidak",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                $.ajax({
-                    url : '{{url("pengajuan-sidang-status")}}/'+id_pengajuan+'/'+id_mahasiswa,
-                    dataType : 'JSON'
-                }).done(function(){
-                    loaddata();
-                    swal("Sukses!", "Data Pengajuan Sidang Di Setujui", "success");
-                }).fail(function(){
-                    swal("Fail!", "Pengajuan Sidang Ditolak", "danger");
-                });
-            } 
-        });
+         location.href='{{url("bimbingan-detail")}}/'+id_pengajuan+'/'+id_mahasiswa+'#tab_5_3';
+        // swal({
+        //     title: "Apakah Anda Yakin",
+        //     text: "Ingin Menyetujui Pengajuan Sidang Mahasiswa Ini ?",
+        //     type: "warning",
+        //     showCancelButton: true,
+        //     confirmButtonClass: "btn-info",
+        //     confirmButtonText: "Ya, Setujui",
+        //     cancelButtonText: "Tidak",
+        //     closeOnConfirm: true,
+        //     closeOnCancel: true
+        // },
+        // function(isConfirm) {
+        //     if (isConfirm) {
+        //         $.ajax({
+        //             url : '{{url("pengajuan-sidang-status")}}/'+id_pengajuan+'/'+id_mahasiswa,
+        //             dataType : 'JSON'
+        //         }).done(function(){
+        //             loaddata();
+        //             swal("Sukses!", "Data Pengajuan Sidang Di Setujui", "success");
+        //         }).fail(function(){
+        //             swal("Fail!", "Pengajuan Sidang Ditolak", "danger");
+        //         });
+        //     } 
+        // });
     }
     function tolak(id)
     {

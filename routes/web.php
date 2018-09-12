@@ -12,8 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('auth.login');
 });
+Route::get('/getcontent','DashboardController@getcontent');
 
 Auth::routes();
 Route::post('/logout','UsersController@performLogout');
@@ -127,7 +128,7 @@ Route::get('pengajuan-sidang-verifikasi/{id}/{jenis}','JadwalController@pengajua
 
 //Generate Jadwal
 Route::post('generate-jadwal/{dept_id}','JadwalController@generate')->middleware('auth');
-
+Route::get('berkas-sidang/{jenis}/{jadwal_id}/{pengajuan_id}','JadwalController@berkas_sidang')->middleware('auth');
 //---------Notifikasi---------
 Route::resource('notifikasi', 'NotifikasiController')->middleware('auth');
 Route::get('notifikasi-data', 'NotifikasiController@data')->middleware('auth');
@@ -137,6 +138,11 @@ Route::get('notifikasi-baca/{id}/{st}', 'NotifikasiController@baca')->middleware
 Route::resource('pimpinan-departemen','MasterPimpinanController')->middleware('auth');
 Route::get('pimpinan-departemen-data', 'MasterPimpinanController@data')->middleware('auth');
 Route::get('pimpinan-departemen-hapus/{id}', 'MasterPimpinanController@destroy')->middleware('auth');
+
+//Quota Bimbingn
+Route::resource('quota-bimbingan','QuotaBimbinganController')->middleware('auth');
+Route::get('quota-bimbingan-data','QuotaBimbinganController@data')->middleware('auth');
+Route::get('quota-bimbingan-hapus/{id}','QuotaBimbinganController@destroy')->middleware('auth');
 
 //DOSEN
 Route::get('pengajuan-bimbingan','Dosen\PengajuanBimbinganController@pengajuan')->middleware('auth');
@@ -159,6 +165,12 @@ Route::get('dokumen-verifikasi/{id}/{jns}','JadwalController@dokumen_verifikasi'
 
 Route::get('form-add-penguji','DosenController@formadd_penguji')->middleware('auth');
 Route::post('add-penguji/{idpengajuan}','DosenController@add_penguji')->middleware('auth');
+// Route::post('add-penguji-staf/{idpengajuan}','DosenController@add_penguji_staf')->middleware('auth');
+
+Route::resource('izin-dosen','IzinDosenController')->middleware('auth');
+Route::get('izin-dosen-data','IzinDosenController@data')->middleware('auth');
+Route::get('izin-dosen-hapus/{id}','IzinDosenController@destroy')->middleware('auth');
+
 
 //---------kalender-akademik---------
 Route::resource('kalender-akademik', 'Admin\KalenderAkademikController')->middleware('auth');
@@ -187,3 +199,42 @@ Route::resource('penilaian','Dosen\PenilaianController')->middleware('auth');
 Route::get('form-nilai-dosen/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@form')->middleware('auth');
 Route::get('daftar-perbaikan/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@perbaikan')->middleware('auth');
 Route::get('penetapan-judul/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@penetapan')->middleware('auth');
+Route::post('simpan-nilai','Dosen\PenilaianController@simpan_nilai');
+
+
+//Kerja Praktek//
+Route::get('data-kp','KerjaPraktekController@index')->middleware('auth');
+Route::get('data-kp/{id}/{kat_user}','KerjaPraktekController@form')->middleware('auth');
+Route::get('data-kp-data','KerjaPraktekController@data')->middleware('auth');
+Route::get('data-kp-hapus/{id}','KerjaPraktekController@destroy')->middleware('auth');
+Route::get('data-kp-detail/{id}/{kat_user}','KerjaPraktekController@detail')->middleware('auth');
+Route::get('data-kp-verifikasi/{id}/{status}','KerjaPraktekController@verifikasi')->middleware('auth');
+
+Route::get('data-kp-grup/{idkp}/{idmhs}/{idgrup}','KerjaPraktekController@grup_kp')->middleware('auth');
+Route::get('data-kp-anggota/{code_grup}/{id}','KerjaPraktekController@form_anggota')->middleware('auth');
+Route::get('data-kp-hapus-anggota/{id}','KerjaPraktekController@hapus_anggota')->middleware('auth');
+Route::post('data-kp-anggota-proses/{code_grup}/{id}','KerjaPraktekController@form_anggota_proses')->middleware('auth');
+Route::post('data-kp-grup/{idkp}/{idmhs}/{idgrup}','KerjaPraktekController@grup_kp_simpan')->middleware('auth');
+
+Route::post('data-kp-proses/{id}','KerjaPraktekController@proses')->middleware('auth');
+Route::post('informasi-kp-proses/{idgrup}/{id}','KerjaPraktekController@informasi_kp_proses')->middleware('auth');
+Route::post('anggota-kelompok-proses/{idgrup}/{id}','KerjaPraktekController@anggota_kelompok_proses')->middleware('auth');
+Route::post('pembimbing-proses/{idgrup}/{id}','KerjaPraktekController@pembimbing_proses')->middleware('auth');
+Route::get('data-kp-hapus-pembimbing/{id}/{kat_user}/{idp}','KerjaPraktekController@hapus_pembimbing')->middleware('auth');
+
+Route::get('cetak-berkas/{code_grup}/{kat_user}/{jenis}','KerjaPraktekController@cetak_berkas')->middleware('auth');
+Route::post('upload-balasan-kp','KerjaPraktekController@upload_balasan_kp')->middleware('auth');
+Route::post('upload-selesai-kp','KerjaPraktekController@upload_selesai_kp')->middleware('auth');
+Route::get('data-kp-mulai/{code}','KerjaPraktekController@data_kp_mulai')->middleware('auth');
+Route::get('data-kp-selesai/{code}','KerjaPraktekController@data_kp_selesai')->middleware('auth');
+
+// data-pengajuan-sidang-kp
+//Pengajuan Sidang
+Route::get('data-jadwal-kp','JadwalController@pengajuan_sidang_kp')->middleware('auth');
+Route::get('data-pengajuan-sidang-kp','JadwalController@pengajuan_sidang_staf_kp')->middleware('auth');
+Route::get('data-pengajuan-sidang-kp-data','JadwalController@pengajuan_sidang_staf_kp_data')->middleware('auth');
+Route::get('pengajuan-sidang-kp-verifikasi/{id}','JadwalController@pengajuan_sidang_verifikasi_kp')->middleware('auth');
+Route::post('jadwal-sidang-kp-simpan/{idgrup}','KerjaPraktekController@simpan_jadwal_sidang_kp')->middleware('auth');
+
+//Acc Sidang
+Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@simpan_form_evaluasi_skipsi')->middleware('auth');

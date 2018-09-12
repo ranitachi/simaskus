@@ -42,7 +42,7 @@
                             {{$profil->programstudi->nama_program_studi}} 
                         @endif    
                     </div>
-                    <div class="profile-usertitle-job"><span class="label label-primary">{!!$profil->gender==1 ? '<i class="fa fa-mars"></i> Pria' : '<i class="fa fa-venus"></i> Wanita'!!} </span></div>
+                    <div class="profile-usertitle-job"><span class="label label-primary">{!!$profil->gender==0 ? '<i class="fa fa-mars"></i> Pria' : ($profil->gender==1 ? '<i class="fa fa-venus"></i> Wanita' : 'n/a') !!} </span></div>
                 </div>
 
 
@@ -100,8 +100,8 @@
                                             <div class="form-group">
                                                     <label class="control-label">Jenis Kelamin</label>
                                                     <select class="bs-select col-md-4 form-control has-success" name="gender">
-                                                        <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Pria</option>
-                                                        <option value="2" {{$profil->gender==2 ? 'selected="selected"' : ''}}>Wanita</option>
+                                                        <option value="0" {{$profil->gender==0 ? 'selected="selected"' : ''}}>Pria</option>
+                                                        <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Wanita</option>
                                                     </select>
                                                 
                                             </div>

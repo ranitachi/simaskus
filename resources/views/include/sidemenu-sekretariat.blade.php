@@ -32,13 +32,13 @@
 <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-jadwal')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
-        <span class="title">Pengajuan Mata Kuliah Khusus</span>
+        <span class="title">Skripsi/Tesis/Disertasi</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
         <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false  ? 'active' : ''}}">
             <a href="{{url('data-pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan</span>
+                <span class="title">Pengajuan Skripsi/Tesis/Disertasi</span>
             </a>
         </li>
         <li class="nav-item  {{strpos(Request::url(),'data-pengajuan-sidang')!==false  ? 'active' : ''}}">
@@ -46,18 +46,49 @@
                 <span class="title">Pengajuan Sidang</span>
             </a>
         </li>
+        <li class="nav-item {{ strpos(Request::url(),'data-jadwal')!==false ? 'active' : ''}} ">
+            <a href="{{url('data-jadwal/2')}}" class="nav-link ">
+                {{-- <i class="fa fa-th-list font-white"></i> --}}
+                <span class="title">Jadwal Sidang</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="nav-item  {{strpos(Request::url(),'data-kp')!==false || strpos(Request::url(),'data-jadwal-kp')!==false ? 'active' : ''}}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-list font-white"></i>
+        <span class="title">Kerja Praktek</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{strpos(Request::url(),'data-kp')!==false  ? 'active' : ''}}">
+            <a href="{{url('data-kp')}}" class="nav-link ">
+                <span class="title">Pengajuan Kerja Praktek</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::url(),'data-jadwal-kp')!==false  ? 'active' : ''}}">
+            <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
+                <span class="title">Jadwal Sidang</span>
+            </a>
+        </li>
         
     </ul>
 </li>
-<li class="heading">
+{{-- <li class="heading">
     <h3 class="uppercase">Jadwal</h3>
-</li>
-<li class="nav-item {{ strpos(Request::url(),'data-jadwal')!==false ? 'active' : ''}} ">
+</li> --}}
+{{-- <li class="nav-item {{ Request::url()=='data-jadwal' ? 'active' : ''}} ">
     <a href="{{url('data-jadwal/2')}}" class="nav-link ">
         <i class="fa fa-th-list font-white"></i>
-        <span class="title">Jadwal Sidang</span>
+        <span class="title">Sidang Skripsi/Tesis/Disertasi</span>
     </a>
-</li>
+</li> --}}
+{{-- <li class="nav-item {{ strpos(Request::url(),'data-jadwal/kp')!==false ? 'active' : ''}} ">
+    <a href="{{url('data-jadwal/kp')}}" class="nav-link ">
+        <i class="fa fa-th-list font-white"></i>
+        <span class="title">Sidang Kerja Praktek</span>
+    </a>
+</li> --}}
 <li class="heading">
     <h3 class="uppercase">Data</h3>
 </li>
@@ -134,6 +165,12 @@
     <a href="{{url('kalender-akademik')}}" class="nav-link ">
         <i class="fa fa-calendar font-white"></i>
         <span class="title">Kalender Akademik</span>
+    </a>
+</li>
+<li class="nav-item  {{strpos(Request::path(),'quota-bimbingan')!==false ? 'active' : ''}} ">
+    <a href="{{url('quota-bimbingan')}}" class="nav-link ">
+        <i class="fa fa-calendar font-white"></i>
+        <span class="title">Quota Bimbingan</span>
     </a>
 </li>
 <li class="nav-item  {{(Request::path()=='kategori-penilaian' || strpos(Request::path(),'komponen-penilaian')!==false || strpos(Request::path(),'subkomponen') !==false) ? 'active' : ''}}">

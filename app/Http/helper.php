@@ -473,11 +473,50 @@ function hari($day)
         case 'Sun' : return 'Minggu';
     }
 }
-
+function waktu()
+{
+	$waktu=array('08.00','08.30','09.00','09.30','10.00','10.30','11.00','11.30','12.00','12.30','13.00','13.30','14.00','14.30','15.00','15.30','16.00','16.30','17.00','17.30','18.00');
+	return $waktu;
+}
 function akses()
 {
 	$akses=array('Semua Menu','Manajemen Pelatihan','Manajemen Jadwal','Manajemen Peserta','Manajemen User','Master Data','Pengaturan Sistem');
 	return $akses;
 }
+function getFormFields($data)
+    {
+        if (preg_match('/(<form "*?<\/form>)/is', $data, $matches)) {
+            $inputs = getInputs($matches[1]);
 
+            return $inputs;
+        } else {
+            die('didnt find login form');
+        }
+    }
+
+    function getInputs($form)
+    {
+        $inputs = array();
+
+        $elements = preg_match_all('/(<input[^>]+>)/is', $form, $matches);
+
+        if ($elements > 0) {
+            for($i = 0; $i < $elements; $i++) {
+                $el = preg_replace('/\s{2,}/', ' ', $matches[1][$i]);
+
+                if (preg_match('/name=(?:["\'])?([^"\'\s]*)/i', $el, $name)) {
+                    $name  = $name[1];
+                    $value = '';
+
+                    if (preg_match('/value=(?:["\'])?([^"\'\s]*)/i', $el, $value)) {
+                        $value = $value[1];
+                    }
+
+                    $inputs[$name] = $value;
+                }
+            }
+        }
+
+        return $inputs;
+    }
 ?>

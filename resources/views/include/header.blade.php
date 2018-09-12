@@ -44,12 +44,14 @@
                                                 @php
                                                     $waktu=\Carbon\Carbon::parse($item->created_at)->diffForHumans();
                                                     $wkt=text_translate($waktu,'en','id');
+                                                    $ps=explode("<a",$item->pesan);
+                                                    $pesan=$ps[0];
                                                 @endphp 
                                                 <li>
                                                     <a href="{{url('notifikasi/'.$item->id)}}">
                                                         <span class="time" style="max-width:none;">{{$wkt}}</span>
                                                         <span class="details">
-                                                            {!!$item->pesan!!} </span>
+                                                            {!!$pesan!!} </span>
                                                     </a>
                                                 </li>
                                             @endforeach

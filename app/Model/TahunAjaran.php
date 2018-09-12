@@ -8,4 +8,5 @@ class TahunAjaran extends Model
 {
     use SoftDeletes;
     protected $table='tahun_ajaran';
+    protected $fillable=['tahun_ajaran','jenis'];
 }

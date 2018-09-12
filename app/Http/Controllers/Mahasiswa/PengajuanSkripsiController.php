@@ -64,6 +64,8 @@ class PengajuanSkripsiController extends Controller
                     ->with('dospem_2')
                     ->with('dospem_3')->first();
 
+        
+
         return view('pages.mahasiswa.pengajuan.form')
                 ->with('judul',$judul)
                 ->with('det',$det)
@@ -138,7 +140,7 @@ class PengajuanSkripsiController extends Controller
         $dospem[2]=$request->dospem3;
         foreach($dospem as $k=>$v)
         {
-            if($v!='')
+            if($v!='' && $v!=0)
             {
                 $pivot=new PivotBimbingan;
                 $pivot->dosen_id=$v;

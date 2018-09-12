@@ -44,9 +44,18 @@ class MahasiswaAdminController extends Controller
         $mhs=Mahasiswa::orderBy('departemen_id','nama')
                 ->with('departemen')
                 ->with('programstudi')
+                ->with('mahasiswa_user')
                 ->get();
+        $user=Users::all();
+        $us=array();
+        foreach($user as $k=>$v)
+        {
+            $us[$v->kat_user][$v->id_user]=$v;
+        }
+
         return view('pages.administrator.mahasiswa.data')
             ->with('mhs',$mhs)
+            ->with('user',$us)
             ->with('departemen',$departemen);
     }
 

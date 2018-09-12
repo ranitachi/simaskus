@@ -34,6 +34,9 @@
                     <li>
                         <a href="#tab_5_2" data-toggle="tab"> Bimbingan </a>
                     </li>
+                    <li>
+                        <a href="#tab_5_3" data-toggle="tab"> ACC Sidang </a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_5_1">
@@ -145,7 +148,7 @@
                         <div class="row">
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Pengambilan Ke</label>
+                                        <label class="control-label">Pengajuan Ke</label>
                                         <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->pengambilan_ke}}">  
                                     </div>
                                 </div>
@@ -160,13 +163,13 @@
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Dosen Pembimbing 2</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_1->nama) ? $pengajuan->dospem_2->nama : ''}}">
+                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_2->nama) ? $pengajuan->dospem_2->nama : ''}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Dosen Pembimbing 3</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_1->nama) ? $pengajuan->dospem_3->nama : ''}}">
+                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_3->nama) ? $pengajuan->dospem_3->nama : ''}}">
                                     </div>
                                 </div>
                         
@@ -205,6 +208,11 @@
                             <div class="col-sm-12" id="data-bimbingan"></div>
                         </div>
                     </div>
+                    <div class="tab-pane" id="tab_5_3">
+                        <div class="row">
+                            @include('pages.dosen.bimbingan.acc-sidang')
+                        </div>
+                    </div>
                     
                 </div>
             </div>
@@ -217,15 +225,21 @@
     $(document).ready(function(){
         
         $('#loader').hide();
-        loaddata('{{$mahasiswa_id}}');
+        loaddatabimbingan('{{$mahasiswa_id}}');
         var ps = "{{Session::has('status')}}";
         if(ps!="")
         {
             swal("Berhasil", "{{Session::get('status')}}", "success")
         }
+
+        var ps 2= "{{Session::has('fail')}}";
+        if(ps2!="")
+        {
+            swal("Gagal", "{{Session::get('fail')}}", "danger")
+        }
     });
 
-    function loaddata(id)
+    function loaddatabimbingan(id)
     {
         $('#loader').show();
         $('#data-bimbingan').load('{{url("bimbingan-data-dosen")}}/'+id,function(){
@@ -236,6 +250,7 @@
     
     function setujui(id)
     {
+       
         swal({
             title: "Apakah Anda Yakin",
             text: "Ingin Menyetujui Data Bimbingan Ini ?",
@@ -253,7 +268,7 @@
                     url : '{{url("data-bimbingan-status")}}/'+id+'/1',
                     dataType : 'JSON'
                 }).done(function(){
-                    loaddata();
+                    loaddatabimbingan(id);
                     swal("Sukses!", "Data Data Bimbingan DI Setujui", "success");
                 }).fail(function(){
                     swal("Fail!", "Data Bimbingan Ditolak", "danger");
@@ -305,7 +320,7 @@
                     url : '{{url("pengajuan-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
-                    loaddata();
+                    loaddatabimbingan(id);
                     swal("Deleted!", "Data Berhasil Di Hapus", "success");
                 }).fail(function(){
                     swal("Fail!", "Hapus Data Gagal", "danger");

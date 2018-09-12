@@ -13,7 +13,7 @@
                         <th class="text-center"> Setuju Sidang </th>
                         <th class="text-center"> Bimbingan </th>
                     @endif
-                    <th> # </th>
+                    <th> Tombol Aksi </th>
                 </tr>
             </thead>
             
@@ -65,8 +65,13 @@
                                     <td> {{$v->judul_ind}} </td>
                                     <td class="text-center">
                                         @if (isset($acc_sid[Auth::user()->id_user][$v->mahasiswa_id]))
-                                            <i class="fa fa-check" style="color:red"></i>
+                                            <a href="#" class="btn btn-xs btn-primary">
+                                                <i class="fa fa-check" style="color:red"></i> Telah Di Setujui
+                                            </a>
                                         @else
+                                            <a href="#" class="btn btn-xs btn-danger">
+                                                <i class="fa fa-exclamation-triangle"></i> Menunggu Acc Sidang
+                                            </a>
                                             <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
                                                 <i class="fa fa-check"></i>
                                             </a>

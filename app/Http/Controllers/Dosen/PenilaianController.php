@@ -16,6 +16,7 @@ use App\Model\PivotAccSidang;
 use App\Model\PivotSetujuSidang;
 use App\Model\PivotPenguji;
 use App\Model\Component;
+use App\Model\ComponentScore;
 use Auth;
 use DB;
 class PenilaianController extends Controller
@@ -106,10 +107,19 @@ class PenilaianController extends Controller
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$dept_id)
-                    ->where('jenis_id',$pengajuan->jenis_id)->get();
+                    ->where('nama_module','like',"%Penilaian Skripsi%")->get();
         // dd(Auth::user()->id_user);
+
+        $nilai=ComponentScore::where('jadwal_id',$idjadwal)->where('dosen_id',Auth::user()->id_user)->with('dosen')->with('mahasiswa')->with('component')->get();
+
+        $n=array();
+        foreach($nilai as $kn => $vn)
+        {
+            $n[$vn->component_id]=$vn;
+        }
+
         return view('pages.dosen.penilaian.form',
-            compact('pengajuan','jadwal','penilaian','uji'));
+            compact('pengajuan','jadwal','penilaian','uji','n','idjadwal','idpengajuan'));
     }
     public function perbaikan($idjadwal,$idpengajuan)
     {
@@ -172,5 +182,10 @@ class PenilaianController extends Controller
         // dd(Auth::user()->id_user);
         return view('pages.dosen.penilaian.penetapan-judul',
             compact('pengajuan','jadwal','penilaian','uji'));
+    }
+
+    public function simpan_nilai(Request $request)
+    {
+        dd($request->all());
     }
 }

@@ -76,9 +76,27 @@
                             <strong>{{$v->dospem_3->nama}}</strong>
                         @endif
                     </td>
-                    <td>{!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}</td>
+                    <td>
+                        {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}
+                    </td>
                     <td class="text-center">
-                        <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                         @if ($v->status_pengajuan == 1)
+                            @php
+                                $st_pbb=0;
+                                foreach ($piv[Auth::user()->id_user] as $item)
+                                {
+                                    if($item->status==1)
+                                    {
+                                        $st_pbb=1;
+                                    }
+                                    else
+                                        $st_pbb=0;
+                                }
+                            @endphp
+                            @if ($st_pbb==1)
+                                <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                            @endif
+                        @endif
                     </td>
                     <td>
                         <div style="width:110px;">

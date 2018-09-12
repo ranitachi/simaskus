@@ -68,13 +68,17 @@
                             <strong>{{$v->dospem_3->nama}}</strong>
                         @endif
                     </td>
-                    <td class="text-center">
+                    <td class="text-left">
                         <small><u>Jadwal : </u></small><br>
                         @if (count($jadwal) != 0)
-                            @if ($jadwal->tanggal!=null)
-                                <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal->tanggal))}}</a>
-                            @else
-                                <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
+                            @if (isset($jadwal[$idpengajuan]->tanggal))
+                                
+                            
+                                @if ($jadwal[$idpengajuan]->tanggal!=null)
+                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;text-align:left">{{hari($jadwal[$idpengajuan]->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}</a>
+                                @else
+                                    <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
+                                @endif
                             @endif
                         @else
                                 <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
@@ -83,10 +87,12 @@
                         <br>
                         <small><u>Ruangan : </u></small><br>
                         @if (count($jadwal) != 0)
-                            @if ($jadwal->ruangan_id!=0)
-                                <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal->ruangan->code_ruangan}} : {{$jadwal->ruangan->nama_ruangan}}</a>
-                            @else
-                                <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
+                            @if (isset($jadwal[$idpengajuan]->ruangan_id))
+                                @if ($jadwal[$idpengajuan]->ruangan_id!=0)
+                                    <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal[$idpengajuan]->ruangan->code_ruangan}} : {{$jadwal[$idpengajuan]->ruangan->nama_ruangan}}</a>
+                                @else
+                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
+                                @endif
                             @endif
                         @else
                                 <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
@@ -94,16 +100,18 @@
 
                     </td>
                     
-                    <td class="text-center">
+                    <td class="text-left">
                     @if(count($jadwal)!=0)
-                        @if (isset($uji[$jadwal->id]))
-                            @foreach ($uji[$jadwal->id] as $kk => $vv)
-                                {{-- @if ($vv->status==0)
-                                        <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
-                                    @else --}}
-                                        <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
-                                    {{-- @endif --}}
-                            @endforeach
+                        @if (isset($jadwal[$idpengajuan]->id))
+                            @if (isset($uji[$jadwal[$idpengajuan]->id]))
+                                @foreach ($uji[$jadwal[$idpengajuan]->id] as $kk => $vv)
+                                    {{-- @if ($vv->status==0)
+                                            <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
+                                        @else --}}
+                                            <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
+                                        {{-- @endif --}}
+                                @endforeach
+                            @endif
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                         @endif
@@ -111,16 +119,26 @@
                     </td>
                     
                    <td class="text-left">
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
-                        <br>
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
-                        <br>
+                       @if(count($jadwal)!=0)
+                            @if (isset($jadwal[$idpengajuan]->id))
+                                <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/berita-acara-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/form-nilai-penguji/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/form-nilai-pembimbing/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Pembimbing</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/form-catatan-penguji/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
+                                <br>
+                                <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
+                                <br>
+                            @endif
+                        @endif
                     </td>
                 </tr>
             @endif

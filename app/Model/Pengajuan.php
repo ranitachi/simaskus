@@ -11,6 +11,10 @@ class Pengajuan extends Model
     protected $table='pengajuan';
     protected $fillable=['jenis_id' ,'ipk_terakhir' ,'jumlah_sks_lulus' ,'mahasiswa_id','topik_diajukan' ,'bidang' ,'skema' ,'judul_ind' ,'judul_eng' ,'deskripsi_rencana' ,'abstrak_ind' ,'abstrak_eng' ,'pengambilan_ke','dospem1','dospem2','dospem3','dosen_ketua','pembimbing_sebelumnya','status_pengajuan','alasan_mengulang','departemen_id','tahunajaran_id','created_at','updated_at','deleted_at'];
   
+    function departemen()
+    {
+        return $this->belongsTo('App\Model\MasterDepartemen','departemen_id');
+    }
     function tahunajaran()
     {
         return $this->belongsTo('App\Model\TahunAjaran','tahunajaran_id');

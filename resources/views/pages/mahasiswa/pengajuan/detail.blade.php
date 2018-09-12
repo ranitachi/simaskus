@@ -145,7 +145,7 @@
                         <div class="row">
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Pengambilan Ke</label>
+                                        <label class="control-label">Topik Yang Diajukan</label>
                                         <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->pengambilan_ke}}">  
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Dosen Pembimbing 3</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_1->nama) ? $pengajuan->dospem_3->nama : ''}}">
+                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_3->nama) ? $pengajuan->dospem_3->nama : ''}}">
                                     </div>
                                 </div>
                         

@@ -89,9 +89,24 @@
                                     @endif
                                 </td>
                                 <td>{!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}</td>
+
+                                @php
+                                    $st_pbb=0;
+                                    foreach ($piv[$v->mahasiswa_id] as $item)
+                                    {
+                                        if($item->status==1)
+                                        {
+                                            $st_pbb=1;
+                                        }
+                                        else
+                                            $st_pbb=0;
+                                    }
+                                @endphp
                                 <td>
                                     <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
-                                    <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs"><i class="fa fa-check-square-o"></i></a>
+                                    @if ($st_pbb==1)
+                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs"><i class="fa fa-check-square-o"></i></a>
+                                    @endif
                                     <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></a>
                                     <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                                 </td>

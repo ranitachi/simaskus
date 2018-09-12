@@ -6,14 +6,11 @@
                         <a href="{{url('/')}}">
                             <img src="{{asset('img/simaskus-small.png')}}" alt="logo" class="logo-default" /> </a>
                     </div>
-                    <!-- END LOGO -->
-                    <!-- BEGIN MEGA MENU -->
-                    <!-- DOC: Remove "hor-menu-light" class to have a horizontal menu with theme background instead of white background -->
-                    <!-- DOC: This is desktop version of the horizontal menu. The mobile version is defined(duplicated) in the responsive menu below along with sidebar menu. So the horizontal menu has 2 seperate versions -->
-                    <div class="hor-menu   hidden-sm hidden-xs">
-                        <ul class="nav navbar-nav">
+
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
                             <!-- DOC: Remove data-hover="megamenu-dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
-                            <li class="classic-menu-dropdown {{Request::path()=='/' ? 'active' : ''}}" aria-haspopup="true">
+                            {{-- <li class="classic-menu-dropdown {{Request::path()=='/' ? 'active' : ''}}" aria-haspopup="true">
                                 <a href="{{url('/')}}"> Beranda
                                     <span class="{{Request::path()=='/' ? 'selected' : ''}}"> </span>
                                 </a>
@@ -55,36 +52,20 @@
                                             <i class="fa fa-check-square-o"></i> Data Pengajuan </a>
                                     </li>
                                 </ul>
-                            </li>    
-                            <li class="classic-menu-dropdown {{strpos(Request::url(),'login')!==false ? 'active' : ''}}" aria-haspopup="true">
+                            </li>     --}}
+                            {{-- <li class="classic-menu-dropdown {{strpos(Request::url(),'login')!==false ? 'active' : ''}}" aria-haspopup="true">
                                 <a href="{{url('login')}}"> Login
                                     <span class="{{strpos(Request::url(),'login')!==false ? 'selected' : ''}}"> </span>
                                 </a>
-                            </li>           
+                            </li>  --}}
+                            <li class="dropdown dropdown-quick-sidebar-toggler">
+                                <a href="{{url('login')}}" class="dropdown-toggle">
+                                    <i class="icon-login"></i>
+                                </a>
+                            </li>          
                         </ul>
                     </div>
-                    <!-- END MEGA MENU -->
-                    <!-- BEGIN HEADER SEARCH BOX -->
-                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-                    <form class="search-form" action="extra_search.html" method="GET">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." name="query">
-                            <span class="input-group-btn">
-                                <a href="javascript:;" class="btn submit">
-                                    <i class="icon-magnifier"></i>
-                                </a>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- END HEADER SEARCH BOX -->
-                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span></span>
-                    </a>
-                    <!-- END RESPONSIVE MENU TOGGLER -->
-                    <!-- BEGIN TOP NAVIGATION MENU -->
                     
-                    <!-- END TOP NAVIGATION MENU -->
                 </div>
                 <!-- END HEADER INNER -->
             </div>

@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-md-4"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Upload Dokumen (.ppt)</label>
+                                        <label class="control-label">Upload Dokumen (.ppt *optional)</label>
                                         <input type="file" name="dokumen['dokumen_ppt']" id="documen_ppt" class="form-control"><br>
                                     </div>
                                 </div>
@@ -111,14 +111,14 @@
                             <div class="row">
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Upload daftar Bimbingan dari SIAK-NG</label>
+                                        <label class="control-label">Upload daftar Bimbingan dari SIAK-NG (*optional)</label>
                                         <input type="file" name="dokumen['bukti_bimbingan']" id="bimbingan_siak" class="form-control"><br>
                                         <span class="label label-danger">Info</span> <small>Upload bukti daftar bimbingan dalam format jpg, jpeg, png atau PDF. Maksimal ukuran file 10 MB. <br><a href="javascript:contohbuktibimbingan()">Klik disini untuk melihat contoh</a></small>
                                     </div>
                                 </div>
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Upload Asistensi Bimbingan</label>
+                                        <label class="control-label">Upload Asistensi Bimbingan (*optional)</label>
                                         <input type="file" name="dokumen['bimbingan_asistensi']" id="bimbingan_asistensi" class="form-control"><br>
                                     </div>
                                 </div>
@@ -176,15 +176,7 @@
             else if( document.getElementById("documen_pdf").files.length == 0 ){
                 pesan("Dokumen PDF Belum Di Upload",'error');
             }
-            else if( document.getElementById("documen_ppt").files.length == 0 ){
-                pesan("Dokumen PPT Belum Di Upload",'error');
-            }
-            else if( document.getElementById("bimbingan_siak").files.length == 0 ){
-                pesan("Dokumen Bimbingan SIAK NG Belum Di Upload",'error');
-            }
-            else if( document.getElementById("bimbingan_asistensi").files.length == 0 ){
-                pesan("Dokumen Asistensi Bimbingan Belum Di Upload",'error');
-            }
+           
             else
             {
                 $('#form-pengajuan').submit();

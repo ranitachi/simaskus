@@ -114,4 +114,13 @@
         <span class="title">Penilaian</span>
     </a>
 </li>
+<li class="heading">
+    <h3 class="uppercase">Izin</h3>
+</li>
+<li class="nav-item {{Request::path()=='izin-dosen' ? 'active' : ''}}">
+    <a href="{{url('izin-dosen')}}" class="nav-link nav-toggle">
+        <i class="fa fa-user font-white"></i>
+        <span class="title">Izin Dosen</span>
+    </a>
+</li>
 </ul>

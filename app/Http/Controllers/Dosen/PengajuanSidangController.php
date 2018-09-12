@@ -61,7 +61,7 @@ class PengajuanSidangController extends Controller
         {
             if($va->status_pengajuan==2)
             {
-                $pengajuan[]=$va;
+                $pengajuan[$va->id]=$va;
             }
         }
         $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
@@ -94,7 +94,7 @@ class PengajuanSidangController extends Controller
             // if(Auth::user()->id_user==$v->penguji_id)
                 $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
         }
-
+        // dd($pengajuan);
         return view('pages.dosen.sidang.jadwal')
                     ->with('acc_sid',$acc_sid)
                     ->with('pengajuan',$pengajuan)     

@@ -72,8 +72,8 @@ class DosenController extends Controller
         $iddosen=$request->dosen_id;    
         $jadwal=PivotJadwal::where('judul_id',$idpengajuan)->first();
         
-        $cekpenguji=PivotPenguji::where('penguji_id',$iddosen)->where('pivot_jadwal_id',$jadwal->id)->first();
-        if(count($cekpenguji)==0)
+        $cekpenguji=PivotPenguji::where('penguji_id',$iddosen)->where('pivot_jadwal_id',$jadwal->id)->get();
+        if($cekpenguji->count()==0)
         {
             $penguji=New PivotPenguji;
             $penguji->pivot_jadwal_id=$jadwal->id;

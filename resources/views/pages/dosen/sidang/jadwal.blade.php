@@ -67,42 +67,10 @@
                                 @endif
                             </td>
                             <td class="text-left">
-                                <small><u>Jadwal</u></small><br>
-                                @if (count($jadwal[$idpengajuan]) != 0)
-                                    @if ($jadwal[$idpengajuan]->tanggal!=null)
-                                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal[$idpengajuan]->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}</a>
-                                    @else
-                                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px">Belum Ditentukan</a>
-                                    @endif
-                                @endif
-                                <br>
-                                <br>
-                                <small><u>Ruangan</u></small><br>
-                                @if (count($jadwal) != 0)
-                                    @if ($jadwal[$idpengajuan]->tanggal!=null)
-                                        @if ($jadwal[$idpengajuan]->ruangan_id!=0)
-                                            <a href="#" class="btn btn-xs btn-success">{{$jadwal[$idpengajuan]->ruangan->code_ruangan}} : {{$jadwal[$idpengajuan]->ruangan->nama_ruangan}}</a>    
-                                        @endif
-                                    @else
-                                        <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Belum Ditentukan</a>'
-                                    @endif
-                                @else
-                                    <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Belum Ditentukan</a>'
-                                @endif
+                                
                             </td>
                             <td class="text-left">
-                                @if (count($jadwal)!=0)                           
-                                    @if (isset($uji[$idpengajuan]))
-                                        @foreach ($uji[$idpengajuan] as $kk => $vv)
-                                            {{-- @if ($vv->status==0)
-                                                <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju" style="font-size:10px"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
-                                            @else --}}
-                                                <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px"><i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
-                                            {{-- @endif --}}
-                                        @endforeach
-                                    @endif
                                 
-                                @endif
                             </td>
                             <td class="text-left">
                                 @if (count($jadwal)!=0)                           

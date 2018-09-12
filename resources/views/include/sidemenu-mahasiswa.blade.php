@@ -47,20 +47,39 @@
 <li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
-        <span class="title">Pengajuan Seminar/Skripsi/Tesis</span>
+        <span class="title">Pengajuan Skripsi</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
         <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
             <a href="{{url('pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan</span>
+                <span class="title">Data Pengajuan Skripsi</span>
             </a>
         </li>
-        {{-- <li class="nav-item  {{strpos(Request::path(),'pengajuan/')!==false ? 'active' : ''}}">
-            <a href="{{url('pengajuan/-1')}}" class="nav-link ">
-                <span class="title">Tambah Pengajuan Baru</span>
+        <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
+            <a href="{{url('daftar-sidang')}}" class="nav-link ">
+                <span class="title">Data Pengajuan Sidang</span>
             </a>
-        </li> --}}
+        </li>
+        <li class="nav-item  {{Request::path()=='jadwal-sidang' ? 'active' : ''}}">
+            <a href="{{url('jadwal-sidang')}}" class="nav-link ">
+                <span class="title">Jadwal Sidang</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="nav-item {{strpos(Request::url(),'pengajuan-tesis')!==false || strpos(Request::url(),'jadwal-sidang-tesis')!==false || strpos(Request::url(),'daftar-sidang-tesis')!==false  ? 'active' : ''}}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-large font-white"></i>
+        <span class="title">Pengajuan Tesis</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
+            <a href="{{url('pengajuan')}}" class="nav-link ">
+                <span class="title">Data Pengajuan Tesis</span>
+            </a>
+        </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
             <a href="{{url('daftar-sidang')}}" class="nav-link ">
                 <span class="title">Data Pengajuan Sidang</span>
@@ -75,15 +94,15 @@
     </ul>
 </li>
 
-<li class="nav-item  ">
+<li class="nav-item {{strpos(Request::url(),'data-kp')!==false   ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
         <span class="title">Kerja Praktek</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  ">
-            <a href="form_controls.html" class="nav-link ">
+        <li class="nav-item  {{Request::path()=='data-kp' ? 'active' : ''}}">
+            <a href="{{url('data-kp')}}" class="nav-link ">
                 <span class="title">Data Pengajuan Kerja Praktek</span>
             </a>
         </li>
@@ -94,13 +113,13 @@
         </li> --}}
         <li class="nav-item  ">
             <a href="form_validation.html" class="nav-link ">
-                <span class="title">Jadwal Kerja Praktek</span>
+                <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
         </li>
     </ul>
 </li>
 
-<li class="nav-item  ">
+{{-- <li class="nav-item  ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
         <span class="title">Matakuliah Proyek</span>
@@ -112,18 +131,18 @@
                 <span class="title">Data Daftar Pengajuan</span>
             </a>
         </li>
-        {{-- <li class="nav-item  ">
+         <li class="nav-item  ">
             <a href="form_controls_md.html" class="nav-link ">
                 <span class="title">Tambah Pengajuan Baru</span>
             </a>
-        </li> --}}
+        </li> 
         <li class="nav-item  ">
             <a href="form_validation.html" class="nav-link ">
                 <span class="title">Jadwal Matakuliah Proyek</span>
             </a>
         </li>
     </ul>
-</li>
+</li> --}}
     
 @endif
 </ul>
