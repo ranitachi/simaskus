@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\QuotaBimbingan;
+use App\Model\QuotaPenguji;
 use App\Model\MasterDepartemen;
 use App\Model\Users;
+use App\Model\MasterJenisPengajuan;
 use Auth;
-class QuotaBimbinganController extends Controller
+class QuotaPengujiController extends Controller
 {
     public function index()
     {
-        return view('pages.staf.quota-bimbingan.index');
+        return view('pages.staf.quota-penguji.index');
     }
     public function data()
     {
@@ -21,11 +22,17 @@ class QuotaBimbinganController extends Controller
         {
             $dept_id=$user->staf->departemen_id;
         }
-
+        $jenis=MasterJenisPengajuan::all();
+        $jns=array();
+        foreach($jenis as $kj=>$vj)
+        {
+            $jns[$vj->id]=$vj;
+        }
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $quota=QuotaBimbingan::where('departemen_id',$dept_id)->with('departemen')->get();
-        return view('pages.staf.quota-bimbingan.data')
+        $quota=QuotaPenguji::where('departemen_id',$dept_id)->with('departemen')->get();
+        return view('pages.staf.quota-penguji.data')
                 ->with('quota',$quota)
+                ->with('jns',$jns)
                 ->with('dept',$dept);
     }
     public function show($id)
@@ -37,7 +44,7 @@ class QuotaBimbinganController extends Controller
             $dept_id=$user->staf->departemen_id;
         }
 
-        $quota=QuotaBimbingan::where('departemen_id',$dept_id)->get();
+        $quota=QuotaPenguji::where('departemen_id',$dept_id)->get();
         $quo=$quodet=array();
         foreach($quota as $k=>$v)
         {
@@ -47,22 +54,24 @@ class QuotaBimbinganController extends Controller
 
         $det=array();
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
+        $jenis=MasterJenisPengajuan::all();
         if($id!=-1)
         {
             // $det=QuotaPenguji::find($id);
             $det=$quodet[$id];
         }
         
-        return view('pages.staf.quota-bimbingan.form')
+        return view('pages.staf.quota-penguji.form')
                 ->with('det',$det)
                 ->with('dept',$dept)
+                ->with('jenis',$jenis)
                 ->with('quo',$quo)
                 ->with('dept_id',$dept_id)
                 ->with('id',$id);
     }
     public function store(Request $request)
     {
-        $quota=new QuotaBimbingan;
+        $quota=new QuotaPenguji;
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
         $quota->quota=$request->quota;
@@ -73,7 +82,7 @@ class QuotaBimbinganController extends Controller
 
     public function update(Request $request,$id)
     {
-        $quota= QuotaBimbingan::find($id);
+        $quota= QuotaPenguji::find($id);
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
         $quota->quota=$request->quota;
@@ -83,7 +92,7 @@ class QuotaBimbinganController extends Controller
 
     public function destroy($id)
     {
-        $c=QuotaBimbingan::find($id)->delete();
+        $c=QuotaPenguji::find($id)->delete();
         return response()->json([$c]);
     }
 }

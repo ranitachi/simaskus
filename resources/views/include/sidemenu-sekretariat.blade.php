@@ -152,6 +152,11 @@
                 <span class="title">Tambah Dosen Baru</span>
             </a>
         </li>
+        <li class="nav-item {{Request::path()=='izin-dosen' ? 'active' : ''}}">
+            <a href="{{url('izin-dosen')}}" class="nav-link nav-toggle">
+                <span class="title">Izin Dosen</span>
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -167,11 +172,30 @@
         <span class="title">Kalender Akademik</span>
     </a>
 </li>
-<li class="nav-item  {{strpos(Request::path(),'quota-bimbingan')!==false ? 'active' : ''}} ">
-    <a href="{{url('quota-bimbingan')}}" class="nav-link ">
-        <i class="fa fa-calendar font-white"></i>
-        <span class="title">Quota Bimbingan</span>
+<li class="nav-item {{strpos(Request::path(),'quota')!==false ? 'active' : ''}}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-users font-white"></i>
+        <span class="title">Quota</span>
+        <span class="arrow"></span>
     </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{strpos(Request::path(),'quota-bimbingan')!==false ? 'active' : ''}} ">
+            <a href="{{url('quota-bimbingan')}}" class="nav-link ">
+                
+                <span class="title">Quota Bimbingan</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::path(),'quota-penguji')!==false ? 'active' : ''}} ">
+            <a href="{{url('quota-penguji')}}" class="nav-link ">
+                <span class="title">Quota Jumlah Penguji</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::path(),'quota-pembimbing')!==false ? 'active' : ''}} ">
+            <a href="{{url('quota-pembimbing')}}" class="nav-link ">
+                <span class="title">Quota Jumlah Pembimbing</span>
+            </a>
+        </li>
+    </ul>
 </li>
 <li class="nav-item  {{(Request::path()=='kategori-penilaian' || strpos(Request::path(),'komponen-penilaian')!==false || strpos(Request::path(),'subkomponen') !==false) ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">

@@ -28,6 +28,8 @@
                     $no=1;
                 @endphp
                 @foreach ($data as $item)
+                    @if ($item->dosen->departemen_id==$dept_id)
+                    
                     <tr>
                         <td>{{$no}}</td>
                         <td> 
@@ -56,7 +58,7 @@
                             </div> 
                         </td>
                     </tr>
-
+                    @endif
                 @php
                     $no++;
                 @endphp

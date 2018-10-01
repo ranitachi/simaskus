@@ -4,30 +4,13 @@
         {{ method_field('PATCH') }}
     @endif
     <div class="form-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group has-success">
-                    <label class="control-label">Kode Jenis</label>
-                    <input type="text" id="code" name="code" class="form-control input-circle" placeholder="Kode Jenis" value="{{$id==-1 ? '' : $det->code}}">
-                </div>
-            </div>
-        </div>
+        
         <div class="row">
             <!--/span-->
-            <div class="col-md-12">
-                <div class="form-group has-success">
-                    <label class="control-label">Jenis</label>
-                    <input type="text" id="jenis" name="jenis" class="form-control input-circle" placeholder="Jenis" value="{{$id==-1 ? '' : $det->jenis}}">
-                </div>
-            </div>
-            <!--/span-->
-        </div>
-        <div class="row">
-            <!--/span-->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group has-success">
                     <label class="control-label">Level</label>
-                    {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
+                    <input type="hidden" id="departemen_id" name="departemen_id" class="form-control input-circle" placeholder="Nama Departemen" value="{{$id==-1 ? $dept_id : $det->departemen_id}}">
                     <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="level" id="level">
                         @php
                             $level=array('S1','S2','S3');
@@ -43,11 +26,33 @@
                                     <option value="{{$item->id}}">{{$item->jenis}}</option>
                                 @endif
                             @endforeach
+                        
                     </select>
                 </div>
             </div>
             <!--/span-->
         </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-4">
+                <div class="form-group has-success">
+                    <label class="control-label">Quota Maximal</label>
+                    
+                    <input type="text" id="quota" name="quota" class="form-control input-circle" placeholder="Quota" value="{{$id==-1 ? '' : $det->quota}}">
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+       
         
     </div>
 </form>
+<script>
+    $('.bs-select').select2({'width':'100%'});
+</script>
+<style>
+    #pimpinan_id_chosen,.select2-selection
+    {
+        width:100% !important;
+    }
+</style>

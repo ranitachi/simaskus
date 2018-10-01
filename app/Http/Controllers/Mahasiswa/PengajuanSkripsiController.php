@@ -106,9 +106,17 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->abstrak_ind=$request->abstrak_ind;
         $pengajuan->abstrak_eng=$request->abstrak_eng;
         $pengajuan->pengambilan_ke=$request->pengambilan_ke;
-        $pengajuan->dospem1=$request->dospem1;
-        $pengajuan->dospem2=$request->dospem2;
-        $pengajuan->dospem3=$request->dospem3;
+        
+        $xx=1;
+        foreach($request->dospem as $kdos=>$vdos)
+        {
+            $pengajuan->{'dospem'.$xx}=$vdos;
+            $xx++;
+        }
+
+        // $pengajuan->dospem1=$request->dospem1;
+        // $pengajuan->dospem2=$request->dospem2;
+        // $pengajuan->dospem3=$request->dospem3;
         $pengajuan->dosen_ketua=$request->dosen_ketua;
         $pengajuan->pembimbing_sebelumnya=$request->pembimbing_sebelumnya;
         $pengajuan->alasan_mengulang=$request->alasan_mengulang;
@@ -135,10 +143,10 @@ class PengajuanSkripsiController extends Controller
             }
         }
 
-        $dospem[0]=$request->dospem1;
-        $dospem[1]=$request->dospem2;
-        $dospem[2]=$request->dospem3;
-        foreach($dospem as $k=>$v)
+        // $dospem[0]=$request->dospem1;
+        // $dospem[1]=$request->dospem2;
+        // $dospem[2]=$request->dospem3;
+        foreach($request->dospem as $k=>$v)
         {
             if($v!='' && $v!=0)
             {

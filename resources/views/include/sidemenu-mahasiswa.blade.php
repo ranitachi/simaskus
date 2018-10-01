@@ -37,13 +37,17 @@
     <h3 class="uppercase">Menu</h3>
 </li>
 <li class="nav-item {{Request::path()=='profil' ? 'active' : ''}}">
-    <a href="{{url('/beranda')}}" class="nav-link nav-toggle">
+    <a href="{{url('/profil')}}" class="nav-link nav-toggle">
         <i class="fa fa-user font-white"></i>
         <span class="title">Profil</span>
     </a>
 </li>
 @if (Auth::user()->flag==1)
-
+@php
+    $mhs=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+    // dd($mhs);
+@endphp
+@if (strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
 <li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
@@ -53,7 +57,7 @@
     <ul class="sub-menu">
         <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
             <a href="{{url('pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Skripsi</span>
+                <span class="title">Data Pengajuan Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
@@ -68,6 +72,8 @@
         </li>
     </ul>
 </li>
+@endif
+@if (strpos($mhs->programstudi->nama_program_studi,'S2')!==false)
 <li class="nav-item {{strpos(Request::url(),'pengajuan-tesis')!==false || strpos(Request::url(),'jadwal-sidang-tesis')!==false || strpos(Request::url(),'daftar-sidang-tesis')!==false  ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
@@ -75,17 +81,17 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='pengajuan-tesis' ? 'active' : ''}}">
             <a href="{{url('pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Tesis</span>
+                <span class="title">Data Pengajuan Bimbingan</span>
             </a>
         </li>
-        <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='daftar-sidang-tesis' ? 'active' : ''}}">
             <a href="{{url('daftar-sidang')}}" class="nav-link ">
                 <span class="title">Data Pengajuan Sidang</span>
             </a>
         </li>
-        <li class="nav-item  {{Request::path()=='jadwal-sidang' ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='jadwal-sidang-tesis' ? 'active' : ''}}">
             <a href="{{url('jadwal-sidang')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang</span>
             </a>
@@ -93,7 +99,34 @@
         
     </ul>
 </li>
-
+@endif
+@if (strpos($mhs->programstudi->nama_program_studi,'S3')!==false)
+<li class="nav-item {{strpos(Request::url(),'pengajuan-disertasi')!==false || strpos(Request::url(),'jadwal-sidang-disertasi')!==false || strpos(Request::url(),'daftar-sidang-tesis')!==false  ? 'active' : ''}}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-large font-white"></i>
+        <span class="title">Pengajuan Disertasi</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{Request::path()=='pengajuan-disertasi' ? 'active' : ''}}">
+            <a href="{{url('pengajuan')}}" class="nav-link ">
+                <span class="title">Data Pengajuan Bimbingan</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='daftar-sidang-disertasi' ? 'active' : ''}}">
+            <a href="{{url('daftar-sidang')}}" class="nav-link ">
+                <span class="title">Data Pengajuan Sidang</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='jadwal-sidang-disertasi' ? 'active' : ''}}">
+            <a href="{{url('jadwal-sidang')}}" class="nav-link ">
+                <span class="title">Jadwal Sidang</span>
+            </a>
+        </li>
+        
+    </ul>
+</li>
+@endif
 <li class="nav-item {{strpos(Request::url(),'data-kp')!==false   ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
