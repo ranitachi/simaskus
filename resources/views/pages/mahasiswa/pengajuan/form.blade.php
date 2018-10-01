@@ -75,10 +75,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Jenis Pengajuan</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id" onchange="jenis(this.value)">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
-                                                @if (strpos(strtolower($v->jenis),'pengajuan skripsi')!==false)
+                                                @if (strpos(strtolower($v->jenis),'skripsi')!==false)
                                                     @if ($id!=-1)
                                                         @if ($det->jenis_id==$v->id)
                                                             <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
@@ -94,37 +94,37 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display: none">
                                      <div class="form-group has-success">
                                         <label class="control-label">IPK Terakhir</label>
-                                        <input type="text" id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir" value="{{$id==-1 ? '' : $det->ipk_terakhir}}" style="width:50%;">
+                                        <input type="text" id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir" value="{{$id==-1 ? '0' : $det->ipk_terakhir}}" style="width:50%;">
                                     </div>
                                 </div>
-                                
-                                <!--/span-->
-                            </div>
-                            <div class="row">
-                                
-                                <div class="col-md-6">
-                                     <div class="form-group has-success">
-                                        <label class="control-label">Jumlah SKS Lulus</label>
-                                        <input type="text" id="jumlah_sks_lulus" name="jumlah_sks_lulus" class="form-control input-circle" placeholder="Jumlah SKS Lulus" value="{{$id==-1 ? '' : $det->jumlah_sks_lulus}}" style="width:50%;">
-                                    </div>
-                                </div>
-                                <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Topik Yang Diajukan</label>
-                                        <input type="text" id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$id==-1 ? '' : $det->topik_diajukan}}">
+                                        <input type="text" id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$id==-1 ? '-' : $det->topik_diajukan}}">
                                     </div>
                                 </div>
                                 <!--/span-->
                             </div>
                             <div class="row">
+                                
+                                <div class="col-md-6" style="display: none">
+                                     <div class="form-group has-success">
+                                        <label class="control-label">Jumlah SKS Lulus</label>
+                                        <input type="text" id="jumlah_sks_lulus" name="jumlah_sks_lulus" class="form-control input-circle" placeholder="Jumlah SKS Lulus" value="{{$id==-1 ? '0' : $det->jumlah_sks_lulus}}" style="width:50%;">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                
+                                <!--/span-->
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
-                                        <label class="control-label">Bidang Seminar/Skripsi/Tesis</label>
-                                        <input type="text" id="bidang" name="bidang" class="form-control input-circle" placeholder="Bidang Seminar/Skripsi/Tesis" value="{{$id==-1 ? '' : $det->bidang}}">
+                                        <label class="control-label">Bidang Skripsi</label>
+                                        <input type="text" id="bidang" name="bidang" class="form-control input-circle" placeholder="Bidang Skripsi" value="{{$id==-1 ? '-' : $det->bidang}}">
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -133,25 +133,25 @@
                                         <label class="control-label">Skema Penelitian</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Skema" id="skema" name="skema">
                                             <option value="-1">-Pilih Skema-</option>
-                                            <option value="Sendiri" {{$id!=-1 ? ($det->skema=="Sendiri" ? 'selected="selected"' : '') : ''}}>Sendiri</option>
-                                            <option value="Penelitian Dosen" {{$id!=-1 ? ($det->skema=="Penelitian Dosen" ? 'selected="selected"' : '') : ''}}>Penelitian Dosen</option>
+                                            <option value="Sendiri" {{$id!=-1 ? ($det->skema=="Sendiri" ? 'selected="selected"' : '-') : '-'}}>Sendiri</option>
+                                            <option value="Penelitian Dosen" {{$id!=-1 ? ($det->skema=="Penelitian Dosen" ? 'selected="selected"' : '-') : '-'}}>Penelitian Dosen</option>
                                         </select>
                                     </div>
                                 </div>
                                 <!--/span-->
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none;">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Judul Bahasa Indonesia (<i>* Dapat Menyusul</i>)</label>
-                                        <input type="text" id="judul_ind" name="judul_ind" class="form-control input-circle" placeholder="Judul (Bahasa Indonesia)" value="{{$id==-1 ? '' : $det->judul_ind}}">
+                                        <input type="text" id="judul_ind" name="judul_ind" class="form-control input-circle" placeholder="Judul (Bahasa Indonesia)" value="{{$id==-1 ? '-' : $det->judul_ind}}">
                                     </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Judul Bahasa Inggris (<i>* Dapat Menyusul</i>)</label>
-                                        <input type="text" id="judul_eng" name="judul_eng" class="form-control input-circle" placeholder="Judul (Bahasa Inggris)" value="{{$id==-1 ? '' : $det->judul_eng}}">
+                                        <input type="text" id="judul_eng" name="judul_eng" class="form-control input-circle" placeholder="Judul (Bahasa Inggris)" value="{{$id==-1 ? '-' : $det->judul_eng}}">
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -161,24 +161,27 @@
                                 <div class="col-md-12">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi/Rencana</label>
-                                        <textarea class="wysihtml5 form-control" rows="6" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : ''}}</textarea>
+                                        <textarea class="wysihtml5 form-control" rows="6" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : '-'}}</textarea>
                                     </div>
                                 </div>
+                            </div>
+                           
+                            <div class="row" style="display:none">
                                 <!--/span-->
                                 <div class="col-md-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Abstrak (Indonesia)</label>
-                                        <textarea class="wysihtml5 form-control" rows="6" name="abstrak_ind">{{$id!=-1 ? $det->abstrak_ind : ''}}</textarea>
+                                        <textarea class="wysihtml5 form-control" rows="6" name="abstrak_ind">{{$id!=-1 ? $det->abstrak_ind : '-'}}</textarea>
                                         <small>* Bisa Menyusul</small>
                                     </div>
                                 </div>
                                 <!--/span-->
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none">
                                 <div class="col-md-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Abstrak (Inggris)</label>
-                                        <textarea class="wysihtml5 form-control" rows="6" name="abstrak_eng">{{$id!=-1 ? $det->abstrak_eng : ''}}</textarea>
+                                        <textarea class="wysihtml5 form-control" rows="6" name="abstrak_eng">{{$id!=-1 ? $det->abstrak_eng : '-'}}</textarea>
                                         <small>* Bisa Menyusul</small>
                                     </div>
                                 </div>
@@ -197,8 +200,8 @@
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Pengajuan Ke</label>
-                                            <select class="form-control" data-placeholder="Pengajuan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:20%">
-                                            @for ($x=1;$x<=10;$x++)
+                                            <select class="form-control" data-placeholder="Pengajuan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:20%" onchange="cekmengulang(this.value)">
+                                            @for ($x=1;$x<=5;$x++)
                                                 @if ($id!=-1)
                                                     @if ($det->pengambilan_ke==$x)
                                                         <option value="{{$x}}" selected="selected">{{$x}}</option>    
@@ -211,77 +214,6 @@
                                             @endfor
                                             </select>
                                     </div>
-                                </div>
-                            <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 1</label>
-                                        <div id="prog_studi">
-                                            <select class="form-control select2"data-placeholder="Pilih Dosen" name="dospem1" id="dosen">
-                                                <option value="0">Pilih</option>
-                                                @foreach ($dosen as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->dospem1==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
-                                                    @else
-                                                        <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                    @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                @endif
-                                            @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 2</label>
-                                        <div id="prog_studi">
-                                            <select class="form-control select2"data-placeholder="Pilih Dosen" name="dospem2" id="dosen">
-                                                <option value="0">Pilih</option>
-                                                @foreach ($dosen as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->dospem2==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
-                                                    @else
-                                                        <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                    @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                @endif
-                                            @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 3</label>
-                                        <div id="prog_studi">
-                                            <select class="form-control select2"data-placeholder="Pilih Dosen" name="dospem3" id="dosen">
-                                                <option value="0">Pilih</option>
-                                                @foreach ($dosen as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->dospem3==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
-                                                    @else
-                                                        <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                    @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                @endif
-                                            @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                        
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Dosen Ketua Kelompok Ilmu</label>
                                         <div id="prog_studi">
@@ -304,9 +236,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                            <div class="col-md-6"> 
-                                    <div class="form-group has-success">
+                                     <div class="form-group has-success" id="dosen-mengulang" style="display:none">
                                         <label class="control-label">Dosen Pembimbing Sebelumnya (Buat yang mengulang)</label>
                                         <div id="prog_studi">
                                             <select class="form-control select2" data-placeholder="Pilih Dosen" name="pembimbing_sebelumnya" id="pembimbing_sebelumnya">
@@ -326,9 +256,13 @@
                                         </div>
                                     </div>
                                 </div>
+                            <div class="col-md-6"> 
+                                <div id="jlh-pembimbing"></div>
+                            </div>
                         </div>
+                        
                         <div class="row">
-                            <div class="col-md-12"> 
+                            <div class="col-md-12" id="alasan-mengulang" style="display:none"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Alasan Mengulang (* Jika Mengulang)</label>
                                         <textarea class="wysihtml5 form-control" rows="6" name="alasan_mengulang">{{$id!=-1 ? $det->alasan_mengulang : ''}}</textarea>
@@ -365,6 +299,24 @@
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>
+    function cekmengulang(val)
+    {
+        if(val>1)
+        {
+            $('#dosen-mengulang').css({'display':'inline'});
+            $('#alasan-mengulang').css({'display':'inline'});
+        }
+        else{
+            $('#dosen-mengulang').css({'display':'none'});
+            $('#alasan-mengulang').css({'display':'none'});
+        }
+    }
+    function jenis(val)
+    {
+        $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val,function(){
+            $('.select2').select2();
+        });
+    }
 
     $(document).ready(function(){
         $('#departemen').change(function(){

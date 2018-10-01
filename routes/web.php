@@ -144,6 +144,17 @@ Route::resource('quota-bimbingan','QuotaBimbinganController')->middleware('auth'
 Route::get('quota-bimbingan-data','QuotaBimbinganController@data')->middleware('auth');
 Route::get('quota-bimbingan-hapus/{id}','QuotaBimbinganController@destroy')->middleware('auth');
 
+//Quota Penguji
+Route::resource('quota-penguji','QuotaPengujiController')->middleware('auth');
+Route::get('quota-penguji-data','QuotaPengujiController@data')->middleware('auth');
+Route::get('quota-penguji-hapus/{id}','QuotaPengujiController@destroy')->middleware('auth');
+
+//Quota pembimbing
+Route::resource('quota-pembimbing','QuotaPembimbingController')->middleware('auth');
+Route::get('quota-pembimbing-data','QuotaPembimbingController@data')->middleware('auth');
+Route::get('quota-pembimbing-hapus/{id}','QuotaPembimbingController@destroy')->middleware('auth');
+Route::get('jlh_pembimbing/{idjenis}','QuotaPembimbingController@jlh_pembimbing')->middleware('auth');
+
 //DOSEN
 Route::get('pengajuan-bimbingan','Dosen\PengajuanBimbinganController@pengajuan')->middleware('auth');
 Route::get('daftar-bimbingan','Dosen\PengajuanBimbinganController@daftar')->middleware('auth');

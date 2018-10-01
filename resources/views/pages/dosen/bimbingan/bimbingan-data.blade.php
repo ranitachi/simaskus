@@ -37,9 +37,9 @@
                     <td>
                         @if ($v->dospem->id==Auth::user()->id_user)
                             <div style="width:110px;">
-                                <a href="javascript:setujui({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
-                                <a href="javascript:tolak({{$v->id}})" class="btn btn-xs btn-info"><i class="fa fa-ban"></i></a>
-                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="javascript:setujui({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
+                                <a href="javascript:tolak({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-info"><i class="fa fa-ban"></i></a>
+                                <a href="javascript:hapus({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                             </div>
                         @endif
                     </td>

@@ -4,6 +4,32 @@
         {{ method_field('PATCH') }}
     @endif
     <div class="form-body">
+    @if ($katuser==1)
+    
+        <div class="row">
+            <div class="col-md-12"> 
+                <div class="form-group has-success">
+                    <label class="control-label">Nama Dosen</label>
+                    <div id="prog_studi">
+                        <select class="form-control select2" data-placeholder="Pilih Dosen" name="dosen" id="dosen">
+                            <option value="0">Pilih</option>
+                            @foreach ($dosen as $i => $v)
+                            @if ($id!=-1)
+                                @if ($det->dosen_id==$v->id)
+                                    <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
+                                @else
+                                    <option value="{{$v->id}}">{{$v->nama}}</option>
+                                @endif
+                            @else
+                                <option value="{{$v->id}}">{{$v->nama}}</option>
+                            @endif
+                        @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
         <div class="row">
             <div class="col-md-5">
                 <div class="form-group has-success">
@@ -94,10 +120,17 @@
         
     </div>
 </form>
+<style>
+.select2-container
+{
+    width:100% !important;
+}
+</style>
 <script>
 $('.date-picker').datepicker({
     rtl: App.isRTL(),
     orientation: "left",
     autoclose: true
 });
+$('.select2').select2();
 </script>

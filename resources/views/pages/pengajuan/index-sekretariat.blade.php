@@ -92,19 +92,23 @@
 
                                 @php
                                     $st_pbb=0;
-                                    foreach ($piv[$v->mahasiswa_id] as $item)
+                                    if(isset($piv[$v->mahasiswa_id]))
                                     {
-                                        if($item->status==1)
+
+                                        foreach ($piv[$v->mahasiswa_id] as $item)
                                         {
-                                            $st_pbb=1;
-                                        }
-                                        else
+                                            if($item->status==1)
+                                            {
+                                                $st_pbb=1;
+                                            }
+                                            else
                                             $st_pbb=0;
+                                        }
                                     }
                                 @endphp
                                 <td>
-                                    <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
                                     @if ($st_pbb==1)
+                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
                                         <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs"><i class="fa fa-check-square-o"></i></a>
                                     @endif
                                     <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></a>

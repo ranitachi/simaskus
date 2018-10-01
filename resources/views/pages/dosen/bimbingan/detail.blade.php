@@ -232,7 +232,7 @@
             swal("Berhasil", "{{Session::get('status')}}", "success")
         }
 
-        var ps 2= "{{Session::has('fail')}}";
+        var ps2= "{{Session::has('fail')}}";
         if(ps2!="")
         {
             swal("Gagal", "{{Session::get('fail')}}", "danger")
@@ -248,7 +248,7 @@
         });
     }
     
-    function setujui(id)
+    function setujui(id,mahasiswa_id)
     {
        
         swal({
@@ -268,7 +268,7 @@
                     url : '{{url("data-bimbingan-status")}}/'+id+'/1',
                     dataType : 'JSON'
                 }).done(function(){
-                    loaddatabimbingan(id);
+                    loaddatabimbingan(mahasiswa_id);
                     swal("Sukses!", "Data Data Bimbingan DI Setujui", "success");
                 }).fail(function(){
                     swal("Fail!", "Data Bimbingan Ditolak", "danger");
@@ -276,7 +276,7 @@
             } 
         });
     }
-    function tolak(id)
+    function tolak(id,mahasiswa_id)
     {
         swal({
             title: "Apakah Anda Yakin",
@@ -295,13 +295,13 @@
                     url : '{{url("data-bimbingan-status")}}/'+id+'/2',
                     dataType : 'JSON'
                 }).done(function(){
-                    loaddata();
+                    loaddatabimbingan(mahasiswa_id);
                     swal("Di Tolak!", "Data Data Bimbingan DI Setujui", "danger");
                 });
             } 
         });
     }
-    function hapus(id)
+    function hapus(id,mahasiswa_id)
     {
         swal({
             title: "Apakah Anda Yakin",
@@ -320,7 +320,7 @@
                     url : '{{url("pengajuan-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
-                    loaddatabimbingan(id);
+                    loaddatabimbingan(mahasiswa_id);
                     swal("Deleted!", "Data Berhasil Di Hapus", "success");
                 }).fail(function(){
                     swal("Fail!", "Hapus Data Gagal", "danger");

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Dosen;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
+
 use App\Model\PivotJadwal;
 use App\Model\PivotPenguji;
 use App\Model\Pengajuan;
@@ -84,4 +85,6 @@ class DosenController extends Controller
 
         return response()->json(['done']);
     }
+
+    
 }
