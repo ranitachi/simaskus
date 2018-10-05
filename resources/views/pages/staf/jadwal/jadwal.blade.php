@@ -75,7 +75,10 @@
                                 
                             
                                 @if ($jadwal[$idpengajuan]->tanggal!=null)
-                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;text-align:left">{{hari($jadwal[$idpengajuan]->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}</a>
+                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;text-align:left">{{hari($jadwal[$idpengajuan]->hari)}}, 
+                                        {{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}
+                                        <br>Pukul : {{$jadwal[$idpengajuan]->waktu}}
+                                    </a>
                                 @else
                                     <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
                                 @endif
@@ -120,22 +123,22 @@
                     
                    <td class="text-left">
                        @if(count($jadwal)!=0)
-                            @if (isset($jadwal[$idpengajuan]->id))
-                                <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
+                            @if (isset($jadwal[$idpengajuan]->jadwal_id))
+                                <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
+                                <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/berita-acara-sidang/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
+                                <a href="{{url('berkas-sidang/berita-acara-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/form-nilai-penguji/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
+                                <a href="{{url('berkas-sidang/form-nilai-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/form-nilai-pembimbing/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Pembimbing</a>
+                                <a href="{{url('berkas-sidang/form-nilai-pembimbing/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Pembimbing</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/form-catatan-penguji/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
+                                <a href="{{url('berkas-sidang/form-catatan-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
+                                <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
                                 <br>
-                                <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
+                                <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
                                 <br>
                             @endif
                         @endif

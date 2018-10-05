@@ -73,16 +73,23 @@ class JadwalController extends Controller
                     ->with('dospem_3')
                     ->orderBy('created_at')->get();
 
-        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+        $jadwal=Jadwal::select()
+                    ->join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->where('jadwals.departemen_id',$dept_id)
                     ->with('ruangan')
-                    ->first();
-
+                    ->get();
+        
+        $jdwl=array();
+        foreach($jadwal as $idx=>$vj)
+        {
+            $jdwl[$vj->judul_id]=$vj;
+        }
+        // dd($jdwl);
         $penguji=PivotPenguji::with('dosen')->get();
         $uji=array();
         foreach($penguji as $k => $v)
         {
-            $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
+            $uji[$v->pengajuan_id][$v->penguji_id]=$v;
         }
 
         $pivot=PivotBimbingan::all();
@@ -103,7 +110,7 @@ class JadwalController extends Controller
                     ->with('pengajuan',$pengajuan)
                     ->with('uji',$uji)
                     ->with('dok',$dok)
-                    ->with('jadwal',$jadwal)
+                    ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
                     ->with('piv',$piv);
     }
@@ -130,7 +137,7 @@ class JadwalController extends Controller
         {
             $jadwal[$vjj->judul_id]=$vjj;
         }
-        // dd($jdwl );
+        // dd($jdwl);
         $penguji=PivotPenguji::with('dosen')->get();
         $uji=array();
         foreach($penguji as $k => $v)
@@ -178,19 +185,20 @@ class JadwalController extends Controller
                     ->with('ruangan')
                     ->get();
 
+        // dd($pengajuan);
         $jdwl=array();
         foreach($jadwal as $kj=>$vjj)
         {
             $jdwl[$vjj->judul_id]=$vjj;
         }
-        // dd($jdwl );
+        // dd($jdwl);
         $penguji=PivotPenguji::with('dosen')->get();
         $uji=array();
         foreach($penguji as $k => $v)
         {
-            $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
+            $uji[$v->mahasiswa_id][$v->penguji_id]=$v;
         }
-
+        // dd($uji);
         $pivot=PivotBimbingan::all();
         $piv=array();
         foreach($pivot as $k =>$v)
@@ -276,7 +284,10 @@ class JadwalController extends Controller
         {
             foreach($vt as $idkt=> $vvt)
             {
-                $tgl[$vvt]=$vvt;
+                $weekend=array('Sat','Sun');
+                $day=date('D',strtotime($vvt));
+                if(!in_array($day,$weekend))
+                    $tgl[$vvt]=$vvt;
             }
         }
 
@@ -293,17 +304,19 @@ class JadwalController extends Controller
         $p_uji=array();
         foreach($penguji as $k => $v)
         {
-            $p_uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
+            $p_uji[$v->pengajuan_id][$v->penguji_id]=$v;
         }
 
         $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->with('ruangan')
                     ->get();
+
         $p_jdwl=array();
         foreach($jadwal as $kj => $vj)
         {
             $p_jdwl[$vj->mahasiswa_id][]=$vj;
         }
+        // dd($d_ruang);
         if(count($tgl)!=0)
         {
             foreach($pengajuan as $kp => $vp)
@@ -314,7 +327,7 @@ class JadwalController extends Controller
 
                 $idmhs=$vp->mahasiswa_id;
                 $mhs=Mahasiswa::find($idmhs);
-                $idjadwal=$p_jdwl[$idmhs][0];
+                // $idjadwal=$p_jdwl[$idmhs][0];
                 $date=array_rand($tgl);
                 $ruang=array_rand($d_ruang);
                 // dd($idjadwal);
@@ -322,18 +335,26 @@ class JadwalController extends Controller
 
                 $waktu=array_rand(waktu(),1);
                 $wkt=waktu();
-                $jadw=Jadwal::find($idjadwal->id);
+                // $jadw=Jadwal::find($idjadwal->id);
+                $jadw=new Jadwal;
                 $jadw->ruangan_id=$r[0];
+                $jadw->departemen_id=$dept_id;
                 $jadw->tanggal=$date;
                 $jadw->hari=date('D',strtotime($date));
                 $jadw->waktu=$wkt[$waktu];
                 $jadw->save();
 
-                $piv_jad=PivotJadwal::where('jadwal_id',$idjadwal->id)->first();
+
+                // $piv_jad=PivotJadwal::where('jadwal_id',$jadw->id)->first();
+                $piv_jad=new PivotJadwal;
+                $piv_jad->jadwal_id=$jadw->id;
                 $piv_jad->ruangan_id=$r[0];
+                $piv_jad->mahasiswa_id=$idmhs;
+                $piv_jad->judul_id=$vp->id;
+                $piv_jad->status=0;
                 $piv_jad->save();
 
-                foreach($p_uji[$idjadwal->id] as $ku=>$vu)
+                foreach($p_uji[$vp->id] as $ku=>$vu)
                 {
                     $user=Users::where('id_user',$ku)->first();
                     $notif=new Notifikasi;

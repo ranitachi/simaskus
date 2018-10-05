@@ -19,7 +19,9 @@
                     <th> Jenis<br>Pengajuan </th>
                     <th> Judul </th>
                     <th> Pembimbing </th>
-                    <th> Hari/Tanggal/<br>Ruangan Sidang </th>
+                    @if ($jenis==2)
+                        <th> Hari/Tanggal/<br>Ruangan Sidang </th>
+                    @endif
                     <th>Dokumen</th>
                     <th> Penguji </th>
                     <th> Status Sidang </th>
@@ -29,7 +31,7 @@
             
             <tbody>
             @foreach ($pengajuan as $i => $v)
-            @if (count($jadwal) != 0)
+            {{-- @if (count($jadwal) != 0) --}}
                 @php
                     $idpengajuan=$v->id;
                 @endphp
@@ -79,70 +81,78 @@
                             <strong>{{$v->dospem_3->nama}}</strong>
                         @endif
                     </td>
-                    <td class="text-center">
-                        <small><u>Jadwal : </u></small><br>
-                        @if (count($jadwal) != 0)
-                            @if (isset($jadwal->tanggal))
+                    @if ($jenis==2)
+                        <td class="text-center">
+                            <small><u>Jadwal : </u></small><br>
+                            @if (count($jadwal) != 0)
+                                @if (isset($jadwal->tanggal))
+                                    
                                 
-                            
-                                @if ($jadwal->tanggal!=null)
-                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal->tanggal))}}</a>
-                                @else
+                                    @if ($jadwal->tanggal!=null)
+                                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal->tanggal))}}</a>
+                                    @else
+                                        <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
+                                    @endif
+                                @endif
+                            @else
                                     <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
-                                @endif
                             @endif
-                        @else
-                                <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
-                        @endif
-                        <br>
-                        <br>
-                        <small><u>Ruangan : </u></small><br>
-                        @if (count($jadwal) != 0)
-                            @if (isset($jadwal->ruangan_id))
+                            <br>
+                            <br>
+                            <small><u>Ruangan : </u></small><br>
+                            @if (count($jadwal) != 0)
+                                @if (isset($jadwal->ruangan_id))
+                                    
                                 
-                            
-                                @if ($jadwal->ruangan_id!=0)
-                                    <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal->ruangan->code_ruangan}} : {{$jadwal->ruangan->nama_ruangan}}</a>
-                                @else
-                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
+                                    @if ($jadwal->ruangan_id!=0)
+                                        <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal->ruangan->code_ruangan}} : {{$jadwal->ruangan->nama_ruangan}}</a>
+                                    @else
+                                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
+                                    @endif
                                 @endif
+                            @else
+                                    <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                             @endif
-                        @else
-                                <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
-                        @endif
-                        
+                            
 
-                    </td>
+                        </td>
+                    @endif
                     <td>
+                        <div style="width:110px;">
                         @php
                             $verif_dok=array();
                         @endphp
-                        @foreach ($dok[$v->id] as $kd => $vd)
-                            <small><u>{{$kd}}</u></small><br>
-                            @if ($vd->status==0)
-                                <a href="#" class="btn btn-xs btn-danger btn-rounded" data-toggle="tooltip" title="Belum Di Verifikasi" style="font-size:10px;margin-right:0px;"><i class="fa fa-exclamation-circle"></i></a>    
-
-
-                                <a href="javascript:setujuidokumen({{$vd->id}},1)" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a> 
-                                @php
-                                    $verif_dok[]=0;
-                                @endphp
-                            @else
-                                <a href="#" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Sudah Di Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a>
-                                @php
-                                    $verif_dok[]=1;
-                                @endphp
-                            @endif
+                        @if (isset($dok[$v->id]))
                             
-                            <a href="{{url('unduh-file/'.$vd->file)}}" target="_blank" class="btn btn-xs btn-success" data-toggle="tooltip" title="Lihat Dokumen" style="font-size:10px;"><i class="fa fa-search"></i> Lihat</a>
-                        @endforeach
+                        
+                            @foreach ($dok[$v->id] as $kd => $vd)
+                                <small><u>{{$kd}}</u></small><br>
+                                @if ($vd->status==0)
+                                    <a href="#" class="btn btn-xs btn-danger btn-rounded" data-toggle="tooltip" title="Belum Di Verifikasi" style="font-size:10px;margin-right:0px;"><i class="fa fa-exclamation-circle"></i></a>    
+
+
+                                    <a href="javascript:setujuidokumen({{$vd->id}},1)" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a> 
+                                    @php
+                                        $verif_dok[]=0;
+                                    @endphp
+                                @else
+                                    <a href="#" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Sudah Di Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a>
+                                    @php
+                                        $verif_dok[]=1;
+                                    @endphp
+                                @endif
+                                
+                                <a href="{{url('unduh-file/'.$vd->file)}}" target="_blank" class="btn btn-xs btn-success" data-toggle="tooltip" title="Lihat Dokumen" style="font-size:10px;"><i class="fa fa-search"></i> Lihat</a>
+                            @endforeach
+                        @endif
+                        </div>
                     </td>
-                    <td class="text-center">
-                    @if(count($jadwal)!=0)
+                    <td class="text-left">
+                    {{-- @if(count($jadwal)!=0) --}}
                         {{-- @if (isset($jadwal->id)) --}}
                         
-                            @if (isset($uji[$v->id]))
-                                @foreach ($uji[$v->id] as $kk => $vv)
+                            @if (isset($uji[$v->mahasiswa_id]))
+                                @foreach ($uji[$v->mahasiswa_id] as $kk => $vv)
                                     {{-- @if ($vv->status==0)
                                             <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                         @else --}}
@@ -156,7 +166,7 @@
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                         @endif
-                    @endif
+                    {{-- @endif --}}
                     </td>
                     <td class="text-left">
                         @if ($v->status_pengajuan==0)
@@ -175,7 +185,7 @@
                     </td>
                    
                 </tr>
-            @endif
+            {{-- @endif --}}
             @endforeach                
             </tbody>
         </table>

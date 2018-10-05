@@ -17,7 +17,7 @@
                     <th>No</th>
                     <th> Departemen </th>
                     <th> Level </th>
-                    <th> Quota Maximal</th>
+                    <th> Maksimal Penguji</th>
                     {{-- <th> Pimpinan</th> --}}
                     <th> # </th>
                 </tr>

@@ -51,8 +51,34 @@
                         @endif
                         <div class="form-body">
                             <div class="row">
-                                
-                                <div class="col-md-4">
+                                @if (count($penguji)!=0)
+                                    @php
+                                        $no=1;
+                                    @endphp
+                                    @foreach ($penguji as $kp => $vp)
+                                        <div class="col-md-4">
+                                            <div class="form-group has-success">
+                                                <label class="control-label">Nama Usulan Penguji {{$no}}</label>
+                                                <select class="bs-select form-control has-success" data-placeholder="Pilih Penguji" id="penguji1" name="penguji[]">
+                                                    {{-- <option value="-1">-Pilih Penguji-</option> --}}
+                                                    @foreach ($dosen as $i => $v)
+                                                        @if ($v->id==$vp->penguji_id)
+                                                            <option value="{{$v->id}}" selected="selcted">{{$v->nama}}</option>     
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div> 
+                                        </div>
+                                        @php
+                                            $no++;
+                                        @endphp
+                                    @endforeach
+                                @else
+                                    <div class="col-md-12">
+                                        <h3>Nama Penguji Belum Diajukan dan Diinput</h3>
+                                    </div>
+                                @endif
+                                {{-- <div class="col-md-4">
                                     <div class="form-group has-success">
                                         <label class="control-label">Nama Usulan Penguji 1</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Penguji" id="penguji1" name="penguji[]">
@@ -85,7 +111,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row">
                                 <div class="col-md-4"> 

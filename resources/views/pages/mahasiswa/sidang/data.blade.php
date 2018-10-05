@@ -81,10 +81,10 @@
                         {!!$jadwal->count()!=0 ? ($jadwal[0]->ruangan_id!=0 ? '<a href="#" class="btn btn-xs btn-success">'.$jadwal[0]->ruangan->code_ruangan.' : '.$jadwal[0]->ruangan->nama_ruangan.'</a>' : '<a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Belum Ditentukan</a>') : ''!!}
                     </td>
 
-                    <td class="text-center">
+                    <td class="text-left">
                         @if ($jadwal->count()!=0)                            
-                            @if (isset($uji[$jadwal[0]->id]))
-                                @foreach ($uji[$jadwal[0]->id] as $kk => $vv)
+                            @if (isset($uji[$v->mahasiswa_id]))
+                                @foreach ($uji[$v->mahasiswa_id] as $kk => $vv)
                                     {{-- @if ($vv->status==0)
                                         <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju" style="font-size:10px"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                     @else --}}
