@@ -68,11 +68,14 @@
                             <strong>{{$v->dospem_3->nama}}</strong>
                         @endif
                     </td>
-                    <td class="text-center">
+                    <td class="text-left">
                         <small><u>Jadwal : </u></small><br>
                         @if (count($jadwal) != 0)
-                            @if ($jadwal->tanggal!=null)
-                                <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal->hari)}}, <br>{{date('d-m-Y',strtotime($jadwal->tanggal))}}</a>
+                            @if ($jadwal[$idpengajuan]->tanggal!=null)
+                                <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">{{hari($jadwal[$idpengajuan]->hari)}}, {{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}
+                                <br>
+                                Pukul : {{$jadwal[$idpengajuan]->waktu}}
+                                </a>
                             @else
                                 <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
                             @endif
@@ -83,8 +86,8 @@
                         <br>
                         <small><u>Ruangan : </u></small><br>
                         @if (count($jadwal) != 0)
-                            @if ($jadwal->ruangan_id!=0)
-                                <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal->ruangan->code_ruangan}} : {{$jadwal->ruangan->nama_ruangan}}</a>
+                            @if ($jadwal[$idpengajuan]->ruangan_id!=0)
+                                <a href="#" class="btn btn-xs btn-success" style="font-size:10px;">{{$jadwal[$idpengajuan]->ruangan->code_ruangan}} : {{$jadwal[$idpengajuan]->ruangan->nama_ruangan}}</a>
                             @else
                                 <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                             @endif
@@ -94,10 +97,10 @@
 
                     </td>
                     
-                    <td class="text-center">
+                    <td class="text-left">
                     @if(count($jadwal)!=0)
-                        @if (isset($uji[$jadwal->id]))
-                            @foreach ($uji[$jadwal->id] as $kk => $vv)
+                        @if (isset($uji[$idpengajuan]))
+                            @foreach ($uji[$idpengajuan] as $kk => $vv)
                                 {{-- @if ($vv->status==0)
                                         <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                     @else --}}
@@ -110,9 +113,9 @@
                     @endif
                     </td>
                     <td class="text-left">
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Revisi Judul</a>
+                        <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-download"></i> Revisi Judul</a>
                         <br>
-                        <a href="#" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Perbaikan Skripsi</a>
+                        <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Perbaikan Skripsi</a>
                         <br>
                     </td>
                    

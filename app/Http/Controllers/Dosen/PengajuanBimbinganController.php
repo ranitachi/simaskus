@@ -17,6 +17,8 @@ use App\Model\Component;
 use App\Model\Mahasiswa;
 use App\Model\ComponentScore;
 use App\Model\EvaluasiACCSidang;
+use App\Model\PivotPenguji;
+use App\Model\QuotaPenguji;
 use Auth;
 use DB;
 class PengajuanBimbinganController extends Controller
@@ -50,9 +52,16 @@ class PengajuanBimbinganController extends Controller
         foreach($acc_sidang as $k =>$v)
         {
             $acc_sid[$v->dosen_id][$v->mahasiswa_id]=$v;
+            // $acc_sid2[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
 
-        return view('pages.dosen.bimbingan.data',compact('data','jenis','piv','acc_sid'));
+        $p_uji=PivotPenguji::with('dosen')->with('mahasiswa')->get();
+        $penguji=array();
+        foreach($p_uji as $k =>$v)
+        {
+            $penguji[$v->mahasiswa_id][$v->penguji_id]=$v;
+        }
+        return view('pages.dosen.bimbingan.data',compact('data','jenis','piv','acc_sid','penguji'));
     }
     public function status($id,$st)
     {
@@ -126,8 +135,27 @@ class PengajuanBimbinganController extends Controller
             $ev[$ve->component_id]=$ve;
         }
 
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
+
         $acc=PivotSetujuSidang::where('pengajuan_id',$id)->where('dosen_id',Auth::user()->id_user)->where('mahasiswa_id',$mahasiswa_id)->first();
         // dd($acc);
+
+        $quota_penguji=QuotaPenguji::where('departemen_id',$dept_id)->get();
+        $q_penguji=array();
+        foreach($quota_penguji as $k=>$vq)
+        {
+            $q_penguji[$vq->level]=$vq;
+        }
+
+        $pivotPenguji=PivotPenguji::where('pengajuan_id',$id)->get();
+        $piv_uji=array();
+        $no=1;
+        foreach($pivotPenguji as $kp =>$vp)
+        {
+            $piv_uji[$vp->mahasiswa_id][$no]=$vp;
+            $no++;
+        }
+
         $pengajuan=Pengajuan::where('id',$id)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
@@ -139,7 +167,7 @@ class PengajuanBimbinganController extends Controller
                 ->with('pembimbing_sebelum')
                 ->orderBy('created_at','desc')->first();
 
-        return view('pages.dosen.bimbingan.detail',compact('jenis','pengajuan','mp','jenis','id','mahasiswa_id','penilaian','ev','acc','eval'));
+        return view('pages.dosen.bimbingan.detail',compact('jenis','pengajuan','mp','jenis','id','mahasiswa_id','penilaian','ev','acc','eval','dosen','q_penguji','piv_uji'));
     }
     public function bimbingandata($id)
     {
@@ -195,7 +223,7 @@ class PengajuanBimbinganController extends Controller
                 $acc->status=1;
                 $acc->save();
             }
-            return redirect('bimbingan-detail/'.$pengajuan_id.'/'.$mahasiswa_id.'#tab_5_3')->with('status','Evaluasi Bimbingan Telah di Simpan, dan Mahasiswa '.$mhs->nama.' Telah Di Setujui untuk Mengajukan Sidang');
+            return redirect('bimbingan-detail/'.$pengajuan_id.'/'.$mahasiswa_id.'#tab_5_4')->with('status','Evaluasi Bimbingan Telah di Simpan, dan Mahasiswa '.$mhs->nama.' Telah Di Setujui untuk Mengajukan Sidang. Silahkan Mengusulkan Nama Dosen Penguji');
         }
         else
         {
@@ -203,5 +231,38 @@ class PengajuanBimbinganController extends Controller
         }
 
 
+    }
+
+    public function simpan_data_penguji(Request $request,$id,$mahasiswa_id)
+    {
+        $master_pengajuan=MasterJenisPengajuan::all();
+        $mp=array();
+        foreach($master_pengajuan as $k => $v)
+        {
+            $mp[$v->id]=$v;
+        }
+        $jenis='';
+
+        $user=Users::where('id',$mahasiswa_id)->with('mahasiswa')->first();
+        $dept_id=0;
+        if($user)
+        {
+            $dept_id=$user->mahasisiwa->departemen_id;
+        }
+        // dd($request->all());
+        PivotPenguji::where('pengajuan_id',$id)->forceDelete();
+
+
+        foreach($request->penguji as $id_p=>$v_p)
+        {
+            $pivot=new PivotPenguji;
+            $pivot->pivot_jadwal_id=0;
+            $pivot->penguji_id=$v_p;
+            $pivot->mahasiswa_id=$mahasiswa_id;
+            $pivot->pengajuan_id=$id;
+            $pivot->status=0;
+            $pivot->save();
+        }
+        return redirect('bimbingan-detail/'.$id.'/'.$mahasiswa_id.'#tab_5_4')->with('status','Nama Usulan Penguji Berhasil Di Tambahkan');
     }
 }

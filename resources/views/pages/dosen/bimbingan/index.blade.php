@@ -58,6 +58,7 @@
             swal("Berhasil", "{{Session::get('status')}}", "success")
         }
         loaddata();
+        
     });
     function loaddata()
     {

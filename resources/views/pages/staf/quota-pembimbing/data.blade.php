@@ -17,7 +17,8 @@
                     <th>No</th>
                     <th> Departemen </th>
                     <th> Level </th>
-                    <th> Quota Maximal</th>
+                    <th> Maksimal Pembimbing</th>
+                    <th> Maksimal Pengajuan<br>Pembimbing</th>
                     {{-- <th> Pimpinan</th> --}}
                     <th> # </th>
                 </tr>
@@ -33,6 +34,7 @@
                     <td>{{$v->departemen->nama_departemen}}</td>
                     <td>{{$jns[$v->level]->jenis}}</td>
                     <td>{{$v->quota}}</td>
+                    <td></td>
                     <td>
                         <div style="width:80px;">
                             <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>

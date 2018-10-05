@@ -138,7 +138,7 @@ class QuotaPembimbingController extends Controller
         {
             $qb[$vq->level]=$vq;
         }
-
+        // dd($qb);
         return view('pages.administrator.dosen.jumlah-pembimbing')
                 ->with('dosen',$dosen)
                 ->with('piv',$piv)

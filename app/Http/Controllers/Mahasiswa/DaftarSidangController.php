@@ -17,6 +17,7 @@ use App\Model\PivotPenguji;
 use App\Model\PivotSetujuSidang;
 use App\Model\Mahasiswa;
 use App\Model\PivotDocumentSidang;
+use App\Model\QuotaPenguji;
 use Auth;
 class DaftarSidangController extends Controller
 {
@@ -54,7 +55,7 @@ class DaftarSidangController extends Controller
         $uji=array();
         foreach($penguji as $k => $v)
         {
-            $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
+            $uji[$v->mahasiswa_id][$v->penguji_id]=$v;
         }
 
         $pivot=PivotBimbingan::all();
@@ -88,10 +89,43 @@ class DaftarSidangController extends Controller
     }
     public function show($id)
     {
+        $idmhs=Auth::user()->id_user;
         $det=Pengajuan::find($id);
-        $mhs=Mahasiswa::find(Auth::user()->id_user);
+        $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
-        return view('pages.mahasiswa.sidang.form',compact('id','det','dosen','mhs'));
+
+        $p_uji=PivotPenguji::where('mahasiswa_id',$idmhs)->with('dosen')->with('mahasiswa')->get();
+        $penguji=array();
+        foreach($p_uji as $k =>$v)
+        {
+            $penguji[$v->penguji_id]=$v;
+        }
+
+        $quota_penguji=QuotaPenguji::where('departemen_id',$mhs->departemen_id)->get();
+        $q_penguji=array();
+        foreach($quota_penguji as $k=>$vq)
+        {
+            $q_penguji[$vq->level]=$vq;
+        }
+
+        $jlhpenguji=5;
+        if(strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
+        {
+            if(isset($q_penguji['S1']))
+                $jlhpenguji=$q_penguji['S1']->quota;
+        }
+        elseif(strpos($mhs->programstudi->nama_program_studi,'S2')!==false)
+        {
+            if(isset($q_penguji['S2']))
+                $jlhpenguji=$q_penguji['S2']->quota;
+        }
+        elseif(strpos($mhs->programstudi->nama_program_studi,'S3')!==false)
+        {
+            if(isset($q_penguji['S3']))
+                $jlhpenguji=$q_penguji['S3']->quota;
+        }
+
+        return view('pages.mahasiswa.sidang.form',compact('id','det','dosen','mhs','q_penguji','jlhpenguji','penguji'));
     }
     public function update(Request $request, $idpengajuan)
     {
@@ -158,11 +192,11 @@ class DaftarSidangController extends Controller
         {
             if($v!='-1')
             {
-                $penguji=New PivotPenguji;
-                $penguji->pivot_jadwal_id=$id_jadwal;
-                $penguji->penguji_id=$v;
-                $penguji->status=0;
-                $penguji->save();
+                // $penguji=New PivotPenguji;
+                // $penguji->pivot_jadwal_id=$id_jadwal;
+                // $penguji->penguji_id=$v;
+                // $penguji->status=0;
+                // $penguji->save();
 
                 // $notif=new Notifikasi;
                 // $notif->title="Jadwal Sidang";

@@ -35,6 +35,7 @@
                                             <i class="fa fa-check"></i>
                                         </a>
                                         <a href="javascript:tolak({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i></a>
+                                        
                                     </td>
                                 </tr>
                             @else
@@ -66,8 +67,20 @@
                                     <td class="text-center">
                                         @if (isset($acc_sid[Auth::user()->id_user][$v->mahasiswa_id]))
                                             <a href="#" class="btn btn-xs btn-primary">
-                                                <i class="fa fa-check" style="color:red"></i> Telah Di Setujui
+                                                <i class="fa fa-check"></i> Telah Di Setujui
                                             </a>
+                                            <br>
+                                            @if (isset($penguji[$v->mahasiswa_id]))
+                                                <br>Usulan Penguji :
+                                                <ul style="text-align:left">
+                                                @foreach ($penguji[$v->mahasiswa_id]  as $idx=>$vl)
+                                                    <li><i class="fa fa-user"></i> {{$vl->dosen->nama}}</li>   
+                                                @endforeach
+                                                </ul>
+                                            @else
+                                                <br>
+                                                <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_4')}}" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
+                                            @endif
                                         @else
                                             <a href="#" class="btn btn-xs btn-danger">
                                                 <i class="fa fa-exclamation-triangle"></i> Menunggu Acc Sidang

@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Topik Yang Diajukan</label>
+                                        <label class="control-label">Topik Yang Diajukan (*optional)</label>
                                         <input type="text" id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$id==-1 ? '-' : $det->topik_diajukan}}">
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                                 <!--/span-->
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display:none">
                                      <div class="form-group has-success">
                                         <label class="control-label">Bidang Skripsi</label>
                                         <input type="text" id="bidang" name="bidang" class="form-control input-circle" placeholder="Bidang Skripsi" value="{{$id==-1 ? '-' : $det->bidang}}">
@@ -130,7 +130,7 @@
                                 <!--/span-->
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
-                                        <label class="control-label">Skema Penelitian</label>
+                                        <label class="control-label">Skema Penelitian (*optional)</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Skema" id="skema" name="skema">
                                             <option value="-1">-Pilih Skema-</option>
                                             <option value="Sendiri" {{$id!=-1 ? ($det->skema=="Sendiri" ? 'selected="selected"' : '-') : '-'}}>Sendiri</option>

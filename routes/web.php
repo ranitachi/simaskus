@@ -183,6 +183,7 @@ Route::get('izin-dosen-data','IzinDosenController@data')->middleware('auth');
 Route::get('izin-dosen-hapus/{id}','IzinDosenController@destroy')->middleware('auth');
 
 
+
 //---------kalender-akademik---------
 Route::resource('kalender-akademik', 'Admin\KalenderAkademikController')->middleware('auth');
 Route::get('kalender-akademik/{idta}/{id}', 'Admin\KalenderAkademikController@show')->middleware('auth');
@@ -249,3 +250,4 @@ Route::post('jadwal-sidang-kp-simpan/{idgrup}','KerjaPraktekController@simpan_ja
 
 //Acc Sidang
 Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@simpan_form_evaluasi_skipsi')->middleware('auth');
+Route::post('pengajuan-penguji/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganController@simpan_data_penguji')->middleware('auth');

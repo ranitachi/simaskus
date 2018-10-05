@@ -37,6 +37,11 @@
                     <li>
                         <a href="#tab_5_3" data-toggle="tab"> ACC Sidang </a>
                     </li>
+                    @if (!is_null($acc))
+                    <li>
+                        <a href="#tab_5_4" data-toggle="tab"> Pengajuan Penguji </a>
+                    </li>
+                    @endif
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_5_1">
@@ -213,7 +218,16 @@
                             @include('pages.dosen.bimbingan.acc-sidang')
                         </div>
                     </div>
+                    @if (!is_null($acc))
                     
+                    <div class="tab-pane" id="tab_5_4">
+                        <div class="row">
+                            <div class="col-sm-12" style="min-height:300px;">
+                                @include('pages.dosen.bimbingan.pengajuan-penguji')
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -223,7 +237,7 @@
 @section('footscript')
 <script>
     $(document).ready(function(){
-        
+        $('.select2').select2();
         $('#loader').hide();
         loaddatabimbingan('{{$mahasiswa_id}}');
         var ps = "{{Session::has('status')}}";
