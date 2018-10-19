@@ -1,2 +1,18 @@
 arief.udhiarto
 udh1art0
+
+URL GOTO=https://academic.ui.ac.id/main/Authentication/ChangeRole?role=Sub%20Bagian%20Akademik
+TAG POS=1 TYPE=TD ATTR=TXT:ῼ<SP>-<SP>Teknik<SP>Elektro
+TAG POS=1 TYPE=A ATTR=TXT:Mahasiswa<SP>SIAKNG
+
+SET !EXTRACT null
+URL GOTO=https://academic.ui.ac.id/main/Student/List?q=&angkatan=2015&status=ALL
+TAB T=1
+TAG POS=1 TYPE=TD ATTR=CLASS:ce EXTRACT=TXT
+WAIT SECONDS=2
+
+TAB T=2
+URL GOTO=http://localhost/laravel-scraping/public/form-riwayat
+TAG POS=1 TYPE=TEXTAREA FORM=ID:form ATTR=CLASS:riwayat CONTENT={{!EXTRACT}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form ATTR=ID:simpan
+SET !EXTRACT null
