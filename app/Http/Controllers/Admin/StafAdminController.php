@@ -63,7 +63,7 @@ class StafAdminController extends Controller
         $user=new Users;
         $user->name=$request->nama;
         $user->email=$request->email;
-        $user->password=bcrypt($request->npm);
+        $user->password=bcrypt($request->nip);
         $user->flag=1;
         $user->kat_user=$request->kat_user;
         $user->id_user=$user_id;

@@ -16,3 +16,14 @@ URL GOTO=http://localhost/laravel-scraping/public/form-riwayat
 TAG POS=1 TYPE=TEXTAREA FORM=ID:form ATTR=CLASS:riwayat CONTENT={{!EXTRACT}}
 TAG POS=1 TYPE=INPUT:SUBMIT FORM=ID:form ATTR=ID:simpan
 SET !EXTRACT null
+
+- add username & Password di staf
+
+
+admin.elektro@email.com
+admin.sipil@email.com
+admin.mesin@email.com
+admin.industri@email.com
+admin.metal@email.com
+admin.arsitek@email.com
+admin.kimia@email.com
