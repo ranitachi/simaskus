@@ -28,7 +28,7 @@
                 <div class="form-group has-success">
                     <label class="control-label">Level</label>
                     {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
-                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="level" id="level">
+                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="keterangan" id="level">
                         @php
                             $level=array('S1','S2','S3');
                         @endphp
