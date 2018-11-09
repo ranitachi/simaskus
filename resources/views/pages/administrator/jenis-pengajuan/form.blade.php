@@ -32,15 +32,15 @@
                         @php
                             $level=array('S1','S2','S3');
                         @endphp
-                            @foreach ($jenis as $item)
+                            @foreach ($level as $item)
                                 @if ($id!=-1)
-                                    @if ($item->id==$det->level)
-                                        <option value="{{$item->id}}" selected="selected">{{$item->jenis}}</option>
+                                    @if ($item==$det->keterangan)
+                                        <option value="{{$item}}" selected="selected">{{$item}}</option>
                                     @else
-                                        <option value="{{$item->id}}">{{$item->jenis}}</option>
+                                        <option value="{{$item}}">{{$item}}</option>
                                     @endif
                                 @else
-                                    <option value="{{$item->id}}">{{$item->jenis}}</option>
+                                    <option value="{{$item}}">{{$item}}</option>
                                 @endif
                             @endforeach
                     </select>

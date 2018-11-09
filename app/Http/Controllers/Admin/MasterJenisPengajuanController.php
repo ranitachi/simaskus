@@ -19,6 +19,8 @@ class MasterJenisPengajuanController extends Controller
     public function show($id)
     {
         $det=array();
+        // $det=MasterJenisPengajuan::find($id);
+        // if($id!=-1)
             $det=MasterJenisPengajuan::find($id);
         
         return view('pages.administrator.jenis-pengajuan.form')
