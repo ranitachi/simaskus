@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Izin Dosen :: SIMASKUS</title>
+    <title>Data Izin Dosen :: SIMA-sp</title>
 @endsection
 @section('konten')
         <div class="page-content">

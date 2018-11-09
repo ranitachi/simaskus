@@ -8,13 +8,13 @@
     }
 @endphp
 
-@for ($i = 1 ; $i <= $quota_p  ; $i++)
+{{-- @for ($i = 1 ; $i <= $quota_p  ; $i++) --}}
     
 
     <div class="form-group has-success">
-        <label class="control-label">Pilihan {{$i}}</label>
+        <label class="control-label">Pilihan Pembimbing</label>
         
-            <select class="form-control select2" data-placeholder="Pilih Dosen" name="dospem[]" id="dosen">
+            <select class="form-control select2" data-placeholder="Pilih Dosen" name="dospem[]" id="dosen" multiple>
                 <option value="0">Pilih</option>
                 @foreach ($dosen as $idx => $v)
                     @if (isset($piv[$v->id]))
@@ -32,7 +32,7 @@
         
     </div>
 
-@endfor
+{{-- @endfor --}}
 
 <style>
 .select2-container

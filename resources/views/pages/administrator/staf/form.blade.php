@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$id==-1 ? 'Tambah Data Staf' :'Edit Data Staf'}} :: SIMASKUS</title>
+    <title>{{$id==-1 ? 'Tambah Data Staf' :'Edit Data Staf'}} :: SIMA-sp</title>
 @endsection
 
 @section('konten')

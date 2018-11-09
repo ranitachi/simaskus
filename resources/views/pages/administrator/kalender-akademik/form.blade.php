@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Tambah Kalender Akademik :: SIMASKUS</title>
+    <title>Tambah Kalender Akademik :: SIMA-sp</title>
 @endsection
 
 @section('konten')

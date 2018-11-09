@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    <title>Jadwal {{ucwords($jenis)}} :: SIMASKUS</title>
+    <title>Jadwal {{ucwords($jenis)}} :: SIMA-sp</title>
 @endsection
 
 @section('konten')

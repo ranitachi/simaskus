@@ -49,19 +49,24 @@
                     @endphp
                 @endif
             @else
-                <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
-                    {{-- <td>{{$v->code}}</td> --}}
-                    <td>{{$v->departemen->nama_departemen}}</td>
-                    <td>{{$v->nama_program_studi}}</td>
-                    <td>{{isset($v->pimpinan->nama) ? $v->pimpinan->nama : ''}}</td>
-                    <td>
-                        <div style="width:80px;">
-                            <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                @if (isset($v->departemen->nama_departemen))  
+                    <tr class="odd gradeX">
+                        <td>{{($no)}}</td>
+                        {{-- <td>{{$v->code}}</td> --}}
+                        <td>{{$v->departemen->nama_departemen}}</td>
+                        <td>{{$v->nama_program_studi}}</td>
+                        <td>{{isset($v->pimpinan->nama) ? $v->pimpinan->nama : ''}}</td>
+                        <td>
+                            <div style="width:80px;">
+                                <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    @php
+                        $no++;
+                    @endphp
+                @endif
             @endif
 
             @endforeach                

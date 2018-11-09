@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$det->status_pengajuan==0 ? 'Verifikasi Kerja Praktek' :'Detail Kerja Praktek'}} :: SIMASKUS</title>
+    <title>{{$det->status_pengajuan==0 ? 'Verifikasi Kerja Praktek' :'Detail Kerja Praktek'}} :: SIMA-sp</title>
     <link href="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Quota Bimbingan :: SIMASKUS</title>
+    <title>Quota Bimbingan :: SIMA-sp</title>
 @endsection
 
 @section('konten')

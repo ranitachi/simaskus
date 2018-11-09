@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Sidang :: SIMASKUS</title>
+    <title>Data Sidang :: SIMA-sp</title>
 @endsection
 <link href="{{asset('assets/global/plugins/cubeportfolio/css/cubeportfolio.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/pages/css/portfolio.min.css')}}" rel="stylesheet" type="text/css" />

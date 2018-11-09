@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Beranda :: SIMASKUS</title>
+    <title>Beranda :: SIMA-sp</title>
 @endsection
 <link href="{{asset('assets/apps/css/todo-2.min.css')}}" rel="stylesheet" type="text/css">
 @section('konten')
@@ -17,7 +17,7 @@
     </div>
     <!-- END PAGE BAR -->
     <!-- BEGIN PAGE TITLE-->
-    <h1 class="page-title"> Sistem Informasi Mata Kuliah Khusus
+    <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial
     </h1>
     <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">

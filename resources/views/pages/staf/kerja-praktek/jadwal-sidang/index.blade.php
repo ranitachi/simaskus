@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Jadwal Sidang Kerja Praktek :: SIMASKUS</title>
+    <title>Jadwal Sidang Kerja Praktek :: SIMA-sp</title>
 @endsection
 
 @section('konten')

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Tambah Data Pengajuan Sidang :: SIMASKUS</title>
+    <title>Tambah Data Pengajuan Sidang :: SIMA-sp</title>
     <link href="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Beranda :: SIMASKUS</title>
+    <title>Beranda :: SIMA-sp</title>
     <link href="{{asset('assets/pages/css/search.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 

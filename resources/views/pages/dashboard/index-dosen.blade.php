@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Beranda :: SIMASKUS</title>
+    <title>Beranda :: SIMA-sp</title>
 @endsection
 
 @section('konten')

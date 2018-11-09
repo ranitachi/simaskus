@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$id==-1 ? 'Tambah Data Pengajuan Skripsi' :'Edit Data Pengajuan Skripsi'}} :: SIMASKUS</title>
+    <title>{{$id==-1 ? 'Tambah Data Pengajuan Skripsi' :'Edit Data Pengajuan Skripsi'}} :: SIMA-sp</title>
     <link href="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -160,7 +160,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                      <div class="form-group has-success">
-                                        <label class="control-label">Deskripsi/Rencana</label>
+                                        <label class="control-label">Deskripsi</label>
                                         <textarea class="wysihtml5 form-control" rows="6" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : '-'}}</textarea>
                                     </div>
                                 </div>
@@ -215,7 +215,8 @@
                                             </select>
                                     </div>
                                     <div class="form-group has-success">
-                                        <label class="control-label">Dosen Ketua Kelompok Ilmu</label>
+                                        <input type="hidden" name="dosen_ketua">
+                                        {{-- <label class="control-label">Dosen Ketua Kelompok Ilmu</label>
                                         <div id="prog_studi">
                                             <select class="form-control select2"data-placeholder="Pilih " name="dosen_ketua" id="dosen_ketua">
                                                 <option value="0">Pilih Dosen</option>
@@ -234,7 +235,7 @@
                                                 @endif
                                             @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                      <div class="form-group has-success" id="dosen-mengulang" style="display:none">
                                         <label class="control-label">Dosen Pembimbing Sebelumnya (Buat yang mengulang)</label>
@@ -269,12 +270,12 @@
                                     </div>
                                 </div>
                             <div class="col-md-6"> 
-                                    <div class="form-group has-success">
+                                    {{-- <div class="form-group has-success">
                                         <label class="control-label">Upload daftar Bimbingan dari SIAK-NG</label>
                                         <input type="file" name="bukti_bimbingan" class="form-control"><br>
                                         <span class="label label-danger">Info</span> <small>Upload bukti daftar bimbingan dalam format jpg, jpeg, png atau PDF. Maksimal ukuran file 10 MB. <br><a href="javascript:contohbuktibimbingan()">Klik disini untuk melihat contoh</a></small>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                            </div>
                         </div>
                         <div class="form-actions pull-right">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>
@@ -319,6 +320,7 @@
     }
 
     $(document).ready(function(){
+        $('.select2').select2();
         $('#departemen').change(function(){
             var id=$(this).val();
             $('#prog_studi').load('{{url("program-studi")}}/'+id);

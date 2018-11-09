@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Kalender Akademik :: SIMASKUS</title>
+    <title>Data Kalender Akademik :: SIMA-sp</title>
 @endsection
 
 @section('konten')

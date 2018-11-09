@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$id==-1 ? 'Tambah Data Dosen' :'Edit Data Dosen'}} :: SIMASKUS</title>
+    <title>{{$id==-1 ? 'Tambah Data Dosen' :'Edit Data Dosen'}} :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -154,25 +154,8 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-6">
-                                    <div class="form-group has-success">
-                                        <label>Penugasan</label>
-                                        <input type="text"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
-                                </div>
-                                <!--/span-->
-                            </div>
-                            <div class="row">
                                 <div class="col-md-3">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Status Ketua Kelompok</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_ketua_kelompok" id="status_ketua_kelompok">
-                                            <option value="-1">-Pilih Status-</option>
-                                            <option value="1" {{$id!=-1 ? ($det->status_ketua_kelompok==1 ? 'selected="selected"' : '') : ''}}>Ya</option>
-                                            <option value="0" {{$id!=-1 ? ($det->status_ketua_kelompok==0 ? 'selected="selected"' : '') : ''}}>Tidak</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+                                    
                                     <div class="form-group has-success">
                                         <label class="control-label">Status Dosen</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_dosen" id="status_dosen">
@@ -181,7 +164,24 @@
                                             <option value="Dosen Non UI" {{$id!=-1 ? ($det->status_dosen=="Dosen Non UI" ? 'selected="selected"' : '') : ''}}>Dosen Non UI</option>
                                         </select>
                                     </div>
+                                
+                                        <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
                                 </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <input type="hidden" name='status_ketua_kelompok'>
+                                {{-- <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Status Ketua Kelompok</label>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_ketua_kelompok" id="status_ketua_kelompok">
+                                            <option value="-1">-Pilih Status-</option>
+                                            <option value="1" {{$id!=-1 ? ($det->status_ketua_kelompok==1 ? 'selected="selected"' : '') : ''}}>Ya</option>
+                                            <option value="0" {{$id!=-1 ? ($det->status_ketua_kelompok==0 ? 'selected="selected"' : '') : ''}}>Tidak</option>
+                                        </select>
+                                    </div>
+                                </div> --}}
+                                
                                 <!--/span-->
                                 <div class="col-md-6">
                                     

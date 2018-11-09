@@ -51,13 +51,13 @@
 <li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
-        <span class="title">Pengajuan Skripsi</span>
+        <span class="title">Pengajuan</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
         <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
             <a href="{{url('pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Bimbingan</span>
+                <span class="title">Pengajuan Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
@@ -127,7 +127,7 @@
     </ul>
 </li>
 @endif
-<li class="nav-item {{strpos(Request::url(),'data-kp')!==false   ? 'active' : ''}}">
+{{-- <li class="nav-item {{strpos(Request::url(),'data-kp')!==false   ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
         <span class="title">Kerja Praktek</span>
@@ -143,14 +143,14 @@
             <a href="form_controls_md.html" class="nav-link ">
                 <span class="title">Tambah KP Baru</span>
             </a>
-        </li> --}}
+        </li> 
         <li class="nav-item  ">
             <a href="form_validation.html" class="nav-link ">
                 <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
         </li>
     </ul>
-</li>
+</li> --}}
 
 {{-- <li class="nav-item  ">
     <a href="javascript:;" class="nav-link nav-toggle">

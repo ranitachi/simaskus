@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Program Studi :: SIMASKUS</title>
+    <title>Data Program Studi :: SIMA-sp</title>
 @endsection
 
 @section('konten')
