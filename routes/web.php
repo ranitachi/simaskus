@@ -79,6 +79,7 @@ Route::get('jenjang-hapus/{id}', 'Admin\JenjangController@destroy')->middleware(
 //---------------------------------------------------------------------------------------------------------------------------------------
 // Mahasiswa
 Route::get('mahasiswa-by-npm/{npm}', 'MahasiswaController@get_by_npm');
+Route::get('mahasiswa-by-email/{email}', 'MahasiswaController@get_by_email');
 Route::get('profil', 'MahasiswaController@profil')->middleware('auth');
 Route::get('cekpassmhs/{pass}', 'MahasiswaController@cekpass')->middleware('auth');
 Route::post('/registrasi-mhs', 'MahasiswaController@registrasi');

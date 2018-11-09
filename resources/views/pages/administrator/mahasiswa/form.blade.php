@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$id==-1 ? 'Tambah Data Mahasiswa' :'Edit Data Mahasiswa'}} :: SIMASKUS</title>
+    <title>{{$id==-1 ? 'Tambah Data Mahasiswa' :'Edit Data Mahasiswa'}} :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -109,15 +109,28 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
                                             <option value="-1">-Pilih Departemen-</option>
                                             @foreach ($departemen as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->departemen_id==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                                @if (Auth::user()->kat_user==0)
+                                                    @if ($id!=-1)
+                                                        @if ($det->departemen_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                                     @endif
                                                 @else
-                                                    <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                                    @if ($id!=-1)
+                                                        @if ($det->departemen_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
+                                                        @endif
+                                                    @else
+                                                        @if ($dept_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>
+                                                        @endif
+                                                    @endif
                                                 @endif
+                                                
                                             @endforeach
                                         </select>
                                     </div>
@@ -138,8 +151,12 @@
 
                                                             @endif
                                                         @endforeach
+                                                    @elseif($dept_id!=-1)
+                                                        @foreach ($prodi[$dept_id] as $kd => $vd)  
+                                                            <option value="{{$vd->id}}">{{$vd->nama_program_studi}}</option> 
+                                                        @endforeach
                                                     @endif
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -213,7 +230,9 @@
     $(document).ready(function(){
         $('#departemen').change(function(){
             var id=$(this).val();
-            $('#prog_studi').load('{{url("program-studi")}}/'+id);
+            $('#prog_studi').load('{{url("program-studi")}}/'+id,function(){
+                $('#program_studi').select2();
+            });
         });
         // swal("Good job!", "You clicked the button!", "success")
         $('#simpan').on('click',function(){
@@ -231,12 +250,12 @@
                 pesan("Nama Mahasiswa Harus Diisi",'error');
                 $('#nama').focus();
             }    
-            else if(departemen=='')
+            else if(departemen=='-1')
             {
                 pesan("Departemen harus dipilih",'error');
                 $('#departemen').focus();
             }
-            else if(program_studi=='')
+            else if(program_studi=='-1')
             {
                 pesan("Program Studi harus dipilih",'error');
                 $('#program_studi').focus();

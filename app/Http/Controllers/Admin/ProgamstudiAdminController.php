@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Model\MasterDepartemen;
 use App\Model\ProgamStudi;
 use App\Model\Dosen;
+use App\Model\Staf;
+use App\Model\Mahasiswa;
+use Auth;
 class ProgamstudiAdminController extends Controller
 {
     public function index()
@@ -15,7 +18,7 @@ class ProgamstudiAdminController extends Controller
     public function data()
     {
         $dept=MasterDepartemen::with('pimpinan')->orderBy('nama_departemen')->get();
-        $prodi=ProgamStudi::with('pimpinan')->orderBy('departemen_id')->orderBy('nama_program_studi')->get();
+        $prodi=ProgamStudi::with('pimpinan')->with('departemen')->orderBy('departemen_id')->orderBy('nama_program_studi')->get();
         return view('pages.administrator.program-studi.data')
                 ->with('prodi',$prodi)
                 ->with('dept',$dept);
@@ -23,11 +26,33 @@ class ProgamstudiAdminController extends Controller
     public function show($id)
     {
         $det=array();
-        $dosen=Dosen::all();
+        
         $dept=MasterDepartemen::all();
+        
         if($id!=-1)
             $det=ProgamStudi::find($id);
         
+        
+        $dept_id=-1;    
+        if(Auth::user()->kat_user==2)
+        {
+            $dos=Dosen::where('id',Auth::user()->id_user)->first();
+            $dept_id=$dos->departemen_id;
+            $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        }
+        elseif(Auth::user()->kat_user==1)
+        {
+            $staf=Staf::where('id',Auth::user()->id_user)->first();
+            $dept_id=$staf->departemen_id;
+            $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        } 
+        elseif(Auth::user()->kat_user==0 && $id!=-1)
+        {
+            $dosen=Dosen::where('departemen_id',$det->departemen_id)->get();
+        }
+        
+        
+        // dd($dosen);
         return view('pages.administrator.program-studi.form')
                 ->with('det',$det)
                 ->with('dosen',$dosen)

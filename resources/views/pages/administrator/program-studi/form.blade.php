@@ -74,21 +74,38 @@
             <div class="col-md-12">
                 <div class="form-group has-success">
                     <label class="control-label">Nama Pimpinan</label>
-                    <select class="bs-select form-control has-success" data-placeholder="Pilih Pimpinan" name="pimpinan_id" id="pimpinan_id" onchange="pilihdepartemen(this.value)">
-                        <option value="-1">-Pilih Pimpinan-</option>
-                        <option value="0">-Input Data Pimpinan Baru-</option>
-                        @foreach ($dosen as $i => $v)
-                            @if ($id!=-1)
-                                @if ($det->pimpinan_id==$v->id)
-                                    <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
-                                @else
-                                    <option value="{{$v->id}}">{{$v->nama}}</option>
-                                @endif
-                            @else
-                                <option value="{{$v->id}}">{{$v->nama}}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <div id="div_pimpinan">
+                        
+                            <select class="bs-select form-control has-success" data-placeholder="Pilih Pimpinan" name="pimpinan_id" id="pimpinan_id" onchange="pilihdepartemen(this.value)">
+                                <option value="-1">-Pilih Pimpinan-</option>
+                                <option value="0">-Input Data Pimpinan Baru-</option>
+
+                                @foreach ($dosen as $i => $v)
+                                    @if (Auth::user()->kat_user==0)
+                                        @if ($id!=-1)
+                                            @if ($det->pimpinan_id==$v->id)
+                                                <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
+                                            @else
+                                                <option value="{{$v->id}}">{{$v->nama}}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{$v->id}}">{{$v->nama}}</option>
+                                        @endif
+                                    @elseif(Auth::user()->kat_user==1)
+                                        @if ($id!=-1)
+                                            @if ($det->pimpinan_id==$v->id)
+                                                <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
+                                            @else
+                                                <option value="{{$v->id}}">{{$v->nama}}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{$v->id}}">{{$v->nama}}</option>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </select>
+
+                    </div>
                 </div>
             </div>
             <!--/span-->
@@ -106,3 +123,13 @@
         
     </div>
 </form>
+<script>
+$('#departemen_id').select2();
+$('#pimpinan_id').select2();
+</script>
+<style>
+.select2-container
+{
+    width:100% !important;
+}
+</style>

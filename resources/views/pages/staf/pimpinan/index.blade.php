@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Pimpinan Departemen :: SIMASKUS</title>
+    <title>Pimpinan Departemen :: SIMA-sp</title>
 @endsection
 
 @section('konten')

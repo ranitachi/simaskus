@@ -1,11 +1,11 @@
-<div class="page-header navbar navbar-fixed-top">
+<div class="page-header navbar navbar-fixed-top" style="background:#32c5d2">
                 <!-- BEGIN HEADER INNER -->
-                <div class="page-header-inner ">
+                <div class="page-header-inner">
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
                         <a href="index.html">
                             <img src="{{asset('img/simaskus-small.png')}}" alt="logo" class="logo-default" /> </a>
-                        <div class="menu-toggler sidebar-toggler">
+                        <div class="menu-toggler sidebar-toggler" >
                             <span></span>
                         </div>
                     </div>
@@ -103,3 +103,11 @@
                 </div>
                 <!-- END HEADER INNER -->
             </div>
+<style>
+.page-header.navbar .menu-toggler > span, 
+.page-header.navbar .menu-toggler > span:before, 
+.page-header.navbar .menu-toggler > span:after
+{
+    background:#000 !important;
+}
+</style>

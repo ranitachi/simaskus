@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Mahasiswa;
+use App\Model\Dosen;
+use App\Model\Staf;
 use App\Model\ProgamStudi;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
@@ -20,21 +22,41 @@ class MahasiswaAdminController extends Controller
     {
         $det=array();
         $departemen=MasterDepartemen::all();
-        $prodi=ProgamStudi::all();
+        
+
+        if($id!=-1)
+        {
+            $det=Mahasiswa::find($id);
+        }
+        
+        $dept_id=-1;    
+        if(Auth::user()->kat_user==2)
+        {
+            $dos=Dosen::where('id',Auth::user()->id_user)->first();
+            $dept_id=$dos->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==1)
+        {
+            $staf=Staf::where('id',Auth::user()->id_user)->first();
+            $dept_id=$staf->departemen_id;
+        }    
+
+        if($dept_id==-1)
+            $prodi=ProgamStudi::all();
+        else
+            $prodi=ProgamStudi::where('departemen_id',$dept_id)->get();
+
         $prd=array();
         foreach($prodi as $kp => $vp)
         {
             $prd[$vp->departemen_id][]=$vp;
         }
 
-        if($id!=-1)
-        {
-            $det=Mahasiswa::find($id);
-        }
         return view('pages.administrator.mahasiswa.form')
                 ->with('id',$id)
                 ->with('det',$det)
                 ->with('prodi',$prd)
+                ->with('dept_id',$dept_id)
                 ->with('departemen',$departemen);
     }
 

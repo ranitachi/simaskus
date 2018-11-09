@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Profil Staf :: SIMASKUS</title>
+    <title>Profil Staf :: SIMA-sp</title>
 @endsection
 
 @section('konten')

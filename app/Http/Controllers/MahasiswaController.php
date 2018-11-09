@@ -17,6 +17,11 @@ class MahasiswaController extends Controller
         $mhs=Mahasiswa::where('npm',$npm)->first();
         echo json_encode($mhs);
     }
+    public function get_by_email($npm)
+    {
+        $mhs=Mahasiswa::where('email',$npm)->first();
+        echo json_encode($mhs);
+    }
     public function profil()
     {
         $dept=MasterDepartemen::all();
@@ -80,7 +85,7 @@ class MahasiswaController extends Controller
         $mhs=new Mahasiswa;
         $mhs->npm=$request->npm;
         $mhs->nama=$request->nama;
-        $mhs->email=$request->email;
+        $mhs->email=$request->email_regis;
         $mhs->departemen_id=$request->departemen_id;
         $mhs->jenjang_id=$request->program_studi;
         $mhs->program_studi_id=$request->program_studi;
@@ -89,7 +94,7 @@ class MahasiswaController extends Controller
 
         $us=new Users;
         $us->id_user=$mhs->id;
-        $us->email=$request->email;
+        $us->email=$request->email_regis;
         $us->name=$request->nama;
         $us->flag=0;
         $us->kat_user=3;

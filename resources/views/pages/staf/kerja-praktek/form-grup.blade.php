@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>{{$id==-1 ? 'Tambah Grup Kerja Praktek' :'Edit Grup Kerja Praktek'}} :: SIMASKUS</title>
+    <title>{{$id==-1 ? 'Tambah Grup Kerja Praktek' :'Edit Grup Kerja Praktek'}} :: SIMA-sp</title>
     <link href="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 

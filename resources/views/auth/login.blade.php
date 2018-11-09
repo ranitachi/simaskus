@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Login :: SIMASKUS</title>
+        <title>Login :: SIMA-sp</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Preview page of Metronic Admin Theme #1 for " name="description" />
@@ -36,15 +36,15 @@
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
-    <body class=" login">
+    <body class="login" style="background: lightblue !important">
         <div class="logo">
             <a href="{{url('/')}}">
-                <img src="{{asset('img/simaskus.png')}}" alt="" style="height:50px;"/> </a>
+                <img src="{{asset('img/sima-sp.png')}}" alt="" style="height:80px;"/> </a>
         </div>
-        <div class="content">
-            <form class="form-horizontal" id="login-form" method="POST" action="{{ route('login') }}">
+        <div class="content" style="background:white !important;">
+            <form class="form-horizontal" id="login-form" method="POST" action="{{ route('login') }}" >
                  {{ csrf_field() }}
-                <h3 class="form-title">Halaman Login</h3>
+                <h3 class="form-title" style="color:darkblue">Halaman Login</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span> Silahkan Masukan Username dan Password </span>
@@ -54,7 +54,7 @@
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                        <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus style="color:darkblue">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
@@ -67,7 +67,7 @@
                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                     <div class="input-icon">
                         <i class="fa fa-lock"></i>
-                        <input id="password" type="password" class="form-control" name="password" required>
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password" required style="color:darkblue">
 
                             @if ($errors->has('password'))
                                 <span class="help-block">
@@ -78,9 +78,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="btn btn-primary">
-                            Login
-                        </button>
+                        <input type="submit" class="btn btn-primary" value="Login">
                         {{-- @if (isset($jenis))
                             @if ($jenis=='mahasiswa') --}}
                             <button type="button" id="register-btn" class="btn btn-success">
@@ -100,7 +98,7 @@
             </form>
             <form class="register-form" action="{{url('registrasi-mhs')}}" method="POST" style="margin-top:-80px;">
                 {{ csrf_field() }}
-                <h3>Form Register</h3>
+                <h3>&nbsp;</h3>
                 <p> Enter your personal details below: </p>
                 <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label visible-ie8 visible-ie9">NPM</label>
@@ -135,12 +133,6 @@
                                         <div id="div_dept">
                                             <select class="bs-select form-control has-success" name="program_studi" id="jenjang">
                                                 <option value="0">- Pilih Jejang -</option>
-                                                @php
-                                                    $prodi=\App\Model\ProgamStudi::all();
-                                                @endphp
-                                                @foreach ($prodi as $item)
-                                                    <option value="{{$item->id}}">{{$item->nama_program_studi}}</option>
-                                                @endforeach
                                             </select>
                                         </div>
                                 </div>
@@ -150,7 +142,7 @@
                                     <label class="control-label visible-ie8 visible-ie9">Email</label>
                                     <div class="input-icon">
                                         <i class="fa fa-at"></i>
-                                        <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email" id="email"/> </div>
+                                        <input class="form-control placeholder-no-fix" type="text" placeholder="Email" name="email_regis" id="email_regis" autocomplete="off"> </div>
                                 </div>
                                 <div class="form-group" style="margin-bottom:5px;">
                                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -175,7 +167,7 @@
                                 --}}
                                 <div class="form-actions">
                                     <button id="register-back-btn" type="button" class="btn red btn-outline"> Back </button>
-                                    <button type="submit" id="register-submit-btn" class="btn green pull-right"> Register </button>
+                                    <button type="button" id="register-submit-btn" class="btn green pull-right"> Register </button>
                                 </div>
             </form>
         </div>
@@ -183,9 +175,6 @@
         
         <!-- END : LOGIN PAGE 5-2 -->
         <!--[if lt IE 9]>
-<script src="{{asset('assets/global/plugins/respond.min.js')}}"></script>
-<script src="{{asset('assets/global/plugins/excanvas.min.js')}}"></script> 
-<script src="{{asset('assets/global/plugins/ie8.fix.min.js')}}"></script> 
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
         <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
@@ -212,7 +201,7 @@
         <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="{{asset('assets/pages/scripts/login-4.js')}}" type="text/javascript"></script>
+        {{-- <script src="{{asset('assets/pages/scripts/login-4.js')}}" type="text/javascript"></script> --}}
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->
@@ -242,8 +231,8 @@
                         dataType : 'json',
                         success : function(a)
                         {
-                            var count = Object.keys(a).length;
-                            if(count!=0)
+                            // var count = Object.keys(a).length;
+                            if(a!=null)
                             {
                                 //alert(a.nama);
                                 //$().
@@ -255,11 +244,33 @@
                         }    
                     });
                 });
+                $('#register-submit-btn').on('click',function(){
+                    var email=$('#email_regis').val();
+                    $.ajax({
+                        url : '{{url("mahasiswa-by-email")}}/'+email,
+                        dataType : 'json',
+                        success : function(a)
+                        {
+                            // var count = Object.keys(a).length;
+                            if(a!=0)
+                            {
+                                //alert(a.nama);
+                                //$().
+                                $('#nama').val(a.nama);
+                                $('#email').val(a.email);
+                                $('#hp').val(a.hp);
+                                swal("Sudah Terdaftar", "Email Sudah Terdaftar Sebleumnya, Silahkan Gunakan Email Lain", "success")
+                            }
+                        }    
+                    });
+                });
             })
 
             function prodi(id_dept)
             {
-                $('#div_dept').load('{{url("program-studi")}}/'+id_dept);
+                $('#div_dept').load('{{url("program-studi")}}/'+id_dept,function(){
+                    $('#program_studi').select2();
+                });
             }
         </script>
     </body>
