@@ -26,7 +26,7 @@
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
                                     @php
-                                        $notif=\App\Model\Notifikasi::where('to',Auth::user()->id)->where('flag_active',1)->orderBy('created_at')->get();
+                                        $notif=\App\Model\Notifikasi::where('to',Auth::user()->id)->where('flag_active',1)->orderBy('created_at','desc')->get();
                                     @endphp
                                     @if (count($notif)>0)
                                         <span class="badge badge-danger"> {{count($notif)}} </span>

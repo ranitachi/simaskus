@@ -45,7 +45,7 @@
 <li class="nav-item  {{strpos(Request::url(),'bimbingan')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
-        <span class="title">Data Bimbingan</span>
+        <span class="title">Bimbingan</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
@@ -62,7 +62,7 @@
     </ul>
 </li>
 
-<li class="nav-item  {{strpos(Request::url(),'pengajuan-sidang')!==false ? 'active' : (strpos(Request::url(),'jadwal-sidang-dosen')!==false ? 'active' : '')}}">
+{{-- <li class="nav-item  {{strpos(Request::url(),'pengajuan-sidang')!==false ? 'active' : (strpos(Request::url(),'jadwal-sidang-dosen')!==false ? 'active' : '')}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Pengajuan Seminar/Skripsi/Tesis</span>
@@ -80,7 +80,7 @@
             </a>
         </li>
     </ul>
-</li>
+</li> --}}
 <li class="nav-item  ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>

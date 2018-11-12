@@ -30,7 +30,7 @@
                 <div class="portlet light bordered">
                     
                     <div class="portlet-body">
-                        <div class="row" style="margin-bottom:10px;">
+                        {{-- <div class="row" style="margin-bottom:10px;">
                             <div class="col-md-7"></div>
                             <div class="col-md-2">
                                 Jenis Bimbingan : 
@@ -38,7 +38,7 @@
                             <div class="col-md-3">
                                 <select class="bs-select"></select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div id="data"></div>
                     </div>
                 </div>

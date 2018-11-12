@@ -26,6 +26,11 @@
                     <strong>Info!</strong> Akun Anda Belum DI Verifikasi Oleh Sekretariat.
                 </div>
             @endif
+                @if ($user->flag==0)
+                    <div class="alert alert-danger text-center" style="font-size:20px !important;">
+                        <strong>Info!</strong> Akun Anda Belum DI Verifikasi, &nbsp;<button class="btn btn-xs btn-info" onclick="verifikasi({{$profil->id}})"><i class="fa fa-check"></i> Klik Untuk Memverifikasi</button>.
+                    </div>
+                @endif
             <!-- BEGIN PROFILE SIDEBAR -->
             <div class="profile-sidebar">
                 <!-- PORTLET MAIN -->
@@ -71,10 +76,10 @@
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                        <a href="#tab_1_1" data-toggle="tab">Biodata Diri</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_1_2" data-toggle="tab">College Info</a>
+                                        <a href="#tab_1_2" data-toggle="tab">Info Kampus</a>
                                     </li>
                                    
                                 </ul>
@@ -243,6 +248,24 @@
         }
         
     }
-
+    function verifikasi(id)
+    {
+        $.ajax({
+            url : '{{url("verifikasi-mahasiswa")}}/'+id,
+            success:function(a){
+                if(a==1)
+                {
+                    swal("Berhasil", "Data Mahasiswa Sudah Di Verifikasi", "success");
+                    // loaddata();
+                    setTimeout(function(){
+                        location.href="{{url('/')}}/mahasiswa-detail/"+id;
+                    },2000);
+                    
+                }
+                else
+                    swal("Gagal", "Data Mahasiswa Gagal Di Verifikasi", "danger");
+            }
+        });
+    }
 </script>
 @endsection

@@ -9,7 +9,7 @@
             <!--/span-->
             <div class="col-md-6">
                 <div class="form-group has-success">
-                    <label class="control-label">Level</label>
+                    <label class="control-label">Jenis</label>
                     <input type="hidden" id="departemen_id" name="departemen_id" class="form-control input-circle" placeholder="Nama Departemen" value="{{$id==-1 ? $dept_id : $det->departemen_id}}">
                     <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="level" id="level">
                         @php

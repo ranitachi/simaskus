@@ -3,6 +3,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th> Jenis Bimbingan </th>
                     <th> NPM </th>
                     <th> Mahasiswa </th>
                     <th> Program Studi </th>
@@ -10,7 +11,7 @@
                     @if ($jenis=='pengajuan')
                         <th> Kesediaan Pembimbing </th>
                     @else
-                        <th class="text-center"> Setuju Sidang </th>
+                        <th class="text-center"> Status Sidang </th>
                         <th class="text-center"> Bimbingan </th>
                     @endif
                     <th> Tombol Aksi </th>
@@ -24,6 +25,7 @@
                             @if ($piv[$v->mahasiswa_id]->status==0)
                                 <tr>
                                     <td>{{++$k}}</td>
+                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
@@ -31,16 +33,18 @@
                                     <td class="text-center"> {!!isset($piv[$v->mahasiswa_id]) ? ($piv[$v->mahasiswa_id]->status==0 ? '<span class="label label-sm label-info"><i class="fa fa-exclamation-triangle"></i> Belum Bersedia</span>' : ($piv[$v->mahasiswa_id]->status==1 ? '<span class="label label-sm label-success"><i class="fa fa-check"></i>  Bersedia</span>' : '<span class="label label-sm label-danger"><i class="fa fa-ban"></i> Tidak Bersedia</span>')) : ''!!} </td>
                                    
                                     <td>
-                                        <a href="javascript:setujui({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-primary">
+                                    
+                                        <a href="javascript:setujui({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-primary tooltips" data-container="body" data-placement="top" data-original-title="Klik Untuk Memverifikasi" title="Klik Untuk Memverifikasi">
                                             <i class="fa fa-check"></i>
                                         </a>
-                                        <a href="javascript:tolak({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-danger"><i class="fa fa-ban"></i></a>
+                                        <a href="javascript:tolak({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-danger tooltips" data-container="body" data-placement="top" data-original-title="Klik Untuk Menolak" title="Klik Untuk Menolak"><i class="fa fa-ban"></i></a>
                                         
                                     </td>
                                 </tr>
                             @else
                                 <tr>
                                     <td>{{++$k}}</td>
+                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
@@ -60,6 +64,7 @@
                             @if ($piv[$v->mahasiswa_id]->status==1)
                                 <tr>
                                     <td>{{++$k}}</td>
+                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>

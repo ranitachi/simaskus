@@ -9,7 +9,7 @@ class Dosen extends Model
 {
     use SoftDeletes;
     protected $table = 'dosen';
-    protected $fillable = ['nip','inisial','nama','departemen_id','tanggal_lahir','gender','alamat','kota','email','hp','created_at','updated_at','deleted_at'];
+    protected $fillable = ['nip','inisial','nama','departemen_id','tanggal_lahir','gender','alamat','kota','email','hp','jabatan','status_dosen','nidn','created_at','updated_at','deleted_at'];
 
     function departemen()
     {

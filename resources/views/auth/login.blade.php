@@ -96,7 +96,7 @@
                 </div>
                 
             </form>
-            <form class="register-form" action="{{url('registrasi-mhs')}}" method="POST" style="margin-top:-80px;">
+            <form class="register-form" id="register-form" action="{{url('registrasi-mhs')}}" method="POST" style="margin-top:-80px;">
                 {{ csrf_field() }}
                 <h3>&nbsp;</h3>
                 <p> Enter your personal details below: </p>
@@ -252,10 +252,15 @@
                         success : function(a)
                         {
                             // var count = Object.keys(a).length;
-                            if(a!=0)
+                            if(a==null)
                             {
                                 //alert(a.nama);
                                 //$().
+                                $('#register-form').submit();
+                            }
+                            else
+                            {
+                                
                                 $('#nama').val(a.nama);
                                 $('#email').val(a.email);
                                 $('#hp').val(a.hp);

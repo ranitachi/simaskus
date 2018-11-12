@@ -114,7 +114,7 @@ class MahasiswaController extends Controller
                 $notif->from=$us->id;
                 $notif->to=$v->id;
                 $notif->flag_active=1;
-                $notif->pesan="Mahasiswa : ".$request->nama." Melakukan Registrasi, Harap Segera Di Verifikasi";
+                $notif->pesan="Mahasiswa : ".$request->nama." Melakukan Registrasi, Harap Segera Di Verifikasi<br><a href='".url('mahasiswa-detail/'.$mhs->id)."'>Klik Disini</a>";
                 $notif->save();
             }
         }

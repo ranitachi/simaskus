@@ -44,6 +44,7 @@ class PengajuanBimbinganController extends Controller
         $data=Pengajuan::where('dospem1',Auth::user()->id_user)
                 ->orWhere('dospem2',Auth::user()->id_user)
                 ->orWhere('dospem3',Auth::user()->id_user)
+                ->with('jenispengajuan')
                 ->get();
         // dd($data);
 
@@ -141,6 +142,7 @@ class PengajuanBimbinganController extends Controller
         // dd($acc);
 
         $quota_penguji=QuotaPenguji::where('departemen_id',$dept_id)->get();
+        // dd($quota_penguji);
         $q_penguji=array();
         foreach($quota_penguji as $k=>$vq)
         {

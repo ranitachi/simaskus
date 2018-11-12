@@ -49,24 +49,26 @@
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Nama Lengkap</label>
-                                        <input type="text" id="nama" name="nama" class="form-control input-circle" placeholder="Nama Lengkap" value="{{$id==-1 ? '' : $det->nama}}">
+                                        <label class="control-label">NIDN</label>
+                                        <input type="text" id="nidn" name="nidn" class="form-control input-circle" placeholder="NIDN" value="{{$id==-1 ? '' : $det->nidn}}">
                                     </div>
                                 </div>
                                 <!--/span-->
                             </div>
                             <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Nama Lengkap</label>
+                                        <input type="text" id="nama" name="nama" class="form-control input-circle" placeholder="Nama Lengkap" value="{{$id==-1 ? '' : $det->nama}}">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Inisial</label>
                                         <input type="text" id="inisial" name="inisial" class="form-control input-circle" placeholder="Inisial" value="{{$id==-1 ? '' : $det->inisial}}">
                                     </div>
                                 </div>
-                                <!--/span-->
-                                <div class="col-md-6">
-                                    
-                                </div>
-                                <!--/span-->
+                               
                             </div>
 
                             <div class="row">
@@ -162,12 +164,28 @@
                                             <option value="-1">-Pilih Status-</option>
                                             <option value="Dosen UI" {{$id!=-1 ? ($det->status_dosen=="Dosen UI" ? 'selected="selected"' : '') : ''}}>Dosen UI</option>
                                             <option value="Dosen Non UI" {{$id!=-1 ? ($det->status_dosen=="Dosen Non UI" ? 'selected="selected"' : '') : ''}}>Dosen Non UI</option>
+                                            <option value="Lainnya" {{$id!=-1 ? ($det->status_dosen=="Lainnya" ? 'selected="selected"' : '') : ''}}>Lainnya</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!--/span-->
+                            
+                                <div class="col-md-3">
+                                    
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Jabatan</label>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih" name="jabatan" id="jabatan">
+                                            <option value="-1">-Pilih-</option>
+                                            <option value="Pengajar" {{$id!=-1 ? ($det->jabatan=="Pengajar" ? 'selected="selected"' : '') : ''}}>Pengajar</option>
+                                            <option value="Lektor" {{$id!=-1 ? ($det->jabatan=="Lektor" ? 'selected="selected"' : '') : ''}}>Lektor</option>
+                                            <option value="Lektor Kepala" {{$id!=-1 ? ($det->jabatan=="Lektor Kepala" ? 'selected="selected"' : '') : ''}}>Lektor Kepala</option>
+                                            <option value="Guru Besar" {{$id!=-1 ? ($det->jabatan=="Guru Besar" ? 'selected="selected"' : '') : ''}}>Guru Besar</option>
+                                            <option value="Asisten Ahli" {{$id!=-1 ? ($det->jabatan=="Asisten Ahli" ? 'selected="selected"' : '') : ''}}>Asisten Ahli</option>
                                         </select>
                                     </div>
                                 
-                                        <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
-                                </div>
-                                <!--/span-->
+                                    <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
                             </div>
                             <div class="row">
                                 <input type="hidden" name='status_ketua_kelompok'>

@@ -24,12 +24,18 @@
                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
                                     <div class="visual">
                                         <i class="fa fa-comments"></i>
-                                                                            </div>
-                                                                            <div class="details">
+                                    </div>
+                                    <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="1349">0</span>
+                                            @php
+                                                $staf=\App\Model\Staf::where('id',Auth::user()->id_user)->first();
+                                                $dept_id=$staf->departemen_id;
+                                                $mhs=\App\Model\Mahasiswa::where('departemen_id',$dept_id)->get();
+                                                // dd($mhs);
+                                            @endphp
+                                            <span data-counter="counterup" data-value="{{$mhs->count()}}">{{$mhs->count()}} Orang</span>
                                         </div>
-                                        <div class="desc"> New Feedbacks </div>
+                                        <div class="desc"> Jumlah Mahasiswa Aktif </div>
                                     </div>
                                 </a>
                             </div>
@@ -40,8 +46,12 @@
                                     </div>
                                     <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="12,5">0</span>M$ </div>
-                                    <div class="desc"> Total Profit </div>
+                                         @php
+                                                $dosen=\App\Model\Dosen::where('departemen_id',$dept_id)->get();
+                                                // dd($mhs);
+                                        @endphp
+                                        <span data-counter="counterup" data-value="{{$dosen->count()}}">{{$dosen->count()}} Orang</span></div>
+                                    <div class="desc"> Jumlah Dosen </div>
                                     </div>
                                 </a>
                             </div>
@@ -52,9 +62,12 @@
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="549">0</span>
+                                            @php
+                                                $prodi=\App\Model\ProgamStudi::where('departemen_id',$dept_id)->get();
+                                            @endphp
+                                            <span data-counter="counterup" data-value="{{$prodi->count()}}">{{$prodi->count()}}</span>
                                         </div>
-                                        <div class="desc"> New Orders </div>
+                                        <div class="desc"> Jumlah Program Studi </div>
                                     </div>
                                 </a>
                             </div>

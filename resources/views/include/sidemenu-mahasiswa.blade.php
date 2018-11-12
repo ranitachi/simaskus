@@ -62,7 +62,7 @@
         </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">
             <a href="{{url('daftar-sidang')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Sidang</span>
+                <span class="title">Pengajuan Sidang</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='jadwal-sidang' ? 'active' : ''}}">

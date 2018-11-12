@@ -10,6 +10,7 @@ use App\Model\MasterJenisPengajuan;
 use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
 use App\Model\Users;
+use App\Model\Staf;
 use Auth;
 class PengajuanController extends Controller
 {
@@ -21,8 +22,12 @@ class PengajuanController extends Controller
         {
             $mp[$v->id]=$v;
         }
+
+         $staf=Staf::where('id',Auth::user()->id_user)->first();
+        
         // $idjenis=$mp[strtolower($jenis)];
-        $pengajuan=Pengajuan::with('jenispengajuan')
+        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)
+                ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('tahunajaran')
                 ->with('dospem_1')
@@ -46,12 +51,16 @@ class PengajuanController extends Controller
         {
             $mp[$v->id]=$v;
         }
-        $pengajuan=Pengajuan::find($id)
+
+
+
+        $pengajuan=Pengajuan::where('id',$id)                
                 ->with('mahasiswa')
                 ->with('dospem_1')
                 ->with('dospem_2')
                 ->with('dospem_3')
                 ->orderBy('created_at','desc')->first();
+
         return view('pages.pengajuan.detail',compact('jenis','pengajuan','mp'));
     }
 
@@ -84,5 +93,16 @@ class PengajuanController extends Controller
     {
         $pengajuan=Pengajuan::find($id)->delete();
         return redirect('data-pengajuan')->with('status',"Pengajuan Sudah Dihapus");
+    }
+
+    public function verifikasi_pengajuan($id)
+    {
+        $pengajuan=Pengajuan::find($id);
+        $pengajuan->status_pengajuan=1;
+        $c=$pengajuan->save();
+        if($c)
+            echo 1;
+        else
+            echo 0;
     }
 }

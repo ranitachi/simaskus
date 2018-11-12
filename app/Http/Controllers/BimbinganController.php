@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Bimbingan;
 use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
+use App\Model\Pengajuan;
 use App\Model\Users;
 use Auth;
 class BimbinganController extends Controller
@@ -56,6 +57,7 @@ class BimbinganController extends Controller
         $bimbingan->updated_at=date('Y-m-d H:i:s');
         $c=$bimbingan->save();
 
+        $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)->first();
         //$pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id)->where('dospem1',$id_user_dospem->id)->orWhere('dospem2',$id_user_dospem->id)->orWhere('dospem3',$id_user_dospem->id)->first();
 
         $id_user_dospem=Users::where('id_user',$request->dospem_id)->first();
@@ -64,10 +66,11 @@ class BimbinganController extends Controller
         $notif->from=Auth::user()->id;
         $notif->to=$id_user_dospem->id;
         $notif->flag_active=1;
-        $notif->pesan="Mahasiswa : ".Auth::user()->name." Menambahkan Data Bimbingan, Mohon Dapat Segera Di Verifikasi<br>
-        <a href='".url('daftar-bimbingan')."'></a>";
+        //bimbingan-detail/1/2#tab_5_2
         // $notif->pesan="Mahasiswa : ".Auth::user()->name." Menambahkan Data Bimbingan, Mohon Dapat Segera Di Verifikasi<br>
-        // <a href='".url('bimbingan-detail/'.$pengajuan->id.'/'.Auth::user()->id_user.'#tab_5_2')."'></a>";
+        // <a href='".url('daftar-bimbingan')."'>Klik Disini</a>";
+        $notif->pesan="Mahasiswa : ".Auth::user()->name." Menambahkan Data Bimbingan, Mohon Dapat Segera Di Verifikasi<br>
+        <a href='".url('bimbingan-detail/'.$pengajuan->id.'/'.Auth::user()->id_user.'#tab_5_2')."'>Klik Disini</a>";
         $notif->save();
 
         return response()->json([$c]);
