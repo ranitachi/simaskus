@@ -56,11 +56,11 @@
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                        <a href="#tab_1_1" data-toggle="tab">Biodata Diri</a>
                                     </li>
                                    
                                     <li>
-                                         <a href="#tab_1_3" data-toggle="tab">Change Password</a>
+                                         <a href="#tab_1_3" data-toggle="tab">Ganti Password</a>
                                     </li>
                                 </ul>
                             </div>
@@ -139,7 +139,7 @@
                             <label class="control-label">Re-type New Password</label>
                             <input type="password" class="form-control" id="repassword" name="repassword"/> </div>
                         <div class="margin-top-10">
-                            <a href="javascript:changepass()" class="btn green"> Change Password </a>
+                            <a href="javascript:changepass()" class="btn green"> Ganti Password </a>
                             <a href="javascript:;" class="btn default"> Cancel </a>
                         </div>
                     </form>

@@ -108,11 +108,11 @@
                                 @endphp
                                 <td>
                                     @if ($st_pbb==1)
-                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
-                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs"><i class="fa fa-check-square-o"></i></a>
+                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs" title="Lihat Detail"><i class="fa fa-eye"></i></a>
+                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs" title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
                                     @endif
-                                    <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs"><i class="fa fa-ban"></i></a>
-                                    <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                    <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs" title="Tolak Pengajuan"><i class="fa fa-ban"></i></a>
+                                    <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs" title="Hapus Pengajuan"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -42,7 +42,7 @@
                             {{$profil->programstudi->nama_program_studi}} 
                         @endif    
                     </div>
-                    <div class="profile-usertitle-job"><span class="label label-primary">{!!$profil->gender==0 ? '<i class="fa fa-mars"></i> Pria' : ($profil->gender==1 ? '<i class="fa fa-venus"></i> Wanita' : 'n/a') !!} </span></div>
+                    <div class="profile-usertitle-job"><span class="label label-primary">{!!$profil->gender==1 ? '<i class="fa fa-mars"></i> Pria' : ($profil->gender==0 ? '<i class="fa fa-venus"></i> Wanita' : 'n/a') !!} </span></div>
                 </div>
 
 
@@ -64,13 +64,13 @@
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                        <a href="#tab_1_1" data-toggle="tab">Biodata Diri</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_1_2" data-toggle="tab">College Info</a>
+                                        <a href="#tab_1_2" data-toggle="tab">Info Kampus</a>
                                     </li>
                                     <li>
-                                         <a href="#tab_1_3" data-toggle="tab">Change Password</a>
+                                         <a href="#tab_1_3" data-toggle="tab">Ganti Password</a>
                                     </li>
                                 </ul>
                             </div>
@@ -185,9 +185,9 @@
                             </select>
                         </div> --}}
                         
-                        {{-- <div class="margiv-top-10">
-                            <button type="submit" class="btn green"> Simpan </submit>
-                        </div> --}}
+                        <div class="margiv-top-10">
+                            <button type="submit" class="btn green"> Simpan </button>
+                        </div>
                     </form>
                 </div>
                 <!-- END CHANGE AVATAR TAB -->
@@ -202,7 +202,7 @@
                             <label class="control-label">Re-type New Password</label>
                             <input type="password" class="form-control" id="repassword" name="repassword"/> </div>
                         <div class="margin-top-10">
-                            <a href="javascript:changepass()" class="btn green"> Change Password </a>
+                            <a href="javascript:changepass()" class="btn green"> Ganti Password </a>
                             <a href="javascript:;" class="btn default"> Cancel </a>
                         </div>
                     </form>

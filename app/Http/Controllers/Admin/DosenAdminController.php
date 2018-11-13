@@ -57,6 +57,8 @@ class DosenAdminController extends Controller
         $m->penugasan=$request->penugasan;
         $m->status_ketua_kelompok=$request->status_ketua_kelompok;
         $m->status_dosen=$request->status_dosen;
+        $m->jabatan=$request->jabatan;
+        $m->nidn=$request->nidn;
         $m->created_at=date('Y-m-d H:i:s');
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
@@ -101,9 +103,15 @@ class DosenAdminController extends Controller
         $m->penugasan=$request->penugasan;
         $m->status_ketua_kelompok=$request->status_ketua_kelompok;
         $m->status_dosen=$request->status_dosen;
+        $m->jabatan=$request->jabatan;
+        $m->nidn=$request->nidn;
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
-        
+
+        $user=Users::find($id);
+        $user->email=$request->email;
+        $user->save();
+
         if($cr)
             $pesan="Data Dosen Berhasil Di Edit";
         else

@@ -98,6 +98,7 @@ Route::get('data-pengajuan-detail/{id}','Admin\PengajuanController@detail')->mid
 Route::get('pengajuan-verifikasi/{id}/{jenis}','Admin\PengajuanController@verifikasi')->middleware('auth');
 Route::get('pengajuan-tolak/{id}/{jenis}','Admin\PengajuanController@tolak')->middleware('auth');
 Route::get('pengajuan-hapus/{id}/{jenis}','Admin\PengajuanController@destroy')->middleware('auth');
+Route::get('verifikasi-pengajuan/{id}','Admin\PengajuanController@verifikasi_pengajuan')->middleware('auth');
 
 Route::resource('daftar-sidang','Mahasiswa\DaftarSidangController')->middleware('auth');
 Route::get('daftar-sidang-data','Mahasiswa\DaftarSidangController@data')->middleware('auth');

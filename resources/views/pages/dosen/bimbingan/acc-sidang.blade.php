@@ -98,9 +98,16 @@
                     </table>
                     <center>
                         <div class="form-actions right">
-                            
-                            <button type="submit" id="simpan-evaluasi" class="btn blue">
-                                <i class="fa fa-check"></i> Simpan</button>
+                            @if ($pengajuan->status_pengajuan!=0)
+                            @php
+                                $jadwal=\App\Model\PivotJadwal::where('judul_id',$pengajuan->id)->first();                                
+                                
+                            @endphp
+                                @if(!is_null($jadwal))
+                                <button type="submit" id="simpan-evaluasi" class="btn blue">
+                                    <i class="fa fa-check"></i> Simpan</button>
+                                @endif
+                            @endif
                         </div>
                     </center>
                 </div>

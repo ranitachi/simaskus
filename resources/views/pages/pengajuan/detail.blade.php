@@ -46,7 +46,7 @@
                                         <input type="text" readonly  id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir"  style="" value="{{$pengajuan->jenispengajuan->jenis}}">
                                     </div>
                                 </div>
-                                <!--/span-->
+                                {{-- <!--/span-->
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">IPK Terakhir</label>
@@ -63,7 +63,7 @@
                                         <label class="control-label">Jumlah SKS Lulus</label>
                                         <input type="text" readonly  id="jumlah_sks_lulus" name="jumlah_sks_lulus" class="form-control input-circle" placeholder="Jumlah SKS Lulus"  style="width:50%;" value="{{$pengajuan->jumlah_sks_lulus}}">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
@@ -74,12 +74,12 @@
                                 <!--/span-->
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Bidang Seminar/Skripsi/Tesis</label>
                                         <input type="text" readonly  id="bidang" name="bidang" class="form-control input-circle" placeholder="Bidang Seminar/Skripsi/Tesis" value="{{$pengajuan->bidang}}">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!--/span-->
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                            </div>
+                            {{-- </div>
                             <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
@@ -106,7 +106,7 @@
                                 <!--/span-->
                             </div>
                            
-                            <div class="row">
+                            <div class="row"> --}}
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi/Rencana</label>
@@ -114,7 +114,7 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Abstrak (Indonesia)</label>
                                         <textarea readonly  class="wysihtml5 form-control" rows="4" name="abstrak_ind">{{$pengajuan->abstrak_ind}}</textarea>
@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="col-md-6">
                                      &nbsp;
-                                </div>
+                                </div> --}}
                                 <!--/span-->
                                 
                                 <!--/span-->
@@ -145,34 +145,29 @@
                         <div class="row">
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Topik Yang Diajukan</label>
+                                        <label class="control-label">Pengajuan Ke</label>
                                         <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->pengambilan_ke}}">  
                                     </div>
                                 </div>
                             <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 1</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_1->nama) ? $pengajuan->dospem_1->nama : ''}}">
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 2</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_1->nama) ? $pengajuan->dospem_2->nama : ''}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6"> 
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 3</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{isset($pengajuan->dospem_3->nama) ? $pengajuan->dospem_3->nama : ''}}">
-                                    </div>
-                                </div>
-                        
+                                @php
+                                    $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('dosen')->get();
+                                @endphp
+                                    @foreach ($pembinging as $key=>$item)
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Dosen Pembimbing {{$key+1}}</label>
+                                            @if ($item->status==0)
+                                                <i class="fa fa-ban" style="color:red"></i> <i><small>Menunggu Persetujuan Dosen</small></i>
+                                            @else
+                                                <i class="fa fa-check" style="color:green"></i>
+                                            @endif
+                                            <input type="text" readonly  id="pembimbing_{{$key+1}}" name="pembimbing_{{$key+1}}" class="form-control input-circle" placeholder="Dosen Pembimbing" value="{{isset($item->dosen->nama) ? $item->dosen->nama : ''}}">
+                                        </div>
+                                   @endforeach
+                            </div>
 
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Dosen Ketua Kelompok Ilmu</label>
@@ -196,7 +191,24 @@
                             <div class="col-md-6"> 
                                     
                             </div>
-                        </div>
+                        </div> --}}
+                        @if ($pengajuan->pengambilan_ke>1)
+                            <div class="row">
+                                
+                                <div class="col-md-6"> 
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Dosen Pembimbing Sebelumnya (Buat yang mengulang)</label>
+                                            <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle"  value="{{isset($pengajuan->pembimbing_sebelum->nama) ? $pengajuan->pembimbing_sebelum->nama : ''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Alasan Mengulang</label>
+                                            <textarea readonly  class="wysihtml5 form-control" rows="4" name="alasan_mengulang">{{$pengajuan->alasan_mengulang}}</textarea>
+                                        </div>
+                                    </div>
+                            </div>
+                        @endif
                         </form>
                     
                     </div>

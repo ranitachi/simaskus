@@ -32,39 +32,21 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                     <td>
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 1</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem1]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
+                        @php
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->get();
+                        @endphp
+                        @foreach ($p_bimbingan as $key=>$item)
+                            @if (isset($item->dosen->nama))
+                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                   @if ($item->status==1)
+                                        <i class="fa fa-check font-blue-steel"></i>
+                                    @elseif($item->status==0)
+                                        <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                    @endif
+                                
+                                <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
-                            <strong>{{$v->dospem_1->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 2</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem2]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                           <strong> {{$v->dospem_2->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_3->nama))
-                            <small><u>Pembimbing 3</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem3]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                            <strong>{{$v->dospem_3->nama}}</strong>
-                        @endif
+                        @endforeach
                     </td>
                     <td class="text-left">
                         <small><u>Jadwal</u></small><br>
@@ -119,54 +101,57 @@
                         @endforeach
                     </td>
                     <td class="text-center">
-                        @if ($jadwal->count()!=0)   
-                            @if ($v->status_pengajuan==0)
-                                <a href="#" class="btn btn-xs btn-success" style="font-size:10px">Belum <br>Di Setujui</a>
-                            @elseif($v->status_pengajuan==1)
-                                <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Sudah Di Setujui, <br>Akan Di Jadwalkan</a> 
-                            @elseif($v->status_pengajuan==2)
-                                <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Sudah Dijadwalkan</a> 
+                        @php
+                            
+                        @endphp
+                        @if ($jadwal->count()!=0)  
+                            @php
+                                $acc_sidang=\App\Model\PivotSetujuSidang::where('mahasiswa_id',Auth::user()->id_user)->where('pengajuan_id',$v->id)->get();
+
+                                $st_acc_sidang=0;
+                                foreach($acc_sidang as $idx_ac=>$val_ac)
+                                {
+                                    if($val_ac->status==1)
+                                        $st_acc_sidang=1;
+                                    else
+                                    {
+                                        $st_acc_sidang=0;
+                                        break;
+                                    }
+                                }
+                            @endphp 
+                            @if ($st_acc_sidang==1)
+                                @if ($v->status_pengajuan==0)
+                                    <a href="#" class="btn btn-xs btn-success" style="font-size:10px">Belum <br>Di Setujui</a>
+                                @elseif($v->status_pengajuan==1)
+                                    <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Sudah Di Setujui, <br>Akan Di Jadwalkan</a> 
+                                @elseif($v->status_pengajuan==2)
+                                    <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Sudah Dijadwalkan</a> 
+                                @endif
+
+                            @else
+                                <a href="#" class="btn btn-xs btn-danger" style="font-size:10px">Menunggu ACC<br>Dosen Pembimbing</a> 
                             @endif
                         @endif
                     </td>
                     <td>
+                        @foreach ($p_bimbingan as $key=>$item)
+                            @if (isset($acc_sid[$v->mahasiswa_id][$item->dosen_id]))
+                                @if ($acc_sid[$v->mahasiswa_id][$item->dosen_id]->status==1)
+                                    <i class="fa fa-check font-blue-steel"></i>
+                                @elseif($acc_sid[$v->mahasiswa_id][$item->dosen_id]->status==0)
+                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>    
+                                @else
+                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                @endif
+                                <strong>{{$item->dosen->nama}}<br></strong>
+                            @else
+                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                <strong>{{$item->dosen->nama}}<br></strong>
+                            @endif
+                            {{-- <strong>{{$item->dosen->nama}}<br></strong> --}}
+                        @endforeach
                         
-                        @if (isset($v->dospem_2->nama))
-                            @if (isset($acc_sid[$v->mahasiswa_id][$v->dospem1]))
-                                @if ($acc_sid[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($acc_sid[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @else
-                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                            @endif
-                            <strong>{{$v->dospem_1->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_2->nama))
-                            @if (isset($acc_sid[$v->mahasiswa_id][$v->dospem2]))
-                                @if ($acc_sid[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($acc_sid[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @else
-                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                            @endif
-                           <strong> {{$v->dospem_2->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_3->nama))
-                            @if (isset($acc_sid[$v->mahasiswa_id][$v->dospem3]))
-                                @if ($acc_sid[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($acc_sid[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @else
-                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                            @endif
-                            <strong>{{$v->dospem_3->nama}}</strong>
-                        @endif
                         @php
                             $st_sid=0;
                             if(isset($acc_sid[Auth::user()->id_user]))
@@ -180,20 +165,29 @@
                                     $st_sid=0;
                                 }
                             }
+
+                            $jlhbimbingan=\App\Model\Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('flag',1)->get();
+
+                            $jadwal=\App\Model\PivotJadwal::where('judul_id',$idpengajuan)->where('mahasiswa_id',Auth::user()->id_user)->first();
+
                         @endphp
 
-                        @if ($jadwal->count()==0)
-                            @if ($st_sid==1)
-                            <div style="width:110px;">
-                                <a href="{{url('daftar-sidang/'.$idpengajuan)}}" class="btn btn-xs btn-primary"><i class="fa fa-plus-circle"></i> Daftar Sidang</a>
-                            </div>
+                        @if (is_null($jadwal))
+                            @if ($jlhbimbingan->count()>=5)
+                                {{-- @if ($st_sid==1) --}}
                                 
-                            @else
-                            <div style="width:110px;">
-                                <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
-                            </div>
-                                
+                                <div style="width:110px;">
+                                    <a href="{{url('daftar-sidang/'.$idpengajuan)}}" class="btn btn-xs btn-primary"><i class="fa fa-plus-circle"></i> Daftar Sidang</a>
+                                </div>
+                                    
+                                @else
+                                <div style="width:110px;">
+                                    <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
+                                </div>
+                                    
+                                {{-- @endif --}}
                             @endif
+                        
                         @endif
                     </td>
                 </tr>

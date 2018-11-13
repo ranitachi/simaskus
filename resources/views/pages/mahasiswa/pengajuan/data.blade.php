@@ -45,39 +45,22 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                     <td>
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 1</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem1]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
+                        @php
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->get();
+                        @endphp
+                        @foreach ($p_bimbingan as $key=>$item)
+                            @if (isset($item->dosen->nama))
+                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                   @if ($item->status==1)
+                                        <i class="fa fa-check font-blue-steel"></i>
+                                    @elseif($item->status==0)
+                                        <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                    @endif
+                                
+                                <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
-                            <strong>{{$v->dospem_1->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 2</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem2]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                           <strong> {{$v->dospem_2->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_3->nama))
-                            <small><u>Pembimbing 3</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem3]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                            <strong>{{$v->dospem_3->nama}}</strong>
-                        @endif
+                        @endforeach
+                       
                     </td>
                     <td>
                         {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}
@@ -97,17 +80,17 @@
                                 }
                             @endphp
                             @if ($st_pbb==1)
-                                <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Input Bimbingan"><i class="fa fa-eye"></i></a>
                             @endif
                         @endif
                     </td>
                     <td>
                         <div style="width:110px;">
                             @if ($v->status_pengajuan == 1)
-                                <a href="{{url('pengajuan-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                                <a href="{{url('pengajuan-detail/'.$v->id)}}" class="btn btn-xs btn-success" title="Lihat Detail"><i class="fa fa-eye"></i></a>
                             @endif
-                            <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            {{-- <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary" title=""><i class="fa fa-edit"></i></a> --}}
+                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger" title="Hapus"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>

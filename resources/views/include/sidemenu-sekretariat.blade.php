@@ -38,7 +38,7 @@
     <ul class="sub-menu">
         <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false  ? 'active' : ''}}">
             <a href="{{url('data-pengajuan')}}" class="nav-link ">
-                <span class="title">Pengajuan Skripsi/Tesis/Disertasi</span>
+                <span class="title">Pengajuan Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{strpos(Request::url(),'data-pengajuan-sidang')!==false  ? 'active' : ''}}">

@@ -315,7 +315,7 @@
     function jenis(val)
     {
         $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val,function(){
-            $('.select2').select2();
+            
         });
     }
 
@@ -331,51 +331,52 @@
         });
         // swal("Good job!", "You clicked the button!", "success")
         $('#simpan').on('click',function(){
-            $('#form-pengajuan').submit();
-            // var npm=$('#npm').val();
-            // var nama=$('#nama').val();
-            // var departemen=$('#departemen').val();
-            // var program_studi=$('#program_studi').val();
-            // if(npm=='')
-            // {
-            //     pesan("NPM Harus Diisi",'error');
-            //     $('#npm').focus();
-            // }
-            // else if(nama=='')
-            // {
-            //     pesan("Nama Mahasiswa Harus Diisi",'error');
-            //     $('#nama').focus();
-            // }    
-            // else if(departemen=='')
-            // {
-            //     pesan("Departemen harus dipilih",'error');
-            //     $('#departemen').focus();
-            // }
-            // else if(program_studi=='')
-            // {
-            //     pesan("Program Studi harus dipilih",'error');
-            //     $('#program_studi').focus();
-            // }
-            // else
-            // {
-            //     swal({
-            //         title: "Apakah Anda Yakin",
-            //         text: "Data yang diinput sudah benar, dan ingin di Simpan ?",
-            //         type: "warning",
-            //         showCancelButton: true,
-            //         confirmButtonClass: "btn-info",
-            //         confirmButtonText: "Ya, Simpan",
-            //         cancelButtonText: "Tidak",
-            //         closeOnConfirm: true,
-            //         closeOnCancel: true
-            //     },
-            //     function(isConfirm) {
-            //         if (isConfirm) {
-            //             //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-            //             $('#form-mahasiswa').submit();
-            //         } 
-            //     });
-            // }
+            // $('#form-pengajuan').submit();
+            var tahun_ajaran = $('#tahun_ajaran').val();
+            var jenis_id = $('#jenis_id').val();
+            var skema = $('#skema').val();
+            var dosen_pem = $('#dosen_pem').val();
+
+            if(tahun_ajaran=='-1')
+            {
+                pesan("Tahun Ajaran Harus Dipilih",'error');
+                $('#tahun_ajaran').focus();
+            }
+            else if(jenis_id=='-1')
+            {
+                pesan("Jenis Pengajuan Harus Dipilih",'error');
+                $('#jenis_id').focus();
+            }    
+            else if(skema=='-1')
+            {
+                pesan("Skema Penelitian harus dipilih",'error');
+                $('#skema').focus();
+            }
+            else if(dosen_pem=='-1')
+            {
+                pesan("Usulan Nama Pembimbing Harus dipilih",'error');
+                $('#dosen').focus();
+            }
+            else
+            {
+                swal({
+                    title: "Apakah Anda Yakin",
+                    text: "Data yang diinput sudah benar, dan ingin di Simpan ?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-info",
+                    confirmButtonText: "Ya, Simpan",
+                    cancelButtonText: "Tidak",
+                    closeOnConfirm: true,
+                    closeOnCancel: true
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        $('#form-pengajuan').submit();
+                    } 
+                });
+            }
         });
     });
 

@@ -59,7 +59,7 @@ You can set options via data-attributes, too, via `data-delay` and `data-close-o
         <li><a tabindex="-1" href="#">My Account</a></li>
         <li class="divider"></li>
         <li><a tabindex="-1" href="#">Change Email</a></li>
-        <li><a tabindex="-1" href="#">Change Password</a></li>
+        <li><a tabindex="-1" href="#">Ganti Password</a></li>
         <li class="divider"></li>
         <li><a tabindex="-1" href="#">Logout</a></li>
     </ul>

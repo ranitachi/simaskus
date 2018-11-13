@@ -92,6 +92,8 @@ class PengajuanSkripsiController extends Controller
         }
         $jns_pengajuan=$mp[$request->jenis_id]->jenis;
 
+        // dd($request->all());
+
         $pengajuan=new Pengajuan;
         $pengajuan->jenis_id=$request->jenis_id;
         $pengajuan->ipk_terakhir=str_replace(array(',','.'),'.',$request->ipk_terakhir);
@@ -117,7 +119,8 @@ class PengajuanSkripsiController extends Controller
         // $pengajuan->dospem1=$request->dospem1;
         // $pengajuan->dospem2=$request->dospem2;
         // $pengajuan->dospem3=$request->dospem3;
-        $pengajuan->dosen_ketua=$request->dosen_ketua;
+        // $pengajuan->dosen_ketua=$request->dosen_ketua;
+        $pengajuan->dosen_ketua='-1';
         $pengajuan->pembimbing_sebelumnya=$request->pembimbing_sebelumnya;
         $pengajuan->alasan_mengulang=$request->alasan_mengulang;
         $pengajuan->status_pengajuan=0;
@@ -138,7 +141,7 @@ class PengajuanSkripsiController extends Controller
                 $notif->to=$v->id;
                 $notif->flag_active=1;
                 $notif->pesan="Mahasiswa : ".$user->name." Melakukan Pengajuan, Harap Segera Di Verifikasi<br>
-                <a href=''>Klik Disini</a>";
+                <a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
                 $notif->save();
             }
         }
@@ -165,7 +168,7 @@ class PengajuanSkripsiController extends Controller
                 $notif->from=Auth::user()->id;
                 $notif->to=$u_id->id;
                 $notif->flag_active=1;
-                $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan);
+                $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan)."<br><a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
                 $notif->save();
             }
         }

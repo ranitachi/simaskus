@@ -10,6 +10,7 @@ use App\Model\Staf;
 use App\Model\ProgamStudi;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
+use App\User;
 use App\Model\Notifikasi;
 use Auth;
 class MahasiswaAdminController extends Controller
@@ -155,11 +156,13 @@ class MahasiswaAdminController extends Controller
     public function detail($id)
     {
         $mhs=Mahasiswa::where('id',$id)->with('departemen')->with('programstudi')->with('mahasiswa_user')->first();
+        $user=User::where('id_user',$mhs->id)->where('kat_user',3)->first();
         $dept=MasterDepartemen::all();
         $jenjang=ProgamStudi::all();
         return view('pages.administrator.mahasiswa.detail')
             ->with('profil',$mhs)
             ->with('id',$id)
+            ->with('user',$user)
             ->with('dept',$dept)
             ->with('jenjang',$jenjang);
     }
@@ -195,7 +198,7 @@ class MahasiswaAdminController extends Controller
         $notif->to=$users->id;
         $notif->flag_active=1;
         $notif->pesan="Akun Anda Sudah Di Verifikasi Oleh Sekretariat, Silahkan Lakukan Update Profil Anda<br>
-                        <a href='".url("/")."'>Klik Disini</a>";
+                        <a href='".url("/profil")."'>Klik Disini</a>";
         $notif->save();
         
         if($simpan)

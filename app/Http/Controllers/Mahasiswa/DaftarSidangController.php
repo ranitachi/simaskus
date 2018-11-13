@@ -188,23 +188,26 @@ class DaftarSidangController extends Controller
             }
         }
 
-        foreach($request->penguji as $k => $v)
+        if(isset($request->penguji))
         {
-            if($v!='-1')
+            foreach($request->penguji as $k => $v)
             {
-                // $penguji=New PivotPenguji;
-                // $penguji->pivot_jadwal_id=$id_jadwal;
-                // $penguji->penguji_id=$v;
-                // $penguji->status=0;
-                // $penguji->save();
+                if($v!='-1')
+                {
+                    // $penguji=New PivotPenguji;
+                    // $penguji->pivot_jadwal_id=$id_jadwal;
+                    // $penguji->penguji_id=$v;
+                    // $penguji->status=0;
+                    // $penguji->save();
 
-                // $notif=new Notifikasi;
-                // $notif->title="Jadwal Sidang";
-                // $notif->from=Auth::user()->id_user;
-                // $notif->to=$dk;
-                // $notif->flag_active=1;
-                // $notif->pesan="Anda  : ".Auth::user()->name." Melakukan Pengajuan Sidang";
-                // $notif->save();
+                    // $notif=new Notifikasi;
+                    // $notif->title="Jadwal Sidang";
+                    // $notif->from=Auth::user()->id_user;
+                    // $notif->to=$dk;
+                    // $notif->flag_active=1;
+                    // $notif->pesan="Anda  : ".Auth::user()->name." Melakukan Pengajuan Sidang";
+                    // $notif->save();
+                }
             }
         }
 
