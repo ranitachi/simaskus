@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\QuotaJumlahBimbingan;
 use App\Model\QuotaBimbingan;
 use App\Model\QuotaPembimbing;
 use App\Model\MasterDepartemen;
@@ -11,11 +12,11 @@ use App\Model\Dosen;
 use App\Model\PivotBimbingan;
 use App\Model\Users;
 use Auth;
-class QuotaPembimbingController extends Controller
+class QuotaJumlahBimbinganController extends Controller
 {
     public function index()
     {
-        return view('pages.staf.quota-pembimbing.index');
+        return view('pages.staf.minimal-bimbingan.index');
     }
     public function data()
     {
@@ -27,7 +28,7 @@ class QuotaPembimbingController extends Controller
         }
 
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $quota=QuotaPembimbing::where('departemen_id',$dept_id)->with('departemen')->get();
+        $quota=QuotaJumlahBimbingan::where('departemen_id',$dept_id)->with('departemen')->get();
 
         $jenis=MasterJenisPengajuan::all();
         $jns=array();
@@ -36,7 +37,7 @@ class QuotaPembimbingController extends Controller
             $jns[$vj->id]=$vj;
         }
 
-        return view('pages.staf.quota-pembimbing.data')
+        return view('pages.staf.minimal-bimbingan.data')
                 ->with('quota',$quota)
                 ->with('jns',$jns)
                 ->with('dept',$dept);
@@ -50,7 +51,7 @@ class QuotaPembimbingController extends Controller
             $dept_id=$user->staf->departemen_id;
         }
 
-        $quota=QuotaPembimbing::where('departemen_id',$dept_id)->get();
+        $quota=QuotaJumlahBimbingan::where('departemen_id',$dept_id)->get();
         $quo=$quodet=array();
         foreach($quota as $k=>$v)
         {
@@ -69,11 +70,11 @@ class QuotaPembimbingController extends Controller
 
         if($id!=-1)
         {
-            // $det=QuotaPembimbing::find($id);
+            // $det=QuotaJumlahBimbingan::find($id);
             $det=$quodet[$id];
         }
         
-        return view('pages.staf.quota-pembimbing.form')
+        return view('pages.staf.minimal-bimbingan.form')
                 ->with('det',$det)
                 ->with('dept',$dept)
                 ->with('jenis',$jenis)
@@ -83,11 +84,10 @@ class QuotaPembimbingController extends Controller
     }
     public function store(Request $request)
     {
-        $quota=new QuotaPembimbing;
+        $quota=new QuotaJumlahBimbingan;
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
-        $quota->quota=$request->quota;
-        $quota->maksimal=$request->maksimal;
+        $quota->minimal=$request->minimal;
         $cr=$quota->save();
         return response()->json([$cr]);
         // return redirect('dosen-admin')->with('status',$pesan);
@@ -95,25 +95,24 @@ class QuotaPembimbingController extends Controller
 
     public function update(Request $request,$id)
     {
-        $quota= QuotaPembimbing::find($id);
+        $quota= QuotaJumlahBimbingan::find($id);
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
-        $quota->maksimal=$request->maksimal;
-        $quota->quota=$request->quota;
+        $quota->minimal=$request->minimal;
         $cr=$quota->save();
         return response()->json([$cr]);
     }
 
     public function destroy($id)
     {
-        $c=QuotaPembimbing::find($id)->delete();
+        $c=QuotaJumlahBimbingan::find($id)->delete();
         return response()->json([$c]);
     }
 
-    public function jlh_pembimbing($idjenis,$kat_dosen=null)
+    public function jlh_pembimbing($idjenis)
     {
         $jenis=MasterJenisPengajuan::find($idjenis);                     
-        $quota=QuotaPembimbing::where('level',$idjenis)->first();
+        $quota=QuotaJumlahBimbingan::where('level',$idjenis)->first();
 
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         $dept_id=0;
@@ -121,12 +120,8 @@ class QuotaPembimbingController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         } 
-        if($kat_dosen==null)
-            $dosen=Dosen::where('departemen_id',$dept_id)->get();
-        else
-            $dosen=Dosen::all();
-        
-        // dd($dosen);
+        // dd($quota);
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
 
         $pivot=PivotBimbingan::with('dosen')->get();
         $piv=array();
@@ -150,7 +145,6 @@ class QuotaPembimbingController extends Controller
                 ->with('piv',$piv)
                 ->with('quota_bim',$qb)
                 ->with('jenis',$jenis)
-                ->with('kat_dosen',$kat_dosen)
                 ->with('quota',$quota);
     }
 }

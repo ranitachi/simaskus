@@ -70,8 +70,14 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="{{url('profil-staf')}}">
-                                            <i class="icon-user"></i> My Profile </a>
+                                        @if (Auth::user()->kat_user==3)
+                                            <a href="{{url('profil')}}">
+                                                <i class="icon-user"></i> My Profile </a>
+                                        @elseif(Auth::user()->kat_user==1)
+                                            <a href="{{url('profil-staf')}}">
+                                                <i class="icon-user"></i> My Profile </a>    
+                                        @endif
+                                        
                                     </li>
                                     <li class="divider"> </li>
                                     <li>

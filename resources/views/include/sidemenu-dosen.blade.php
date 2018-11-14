@@ -84,7 +84,7 @@
 <li class="nav-item  ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
-        <span class="title">Pengajuan Kerja Praktek</span>
+        <span class="title">Kerja Praktek</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">

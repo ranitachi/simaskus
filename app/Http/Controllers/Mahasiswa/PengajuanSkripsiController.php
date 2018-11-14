@@ -157,6 +157,7 @@ class PengajuanSkripsiController extends Controller
                 $pivot->dosen_id=$v;
                 $pivot->mahasiswa_id=Auth::user()->id_user;
                 $pivot->jenis_bimbingan=$jns_pengajuan;
+                $pivot->judul_id=$pengajuan->id;
                 $pivot->status=0;
                 $pivot->created_at=date('Y-m-d H:i:s');
                 $pivot->updated_at=date('Y-m-d H:i:s');

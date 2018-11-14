@@ -12,6 +12,27 @@
 */
 
 Route::get('/', function () {
+    $bln=date('n');
+    $thn=date('Y');
+    if($bln<=12 && $bln>=7)
+    {
+        $ta=date('Y').' / '.(date('Y')+1);
+        $jenis='Gasal';
+    }
+    else
+    {
+        $ta=(date('Y')-1).' / '.date('Y');
+        $jenis='Genap';
+    }
+    $cek=\App\Model\TahunAjaran::where('tahun_ajaran',$ta)->where('jenis',$jenis)->first();
+    if(!$cek)
+    {
+        // echo $cek;
+        \App\Model\TahunAjaran::create([
+            'tahun_ajaran'=>$ta,
+            'jenis'=>$jenis
+        ]);
+    }
     return view('auth.login');
 });
 Route::get('/getcontent','DashboardController@getcontent');
@@ -59,7 +80,7 @@ Route::get('programstudi-admin-hapus/{id}', 'Admin\ProgamstudiAdminController@de
 
 //jenispengajuan Admin
 Route::resource('master-jenispengajuan','Admin\MasterJenisPengajuanController')->middleware('auth');
-Route::get('master-jenispengajuan-data', 'Admin\MasterJenisPengajuanController@data')->middleware('auth');
+Route::get('master-jenispengajuan-data/{departemen_id?}', 'Admin\MasterJenisPengajuanController@data')->middleware('auth');
 Route::get('master-jenispengajuan-hapus/{id}', 'Admin\MasterJenisPengajuanController@destroy')->middleware('auth');
 
 //Syaratpengajuan Admin
@@ -151,11 +172,16 @@ Route::resource('quota-penguji','QuotaPengujiController')->middleware('auth');
 Route::get('quota-penguji-data','QuotaPengujiController@data')->middleware('auth');
 Route::get('quota-penguji-hapus/{id}','QuotaPengujiController@destroy')->middleware('auth');
 
+//Minimal Bimbingan
+Route::resource('minimal-bimbingan','QuotaJumlahBimbinganController')->middleware('auth');
+Route::get('minimal-bimbingan-data','QuotaJumlahBimbinganController@data')->middleware('auth');
+Route::get('minimal-bimbingan-hapus/{id}','QuotaJumlahBimbinganController@destroy')->middleware('auth');
+
 //Quota pembimbing
 Route::resource('quota-pembimbing','QuotaPembimbingController')->middleware('auth');
 Route::get('quota-pembimbing-data','QuotaPembimbingController@data')->middleware('auth');
 Route::get('quota-pembimbing-hapus/{id}','QuotaPembimbingController@destroy')->middleware('auth');
-Route::get('jlh_pembimbing/{idjenis}','QuotaPembimbingController@jlh_pembimbing')->middleware('auth');
+Route::get('jlh_pembimbing/{idjenis}/{kat_dosen?}','QuotaPembimbingController@jlh_pembimbing')->middleware('auth');
 
 //DOSEN
 Route::get('pengajuan-bimbingan','Dosen\PengajuanBimbinganController@pengajuan')->middleware('auth');

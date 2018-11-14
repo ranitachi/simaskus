@@ -14,7 +14,9 @@ class DashboardController extends Controller
             if(Auth::user()->kat_user==0)
                 return view('pages.dashboard.index');
             else if(Auth::user()->kat_user==1)
+            {
                 return view('pages.dashboard.index-sekretariat');
+            }
             else if(Auth::user()->kat_user==3)
             {
                 return view('pages.dashboard.index-mahasiswa');

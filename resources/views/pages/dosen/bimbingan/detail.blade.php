@@ -248,9 +248,36 @@
 @endsection
 
 @section('footscript')
+@php
+        $mhs=\App\Model\Mahasiswa::where('id',$pengajuan->mahasiswa_id)->with('programstudi')->first();
+        $jlhpenguji=5;
+        if(isset($q_penguji[$pengajuan->jenis_id]))
+            $jlhpenguji=$q_penguji[$pengajuan->jenis_id]->quota;
+        // if(strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
+        // {
+        //     // dd($pengajuan->jenis_id);
+        //     if(isset($q_penguji[$pengajuan->jenis_id]))
+        //         $jlhpenguji=$q_penguji[$pengajuan->jenis_id]->quota;
+        // }
+        // elseif(strpos($mhs->programstudi->nama_program_studi,'S2')!==false)
+        // {
+        //     if(isset($q_penguji['S2']))
+        //         $jlhpenguji=$q_penguji['S2']->quota;
+        // }
+        // elseif(strpos($mhs->programstudi->nama_program_studi,'S3')!==false)
+        // {
+        //     if(isset($q_penguji['S3']))
+        //         $jlhpenguji=$q_penguji['S3']->quota;
+        // }
+        
+@endphp
 <script>
     $(document).ready(function(){
+        $('.select2').parents('.bootbox').removeAttr('tabindex');
         $('.select2').select2();
+        $('#penguji1').select2({
+            maximumSelectionLength: '{{$jlhpenguji}}'
+        });
         
         $('#loader').hide();
         loaddatabimbingan('{{$mahasiswa_id}}');

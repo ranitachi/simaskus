@@ -24,6 +24,9 @@ class MahasiswaController extends Controller
     }
     public function profil()
     {
+        if(Auth::user()->kat_user==1)
+            return redirect('profil-staf');
+
         $dept=MasterDepartemen::all();
         $profil=Mahasiswa::find(Auth::user()->id_user);
         $jenjang=Jenjang::all();
