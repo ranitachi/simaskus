@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Jenis Pengajuan :: SIMA-sp</title>
+    <title>Minimal Bimbingan :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -13,15 +13,15 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Data Jenis Pengajuan</span>
+                    <span>Minimal Bimbingan</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Jenis Pengajuan
-            <small>Daftar</small>
+        <h1 class="page-title"> Minimal Bimbingan
+            <small>Data</small>
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
@@ -54,10 +54,8 @@
 
     function loaddata()
     {
-        var dept_id='{{$dept_id}}';
-
         $('#loader').show();
-        $('#data').load('{{url("master-jenispengajuan-data")}}/'+dept_id,function(){
+        $('#data').load('{{url("minimal-bimbingan-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
@@ -65,10 +63,10 @@
     function loadform(id)
     {
         $.ajax({
-            url : '{{url("master-jenispengajuan")}}/'+id,
+            url : '{{url("minimal-bimbingan")}}/'+id,
             success: function(html){
                 bootbox.confirm({
-                    title: "Form Jenis Pengajuan",
+                    title: "Form Quota Bimbingan",
                     message: html,
                     buttons: {
                         cancel: {
@@ -84,18 +82,24 @@
                         {
                             if(id==-1)
                             {
-                                var t_url = '{{url("master-jenispengajuan")}}';
+                                var t_url = '{{url("minimal-bimbingan")}}';
                             }
                             else
-                                var t_url = '{{url("master-jenispengajuan")}}/'+id;
+                                var t_url = '{{url("minimal-bimbingan")}}/'+id;
         
                             var t_method = 'POST';
-                            var code=$('#code').val();
-                            var nama_departemen=$('#nama_departemen').val();
+                            var code=$('#level').val();
+                            var quota=$('#quota').val();
                             if(code=='')
                             {
-                                pesan("Kode Jenis harus diisi",'error');
-                                $('#code').focus();
+                                pesan("Level harus dipilih",'error');
+                                $('#level').focus();
+                                return false;
+                            }
+                            else if(quota=='')
+                            {
+                                pesan("Quota Harud Diisi",'error');
+                                $('#quota').focus();
                                 return false;
                             }
                             else
@@ -111,15 +115,15 @@
                                     loaddata();
                                     if(id==-1)
                                     {
-                                        var ps="Data Jenis Pengajuan Berhasil Disimpan";
+                                        var ps="Minimal Bimbingan Berhasil Disimpan";
                                     }
                                     else
                                     {
-                                        var ps="Data Jenis Pengajuan Berhasil Di Edit";
+                                        var ps="Minimal Bimbingan Berhasil Di Edit";
                                     }
                                     swal("Berhasil", ps, "success");
                                 }).fail(function(dt){ 
-                                    var ps='Data Jenis Pengajuan Gagal Disimpan';
+                                    var ps='Minimal Bimbingan Gagal Disimpan';
                                     pesan(ps,'error');
                                 });
                             }
@@ -146,7 +150,7 @@
         function(isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : '{{url("master-jenispengajuan-hapus")}}/'+id,
+                    url : '{{url("minimal-bimbingan-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
                     loaddata();

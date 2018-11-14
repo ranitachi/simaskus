@@ -47,39 +47,21 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                     <td>
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 1</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem1]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
+                        @php
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                        @endphp
+                        @foreach ($p_bimbingan as $key=>$item)
+                            @if (isset($item->dosen->nama))
+                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                   @if ($item->status==1)
+                                        <i class="fa fa-check-circle font-blue-steel"></i>
+                                    @elseif($item->status==0)
+                                        <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                    @endif
+                                
+                                <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
-                            <strong>{{$v->dospem_1->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 2</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem2]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                           <strong> {{$v->dospem_2->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_3->nama))
-                            <small><u>Pembimbing 3</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem3]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                            <strong>{{$v->dospem_3->nama}}</strong>
-                        @endif
+                        @endforeach
                     </td>
                     @if ($jenis==2)
                         <td class="text-center">
@@ -173,10 +155,29 @@
                             <i class="fa fa-exclamation-circle font-red-thunderbird"></i> Belum Disetujui
                             <br>
                             <br>
-                            <a href="javascript:setujui({{$idpengajuan}},'{{$jenis}}')" class="btn btn-xs btn-primary" style="font-size:10px;"><i class="fa fa-check"></i> Setujui</a>
-                            
+                            <a href="javascript:setujui({{$idpengajuan}},'{{$jenis}}')" class="btn btn-xs btn-primary" style="font-size:10px;"><i class="fa fa-check"></i> Setujui</a>   
                         @else
-                            <a href="#" class="btn btn-xs btn-primary" style="font-size:10px;">Sudah Di Setujui</a>    
+                            @php
+                                $acc_sidang=\App\Model\PivotSetujuSidang::where('mahasiswa_id',$v->mahasiswa_id)->where('pengajuan_id',$v->id)->get();
+                                $acc_s=array();
+                                foreach($acc_sidang as $k=>$v)
+                                {
+                                    $acc_s[]=$v->dosen_id;
+                                }
+                            @endphp
+                            @foreach ($p_bimbingan as $key=>$item)
+                                @if (isset($item->dosen->nama))
+                                    <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                        @if (in_array($item->dosen_id,$acc_s))
+                                            <i class="fa fa-check-circle font-blue-steel"></i>
+                                        @else
+                                            <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                        @endif
+                                    
+                                    <strong>{{$item->dosen->nama}}<br></strong>
+                                @endif
+                            @endforeach
+                            {{-- <a href="#" class="btn btn-xs btn-primary" style="font-size:10px;">Sudah Di Setujui</a>     --}}
                         @endif
 
                         @if (in_array(0,$verif_dok))

@@ -21,15 +21,7 @@
                     <th> # </th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>No</th>
-                    <th> Kode </th>
-                    <th> Jenis </th>
-                    <th> Keterangan</th>
-                    <th> # </th>
-                </tr>
-            </tfoot>
+            
             <tbody>
             @foreach ($dept as $i => $v)
                 <tr class="odd gradeX">

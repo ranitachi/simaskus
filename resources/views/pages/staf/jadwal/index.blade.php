@@ -188,7 +188,7 @@
         
     }
 </script>
-@endsection
+
 <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -258,3 +258,4 @@
         </div>
     </div>
 </div>
+@endsection

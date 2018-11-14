@@ -132,5 +132,6 @@ $('.date-picker').datepicker({
     orientation: "left",
     autoclose: true
 });
+$('.select2').parents('.bootbox').removeAttr('tabindex');
 $('.select2').select2();
 </script>

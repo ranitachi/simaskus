@@ -274,7 +274,7 @@ class JadwalController extends Controller
     {
         $dept=MasterDepartemen::find($dept_id);
         $idta=$reqeuest->tahunajaran_id;
-        $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->get();
+        $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_sidang',1)->get();
         $tanggal=$tgl=array();
         foreach($kalender as $k=>$v)
         {

@@ -27,6 +27,7 @@
             <div class="col-md-12">
                 <div class="form-group has-success">
                     <label class="control-label">Level</label>
+                    <input type="hidden" name="departemen_id" value="{{$dept_id}}">
                     {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
                     <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="keterangan" id="level">
                         @php

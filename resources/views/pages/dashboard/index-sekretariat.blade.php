@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('title')
     <title>Beranda :: SIMA-sp</title>
+    <link href="{{asset('assets/apps/css/todo-2.min.css')}}" rel="stylesheet" type="text/css">
 @endsection
-<link href="{{asset('assets/apps/css/todo-2.min.css')}}" rel="stylesheet" type="text/css">
+
 @section('konten')
     <div class="page-content">                        
     <div class="page-bar">
@@ -17,8 +18,7 @@
     </div>
     <!-- END PAGE BAR -->
     <!-- BEGIN PAGE TITLE-->
-    <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial
-    </h1>
+    <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial</h1>
     <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="#">

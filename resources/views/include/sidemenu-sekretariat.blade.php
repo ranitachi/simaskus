@@ -36,9 +36,14 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{Request::url()=='data-pengajuan'  ? 'active' : ''}}">
             <a href="{{url('data-pengajuan')}}" class="nav-link ">
                 <span class="title">Pengajuan Bimbingan</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::url(),'data-bimbingan')!==false  ? 'active' : ''}}">
+            <a href="{{url('data-bimbingan')}}" class="nav-link ">
+                <span class="title">Data Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{strpos(Request::url(),'data-pengajuan-sidang')!==false  ? 'active' : ''}}">
@@ -166,6 +171,12 @@
         <span class="title">Data Ruangan</span>
     </a>
 </li>
+<li class="nav-item  {{strpos(Request::path(),'jenispengajuan')!==false ? 'active' : ''}} ">
+    <a href="{{url('master-jenispengajuan')}}" class="nav-link ">
+        <i class="fa fa-gear font-white"></i>
+        <span class="title">Data Jenis Pengajuan</span>
+    </a>
+</li>
 <li class="nav-item  {{strpos(Request::path(),'kalender-akademik')!==false ? 'active' : ''}} ">
     <a href="{{url('kalender-akademik')}}" class="nav-link ">
         <i class="fa fa-calendar font-white"></i>
@@ -193,6 +204,11 @@
         <li class="nav-item  {{strpos(Request::path(),'quota-pembimbing')!==false ? 'active' : ''}} ">
             <a href="{{url('quota-pembimbing')}}" class="nav-link ">
                 <span class="title">Quota Jumlah Pembimbing</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::path(),'minimal-bimbingan')!==false ? 'active' : ''}} ">
+            <a href="{{url('minimal-bimbingan')}}" class="nav-link ">
+                <span class="title">Jumlah Minimal Pembimbing</span>
             </a>
         </li>
     </ul>

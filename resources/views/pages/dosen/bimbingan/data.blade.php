@@ -87,21 +87,26 @@
                                                 <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_4')}}" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
                                             @endif
                                         @else
-                                            <a href="#" class="btn btn-xs btn-danger">
-                                                <i class="fa fa-exclamation-triangle"></i> Menunggu Acc Sidang
-                                            </a>
-                                            <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+                                            @php
+                                                $jadwal=\App\Model\PivotJadwal::where('judul_id',$v->id)->where('mahasiswa_id',$v->mahasiswa_id)->first();    
+                                            @endphp
+                                            @if($jadwal)
+                                                <a href="#" class="btn btn-xs btn-danger">
+                                                    <i class="fa fa-exclamation-triangle"></i> Acc Sidang
+                                                </a>
+                                                <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            @endif
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_2')}}" class="btn btn-xs btn-primary">
-                                                    <i class="fa fa-eye"></i>
+                                        <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Lihat Data Bimbingan">
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id)}}" class="btn btn-xs btn-success">
+                                        <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id)}}" class="btn btn-xs btn-success" title="Lihat Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                        

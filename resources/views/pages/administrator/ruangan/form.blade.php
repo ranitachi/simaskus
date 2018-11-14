@@ -39,7 +39,9 @@
                     <label class="control-label">Departemen</label>
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen_id" id="departemen_id" onchange="pilihdepartemen(this.value)">
                         <option value="-1">-Pilih Departemen-</option>
-                        <option value="0">-Input Data Departemen Baru-</option>
+                        @if (Auth::user()->kat_user==0)
+                            <option value="0">-Input Data Departemen Baru-</option>
+                        @endif
                         @foreach ($dept as $i => $v)
                             @if ($id!=-1)
                                 @if ($det->departemen_id==$v->id)
@@ -48,7 +50,11 @@
                                     <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                 @endif
                             @else
-                                <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                @if ($dept_id==$v->id)
+                                    <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>
+                                @else
+                                    <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
+                                @endif
                             @endif
                         @endforeach
                     </select>

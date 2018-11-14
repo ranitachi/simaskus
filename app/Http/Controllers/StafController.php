@@ -13,6 +13,11 @@ class StafController extends Controller
 {
     public function profil()
     {
+        // dd(Auth);
+        // echo Auth::user()->kat_user;
+        if(Auth::user()->kat_user==3)
+            return redirect('profil');
+
         $dept=MasterDepartemen::all();
         $profil=Staf::find(Auth::user()->id_user);
         return view('pages.staf.profile.index')

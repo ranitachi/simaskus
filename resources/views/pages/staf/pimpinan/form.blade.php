@@ -91,5 +91,6 @@
     </div>
 </form>
 <script>
+    $('.bs-select').parents('.bootbox').removeAttr('tabindex');
     $('.bs-select').select2({'width':'100%'});
 </script>

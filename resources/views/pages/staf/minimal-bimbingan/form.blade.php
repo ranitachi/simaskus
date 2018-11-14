@@ -11,10 +11,11 @@
                 <div class="form-group has-success">
                     <label class="control-label">Level</label>
                     <input type="hidden" id="departemen_id" name="departemen_id" class="form-control input-circle" placeholder="Nama Departemen" value="{{$id==-1 ? $dept_id : $det->departemen_id}}">
-                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="level" id="level">
+                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Jenis" name="level" id="level">
                         @php
                             $level=array('S1','S2','S3');
                         @endphp
+                            <option value="-1">-Pilih-</option>
                             @foreach ($jenis as $item)
                                 @if ($id!=-1)
                                     @if ($item->id==$det->level)
@@ -35,25 +36,14 @@
             <!--/span-->
             <div class="col-md-6">
                 <div class="form-group has-success">
-                    <label class="control-label">Maksimal Jumlah Pembimbing</label>
+                    <label class="control-label">Minimal Jumlah Bimbingan</label>
                     
-                    <input type="text" id="quota" name="quota" class="form-control input-circle" placeholder="Quota" value="{{$id==-1 ? '' : $det->quota}}">
+                    <input type="text" id="quota" name="minimal" class="form-control input-circle" placeholder="Minimal" value="{{$id==-1 ? '' : $det->minimal}}">
                 </div>
             </div>
             <!--/span-->
         </div>
-        <div class="row">
-            <!--/span-->
-            <div class="col-md-6">
-                <div class="form-group has-success">
-                    <label class="control-label">Maksimal Jumlah Yang Diajukan</label>
-                    
-                    <input type="text" id="maksimal" name="maksimal" class="form-control input-circle" placeholder="Maksimal" value="{{$id==-1 ? '' : $det->maksimal}}">
-                </div>
-            </div>
-            <!--/span-->
-        </div>
-       
+        
         
     </div>
 </form>

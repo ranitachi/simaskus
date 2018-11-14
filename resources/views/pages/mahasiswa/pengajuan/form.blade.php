@@ -29,7 +29,7 @@
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
-        <div class="">
+        <div class="" style="padding-bottom:30px;margin-bottom:50px;">
             <div class="portlet light portlet-fit portlet-datatable bordered">
                 <div class="row" style="padding:5px 20px;">
 
@@ -78,7 +78,7 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id" onchange="jenis(this.value)">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
-                                                @if (strpos(strtolower($v->jenis),'skripsi')!==false)
+                                                @if ($v->keterangan=='S1' || $v->keterangan=='S2' || $v->keterangan=='S3')
                                                     @if ($id!=-1)
                                                         @if ($det->jenis_id==$v->id)
                                                             <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
@@ -197,10 +197,10 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-6"> 
+                            <div class="col-md-3"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Pengajuan Ke</label>
-                                            <select class="form-control" data-placeholder="Pengajuan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:20%" onchange="cekmengulang(this.value)">
+                                            <select class="form-control" data-placeholder="Pengajuan Ke" name="pengambilan_ke" id="pengambilan_ke" style="width:100%" onchange="cekmengulang(this.value)">
                                             @for ($x=1;$x<=5;$x++)
                                                 @if ($id!=-1)
                                                     @if ($det->pengambilan_ke==$x)
@@ -257,6 +257,15 @@
                                         </div>
                                     </div>
                                 </div>
+                            <div class="col-md-3"> 
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Status Dosen Pembimbing</label>
+                                            <select class="form-control" data-placeholder="Status Dosen Pembimbing" name="pengambilan_ke" id="pengambilan_ke" style="width:100%" onchange="cekstatusdosen(this.value)">
+                                                <option value="1">Dosen Departemen</option>
+                                                <option value="2">Seluruh Dosen Fakultas</option>
+                                            </select>
+                                    </div>
+                                </div>
                             <div class="col-md-6"> 
                                 <div id="jlh-pembimbing"></div>
                             </div>
@@ -290,13 +299,13 @@
     </div>
 </div>
 @endsection
-<div id="toolbar">
-  <a data-wysihtml5-command="bold">bold</a>
-  <a data-wysihtml5-command="italic">italic</a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
-  <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
- </div>
 @section('footscript')
+    <div id="toolbar">
+      <a data-wysihtml5-command="bold">bold</a>
+      <a data-wysihtml5-command="italic">italic</a>
+      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+     </div>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>
@@ -312,6 +321,18 @@
             $('#alasan-mengulang').css({'display':'none'});
         }
     }
+    function cekstatusdosen(val)
+    {
+        var jenis=$('#jenis_id').val();
+        if(val==1)
+        {
+            $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+jenis);
+        }
+        else{
+            $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+jenis+'/'+val);
+        }
+        
+    }
     function jenis(val)
     {
         $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val,function(){
@@ -320,7 +341,10 @@
     }
 
     $(document).ready(function(){
+        $('.select2').parents('.bootbox').removeAttr('tabindex');
         $('.select2').select2();
+        
+
         $('#departemen').change(function(){
             var id=$(this).val();
             $('#prog_studi').load('{{url("program-studi")}}/'+id);

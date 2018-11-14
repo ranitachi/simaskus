@@ -31,7 +31,7 @@
                     <td>{{$v->code_ruangan}}</td>
                     <td>{{$v->nama_ruangan}}</td>
                     <td>{{$v->lokasi}}</td>
-                    <td>{{$v->departemen->nama_departemen}}</td>
+                    <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
                     <td>{{$v->deskripsi}}</td>
                     <td>
                         <div style="width:80px;">
