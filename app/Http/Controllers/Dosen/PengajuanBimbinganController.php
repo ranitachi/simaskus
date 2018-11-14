@@ -245,11 +245,11 @@ class PengajuanBimbinganController extends Controller
         }
         $jenis='';
 
-        $user=Users::where('id',$mahasiswa_id)->with('mahasiswa')->first();
+        $user=Users::where('id_user',$mahasiswa_id)->with('mahasiswa')->first();
         $dept_id=0;
         if($user)
         {
-            $dept_id=$user->mahasisiwa->departemen_id;
+            $dept_id=$user->mahasiswa->departemen_id;
         }
         // dd($request->all());
         PivotPenguji::where('pengajuan_id',$id)->forceDelete();
