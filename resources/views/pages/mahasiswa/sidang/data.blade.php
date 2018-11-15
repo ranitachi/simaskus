@@ -173,7 +173,17 @@
                         @endphp
 
                         @if (is_null($jadwal))
-                            @if ($jlhbimbingan->count()>=5)
+                            @php
+                                $jum_minimal=\App\Model\QuotaJumlahBimbingan::where('level',$v->jenis_id)
+                                    ->where('departemen_id',$v->mahasiswa->departemen_id)
+                                    ->first();
+
+                                if($jum_minimal)
+                                    $jlh_min=$jum_minimal->minimal;
+                                else
+                                    $jlh_min=5;
+                            @endphp 
+                            @if ($jlh_min!=0)
                                 {{-- @if ($st_sid==1) --}}
                                 
                                 <div style="width:110px;">
