@@ -273,4 +273,5 @@ class PengajuanBimbinganController extends Controller
         PivotPenguji::where('penguji_id',$dosen_id)->where('id',$id)->first()->delete();
         echo 1;
     }
+
 }
