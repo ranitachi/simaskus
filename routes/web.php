@@ -125,6 +125,7 @@ Route::get('pengajuan-tolak/{id}/{jenis}','Admin\PengajuanController@tolak')->mi
 Route::get('pengajuan-hapus/{id}/{jenis}','Admin\PengajuanController@destroy')->middleware('auth');
 Route::get('verifikasi-pengajuan/{id}','Admin\PengajuanController@verifikasi_pengajuan')->middleware('auth');
 Route::get('setujui-pengajuan-bimbingan/{pengajuan_id}/{mahasiswa_id}/{dosen_id}','Admin\PengajuanController@setujui_pengajuan_bimbingan')->middleware('auth');
+Route::get('hapus-pengajuan-bimbingan/{pengajuan_id}/{mahasiswa_id}/{dosen_id}','Admin\PengajuanController@hapus_pengajuan_bimbingan')->middleware('auth');
 
 Route::resource('daftar-sidang','Mahasiswa\DaftarSidangController')->middleware('auth');
 Route::get('daftar-sidang-data','Mahasiswa\DaftarSidangController@data')->middleware('auth');
@@ -215,7 +216,7 @@ Route::resource('izin-dosen','IzinDosenController')->middleware('auth');
 Route::get('izin-dosen-data','IzinDosenController@data')->middleware('auth');
 Route::get('izin-dosen-hapus/{id}','IzinDosenController@destroy')->middleware('auth');
 
-
+Route::get('update-notif/{id}','NotifikasiController@update_notif')->middleware('auth');
 
 //---------kalender-akademik---------
 Route::resource('kalender-akademik', 'Admin\KalenderAkademikController')->middleware('auth');
@@ -286,3 +287,4 @@ Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@s
 Route::post('pengajuan-penguji/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganController@simpan_data_penguji')->middleware('auth');
 
 Route::get('hapus-data-penguji/{dosen_id}/{id}','Dosen\PengajuanBimbinganController@hapus_data_penguji')->middleware('auth');
+Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_acc_dosen')->middleware('auth');

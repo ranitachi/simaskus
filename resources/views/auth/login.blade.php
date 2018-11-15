@@ -36,7 +36,7 @@
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
-    <body class="login" style="background: lightblue !important">
+    <body class="login" style="background: #32c5d2 !important">
         <div class="logo">
             <a href="{{url('/')}}">
                 <img src="{{asset('img/sima-sp.png')}}" alt="" style="height:80px;"/> </a>

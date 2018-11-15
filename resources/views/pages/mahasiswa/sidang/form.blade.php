@@ -134,7 +134,7 @@
                                 </div>
 
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Upload daftar Bimbingan dari SIAK-NG (*optional)</label>
@@ -150,8 +150,8 @@
                                 </div>
                                 
                                 <!--/span-->
-                            </div>
-                            
+                            </div> --}}
+                        </div>
                         <div class="form-actions pull-right">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>
                             <button type="button" id="simpan" class="btn blue">

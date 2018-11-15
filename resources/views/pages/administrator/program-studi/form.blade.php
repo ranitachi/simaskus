@@ -26,6 +26,31 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
+                    <label class="control-label">Jenjang</label>
+                    <select class="bs-select form-control has-success col-md-3" syule="width:30% !important" data-placeholder="Pilih Jenjang" name="jenjang" id="jenjang">
+                        @php
+                            $level=array('S1','S2','S3');
+                        @endphp
+                            @foreach ($level as $item)
+                                @if ($id!=-1)
+                                    @if ($item==$det->jenjang)
+                                        <option value="{{$item}}" selected="selected">{{$item}}</option>
+                                    @else
+                                        <option value="{{$item}}">{{$item}}</option>
+                                    @endif
+                                @else
+                                    <option value="{{$item}}">{{$item}}</option>
+                                @endif
+                            @endforeach
+                    </select>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-12">
+                <div class="form-group has-success">
                     <label class="control-label">Departemen</label>
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen_id" id="departemen_id" onchange="pilihdepartemen(this.value)">
                         <option value="-1">-Pilih Departemen-</option>

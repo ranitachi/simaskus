@@ -25,7 +25,15 @@
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                @if (Auth::user()->kat_user==1)
+                    <a class="btn btn-info btn-md pull-right" href="{{url('data-bimbingan')}}">Data Bimbingan</a>
+                @endif
+            </div>
+        </div>
         <div class="">
+
             <div class="tabbable-custom ">
                 <ul class="nav nav-tabs ">
                     <li class="active">
@@ -250,9 +258,37 @@
         $('#data-bimbingan').load('{{url("bimbingan-data")}}/'+idMhs,function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
+            $('.tooltips').tooltip();
         });
     }
-    
+    function setujui(id,mahasiswa_id)
+    {
+       
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin Menyetujui Data Bimbingan Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Setujui",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("data-bimbingan-status")}}/'+id+'/1',
+                    dataType : 'JSON'
+                }).done(function(){
+                    loaddata();
+                    swal("Sukses!", "Data Data Bimbingan DI Setujui", "success");
+                }).fail(function(){
+                    swal("Fail!", "Data Bimbingan Ditolak", "danger");
+                });
+            } 
+        });
+    }
     function loadform(id)
     {
         $('#form-bimbingan').load('{{url("bimbingan")}}/'+id,function(){

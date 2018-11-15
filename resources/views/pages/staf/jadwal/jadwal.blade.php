@@ -24,8 +24,19 @@
                 @endphp
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
-                    <td>{{$v->mahasiswa->npm}}<br><b>{{$v->mahasiswa->nama}}</b></td>
-                    <td><b>{{$v->jenispengajuan->jenis}}</b><br><br>T.A. <br>{{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}</td>
+                    <td>
+                        <b>{{$v->mahasiswa->nama}}</b><br>
+                        {{$v->mahasiswa->npm}}<br>
+                        {{$v->mahasiswa->programstudi->nama_program_studi}}
+                    </td>
+                    <td>
+                        @if ($v->jenispengajuan->keterangan=='S2')
+                            <b>Thesis</b>
+                        @else
+                            <b>{{$v->jenispengajuan->jenis}}</b>
+                        @endif
+                        
+                        <br><br>T.A. <br>{{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}</td>
                     <td>
                         <small><u>Indonesia</u></small><br>
                         <strong>{{$v->judul_ind}}</strong>
@@ -40,12 +51,7 @@
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))
                                 <small><u>Pembimbing {{$key+1}}</u></small><br>
-                                   @if ($item->status==1)
-                                        <i class="fa fa-check font-blue-steel"></i>
-                                    @elseif($item->status==0)
-                                        <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                    @endif
-                                
+                            
                                 <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
                         @endforeach

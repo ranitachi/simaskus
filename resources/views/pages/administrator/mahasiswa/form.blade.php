@@ -184,6 +184,16 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Status Mahasiswa</label>
+                                        <select class="bs-select form-control has-success" name="status_mahasiswa">
+                                            <option value="0" {{$id!=-1 ? ($det->status_mahasiswa==1 ? 'selected="selected"' : '') : ''}}>Tidak Aktif</option>
+                                            <option value="1" {{$id!=-1 ? ($det->status_mahasiswa==1 ? 'selected="selected"' : '') : ''}}>Aktif</option>
+                                            <option value="2" {{$id!=-1 ? ($det->status_mahasiswa==2 ? 'selected="selected"' : '') : ''}}>Lulus</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <!--/span-->
                             </div>
                             <!--/row-->

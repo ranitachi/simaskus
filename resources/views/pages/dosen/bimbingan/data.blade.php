@@ -11,6 +11,7 @@
                     @if ($jenis=='pengajuan')
                         <th> Kesediaan Pembimbing </th>
                     @else
+                        <th class="text-center"> Dokumen Sidang </th>
                         <th class="text-center"> Status Sidang </th>
                         <th class="text-center"> Bimbingan </th>
                     @endif
@@ -69,6 +70,43 @@
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
                                     <td> {{$v->judul_ind}} </td>
+                                    <td>
+                                        <div style="width:110px;">
+                                        @php
+                                            $dokumen=\App\Model\PivotDocumentSidang::where('departemen_id',$v->mahasiswa->departemen_id)->get();
+                                            $dok=array();
+                                            foreach($dokumen as $kd => $vd)
+                                            {
+                                                $dok[$vd->pengajuan_id][$vd->jenis_dokumen]=$vd;
+                                            }
+                                            $verif_dok=array();
+                                            // dd($dokumen);
+                                        @endphp
+                                        @if (isset($dok[$v->id]))
+                                            
+                                        
+                                            @foreach ($dok[$v->id] as $kd => $vd)
+                                                <small><u>{{$kd}}</u></small><br>
+                                                @if ($vd->status==0)
+                                                    <a href="#" class="btn btn-xs btn-danger btn-rounded" data-toggle="tooltip" title="Belum Di Verifikasi" style="font-size:10px;margin-right:0px;"><i class="fa fa-exclamation-circle"></i></a>    
+
+
+                                                    <a href="javascript:setujuidokumen({{$vd->id}},1)" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a> 
+                                                    @php
+                                                        $verif_dok[]=0;
+                                                    @endphp
+                                                @else
+                                                    <a href="#" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Sudah Di Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a>
+                                                    @php
+                                                        $verif_dok[]=1;
+                                                    @endphp
+                                                @endif
+                                                
+                                                <a href="{{url('unduh-file/'.$vd->file)}}" target="_blank" class="btn btn-xs btn-success" data-toggle="tooltip" title="Lihat Dokumen" style="font-size:10px;"><i class="fa fa-search"></i> Lihat</a>
+                                            @endforeach
+                                        @endif
+                                        </div>
+                                    </td>
                                     <td class="text-center">
                                         @if (isset($acc_sid[Auth::user()->id_user][$v->mahasiswa_id]))
                                             <a href="#" class="btn btn-xs btn-primary">
@@ -91,12 +129,14 @@
                                                 $jadwal=\App\Model\PivotJadwal::where('judul_id',$v->id)->where('mahasiswa_id',$v->mahasiswa_id)->first();    
                                             @endphp
                                             @if($jadwal)
+                                            <div style="width:140px;">
                                                 <a href="#" class="btn btn-xs btn-danger">
                                                     <i class="fa fa-exclamation-triangle"></i> Acc Sidang
                                                 </a>
                                                 <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
                                                     <i class="fa fa-check"></i>
                                                 </a>
+                                            </div>
                                             @endif
                                         @endif
                                     </td>

@@ -60,7 +60,6 @@
         });
     }
 </script>
-@endsection
 <style>
     .table td,
     .table th
@@ -68,3 +67,4 @@
         font-size: 11px !important;
     }
 </style>
+@endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Staf;
+use App\Model\Jadwal;
 use Auth;
 use Storage;
 class DashboardController extends Controller
@@ -15,7 +17,9 @@ class DashboardController extends Controller
                 return view('pages.dashboard.index');
             else if(Auth::user()->kat_user==1)
             {
-                return view('pages.dashboard.index-sekretariat');
+                $staf=Staf::where('id',Auth::user()->id_user)->first();
+                $dept_id=$staf->departemen_id;
+                return view('pages.dashboard.index-sekretariat')->with('depat_id',$dept_id);
             }
             else if(Auth::user()->kat_user==3)
             {

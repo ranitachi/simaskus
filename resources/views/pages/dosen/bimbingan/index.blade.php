@@ -93,6 +93,33 @@
             } 
         });
     }
+    function setujuidokumen(id,jns)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Memverifikasi Dokumen Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Verifikasi",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("dokumen-verifikasi")}}/'+id+'/'+jns,
+                    dataType : 'JSON'
+                }).done(function(){
+                    loaddata();
+                    swal("Sukses!", "Verifikasi Dokumen Sidang Berhasil", "success");
+                }).fail(function(){
+                    swal("Gagal!", "Verifiksi Dokumen Sidang Gagal", "danger");
+                });
+            } 
+        });
+    }
     function setujusidang(id_pengajuan,id_mahasiswa)
     {
          location.href='{{url("bimbingan-detail")}}/'+id_pengajuan+'/'+id_mahasiswa+'#tab_5_3';

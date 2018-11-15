@@ -117,7 +117,7 @@
     {
         swal({
             title: "Peringatan",
-            text: "Anda Belum Menyelesaikan Minimal Bimbingan",
+            text: "Anda Belum Menyelesaikan Minimal Bimbingan atau \nBimbingan Anda Belum DI Setujui Pembimbing",
             type: "warning",
             showCancelButton: false,
             confirmButtonClass: "btn-info",

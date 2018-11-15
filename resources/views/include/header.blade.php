@@ -29,7 +29,7 @@
                                         $notif=\App\Model\Notifikasi::where('to',Auth::user()->id)->where('flag_active',1)->orderBy('created_at','desc')->get();
                                     @endphp
                                     @if (count($notif)>0)
-                                        <span class="badge badge-danger"> {{count($notif)}} </span>
+                                            <span class="badge badge-danger" id="label-notif"> {{count($notif)}} </span>
                                     @endif
                                 </a>
                                 <ul class="dropdown-menu" style="width:400px !important;max-width:400px !important;">
@@ -47,9 +47,9 @@
                                                     $ps=explode("<a",$item->pesan);
                                                     $pesan=$ps[0];
                                                 @endphp 
-                                                <li>
+                                                <li onmouseover="updatenotif({{$item->id}})">
                                                     <a href="{{url('notifikasi/'.$item->id)}}">
-                                                        <span class="time" style="max-width:none;">{{$wkt}}</span>
+                                                        <span class="time" style="max-width:none;background:lightcoral;color:white" id="time-waktu_{{$item->id}}">{{$wkt}}</span>
                                                         <span class="details">
                                                             {!!$pesan!!} </span>
                                                     </a>

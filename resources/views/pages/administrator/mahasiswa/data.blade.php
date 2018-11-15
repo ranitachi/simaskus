@@ -20,7 +20,8 @@
                     <th> Email </th>
                     <th> Departemen </th>
                     <th> Program Studi </th>
-                    <th> Status </th>
+                    <th> Status Akun</th>
+                    <th> Status Mahasiswa</th>
                     <th> # </th>
                 </tr>
             </thead>
@@ -40,11 +41,16 @@
                         <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
                         <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                         <td>
-                            {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Sudah Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+                            {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
 
                             @if ($user[3][$v->id]->flag==0 )
-                                <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a
+                                <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
                             @endif
+                        </td>
+                        <td class="text-center">
+                            {!! $v->status_mahasiswa ==1 ? '<span class="badge badge-primary badge-roundless"> Aktif </span>' : ($v->status_mahasiswa==2 ? '<span class="badge badge-info badge-roundless"> Sudah Lulus </span>' : '<span class="badge badge-danger badge-roundless"> Belum Aktif </span>')!!}
+
+                            
                         </td>
                         <td>
                             <div style="width:100px;">

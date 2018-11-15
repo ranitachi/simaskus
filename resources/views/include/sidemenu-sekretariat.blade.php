@@ -32,7 +32,7 @@
 <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-bimbingan')!==false || strpos(Request::url(),'data-jadwal')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
-        <span class="title">Skripsi/Tesis/Disertasi</span>
+        <span class="title">Pengajuan</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">

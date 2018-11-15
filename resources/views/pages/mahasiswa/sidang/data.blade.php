@@ -7,12 +7,12 @@
                     <th>No</th>
                     <th> Jenis<br>Pengajuan </th>
                     <th> Judul </th>
-                    <th> Pembimbing </th>
+                    {{-- <th> Pembimbing </th> --}}
                     <th> Hari/Tanggal<br>Ruang Sidang </th>
                     <th> Penguji </th>
                     <th> Dokumen </th>
                     <th> Status Sidang </th>
-                    <th> ACC Sidang </th>
+                    <th> ACC Sidang Pembimbing</th>
                 </tr>
             </thead>
             
@@ -31,10 +31,10 @@
                         <small><u>Inggris</u></small><br>
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
-                    <td>
-                        @php
-                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->get();
-                        @endphp
+                    @php
+                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->get();
+                    @endphp
+                    {{-- <td>
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))
                                 <small><u>Pembimbing {{$key+1}}</u></small><br>
@@ -47,7 +47,7 @@
                                 <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
                         @endforeach
-                    </td>
+                    </td> --}}
                     <td class="text-left">
                         <small><u>Jadwal</u></small><br>
                         @if ($jadwal->count() != 0)
@@ -76,9 +76,9 @@
                             @else
                                 <a href="#" class="btn btn-xs btn-info" style="font-size:10px">Belum <br>Ditentukan</a>
                             @endif
-                            <center>
+                            {{-- <center>
                                 <a href="javascript:tambahpenguji({{$idpengajuan}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
-                            </center>
+                            </center> --}}
                         @endif
                     </td>
                     

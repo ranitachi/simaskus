@@ -10,6 +10,7 @@
                     <th> Tanggal</th>
                     <th> Keterangan</th>
                     <th> Status Sidang</th>
+                    <th> Kategori Khusus</th>
                     <th> # </th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@
                     <td>{{tgl_indo2($v->start_date)}} - {{tgl_indo2($v->end_date)}}</td>
                     <td>{{$v->keterangan}}</td>
                     <td>{!!$v->status_sidang==1 ? '<span class="badge badge-primary badge-roundless"> Ya </span>' : '<span class="badge badge-danger badge-roundless"> Tidak </span>'!!}</td>
+                    <td>{{ucwords(str_replace('-',' ',$v->kategori_khusus))}}</td>
                     <td>
                         <div style="width:80px;">
                             <a href="{{url('kalender-akademik/'.$v->tahunajaran_id.'/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>

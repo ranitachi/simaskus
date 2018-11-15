@@ -51,7 +51,11 @@
                             <tr>
                                 <td>{{++$k}}</td>
                                 <td class="text-center">{{ tgl_indo2($v->created_at)}}</td>
-                                <td>NPM : {{ ($v->mahasiswa->npm)}}<br><b>{{$v->mahasiswa->nama}}</b></td>
+                                <td>
+                                    <b>{{$v->mahasiswa->nama}}</b><br>
+                                    NPM : {{ ($v->mahasiswa->npm)}}<br>
+                                    {{$v->mahasiswa->programstudi->nama_program_studi}}
+                                </td>
                                 <td> {{$v->topik_diajukan}}</td>
                                 <td> 
                                     @php
@@ -61,7 +65,7 @@
                                         @if (isset($item->dosen->nama))
                                             <small><u>Pembimbing {{$key+1}}</u></small><br>
                                             <div class="row">
-                                                <div class="col-md-9">
+                                                <div class="col-md-8">
                                                     @if ($item->status==1)
                                                         <i class="fa fa-check font-blue-steel"></i>
                                                     @elseif($item->status==0)
@@ -70,9 +74,13 @@
                                                     
                                                     <strong>{{$item->dosen->nama}}<br></strong>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     @if($item->status==0)
                                                         <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
+                                                    @endif
+                                                
+                                                    @if($item->status==0)
+                                                        <a href="javascript:hapuspengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger tooltips" data-style="default" data-container="body" data-original-title="Hapus Pengajuan Bimbingan" id=""><i class="fa fa-trash font-white" title=""></i></a>
                                                     @endif
                                                 </div>
                                             </div>
@@ -158,7 +166,7 @@
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-info",
-            confirmButtonText: "Ya, Tolak",
+            confirmButtonText: "Ya, Terima",
             cancelButtonText: "Tidak",
             closeOnConfirm: true,
             closeOnCancel: true
@@ -166,6 +174,25 @@
         function(isConfirm) {
             if (isConfirm) {
                 location.href='{{url("setujui-pengajuan-bimbingan")}}/'+pengajuan_id+'/'+mahasiswa_id+'/'+dosen_id;
+            } 
+        });
+    }
+    function hapuspengajuan(pengajuan_id,mahasiswa_id,dosen_id)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Menyetujui Menghapus Pengajuan Bimbingan Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ya, Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                location.href='{{url("hapus-pengajuan-bimbingan")}}/'+pengajuan_id+'/'+mahasiswa_id+'/'+dosen_id;
             } 
         });
     }

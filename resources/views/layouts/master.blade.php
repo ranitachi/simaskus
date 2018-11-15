@@ -71,5 +71,24 @@
         @include('include.script')
     </body>
     @yield('footscript')
+    <script>
+        function updatenotif(id)
+        {
+            $.ajax({
+                url : '{{url("update-notif")}}/'+id,
+                success : function(i)
+                {
+                    if(i==0)
+                        $('#label-notif').css('display','none');
+                    else
+                    {
+                        $('#label-notif').css('display','inline');
+                        $('#label-notif').text(i);
+                        $('#time-waktu_'+id).css('background','gray');
+                    }
+                }
+            });
+        }
+    </script>
 </html>
 @include('include.modal')

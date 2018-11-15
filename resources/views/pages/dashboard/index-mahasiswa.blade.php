@@ -5,7 +5,7 @@
 @endsection
 
 @section('konten')
-    <div class="page-content" style="background:#eef1f5">
+    {{-- <div class="page-content" style="background:#eef1f5">
         <div class="search-page search-content-1">
                             
             <div class="row">
@@ -200,7 +200,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    @include('home')
 @endsection
 
 @section('footscript')

@@ -20,10 +20,19 @@
             @foreach ($pengajuan as $i => $v)
             @if (count($jadwal) != 0)
                 @php
+                    $no=$i;
                     $idpengajuan=$v->id;
+                    if(Auth::user()->kat_user==3)
+                    {
+                        if($v->mahasiswa_id!=Auth::user()->id_user)
+                            continue;
+                        else
+                            $no=0;
+                    }
+                    
                 @endphp
                 <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
+                    <td>{{($no+1)}}</td>
                     <td>{{$v->mahasiswa->npm}}<br><b>{{$v->mahasiswa->nama}}</b></td>
                     <td><b>{{$v->jenispengajuan->jenis}}</b><br><br>T.A. <br>{{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}</td>
                     <td>
@@ -33,41 +42,18 @@
                         <small><u>Inggris</u></small><br>
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
+                    @php
+                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                    @endphp
                     <td>
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 1</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem1]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
+                        @foreach ($p_bimbingan as $key=>$item)
+                            @if (isset($item->dosen->nama))
+                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
-                            <strong>{{$v->dospem_1->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_2->nama))
-                            <small><u>Pembimbing 2</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem2]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                           <strong> {{$v->dospem_2->nama}}<br></strong>
-                        @endif
-                        @if (isset($v->dospem_3->nama))
-                            <small><u>Pembimbing 3</u></small><br>
-                            @if (isset($piv[$v->mahasiswa_id][$v->dospem3]))
-                                @if ($piv[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                    <i class="fa fa-check font-blue-steel"></i>
-                                @elseif($piv[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                    <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                @endif
-                            @endif
-                            <strong>{{$v->dospem_3->nama}}</strong>
-                        @endif
+                        @endforeach
                     </td>
+                    
                     <td class="text-left">
                         <small><u>Jadwal : </u></small><br>
                         @if (count($jadwal) != 0)
@@ -126,10 +112,3 @@
         </table>
     </div>
 </div>
-<style>
-    .table td,
-    .table th
-    {
-        font-size: 11px !important;
-    }
-</style>

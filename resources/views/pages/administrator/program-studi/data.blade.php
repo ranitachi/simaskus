@@ -17,6 +17,7 @@
                     <th>No</th>
                     {{-- <th> Kode </th> --}}
                     <th> Departemen </th>
+                    <th> Jenjang </th>
                     <th> Program Studi</th>
                     <th> Pimpinan</th>
                     <th> # </th>
@@ -35,6 +36,7 @@
                         <td>{{($no)}}</td>
                         {{-- <td>{{$v->code}}</td> --}}
                         <td>{{$v->departemen->nama_departemen}}</td>
+                        <td>{{$v->jenjang}}</td>
                         <td>{{$v->nama_program_studi}}</td>
                         <td>{{isset($v->pimpinan->nama) ? $v->pimpinan->nama : ''}}</td>
                         <td>

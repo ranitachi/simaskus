@@ -35,7 +35,13 @@
                     <td>{{$v->judul}}</td>
                     <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
                     <td>{!!$v->deskripsi_bimbingan!!}</td>
-                    <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-info"><i class="fa fa-check"></i> Menunggu Persetujuan</a>'!!}</td>
+                    <td>
+                        @if (Auth::user()->kat_user==1)
+                            @if($v->flag!=1)
+                                <a href="javascript:setujui({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-primary tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" title="Setujui Bimbingan"><i class="fa fa-check"></i></a>
+                            @endif
+                        @endif
+                        {!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success " ><i class="fa fa-check"></i> Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-warning"><i class="fa fa-warning"></i> Menunggu Persetujuan</a>'!!}</td>
                     @if (Auth::user()->kat_user!=1)
                     <td>
                         <div style="width:80px;">

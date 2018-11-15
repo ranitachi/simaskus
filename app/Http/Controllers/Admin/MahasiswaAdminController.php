@@ -96,6 +96,7 @@ class MahasiswaAdminController extends Controller
         $m->email=$request->email;
         $m->hp=$request->hp;
         $m->tahun_masuk=$request->tahun_masuk;
+        $m->status_mahasiswa=$request->status_mahasiswa;
         $m->departemen_id=$request->departemen;
         $m->program_studi_id=$request->program_studi;
         $m->created_at=date('Y-m-d H:i:s');
@@ -133,6 +134,7 @@ class MahasiswaAdminController extends Controller
         $m->alamat=$request->alamat;
         $m->kota=$request->kota;
         $m->email=$request->email;
+        $m->status_mahasiswa=$request->status_mahasiswa;
         $m->hp=$request->hp;
         $m->tahun_masuk=$request->tahun_masuk;
         $m->departemen_id=$request->departemen;

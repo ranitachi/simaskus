@@ -25,6 +25,13 @@
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                @if (Auth::user()->kat_user==1)
+                    <a class="btn btn-info btn-md pull-right" href="{{url('data-pengajuan')}}">Data Pengajuan</a>
+                @endif
+            </div>
+        </div>
         <div class="">
             <div class="tabbable-custom ">
                 <ul class="nav nav-tabs ">
@@ -230,6 +237,7 @@
         $('#data-bimbingan').load('{{url("bimbingan-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
+            $('.tooltips').tooltip();
         });
     }
     

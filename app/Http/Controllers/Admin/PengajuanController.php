@@ -11,6 +11,7 @@ use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
 use App\Model\Users;
 use App\Model\Staf;
+use App\User;
 use Auth;
 class PengajuanController extends Controller
 {
@@ -49,6 +50,21 @@ class PengajuanController extends Controller
         $pivot->status=1;
         $pivot->save();
         return redirect('data-pengajuan')->with('status','Pengajuan Berhasil Di Verifikasi');
+    }
+    public function hapus_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
+    {
+        $pivot=PivotBimbingan::where('judul_id',$pengajuan_id)->where('mahasiswa_id',$mahasiswa_id)->where('dosen_id',$dosen_id)->first();
+        if($pivot)
+            $pivot->forceDelete();
+
+
+        $user=User::where('id_user',$dosen_id)->where('kat_user',2)->first();
+        $notif=Notifikasi::where('to',$user->id)->where('title','like',"%Menunggu Verifikasi Pengajuan%")->first();
+        if($notif)
+            $notif->forceDelete();
+
+        // $pivot->save();
+        return redirect('data-pengajuan')->with('status','Pengajuan Berhasil Di Hapus');
     }
     public function data_bimbingan()
     {

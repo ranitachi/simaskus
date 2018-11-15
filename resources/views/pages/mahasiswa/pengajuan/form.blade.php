@@ -81,16 +81,22 @@
                                                 @php
                                                     if (strpos(strtolower($v->jenis),'praktek')!==false)
                                                         continue;
+
+                                                    $mahasiswa=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+                                                    // dd($mahasiswa->programstudi);
                                                 @endphp
+
                                                 @if ($v->keterangan=='S1' || $v->keterangan=='S2' || $v->keterangan=='S3')
-                                                    @if ($id!=-1)
-                                                        @if ($det->jenis_id==$v->id)
-                                                            <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                    @if ($mahasiswa->programstudi->jenjang==$v->keterangan)
+                                                        @if ($id!=-1)
+                                                            @if ($det->jenis_id==$v->id)
+                                                                <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                            @else
+                                                                <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                                            @endif
                                                         @else
                                                             <option value="{{$v->id}}">{{$v->jenis}}</option>
                                                         @endif
-                                                    @else
-                                                        <option value="{{$v->id}}">{{$v->jenis}}</option>
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -144,7 +150,12 @@
                                 </div>
                                 <!--/span-->
                             </div>
-                            <div class="row" style="display:none;">
+                            @if ($mahasiswa->programstudi->jenjang=='S2')
+                                <div class="row" style="">
+                            @else
+                                <div class="row" style="display:none;">    
+                            @endif
+                            
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Judul Bahasa Indonesia (<i>* Dapat Menyusul</i>)</label>

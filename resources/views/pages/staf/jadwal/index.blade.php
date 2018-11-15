@@ -186,6 +186,34 @@
             } 
         });
     }
+    function accsidangmahasiswa()
+    {
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin ACC Seluruh Data Pengajuan Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                // location.href='{{url("pengajuan-acc-dosen")}}';
+                $.ajax({
+                    url : '{{url("pengajuan-acc-dosen")}}',
+                    dataType : 'JSON'
+                }).done(function(){
+                    loaddata();
+                    swal("Success!", "Batch ACC Sidang Berhasil Di Lakukan", "success");
+                }).fail(function(){
+                    swal("Fail!", "Batch ACC Sidang Gagal", "danger");
+                });
+            } 
+        });
+    }
     function generate(id)
     {
         $('#ajax-sm').modal('show');

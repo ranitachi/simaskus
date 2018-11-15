@@ -38,6 +38,7 @@ class KalenderAkademikController extends Controller
         if($id!=-1)
             $det=KalenderAkademik::find($id);
 
+        // dd($det  );
         $ta=TahunAjaran::all();
         $tahunajaran=array();
         foreach($ta as $t=>$a)
@@ -70,6 +71,7 @@ class KalenderAkademikController extends Controller
         $kalender->keterangan=$request->deskripsi;
         $kalender->kegiatan=$request->kegiatan;
         $kalender->tahunajaran_id=$idta;
+        $kalender->kategori_khusus=$request->kategori_khusus;
         $kalender->status_sidang=$request->status_sidang;
         $kalender->departemen_id=$dept_id;
         $cr=$kalender->save();

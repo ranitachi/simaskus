@@ -80,6 +80,18 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Kategori Khusus</label>
+                                        <select class="bs-select form-control has-success" name="kategori_khusus">
+                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus=='masa-pengajuan-pembimbing' ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Pembimbing</option>
+                                            <option value="masa-generate-pembimbing" {{$id!='-1' ? ($det->kategori_khusus=='masa-generate-pembimbing' ? 'selected="selected"' : '') : ''}}>Masa Generate Pembimbing</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <!--/span-->
                                 <div class="col-md-12">

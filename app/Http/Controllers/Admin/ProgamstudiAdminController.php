@@ -67,6 +67,7 @@ class ProgamstudiAdminController extends Controller
         $prodi->departemen_id=$request->departemen_id;
         $prodi->keterangan=$request->keterangan;
         $prodi->pimpinan_id=$request->pimpinan_id;
+        $prodi->jenjang=$request->jenjang;
         $prodi->created_at=date('Y-m-d H:i:s');
         $prodi->updated_at=date('Y-m-d H:i:s');
         $cr=$prodi->save();
@@ -82,6 +83,7 @@ class ProgamstudiAdminController extends Controller
         $prodi->departemen_id=$request->departemen_id;
         $prodi->keterangan=$request->keterangan;
         $prodi->pimpinan_id=$request->pimpinan_id;
+        $prodi->jenjang=$request->jenjang;
         $prodi->updated_at=date('Y-m-d H:i:s');
         $up=$prodi->save();
         return response()->json([$up]);

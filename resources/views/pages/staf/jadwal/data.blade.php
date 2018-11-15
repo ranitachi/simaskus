@@ -8,7 +8,11 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-6">&nbsp;</div>
+        <div class="col-md-6">
+            <a href="javascript:accsidangmahasiswa()" id="sample_editable_1_new" class="btn btn-sm sbold btn-success pull-right"> Batch Acc Sidang Mahasiswa
+                    <i class="fa fa-check"></i>
+                </a>
+        </div>
     </div>
     <div class="portlet-body">
         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_4">
@@ -18,13 +22,13 @@
                     <th> NPM<br>Mahasiswa </th>
                     <th> Jenis<br>Pengajuan </th>
                     <th> Judul </th>
-                    <th> Pembimbing </th>
+                    {{-- <th> Pembimbing </th> --}}
                     @if ($jenis==2)
                         <th> Hari/Tanggal/<br>Ruangan Sidang </th>
                     @endif
                     <th>Dokumen</th>
                     <th> Penguji </th>
-                    <th> Status Sidang </th>
+                    <th> Status Acc Sidang <br>Pembimbing</th>
                    
                 </tr>
             </thead>
@@ -37,7 +41,11 @@
                 @endphp
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
-                    <td>{{$v->mahasiswa->npm}}<br><b>{{$v->mahasiswa->nama}}</b></td>
+                    <td>
+                        <b>{{$v->mahasiswa->nama}}</b><br>
+                        {{$v->mahasiswa->npm}}<br>
+                        {{$v->mahasiswa->programstudi->nama_program_studi}}
+                    </td>
                     <td><b>{{$v->jenispengajuan->jenis}}</b><br><br>T.A. <br>{{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}</td>
                     <td>
                         <small><u>Indonesia</u></small><br>
@@ -46,10 +54,10 @@
                         <small><u>Inggris</u></small><br>
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
-                    <td>
                         @php
                             $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
                         @endphp
+                    {{-- <td>
                         @foreach ($p_bimbingan as $key=>$item)
                             
                             @if (isset($item->dosen->nama))
@@ -63,7 +71,7 @@
                                 <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
                         @endforeach
-                    </td>
+                    </td> --}}
                     @if ($jenis==2)
                         <td class="text-center">
                             <small><u>Jadwal : </u></small><br>
@@ -150,6 +158,9 @@
                             </center>
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
+                            <center>
+                                <a href="javascript:tambahpenguji({{$v->id}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
+                            </center>
                         @endif
                     {{-- @endif --}}
                     </td>

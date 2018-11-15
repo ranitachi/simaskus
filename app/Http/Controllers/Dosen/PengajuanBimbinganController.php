@@ -13,6 +13,7 @@ use App\Model\Notifikasi;
 use App\Model\PivotBimbingan;
 use App\Model\Bimbingan;
 use App\Model\PivotSetujuSidang;
+use App\Model\PivotPembimbing;
 use App\Model\Component;
 use App\Model\Mahasiswa;
 use App\Model\ComponentScore;
@@ -274,4 +275,61 @@ class PengajuanBimbinganController extends Controller
         echo 1;
     }
 
+    public function pengajuan_acc_dosen()
+    {
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)
+                    ->where('status_pengajuan',1)
+                    ->with('jenispengajuan')
+                    ->with('mahasiswa')
+                    ->with('tahunajaran')
+                    ->orderBy('created_at')->get();
+
+        $pembimbing=PivotBimbingan::all();
+        $pemb=array();
+        foreach($pembimbing as $k=>$v)
+        {
+            $pemb[$v->mahasiswa_id][$v->dosen_id]=$v;
+        }
+        
+        $setujusidang=PivotSetujuSidang::all();
+        $setuju=array();
+        foreach($setujusidang as $k=>$v)
+        {
+            $setuju[$v->pengajuan_id][$v->dosen_id]=$v;
+        }
+        
+
+        foreach($pengajuan as $k=>$v)
+        {
+            if(isset($pemb[$v->mahasiswa_id]))
+            {
+                foreach($pemb[$v->mahasiswa_id] as $iddosen=>$val)
+                {
+                    if(!isset($setuju[$v->id][$iddosen]))
+                    {
+                        // echo 'Akan Di Acc<nr>';
+                        $piv=new PivotSetujuSidang;
+                        $piv->dosen_id=$iddosen;
+                        $piv->mahasiswa_id=$v->mahasiswa_id;
+                        $piv->jenis_bimbingan=$v->jenispengajuan->jenis;
+                        $piv->pengajuan_id=$v->id;
+                        $piv->status=1;
+                        $piv->save();
+                    }
+                }
+            }
+        }
+        return response()->json(['done']);
+    }
 }
