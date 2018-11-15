@@ -183,7 +183,7 @@
                                 else
                                     $jlh_min=5;
                             @endphp 
-                            @if ($jlh_min!=0)
+                            @if ($jlhbimbingan->count() >= $jlh_min)
                                 {{-- @if ($st_sid==1) --}}
                                 
                                 <div style="width:110px;">
