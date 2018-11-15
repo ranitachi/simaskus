@@ -113,6 +113,21 @@
         // var iddos=$('#dosen_id').val();
         
     }
+    function belumbisadaftar()
+    {
+        swal({
+            title: "Peringatan",
+            text: "Anda Belum Menyelesaikan Minimal Bimbingan",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "OK",
+            closeOnConfirm: true
+        },
+        function(isConfirm) {
+            
+        });
+    }
 </script>
 
 <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true">

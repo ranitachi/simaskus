@@ -43,7 +43,7 @@
                             <th> Judul</th>
                             <th> Pembimbing</th>
                             <th> Status </th>
-                            <th> # </th>
+                            <th> Tombol Aksi </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,39 +54,30 @@
                                 <td>NPM : {{ ($v->mahasiswa->npm)}}<br><b>{{$v->mahasiswa->nama}}</b></td>
                                 <td> {{$v->topik_diajukan}}</td>
                                 <td> 
-                                    @if (isset($v->dospem_2->nama))
-                                        <small><u>Pembimbing 1</u></small><br>
-                                        @if (isset($piv[$v->mahasiswa_id][$v->dospem1]))
-                                            @if ($piv[$v->mahasiswa_id][$v->dospem1]->status==1)
-                                                <i class="fa fa-check font-blue-steel"></i>
-                                            @elseif($piv[$v->mahasiswa_id][$v->dospem1]->status==0)
-                                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                            @endif
+                                    @php
+                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                                    @endphp
+                                    @foreach ($p_bimbingan as $key=>$item)
+                                        @if (isset($item->dosen->nama))
+                                            <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    @if ($item->status==1)
+                                                        <i class="fa fa-check font-blue-steel"></i>
+                                                    @elseif($item->status==0)
+                                                        <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
+                                                    @endif
+                                                    
+                                                    <strong>{{$item->dosen->nama}}<br></strong>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @if($item->status==0)
+                                                        <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         @endif
-                                        <strong>{{$v->dospem_1->nama}}<br></strong>
-                                    @endif
-                                    @if (isset($v->dospem_2->nama))
-                                        <small><u>Pembimbing 2</u></small><br>
-                                        @if (isset($piv[$v->mahasiswa_id][$v->dospem2]))
-                                            @if ($piv[$v->mahasiswa_id][$v->dospem2]->status==1)
-                                                <i class="fa fa-check font-blue-steel"></i>
-                                            @elseif($piv[$v->mahasiswa_id][$v->dospem2]->status==0)
-                                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                            @endif
-                                        @endif
-                                    <strong> {{$v->dospem_2->nama}}<br></strong>
-                                    @endif
-                                    @if (isset($v->dospem_3->nama))
-                                        <small><u>Pembimbing 3</u></small><br>
-                                        @if (isset($piv[$v->mahasiswa_id][$v->dospem3]))
-                                            @if ($piv[$v->mahasiswa_id][$v->dospem3]->status==1)
-                                                <i class="fa fa-check font-blue-steel"></i>
-                                            @elseif($piv[$v->mahasiswa_id][$v->dospem3]->status==0)
-                                                <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
-                                            @endif
-                                        @endif
-                                        <strong>{{$v->dospem_3->nama}}</strong>
-                                    @endif
+                                    @endforeach
                                 </td>
                                 <td>{!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}</td>
 
@@ -108,11 +99,13 @@
                                 @endphp
                                 <td>
                                     @if ($st_pbb==1)
-                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs" title="Lihat Detail"><i class="fa fa-eye"></i></a>
-                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs" title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
+                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i></a>
+                                        @if ($v->status_pengajuan==0)    
+                                            <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
+                                        @endif
                                     @endif
-                                    <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs" title="Tolak Pengajuan"><i class="fa fa-ban"></i></a>
-                                    <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs" title="Hapus Pengajuan"><i class="fa fa-trash"></i></a>
+                                    <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i></a>
+                                    <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips btn btn-danger btn-xs" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -135,6 +128,7 @@
         {
             swal("Berhasil", "{{Session::get('status')}}", "success")
         }
+        $('#tooltips').tooltip();
     });
 
     function verifikasi(id,jns)
@@ -153,6 +147,25 @@
         function(isConfirm) {
             if (isConfirm) {
                 location.href='{{url("pengajuan-verifikasi")}}/'+id+'/'+jns;
+            } 
+        });
+    }
+    function setujuipengajuan(pengajuan_id,mahasiswa_id,dosen_id)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Menyetujui Pengajuan Mahasiswa Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Tolak",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                location.href='{{url("setujui-pengajuan-bimbingan")}}/'+pengajuan_id+'/'+mahasiswa_id+'/'+dosen_id;
             } 
         });
     }
@@ -195,7 +208,6 @@
         });
     }
 </script>
-@endsection
 <style>
     .table td,
     .table th
@@ -203,3 +215,4 @@
         font-size: 11px !important;
     }
 </style>
+@endsection

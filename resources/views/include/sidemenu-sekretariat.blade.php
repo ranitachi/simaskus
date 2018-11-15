@@ -29,7 +29,7 @@
 <li class="heading">
     <h3 class="uppercase">Pengajuan</h3>
 </li>
-<li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-jadwal')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
+<li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-bimbingan')!==false || strpos(Request::url(),'data-jadwal')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Skripsi/Tesis/Disertasi</span>

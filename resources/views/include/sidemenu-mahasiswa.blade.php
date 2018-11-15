@@ -48,7 +48,7 @@
     // dd($mhs);
 @endphp
 @if (strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
-<li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
+<li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'data-bimbingan-mhs')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>
         <span class="title">Pengajuan</span>
@@ -58,6 +58,11 @@
         <li class="nav-item  {{Request::path()=='pengajuan' ? 'active' : ''}}">
             <a href="{{url('pengajuan')}}" class="nav-link ">
                 <span class="title">Pengajuan Bimbingan</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='data-bimbingan-mhs' ? 'active' : ''}}">
+            <a href="{{url('data-bimbingan-mhs')}}" class="nav-link ">
+                <span class="title">Data Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang' ? 'active' : ''}}">

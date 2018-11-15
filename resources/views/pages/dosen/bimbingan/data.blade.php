@@ -25,7 +25,7 @@
                             @if ($piv[$v->mahasiswa_id]->status==0)
                                 <tr>
                                     <td>{{++$k}}</td>
-                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
+                                    <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
@@ -44,7 +44,7 @@
                             @else
                                 <tr>
                                     <td>{{++$k}}</td>
-                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
+                                    <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
@@ -64,7 +64,7 @@
                             @if ($piv[$v->mahasiswa_id]->status==1)
                                 <tr>
                                     <td>{{++$k}}</td>
-                                    <td> {{strpos($v->jenispengajuan->jenis,'Skripsi')!==false ? 'Skripsi' : ''}}</td>
+                                    <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
                                     <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>

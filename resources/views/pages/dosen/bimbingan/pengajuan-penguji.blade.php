@@ -31,14 +31,13 @@
                                         <option value="{{$v->id}}">{{$v->nama}}</option>       
                                     @endif
                                 @else --}}
-                                    @if (!in_array($v->id,$pemb))
-                                        <option value="{{$v->id}}">{{$v->nama}}</option>   
-                                    @endif
-
+                                    
                                     @if (in_array($v->id,$peng))
                                         <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>   
                                     @else
-                                        <option value="{{$v->id}}">{{$v->nama}}</option>   
+                                        @if (!in_array($v->id,$pemb))
+                                            <option value="{{$v->id}}">{{$v->nama}}</option>   
+                                        @endif
                                     @endif
                                 {{-- @endif --}}
                             @endforeach

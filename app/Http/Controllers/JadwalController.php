@@ -272,14 +272,29 @@ class JadwalController extends Controller
 
     public function generate(Request $reqeuest, $dept_id)
     {
+        
+        list($date1,$date2)=explode('-',$reqeuest->datetimes);
+        $date1=trim($date1);
+        $date2=trim($date2);
+        list($tg1,$bl1,$th1)=explode('/',$date1);
+        list($tg2,$bl2,$th2)=explode('/',$date2);
+        $date1=$th1.'-'.$bl1.'-'.$tg1;
+        $date2=$th2.'-'.$bl2.'-'.$tg2;
+        
+        // echo $date1.'-'.$date2;
+        // dd($reqeuest->all());
+
         $dept=MasterDepartemen::find($dept_id);
         $idta=$reqeuest->tahunajaran_id;
-        $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_sidang',1)->get();
+        // $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_sidang',1)->get();
         $tanggal=$tgl=array();
-        foreach($kalender as $k=>$v)
-        {
-            $tanggal[]=createDateRange($v->start_date,$v->end_date);
-        }
+        // foreach($kalender as $k=>$v)
+        // {
+        //     $tanggal[]=createDateRange($v->start_date,$v->end_date);
+        // }
+
+        $tanggal[]=createDateRange($date1,$date2);
+        
         foreach($tanggal as $kt => $vt)
         {
             foreach($vt as $idkt=> $vvt)
@@ -290,20 +305,23 @@ class JadwalController extends Controller
                     $tgl[$vvt]=$vvt;
             }
         }
-
+        
         $ruangan=MasterRuangan::where('departemen_id',$dept_id)->get();
         $d_ruang=array();
         foreach($ruangan as $kr => $vr)
         {
             $d_ruang[]=$vr->id.'__'.$vr->code_ruangan.'__'.$vr->nama_ruangan;
         }
-
+        
         $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_pengajuan',1)->get();
+
+        
 
         $penguji=PivotPenguji::with('dosen')->get();
         $p_uji=array();
         foreach($penguji as $k => $v)
         {
+            // echo $v->id.'-';
             $p_uji[$v->pengajuan_id][$v->penguji_id]=$v;
         }
 
@@ -316,7 +334,9 @@ class JadwalController extends Controller
         {
             $p_jdwl[$vj->mahasiswa_id][]=$vj;
         }
-        // dd($d_ruang);
+
+        // dd($p_jdwl);
+
         if(count($tgl)!=0)
         {
             foreach($pengajuan as $kp => $vp)
@@ -503,22 +523,24 @@ class JadwalController extends Controller
                     ->with('ruangan')
                     ->first();
 
-        $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('mahasiswa')->with('departemen')->first();
+        $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('jenispengajuan')->with('mahasiswa')->with('departemen')->first();
 
-        $penguji=PivotPenguji::where('pivot_jadwal_id',$jadwal->pj_id)->with('dosen')->get();
+        $penguji=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
         $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('mahasiswa')->get();
         $pimp=MasterPimpinan::where('departemen_id',$pengajuan->departemen_id)->with(['dosen','departemen'])->get();
         $pimpinan=array();
+        $departemen=MasterDepartemen::find($pengajuan->departemen_id);
         foreach($pimp as $k =>$v)
         {
             $pimpinan[str_slug($v->jabatan)]=$v;
         }
-        
+        // dd($pimpinan);
+        $mahasiswa=Mahasiswa::where('id',$pengajuan->mahasiswa_id)->with('programstudi')->first();
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$pengajuan->departemen_id)
                     ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
 
-        return view('pages.staf.jadwal.berkas.'.$jenis,compact('jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing'));
+        return view('pages.staf.jadwal.berkas.'.$jenis,compact('jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
     }
 }

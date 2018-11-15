@@ -54,8 +54,9 @@
 
     function loaddata()
     {
+        var status_pengajuan='{{$status_pengajuan}}';
         $('#loader').show();
-        $('#data').load('{{url("pengajuan-data")}}',function(){
+        $('#data').load('{{url("pengajuan-data")}}/'+status_pengajuan,function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });

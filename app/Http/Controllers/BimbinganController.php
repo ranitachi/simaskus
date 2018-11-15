@@ -21,9 +21,14 @@ class BimbinganController extends Controller
         //
     }
 
-    public function data()
+    public function data($idmhs=null)
     {
-        $bimbingan=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dospem')->with('mahasiswa')->get();
+        if($idmhs==null)
+            $bimbingan=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dospem')->with('mahasiswa')->get();
+        else
+            $bimbingan=Bimbingan::where('mahasiswa_id',$idmhs)->with('dospem')->with('mahasiswa')->get();
+          
+
         return view('pages.mahasiswa.bimbingan.data',compact('bimbingan'));
     }
 

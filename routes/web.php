@@ -111,15 +111,20 @@ Route::post('/simpan-profil-mhs', 'MahasiswaController@simpanprofil')->name('sim
 Route::resource('pengajuan','Mahasiswa\PengajuanSkripsiController')->middleware('auth');
 // Route::post('pengajuan-admin','Mahasiswa\PengajuanSkripsiController@store')->middleware('auth');
 // Route::post('pengajuan-admin/{id}','Mahasiswa\PengajuanSkripsiController@update')->middleware('auth');
-Route::get('pengajuan-data', 'Mahasiswa\PengajuanSkripsiController@data')->middleware('auth');
+Route::get('pengajuan-data/{id?}', 'Mahasiswa\PengajuanSkripsiController@data')->middleware('auth');
 Route::get('pengajuan-hapus/{id}', 'Mahasiswa\PengajuanSkripsiController@destroy')->middleware('auth');
 Route::get('pengajuan-detail/{id}','Mahasiswa\PengajuanSkripsiController@detail')->middleware('auth');
+Route::get('data-bimbingan-mhs/{id?}','Mahasiswa\PengajuanSkripsiController@index_bimbingan_mhs')->middleware('auth');
+
+
 Route::get('data-pengajuan','Admin\PengajuanController@pengajuan')->middleware('auth');
+Route::get('data-bimbingan','Admin\PengajuanController@data_bimbingan')->middleware('auth');
 Route::get('data-pengajuan-detail/{id}','Admin\PengajuanController@detail')->middleware('auth');
 Route::get('pengajuan-verifikasi/{id}/{jenis}','Admin\PengajuanController@verifikasi')->middleware('auth');
 Route::get('pengajuan-tolak/{id}/{jenis}','Admin\PengajuanController@tolak')->middleware('auth');
 Route::get('pengajuan-hapus/{id}/{jenis}','Admin\PengajuanController@destroy')->middleware('auth');
 Route::get('verifikasi-pengajuan/{id}','Admin\PengajuanController@verifikasi_pengajuan')->middleware('auth');
+Route::get('setujui-pengajuan-bimbingan/{pengajuan_id}/{mahasiswa_id}/{dosen_id}','Admin\PengajuanController@setujui_pengajuan_bimbingan')->middleware('auth');
 
 Route::resource('daftar-sidang','Mahasiswa\DaftarSidangController')->middleware('auth');
 Route::get('daftar-sidang-data','Mahasiswa\DaftarSidangController@data')->middleware('auth');
@@ -127,7 +132,7 @@ Route::get('daftar-sidang-data','Mahasiswa\DaftarSidangController@data')->middle
 //---------------------------------------------------------------------------------------------------------------------------------------
 //-----------BIMBINGAN--------------
 Route::resource('bimbingan','BimbinganController')->middleware('auth');
-Route::get('bimbingan-data','BimbinganController@data')->middleware('auth');
+Route::get('bimbingan-data/{idmhs?}','BimbinganController@data')->middleware('auth');
 
 //-----------JADWAL FRONT--------------
 Route::get('jadwal/{jenis}','JadwalController@index');
@@ -188,7 +193,7 @@ Route::get('pengajuan-bimbingan','Dosen\PengajuanBimbinganController@pengajuan')
 Route::get('daftar-bimbingan','Dosen\PengajuanBimbinganController@daftar')->middleware('auth');
 Route::get('bimbingan-detail/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganController@detail')->middleware('auth');
 Route::get('bimbingan-data-dosen/{id}','Dosen\PengajuanBimbinganController@bimbingandata')->middleware('auth');
-Route::get('pengajuan-data/{jenis}','Dosen\PengajuanBimbinganController@data')->middleware('auth');
+Route::get('pengajuan-data-dosen/{jenis}','Dosen\PengajuanBimbinganController@data')->middleware('auth');
 Route::get('pengajuan-bimbingan-status/{id}/{st}','Dosen\PengajuanBimbinganController@status')->middleware('auth');
 Route::get('data-bimbingan-status/{id}/{st}','Dosen\PengajuanBimbinganController@data_bimbingan_status')->middleware('auth');
 
@@ -279,3 +284,5 @@ Route::post('jadwal-sidang-kp-simpan/{idgrup}','KerjaPraktekController@simpan_ja
 //Acc Sidang
 Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@simpan_form_evaluasi_skipsi')->middleware('auth');
 Route::post('pengajuan-penguji/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganController@simpan_data_penguji')->middleware('auth');
+
+Route::get('hapus-data-penguji/{dosen_id}/{id}','Dosen\PengajuanBimbinganController@hapus_data_penguji')->middleware('auth');

@@ -37,13 +37,13 @@ class PengajuanBimbinganController extends Controller
     {
         $pivot=PivotBimbingan::where('dosen_id',Auth::user()->id_user)->get();
         $piv=array();
+        $pivot_pengajuan_id=array();
         foreach($pivot as $k =>$v)
         {
             $piv[$v->mahasiswa_id]=$v;
+            $pivot_pengajuan_id[$v->judul_id]=$v->judul_id;
         }
-        $data=Pengajuan::where('dospem1',Auth::user()->id_user)
-                ->orWhere('dospem2',Auth::user()->id_user)
-                ->orWhere('dospem3',Auth::user()->id_user)
+        $data=Pengajuan::whereIn('id',$pivot_pengajuan_id)
                 ->with('jenispengajuan')
                 ->get();
         // dd($data);
@@ -128,7 +128,7 @@ class PengajuanBimbinganController extends Controller
                     ->join('master_jenis_pengajuan','master_jenis_pengajuan.id','=','module.jenis_id')
                     ->where('module.departemen_id',$dept_id)
                     ->where('master_jenis_pengajuan.jenis','like',"%Tugas Skripsi%")->get();
-
+        // dd($penilaian);
         $eval=EvaluasiACCSidang::where('dept_id',$dept_id)->where('mahasiswa_id',$mahasiswa_id)->where('pengajuan_id',$id)->where('dosen_id',Auth::user()->id_user)->get();
         $ev=array();
         foreach($eval as $ke => $ve)
@@ -266,5 +266,11 @@ class PengajuanBimbinganController extends Controller
             $pivot->save();
         }
         return redirect('bimbingan-detail/'.$id.'/'.$mahasiswa_id.'#tab_5_4')->with('status','Nama Usulan Penguji Berhasil Di Tambahkan');
+    }
+
+    public function hapus_data_penguji($dosen_id,$id)
+    {
+        PivotPenguji::where('penguji_id',$dosen_id)->where('id',$id)->first()->delete();
+        echo 1;
     }
 }

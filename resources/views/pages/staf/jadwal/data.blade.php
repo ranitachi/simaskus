@@ -51,6 +51,7 @@
                             $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
                         @endphp
                         @foreach ($p_bimbingan as $key=>$item)
+                            
                             @if (isset($item->dosen->nama))
                                 <small><u>Pembimbing {{$key+1}}</u></small><br>
                                    @if ($item->status==1)
@@ -138,12 +139,14 @@
                                     {{-- @if ($vv->status==0)
                                             <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                         @else --}}
-                                            <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
+                                                <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;">
+                                                    <i class="fa fa-trash tooltips" data-container="body" data-placement="top" data-original-title="Hapus Data Penguji" onclick="hapusenguji({{$vv->penguji_id}},{{$vv->id}})" style="color:black"></i> | 
+                                                    <i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
                                         {{-- @endif --}}
                                 @endforeach
                             {{-- @endif --}}
                             <center>
-                                <a href="javascript:tambahpenguji({{$v->id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
+                                <a href="javascript:tambahpenguji({{$v->id}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
                             </center>
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>

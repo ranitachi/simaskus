@@ -250,7 +250,7 @@
 @section('footscript')
 @php
         $mhs=\App\Model\Mahasiswa::where('id',$pengajuan->mahasiswa_id)->with('programstudi')->first();
-        $jlhpenguji=5;
+        $jlhpenguji=3;
         if(isset($q_penguji[$pengajuan->jenis_id]))
             $jlhpenguji=$q_penguji[$pengajuan->jenis_id]->quota;
         // if(strpos($mhs->programstudi->nama_program_studi,'S1')!==false)

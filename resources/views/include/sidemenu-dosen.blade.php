@@ -59,6 +59,11 @@
                 <span class="title">Data Bimbingan</span>
             </a>
         </li>
+        <li class="nav-item  {{Request::path()=='sidang-bimbingan' ? 'active' : ''}}">
+            <a href="{{url('sidang-bimbingan')}}" class="nav-link ">
+                <span class="title">Jadwal Sidang Bimbingan</span>
+            </a>
+        </li>
     </ul>
 </li>
 

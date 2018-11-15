@@ -62,7 +62,7 @@
     });
     function loaddata()
     {
-        $('#data').load('{{url("pengajuan-data/".$jenis)}}',function(){
+        $('#data').load('{{url("pengajuan-data-dosen/".$jenis)}}',function(){
             $('#sample_4').DataTable();
         });
     }

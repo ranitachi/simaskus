@@ -24,22 +24,54 @@ class PengajuanSkripsiController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         }   
-         $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        $status_pengajuan=0;
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
         return view('pages.mahasiswa.pengajuan.index')
             ->with('dosen',$dosen)
+            ->with('status_pengajuan',$status_pengajuan)
             ->with('dept_id',$dept_id);
     }
-    public function data()
+    public function index_bimbingan_mhs()
     {
-        $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
-                    ->with('jenispengajuan')
-                    ->with('tahunajaran')
-                    ->with('mahasiswa')
-                    ->with('dospem_1')
-                    ->with('dospem_2')
-                    ->with('dospem_3')
-                    ->orderBy('created_at')->get();
-                    
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }   
+        $status_pengajuan=1;
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        return view('pages.mahasiswa.pengajuan.index')
+            ->with('dosen',$dosen)
+            ->with('status_pengajuan',$status_pengajuan)
+            ->with('dept_id',$dept_id);
+    }
+    public function data($status_pengajuan=null)
+    {
+        if($status_pengajuan==null)
+        {
+            $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
+                        ->where('status_pengajuan',0)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->with('dospem_1')
+                        ->with('dospem_2')
+                        ->with('dospem_3')
+                        ->orderBy('created_at')->get();
+                        
+        }
+        else{
+            $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
+                        ->where('status_pengajuan',$status_pengajuan)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->with('dospem_1')
+                        ->with('dospem_2')
+                        ->with('dospem_3')
+                        ->orderBy('created_at')->get();
+        }
         $pivot=PivotBimbingan::all();
         $piv=array();
         foreach($pivot as $k =>$v)
@@ -109,12 +141,12 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->abstrak_eng=$request->abstrak_eng;
         $pengajuan->pengambilan_ke=$request->pengambilan_ke;
         
-        $xx=1;
-        foreach($request->dospem as $kdos=>$vdos)
-        {
-            $pengajuan->{'dospem'.$xx}=$vdos;
-            $xx++;
-        }
+        // $xx=1;
+        // foreach($request->dospem as $kdos=>$vdos)
+        // {
+        //     $pengajuan->{'dospem'.$xx}=$vdos;
+        //     $xx++;
+        // }
 
         // $pengajuan->dospem1=$request->dospem1;
         // $pengajuan->dospem2=$request->dospem2;

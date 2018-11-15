@@ -36,6 +36,7 @@
             <div class="alert alert-danger" id="pesan-alert">
                 <strong>Peringatan !</strong> <span id="alert-msg"></span>
             </div>
+            
             <div id="data"></div>
             
         </div>
@@ -62,14 +63,45 @@
             $('#alert-msg').html("{{Session::get('gagal')}}");
             $('#pesan-alert').show();
         }
-    });
 
+        $('#daterangerpicker').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
+    });
+    function hapusenguji(dosen_id,id)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Menghapus Data Penguji Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("hapus-data-penguji")}}/'+dosen_id+'/'+id,
+                    success:function(){
+                        loaddata();
+                        swal("Sukses!", "Hapus Data Penguji Berhasil", "success");
+                    }
+                });
+            }
+        });
+    }
     function loaddata()
     {
         $('#loader').show();
         $('#data').load('{{url("data-pengajuan-sidang-data/".$jenis)}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
+            $('.tooltips').tooltip();
         });
     }
     function setujui(id,jns)
@@ -157,15 +189,26 @@
     function generate(id)
     {
         $('#ajax-sm').modal('show');
-        $('#ok-ajax-sm').one('click',function(){
-            $('#form-generate-jadwal').submit();
+        $('#ok-ajax-sm').on('click',function(){
+            var ta=$('#tahunajaran_id').val();
+            if(ta=='-1')
+            {
+                $('#pesan-ta').css('display','inline');
+                setTimeout(function(){
+                    $('#pesan-ta').css('display','none');
+                },3000);
+            }
+            else
+                $('#form-generate-jadwal').submit();
         });
     }
-    function tambahpenguji(idpengajuan)
+    function tambahpenguji(idpengajuan,mahasiswa_id)
     {
         // $('.modal-body').load('{{url("form-add-penguji")}}',function(){
         //     $('.select2').select2({ width: '100%' });
         // });
+        $('#mahasiswa_id_modal').val(mahasiswa_id);
+        $('#pengajuan_id_modal').val(idpengajuan);
         $('#ajax-sm-dosen').modal('show');
         $('#ok-ajax-sm-dosen').one('click',function(){
             var iddos=$('#dosen_id').val();
@@ -204,13 +247,19 @@
                             <div class="col-md-12">
                                 <div class="form-group has-success">
                                     <label class="control-label">Tahun Ajaran</label>
-                                    <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Tahun Ajaran" id="tahunajaran_id" name="tahunajaran_id">
+                                    <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Tahun Ajaran" id="tahunajaran_id" name="tahunajaran_id" required>
                                         <option value="-1">-Pilih Tahun Ajaran-</option>
                                         @foreach ($ta as $k=>$v)
                                             <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                         @endforeach
                                     </select>
+                                    <span class="font-red" id="pesan-ta" style="display:none"><small>*Tahun Ajaran Harus Dipilih</small></span>
                                 </div>
+                                <div class="form-group has-success">
+                                    <label class="control-label">Durasi Waktu</label>
+                                    <input type="text" name="datetimes" class="form-control" id="daterangerpicker"/>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -238,6 +287,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group has-success">
+                                    <input type="hidden" name="mahasiswa_id" id="mahasiswa_id_modal">
+                                    <input type="hidden" name="pengajuan_id" id="pengajuan_id_modal">
                                     <label class="control-label">Nama Penguji</label>
                                     <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Penguji" id="dosen_id" name="dosen_id">
                                         <option value="-1">-Pilih Penguji-</option>
@@ -258,4 +309,9 @@
         </div>
     </div>
 </div>
+<style>
+.showSweetAlert {
+  z-index: 1000000;
+}
+</style>
 @endsection

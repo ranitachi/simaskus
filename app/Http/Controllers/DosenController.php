@@ -79,6 +79,8 @@ class DosenController extends Controller
             $penguji=New PivotPenguji;
             $penguji->pivot_jadwal_id=$jadwal->id;
             $penguji->penguji_id=$iddosen;
+            $penguji->pengajuan_id=$idpengajuan;
+            $penguji->mahasiswa_id=$request->mahasiswa_id;
             $penguji->status=0;
             $penguji->save();
         }

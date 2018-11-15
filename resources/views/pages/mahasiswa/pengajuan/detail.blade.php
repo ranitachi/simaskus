@@ -31,9 +31,11 @@
                     <li class="active">
                         <a href="#tab_5_1" data-toggle="tab"> Informasi {{$pengajuan->jenispengajuan->jenis}} </a>
                     </li>
+                    @if (Auth::user()->kat_user==3)
                     <li>
                         <a href="#tab_5_2" data-toggle="tab"> Bimbingan </a>
                     </li>
+                    @endif
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_5_1">
@@ -277,6 +279,7 @@
                             data: $('#simpan-bimbingan').serialize()
                         }).done(function(){
                             loaddata();
+                            loadform(id)
                             swal("Berhasil", "Data Berhasil Di Simpan", "success");
                         }).fail(function(){
                             swal("Fail!", "Simpan Data Gagal", "danger");

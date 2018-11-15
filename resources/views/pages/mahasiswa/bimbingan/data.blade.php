@@ -22,7 +22,9 @@
                     <th> Pembimbing</th>
                     <th> Isi<br>Bimbingan</th>
                     <th> Status</th>
-                    <th> # </th>
+                    @if (Auth::user()->kat_user!=1)
+                        <th> Tombol Aksi </th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -34,12 +36,14 @@
                     <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
                     <td>{!!$v->deskripsi_bimbingan!!}</td>
                     <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-info"><i class="fa fa-check"></i> Menunggu Persetujuan</a>'!!}</td>
+                    @if (Auth::user()->kat_user!=1)
                     <td>
                         <div style="width:80px;">
                             <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                             <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
+                    @endif
                 </tr>
            
             @endforeach                

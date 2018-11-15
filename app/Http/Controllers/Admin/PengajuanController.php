@@ -26,7 +26,43 @@ class PengajuanController extends Controller
          $staf=Staf::where('id',Auth::user()->id_user)->first();
         
         // $idjenis=$mp[strtolower($jenis)];
-        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)
+        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',0)
+                ->with('jenispengajuan')
+                ->with('mahasiswa')
+                ->with('tahunajaran')
+                ->with('dospem_1')
+                ->with('dospem_2')
+                ->with('dospem_3')
+                ->orderBy('created_at','desc')->get();
+
+        $pivot=PivotBimbingan::all();
+        $piv=array();
+        foreach($pivot as $k =>$v)
+        {
+            $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+        }
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv'));
+    }
+    public function setujui_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
+    {
+        $pivot=PivotBimbingan::where('judul_id',$pengajuan_id)->where('mahasiswa_id',$mahasiswa_id)->where('dosen_id',$dosen_id)->first();
+        $pivot->status=1;
+        $pivot->save();
+        return redirect('data-pengajuan')->with('status','Pengajuan Berhasil Di Verifikasi');
+    }
+    public function data_bimbingan()
+    {
+        $master_pengajuan=MasterJenisPengajuan::all();
+        $mp=array();
+        foreach($master_pengajuan as $k => $v)
+        {
+            $mp[$v->id]=$v;
+        }
+
+        $staf=Staf::where('id',Auth::user()->id_user)->first();
+        
+        // $idjenis=$mp[strtolower($jenis)];
+        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',1)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('tahunajaran')
@@ -79,7 +115,7 @@ class PengajuanController extends Controller
         $notif->pesan="Staf : Pengajuan Anda dengan Judul <b>".$pengajuan->judul_ind."</b>Telah Di Verifikasi";
         $notif->save();
 
-        return redirect('data-pengajuan')->with('status',"Pengajuan Berhasil Di Verifikasi");
+        return redirect('data-bimbingan')->with('status',"Pengajuan Berhasil Di Verifikasi");
     }
     public function tolak($id,$jenis)
     {

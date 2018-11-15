@@ -180,9 +180,9 @@
                                     <a href="{{url('daftar-sidang/'.$idpengajuan)}}" class="btn btn-xs btn-primary"><i class="fa fa-plus-circle"></i> Daftar Sidang</a>
                                 </div>
                                     
-                                @else
+                            @else
                                 <div style="width:110px;">
-                                    <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
+                                    <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger" onclick="belumbisadaftar()"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
                                 </div>
                                     
                                 {{-- @endif --}}

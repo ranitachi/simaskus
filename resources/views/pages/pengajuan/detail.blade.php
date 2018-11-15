@@ -214,12 +214,13 @@
                     </div>
                     <div class="tab-pane" id="tab_5_2">
                         <div class="row">
-                            <div class="col-sm-8" id="data-bimbingan">
-
-                            </div>
-                            <div class="col-sm-4" id="form-bimbingan">
-
-                            </div>
+                            @if (Auth::user()->kat_user==1)
+                                <div class="col-sm-12" id="data-bimbingan"></div>
+                            @else
+                                <div class="col-sm-8" id="data-bimbingan"></div>
+                                <div class="col-sm-4" id="form-bimbingan"></div>
+                            @endif
+                            
                         </div>
                     </div>
                     
@@ -245,7 +246,8 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data-bimbingan').load('{{url("bimbingan-data")}}',function(){
+        var idMhs='{{$pengajuan->mahasiswa_id}}';
+        $('#data-bimbingan').load('{{url("bimbingan-data")}}/'+idMhs,function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });

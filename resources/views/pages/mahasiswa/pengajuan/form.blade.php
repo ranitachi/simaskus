@@ -78,6 +78,10 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id" onchange="jenis(this.value)">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
+                                                @php
+                                                    if (strpos(strtolower($v->jenis),'praktek')!==false)
+                                                        continue;
+                                                @endphp
                                                 @if ($v->keterangan=='S1' || $v->keterangan=='S2' || $v->keterangan=='S3')
                                                     @if ($id!=-1)
                                                         @if ($det->jenis_id==$v->id)
