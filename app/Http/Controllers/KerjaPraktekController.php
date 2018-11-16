@@ -331,12 +331,12 @@ class KerjaPraktekController extends Controller
         $idpengajuan=-1;
         
 
-        $file=$request->bukti_bimbingan;
-        $tipedata=$file->getClientOriginalExtension();
-        $nama_file='kp-'.Auth::user()->id_user.'-'.date('ymd').'-'.$file->getClientOriginalName();
-        $file->storeAs('dokumen_pdf',$nama_file);
-        $dir='dokumen_pdf/'.$nama_file; 
-
+        // $file=$request->bukti_bimbingan;
+        // $tipedata=$file->getClientOriginalExtension();
+        // $nama_file='kp-'.Auth::user()->id_user.'-'.date('ymd').'-'.$file->getClientOriginalName();
+        // $file->storeAs('dokumen_pdf',$nama_file);
+        // $dir='dokumen_pdf/'.$nama_file; 
+        $dir='';
         $pengajuan=new KerjaPraktek;
         $pengajuan->jenis_id=$request->jenis_id;
         $pengajuan->mahasiswa_id=Auth::user()->id_user;

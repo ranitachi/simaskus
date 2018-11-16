@@ -98,7 +98,7 @@
                                 </div>
                                 
                             
-                            <div class="col-md-6"> 
+                            {{-- <div class="col-md-6"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Upload daftar Bimbingan dari SIAK-NG
                                         </label>
@@ -108,11 +108,11 @@
                                         @endif
                                         <span class="label label-danger">Info</span> <small>Upload bukti daftar bimbingan dalam format jpg, jpeg, png atau PDF. Maksimal ukuran file 10 MB. <br><a href="javascript:contohbuktibimbingan()">Klik disini untuk melihat contoh</a></small>
                                     </div>
-                                </div>
+                                </div> --}}
                         </div>
 
                         @if ($id!=-1)    
-                            <div class="row" style="margin-bottom:30px;">
+                            {{-- <div class="row" style="margin-bottom:30px;">
                                 <div class="col-md-12">
                                     <div class="form-group has-success">
                                             <label class="control-label">Daftar Bimbingan dari SIAK-NG
@@ -125,7 +125,7 @@
                                     <div id="example1"></div>
                                 
                                 </div>
-                            </div>
+                            </div> --}}
                         @endif
                         <div class="form-actions pull-right">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>
