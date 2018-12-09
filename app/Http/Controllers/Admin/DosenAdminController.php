@@ -55,6 +55,7 @@ class DosenAdminController extends Controller
         $m->hp=$request->hp;
         $m->departemen_id=$request->departemen;
         $m->penugasan=$request->penugasan;
+        $m->pendidikan=$request->pendidikan;
         $m->status_ketua_kelompok=$request->status_ketua_kelompok;
         $m->status_dosen=$request->status_dosen;
         $m->jabatan=$request->jabatan;
@@ -99,6 +100,7 @@ class DosenAdminController extends Controller
         $m->kota=$request->kota;
         $m->email=$request->email;
         $m->hp=$request->hp;
+        $m->pendidikan=$request->pendidikan;
         $m->departemen_id=$request->departemen;
         $m->penugasan=$request->penugasan;
         $m->status_ketua_kelompok=$request->status_ketua_kelompok;

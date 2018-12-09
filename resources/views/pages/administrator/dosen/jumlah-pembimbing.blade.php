@@ -9,8 +9,10 @@
 
     if($quota_p==0)
         $quota_p=5;
-    // dd($quota);
+    // dd($jenis);
     // echo $quota_p;
+    $mhs=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+    $jenjang=isset($mhs->programstudi->jenjang) ? $mhs->programstudi->jenjang : 'S1';
 @endphp
 
 {{-- @for ($i = 1 ; $i <= $quota_p  ; $i++) --}}
@@ -21,15 +23,24 @@
         
             <select class="form-control select2" data-placeholder="Pilih Dosen" name="dospem[]" id="dosen_pem" multiple>
                 @foreach ($dosen as $idx => $v)
-                    @if (isset($piv[$v->id]))
-                        @if (count($piv[$v->id])==$quota_bim[$jenis->keterangan]->quota)
-                            {{-- <option value="{{$v->id}}" disabled>[{{count($piv[$v->id])}}] - {{$v->nama}} </option> --}}
-                        @else
-                            <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} </option>
+                    @if ($jenjang=='S2')
+                        @if ($v->pendidikan=='S3')
+                            @if (isset($piv[$v->id]))
+                                <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} </option>
+                            @else
+                                <option value="{{$v->id}}">[0] - {{$v->nama}} </option>
+                            @endif
                         @endif
-                        
                     @else
-                        <option value="{{$v->id}}">[0] - {{$v->nama}} </option>
+                        @if (isset($piv[$v->id]))
+                            {{-- @if (count($piv[$v->id])==$quota_bim[$jenis->keterangan]->quota) --}}
+                                {{-- <option value="{{$v->id}}" disabled>[{{count($piv[$v->id])}}] - {{$v->nama}} </option> --}}
+                            {{-- @else --}}
+                            {{-- @endif --}}
+                            <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} </option>
+                        @else
+                            <option value="{{$v->id}}">[0] - {{$v->nama}} </option>
+                        @endif
                     @endif
                 @endforeach
             </select>

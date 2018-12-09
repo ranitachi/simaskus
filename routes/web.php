@@ -288,3 +288,5 @@ Route::post('pengajuan-penguji/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganCon
 
 Route::get('hapus-data-penguji/{dosen_id}/{id}','Dosen\PengajuanBimbinganController@hapus_data_penguji')->middleware('auth');
 Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_acc_dosen')->middleware('auth');
+
+Route::get('add_pendidikan','HomeController@add_pendidikan')->middleware('auth');

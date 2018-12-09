@@ -116,7 +116,7 @@
                             </div>
                             <!--/row-->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group has-success">
                                         <label class="control-label">Departemen</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     
                                     <div class="form-group has-success">
                                         <label class="control-label">Status Dosen</label>
@@ -170,7 +170,18 @@
                                 </div>
                                 
                                 <!--/span-->
-                            
+                                <div class="col-md-2">
+                                    
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Pendidikan</label>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih" name="pendidikan" id="pendidikan">
+                                            <option value="-1">-Pilih-</option>
+                                            <option value="S1" {{$id!=-1 ? ($det->pendidikan=="S1" ? 'selected="selected"' : '') : ''}}>S1</option>
+                                            <option value="S2" {{$id!=-1 ? ($det->pendidikan=="S2" ? 'selected="selected"' : '') : ''}}>S2</option>
+                                            <option value="S3" {{$id!=-1 ? ($det->pendidikan=="S3" ? 'selected="selected"' : '') : ''}}>S3</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     
                                     <div class="form-group has-success">

@@ -25,11 +25,14 @@
             </thead>
             
             <tbody>
+            @php
+                $no=1;
+            @endphp
             @foreach ($mhs as $i => $v)
                 @if (Auth::user()->kat_user!=0)
                     @if (Auth::user()->staf_user->departemen_id==$v->departemen_id)
                         <tr class="odd gradeX">
-                            <td>{{(++$i)}}</td>
+                            <td>{{($no)}}</td>
                             <td>{{$v->nip}}</td>
                             <td>{{$v->nama}}</td>
                             <td>{{$v->email}}</td>
@@ -42,6 +45,9 @@
                                 </div>
                             </td>
                         </tr>
+                        @php
+                            $no++;
+                        @endphp
                     @endif
                 @else
                 
@@ -59,6 +65,9 @@
                             </div>
                         </td>
                     </tr>
+                    @php
+                            $no++;
+                        @endphp
                 @endif
             @endforeach                
             </tbody>
