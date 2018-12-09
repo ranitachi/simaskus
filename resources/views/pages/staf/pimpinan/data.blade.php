@@ -26,9 +26,9 @@
             @foreach ($pimpinan as $i => $v)
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
-                    <td>{{$v->dosen->nip}}</td>
-                    <td>{{$v->dosen->nama}}</td>
-                    <td>{{$v->jabatan}}</td>
+                    <td>{{isset($v->dosen->nip) ? $v->dosen->nip : '-'}}</td>
+                    <td>{{isset($v->dosen->nama) ? $v->dosen->nama : '-'}}</td>
+                    <td>{{isset($v->jabatan) ? $v->jabatan : '-'}}</td>
                     <td>
                         <div style="width:80px;">
                             <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
