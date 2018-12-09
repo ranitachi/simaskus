@@ -28,6 +28,7 @@ use App\Model\InformasiKP;
 use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
 use App\Model\Component;
+use App\Model\IzinDosen;
 use Auth;
 use DB;
 class JadwalController extends Controller
@@ -315,7 +316,12 @@ class JadwalController extends Controller
         
         $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_pengajuan',1)->get();
 
-        
+        $izin=IzinDosen::where('status',1)->get();
+        $iz=array();
+        foreach($izin as $k => $v)
+        {
+            $iz[$v->dosen_id][]=$v;
+        }
 
         $penguji=PivotPenguji::with('dosen')->get();
         $p_uji=array();

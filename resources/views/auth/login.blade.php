@@ -36,7 +36,7 @@
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
-    <body class="login" style="background: #32c5d2 !important">
+    <body class="login" id="radial-center">
         <div class="logo">
             <a href="{{url('/')}}">
                 <img src="{{asset('img/sima-sp.png')}}" alt="" style="height:80px;"/> </a>
@@ -281,3 +281,27 @@
     </body>
 
 </html>
+<style>
+    #radial-center {
+  /* fallback */
+  background-color: #00a3f1;
+  /* background-image: url(images/radial_bg.png); */
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  /* Safari 4-5, Chrome 1-9 */
+  /* Can't specify a percentage size? Laaaaaame. */
+  background: -webkit-gradient(radial, center center, 0, center center, 460, from(#ffffff), to(#00a3f1));
+
+  /* Safari 5.1+, Chrome 10+ */
+  background: -webkit-radial-gradient(circle, #ffffff, #00a3f1);
+
+  /* Firefox 3.6+ */
+  background: -moz-radial-gradient(circle, #ffffff, #00a3f1);
+
+  /* IE 10 */
+  background: -ms-radial-gradient(circle, #ffffff, #00a3f1);
+
+  /* Opera couldn't do radial gradients, then at some point they started supporting the -webkit- syntax, how it kinda does but it's kinda broken (doesn't do sizing) */
+}
+</style>
