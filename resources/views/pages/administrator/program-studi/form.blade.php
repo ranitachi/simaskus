@@ -149,8 +149,10 @@
     </div>
 </form>
 <script>
-$('#departemen_id').select2();
-$('#pimpinan_id').select2();
+// $('#departemen_id').select2();
+// $('#pimpinan_id').select2();
+$('.bs-select').parents('.bootbox').removeAttr('tabindex');
+$('.bs-select').select2({'width':'100%'});
 </script>
 <style>
 .select2-container
