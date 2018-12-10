@@ -85,12 +85,17 @@ class MahasiswaController extends Controller
     public function registrasi(Request $request)
     {
         //dd($request->all());
+        $val=$request->file;
+        $val->storeAs('siak-ng',$val->getClientOriginalName());
+        $dir='siak-ng/'.$val->getClientOriginalName(); 
+
         $mhs=new Mahasiswa;
         $mhs->npm=$request->npm;
         $mhs->nama=$request->nama;
         $mhs->email=$request->email_regis;
         $mhs->departemen_id=$request->departemen_id;
         $mhs->jenjang_id=$request->program_studi;
+        $mhs->bukti_siak_ng=$dir;
         $mhs->program_studi_id=$request->program_studi;
         $mhs->hp=$request->hp;
         $mhs->save();

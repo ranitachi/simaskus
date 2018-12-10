@@ -5,12 +5,13 @@
                 DAFTAR PERBAIKAN {{strtoupper($pengajuan->jenispengajuan->jenis)}}
             </h3>
             
-            <form action="{{url('daftar-perbaikan')}}" class="horizontal-form" id="daftar-perbaikan" method="POST" style="padding:20px;">
+            <form action="{{url('daftar-perbaikan-staf')}}" class="horizontal-form" id="daftar-perbaikan" method="POST" style="padding:20px;">
                 @php
                     $perbaikan=$penetapan='';
-                    if(isset($perb[$jadwal->pj_id][$pengajuan->mahasiswa_id][Auth::user()->id_user]))
+                    // dd($perb);
+                    if(isset($perb[$idjadwal][$pengajuan->mahasiswa_id][$iddosen]))
                     {
-                        $perbaikan=$perb[$jadwal->pj_id][$pengajuan->mahasiswa_id][Auth::user()->id_user];
+                        $perbaikan=$perb[$idjadwal][$pengajuan->mahasiswa_id][$iddosen];
                         // dd($perbaikan);
                     }
                     
@@ -67,7 +68,7 @@
                         <div class="col-md-12">
                             <input type="hidden" name="mahasiswa_id" value="{{$pengajuan->mahasiswa_id}}">
                             <input type="hidden" name="jadwal_id" value="{{$jadwal->pj_id}}">
-                            <input type="hidden" name="pembimbing_id" value="{{Auth::user()->id_user}}">
+                            <input type="hidden" name="pembimbing_id" value="{{$iddosen}}">
                             <textarea name="perbaikan" class="wysihtml5 form-control" rows="5">{{$perbaikan!='' ? str_replace(array('<pre>','</pre>'),'',$perbaikan->perbaikan) : ''}}</textarea>
                         </div>
                     </div>

@@ -78,19 +78,24 @@
                                         <h3>Nama Penguji Belum Diajukan dan Diinput</h3>
                                     </div>
                                 @endif
-                                {{-- <div class="col-md-4">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Nama Usulan Penguji 1</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Penguji" id="penguji1" name="penguji[]">
-                                            <option value="-1">-Pilih Penguji-</option>
-                                            @foreach ($dosen as $i => $v)
-                                                <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                
-                                            @endforeach
-                                        </select>
-                                    </div> 
-                                </div>
-                                <div class="col-md-4">
+                                @if (isset($mhs->programstudi->nama_program_studi))
+                                    @if (strpos($mhs->programstudi->nama_program_studi,'inter')!==false)
+                                    
+                                        <div class="col-md-4">
+                                            <div class="form-group has-success">
+                                                <label class="control-label">Nilai IELTS</label>
+                                                <input type="text" name="nilai_ielts" id="nilai_ielts" class="form-control"><br>
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group has-success">
+                                                <label class="control-label">Upload Nilai IELTS</label>
+                                                <input type="file" name="file_ielts" id="file_ielts" class="form-control"><br>
+                                            </div> 
+                                        </div>
+                                    @endif
+                                @endif
+                                {{--<div class="col-md-4">
                                     <div class="form-group has-success">
                                         <label class="control-label">Nama Usulan Penguji 2</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Penguji" id="penguji2" name="penguji[]">
@@ -152,7 +157,7 @@
                                 <!--/span-->
                             </div> --}}
                         </div>
-                        <div class="form-actions pull-right">
+                        <div class="form-actions">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>
                             <button type="button" id="simpan" class="btn blue">
                                 <i class="fa fa-save"></i> Simpan</button>
@@ -166,12 +171,7 @@
 </div>
 @endsection
 @section('footscript')
-    <div id="toolbar">
-      <a data-wysihtml5-command="bold">bold</a>
-      <a data-wysihtml5-command="italic">italic</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
-     </div>
+
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>

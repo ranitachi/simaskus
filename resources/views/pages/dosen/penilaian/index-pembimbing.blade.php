@@ -54,7 +54,7 @@
                         $no=1;
                     @endphp
                     @foreach ($jadwal as $d=>$v)
-                        @if (isset($uji[$v->pj_id][Auth::user()->id_user]))
+                        @if (isset($bimb[Auth::user()->id_user][$pengajuan[$v->judul_id]->mahasiswa_id]))
                             <tr>
                                 <td>{{$no}}</td>
                                 <td class="text-left">
@@ -89,17 +89,17 @@
 
                                     @endif
                                     <br>
-                                    {{-- @if (isset($perbaikan[$v->id]))
-                                        <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Daftar Perbaikan</a>
+                                    @if (isset($perbaikan[$v->id]))
+                                        <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-check"></i> Daftar Perbaikan</a>
                                     @else
                                         <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Daftar Perbaikan</a>
                                     @endif
-                                    <br> --}}
-                                    {{-- @if (isset($penetapan[$v->id]))
-                                        <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn green uppercase btn green uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-file-o"></i> Penetapan Judul</a>
+                                    <br> 
+                                    @if (isset($penetapan[$pengajuan[$v->judul_id]->id]))
+                                        <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn green uppercase btn green uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-check"></i> Penetapan Judul</a>
                                     @else
                                         <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-file-o"></i> Penetapan Judul</a>
-                                    @endif --}}
+                                    @endif
                                 </td>
                             </tr>
                             @php

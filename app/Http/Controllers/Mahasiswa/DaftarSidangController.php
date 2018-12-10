@@ -173,6 +173,8 @@ class DaftarSidangController extends Controller
         $pivot->updated_at=date('Y-m-d H:i:s');
         $pivot->save();
 
+        
+
         $getsekre=Users::where('kat_user',1)->with('staf')->get();
         foreach($getsekre as $k => $v)
         {
@@ -220,6 +222,20 @@ class DaftarSidangController extends Controller
             $notif->flag_active=1;
             $notif->pesan="Mahasiswa : ".Auth::user()->name." Melakukan Pengajuan Sidang";
             $notif->save();
+        }
+
+        // nilai_ielts
+        // file_ielts
+
+        if(isset($request->nilai_ielts))
+        {
+            $val_ielts=$request->file_ielts;
+            $val_ielts->storeAs('ielts',$val->getClientOriginalName());
+            $dir_ielts='ielts/'.$val->getClientOriginalName(); 
+            
+            $pengajuan->ielts=$request->nilai_ielts;
+            $pengajuan->file_ielts-$dir_ielts;
+            $pengajuan->save();
         }
 
         foreach($request->dokumen as $idx => $val)

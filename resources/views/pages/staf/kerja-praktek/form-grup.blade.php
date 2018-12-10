@@ -162,12 +162,7 @@
 </div>
 @endsection
 @section('footscript')
-    <div id="toolbar">
-      <a data-wysihtml5-command="bold">bold</a>
-      <a data-wysihtml5-command="italic">italic</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
-     </div>
+ 
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>

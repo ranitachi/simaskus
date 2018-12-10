@@ -29,7 +29,7 @@
 <li class="heading">
     <h3 class="uppercase">Pengajuan</h3>
 </li>
-<li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-bimbingan')!==false || strpos(Request::url(),'data-jadwal')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
+<li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false || strpos(Request::url(),'data-bimbingan')!==false || strpos(Request::url(),'data-pengajuan-sidang')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Pengajuan</span>
@@ -51,12 +51,12 @@
                 <span class="title">Pengajuan Sidang</span>
             </a>
         </li>
-        <li class="nav-item {{ strpos(Request::url(),'data-jadwal')!==false ? 'active' : ''}} ">
+        {{-- <li class="nav-item {{ strpos(Request::url(),'data-jadwal')!==false ? 'active' : ''}} ">
             <a href="{{url('data-jadwal/2')}}" class="nav-link ">
-                {{-- <i class="fa fa-th-list font-white"></i> --}}
+                {{-- <i class="fa fa-th-list font-white"></i> 
                 <span class="title">Jadwal Sidang</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </li>
 <li class="nav-item  {{strpos(Request::url(),'data-kp')!==false || strpos(Request::url(),'data-jadwal-kp')!==false ? 'active' : ''}}">
@@ -79,6 +79,13 @@
         
     </ul>
 </li>
+<li class="nav-item  {{strpos(Request::url(),'data-jadwal')!==false ? 'active' : ''}} ">
+    <a href="{{url('data-jadwal/2')}}" class="nav-link ">
+        <i class="fa fa-calendar font-white"></i>
+        <span class="title">Jadwal Sidang</span>
+    </a>
+</li>
+
 {{-- <li class="heading">
     <h3 class="uppercase">Jadwal</h3>
 </li> --}}

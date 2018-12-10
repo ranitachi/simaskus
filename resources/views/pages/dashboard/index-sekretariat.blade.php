@@ -151,6 +151,9 @@
                                 }
                             @endphp
                             @foreach ($jadwal as $no=> $item)
+                                @if ($item->tanggal>=date('Y-m-d'))
+                                    
+                                
                                 <tr>
                                     <td class="text-center">{{$no+1}}</td>
                                     <td class="text-center">
@@ -178,6 +181,7 @@
                                         {{$item->ruangan->nama_ruangan}}
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

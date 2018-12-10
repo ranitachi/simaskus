@@ -242,11 +242,23 @@ Route::get('datadosen', 'HomeController@datadosen');
 Route::get('dataruangan', 'HomeController@dataruangan');
 
 Route::resource('penilaian','Dosen\PenilaianController')->middleware('auth');
+Route::get('penilaian-pembimbing','Dosen\PenilaianController@penilaian_pembimbing')->middleware('auth');
 Route::get('form-nilai-dosen/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@form')->middleware('auth');
 Route::get('daftar-perbaikan/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@perbaikan')->middleware('auth');
 Route::get('penetapan-judul/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@penetapan')->middleware('auth');
 Route::post('simpan-nilai','Dosen\PenilaianController@simpan_nilai');
-
+Route::post('daftar-perbaikan','Dosen\PenilaianController@daftar_perbaikan');
+Route::post('penetapan-judul','Dosen\PenilaianController@penetapan_judul');
+//--STAF PENILAIAN
+Route::resource('penilaian-staf','Admin\PenilaianControllerStaf')->middleware('auth');
+Route::get('form-penilaian/{jadwal_id}/{pengajuan_id}','Admin\PenilaianControllerStaf@form_pembimbing')->middleware('auth');
+Route::get('form-nilai-dosen-staf/{idjadwal}/{idpengajuan}/{iddosen}','Admin\PenilaianControllerStaf@form')->middleware('auth');
+Route::get('daftar-perbaikan-staf/{idjadwal}/{idpengajuan}/{iddosen}','Admin\PenilaianControllerStaf@perbaikan')->middleware('auth');
+Route::get('penetapan-judul-staf/{idjadwal}/{idpengajuan}/{iddosen}','Admin\PenilaianControllerStaf@penetapan')->middleware('auth');
+Route::post('simpan-nilai-staf','Admin\PenilaianControllerStaf@simpan_nilai');
+Route::post('daftar-perbaikan-staf','Admin\PenilaianControllerStaf@daftar_perbaikan');
+Route::post('penetapan-judul-staf','Admin\PenilaianControllerStaf@penetapan_judul');
+//----------
 
 //Kerja Praktek//
 Route::get('data-kp','KerjaPraktekController@index')->middleware('auth');
@@ -290,3 +302,4 @@ Route::get('hapus-data-penguji/{dosen_id}/{id}','Dosen\PengajuanBimbinganControl
 Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_acc_dosen')->middleware('auth');
 
 Route::get('add_pendidikan','HomeController@add_pendidikan')->middleware('auth');
+Route::get('kolom-topik/{id}','HomeController@kolom_topik')->middleware('auth');

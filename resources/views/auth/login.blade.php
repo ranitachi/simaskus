@@ -96,7 +96,7 @@
                 </div>
                 
             </form>
-            <form class="register-form" id="register-form" action="{{url('registrasi-mhs')}}" method="POST" style="margin-top:-80px;">
+            <form class="register-form" id="register-form" action="{{url('registrasi-mhs')}}" method="POST" style="margin-top:-80px;" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <h3>&nbsp;</h3>
                 <p> Enter your personal details below: </p>
@@ -156,6 +156,12 @@
                                     <div class="input-icon">
                                         <i class="fa fa-key"></i>
                                         <input class="form-control placeholder-no-fix" type="password" placeholder="Password" name="password" /> </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:5px;">
+                                    <label class="control-label" style="color:black;font-style:italic;font-size:10px;">Upload Bukti SIAK-NG</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-file-o"></i>
+                                        <input class="form-control placeholder-no-fix" type="file" placeholder="Upload Bukti SIAK-NG" name="file_upload" /> </div>
                                 </div>
                                 {{-- <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label visible-ie8 visible-ie9">Re-Password</label>

@@ -5,10 +5,10 @@
                 LEMBAR PENETAPAN JUDUL {{strtoupper($pengajuan->jenispengajuan->jenis)}}
             </h3>
             
-            <form action="{{url('penetapan-judul')}}" class="horizontal-form" id="penetapan-judul" method="POST" style="padding:20px;">
+            <form action="{{url('penetapan-judul-staf')}}" class="horizontal-form" id="penetapan-judul" method="POST" style="padding:20px;">
                 {{ csrf_field() }}
                 @php
-                    $penetapan=array();
+                    $penetapan='';
                     if(isset($penp[$pengajuan->id][$pengajuan->mahasiswa_id]))
                     {
                         $penetapan=$penp[$pengajuan->id][$pengajuan->mahasiswa_id];
@@ -31,7 +31,7 @@
                     <div class="row" style="margin-bottom:5px;">
                         <div class="col-md-1">&nbsp;</div>
                         <div class="col-md-2">Jenjang</div>
-                        <div class="col-md-9">: <b>{{$pengajuan->judul_ind}}</b></div>
+                        <div class="col-md-9">: <b>{{$pengajuan->mahasiswa->programstudi->jenjang}}</b></div>
                     </div>
                     <div class="row" style="margin-bottom:5px;">
                         <div class="col-md-12"><br>
@@ -60,7 +60,7 @@
                     </div>
                     <input type="hidden" name="mahasiswa_id" value="{{$pengajuan->mahasiswa_id}}">
                     <input type="hidden" name="jadwal_id" value="{{$jadwal->pj_id}}">
-                    <input type="hidden" name="pembimbing_id" value="{{Auth::user()->id_user}}">
+                    <input type="hidden" name="pembimbing_id" value="{{$iddosen}}">
                     <input type="hidden" name="pengajuan_id" value="{{$pengajuan->id}}">
                     {{-- <center>
                         <div class="form-actions right">

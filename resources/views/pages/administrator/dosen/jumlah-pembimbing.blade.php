@@ -57,15 +57,25 @@
 </style>
 <script>
     var maks=parseInt('{{$quota_p}}');
+    // var $eventSelect = $("#dosen_pem");
     $('.select2').select2({
         maximumSelectionLength: maks
     });
     $("select").on("select2:select", function (evt) {
             var element = evt.params.data.element;
+            // alert($(this).val());
+            var id=$(this).val();
+            $('#kolom_topik').load('{{url("kolom-topik")}}/'+id);
             var $element = $(element);
             
             $element.detach();
             $(this).append($element);
-            $(this).trigger("change");
+            $(this).trigger("change");       
     });
+    $("select").on("select2:unselect", function (evt) {
+        var id=$(this).val();
+        $('#kolom_topik').load('{{url("kolom-topik")}}/'+id);
+    });
+    // 
+
 </script>

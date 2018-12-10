@@ -113,11 +113,25 @@
 <li class="heading">
     <h3 class="uppercase">Penilaian</h3>
 </li>
-<li class="nav-item {{Request::path()=='penilaian' ? 'active' : ''}}">
-    <a href="{{url('penilaian')}}" class="nav-link nav-toggle">
-        <i class="fa fa-list font-white"></i>
+<li class="nav-item  {{strpos(Request::url(),'penilaian')!==false ? 'active' : ''}} ">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-list font-white"></i>
         <span class="title">Penilaian</span>
+        <span class="arrow"></span>
     </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{Request::url()=='penilaian'  ? 'active' : ''}}">
+            <a href="{{url('penilaian')}}" class="nav-link ">
+                <span class="title">Penguji</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::url(),'penilaian-pembimbing')!==false  ? 'active' : ''}}">
+            <a href="{{url('penilaian-pembimbing')}}" class="nav-link ">
+                <span class="title">Pembimbing</span>
+            </a>
+        </li>
+        
+    </ul>
 </li>
 <li class="heading">
     <h3 class="uppercase">Izin</h3>

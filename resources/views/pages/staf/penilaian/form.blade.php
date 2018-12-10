@@ -9,13 +9,11 @@
                 @endif
             </h3>
             
-            <form action="{{url('simpan-nilai')}}" class="horizontal-form" id="simpan-nilai" method="POST" style="padding:20px;">
+            <form action="{{url('simpan-nilai-staf')}}" class="horizontal-form" id="simpan-nilai" method="POST" style="padding:20px;">
                 {{ csrf_field() }}
-                @if (count($uji)!=0)
-                    <input type="hidden" name="penilai" value="penguji">
-                @else    
-                    <input type="hidden" name="penilai" value="pembimbing">
-                    @endif
+                
+                <input type="hidden" name="penilai" value="{{$kategori}}">
+                <input type="hidden" name="iddosen" value="{{$iddosen}}">
                 <input type="hidden" name="idjadwal" value="{{$idjadwal}}">
                 <input type="hidden" name="idpengajuan" value="{{$idpengajuan}}">
                 <div class="portlet-body">
@@ -34,6 +32,10 @@
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-md-3">Judul Inggris</div>
                         <div class="col-md-9">: <b>{{$pengajuan->judul_eng}}</b></div>
+                    </div>
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-md-3">Pemberi Nilai</div>
+                        <div class="col-md-9">: <b>{{$dosen->nama}}</b></div>
                     </div>
                     <br>
                     <div class="row">
@@ -96,7 +98,7 @@
                                             <br>
                                             <input type="text" id="huruf" name="huruf" class="form-control input-circle" placeholder="" readonly style="text-align:center;"  value="{{$hurufmutu}}">
                                         </th>
-                                        <input type="hidden" name="id_dosen" value="{{Auth::user()->id_user}}">
+                                        
                                     </tr>
                                 </tbody>
                             </table>

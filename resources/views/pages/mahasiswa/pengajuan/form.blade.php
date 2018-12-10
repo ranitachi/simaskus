@@ -110,13 +110,13 @@
                                         <input type="text" id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir" value="{{$id==-1 ? '0' : $det->ipk_terakhir}}" style="width:50%;">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Topik Yang Diajukan (*optional)</label>
-                                        <input type="text" id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$id==-1 ? '-' : $det->topik_diajukan}}">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!--/span-->
+                                <input type="hidden" id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$id==-1 ? '-' : $det->topik_diajukan}}">
                             </div>
                             <div class="row">
                                 
@@ -281,11 +281,16 @@
                                             </select>
                                     </div>
                                 </div>
-                            <div class="col-md-6"> 
-                                <div id="jlh-pembimbing"></div>
-                            </div>
                         </div>
                         
+                        <div class="row">
+                            <div class="col-md-5"> 
+                                <div id="jlh-pembimbing"></div>
+                            </div>
+                            <div class="col-md-7"> 
+                                <div id="kolom_topik"></div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12" id="alasan-mengulang" style="display:none"> 
                                     <div class="form-group has-success">
@@ -301,7 +306,7 @@
                                     </div> --}}
                             </div>
                         </div>
-                        <div class="form-actions pull-right">
+                        <div class="form-actions ">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>
                             <button type="button" id="simpan" class="btn blue">
                                 <i class="fa fa-save"></i> Simpan</button>
@@ -315,12 +320,7 @@
 </div>
 @endsection
 @section('footscript')
-    <div id="toolbar">
-      <a data-wysihtml5-command="bold">bold</a>
-      <a data-wysihtml5-command="italic">italic</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
-      <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
-     </div>
+
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>
@@ -358,6 +358,7 @@
     $(document).ready(function(){
         $('.select2').parents('.bootbox').removeAttr('tabindex');
         $('.select2').select2();
+        
         
 
         $('#departemen').change(function(){

@@ -13,6 +13,7 @@ use App\Model\Notifikasi;
 use App\Model\PivotBimbingan;
 use App\Model\Mahasiswa;
 use App\Model\TahunAjaran;
+use App\Model\TopikPengajuan;
 use Auth;
 class PengajuanSkripsiController extends Controller
 {
@@ -161,6 +162,17 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->created_at=date('Y-m-d H:i:s');
         $pengajuan->updated_at=date('Y-m-d H:i:s');
         $pengajuan->save();
+
+        $idpengajuan=$pengajuan->id;
+
+        foreach($request->kolom_topik as $k=>$v)
+        {
+            $topik=new TopikPengajuan;
+            $topik->pengajuan_id=$idpengajuan;
+            $topik->dosen_id=$k;
+            $topik->topik=$v;
+            $topik->save();
+        }
 
         $getsekre=Users::where('kat_user',1)->with('staf')->get();
         foreach($getsekre as $k => $v)

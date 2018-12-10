@@ -518,5 +518,11 @@ function getFormFields($data)
         }
 
         return $inputs;
-    }
+	}
+	
+	function ujians3()
+	{
+		$ujian=['Ujian Proposal Riset','Ujian Hasil Riset','Sidang Promosi'];
+		return $ujian;
+	}
 ?>
