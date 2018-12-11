@@ -215,7 +215,7 @@
         </li>
         <li class="nav-item  {{strpos(Request::path(),'minimal-bimbingan')!==false ? 'active' : ''}} ">
             <a href="{{url('minimal-bimbingan')}}" class="nav-link ">
-                <span class="title">Jumlah Minimal Pembimbing</span>
+                <span class="title">Jumlah Minimal Bimbingan</span>
             </a>
         </li>
     </ul>
