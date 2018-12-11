@@ -178,19 +178,10 @@
                                 @endfor
                             </select>
                         </div>
-                        {{-- <div class="form-group">
-                            <label class="control-label">Jenjang</label>
-                            <select class="bs-select form-control has-success" data-placeholder="Pilih Jenjang" id="jenjang_id" name="jenjang_id">
-                                <option value="-1">-Pilih Jenjang-</option>
-                                @foreach ($jenjang as $i => $v)
-                                    @if ($profil->jenjang_id==$v->id)
-                                        <option value="{{$v->id}}" selected="selected">{{$v->jenjang}}</option>    
-                                    @else
-                                        <option value="{{$v->id}}">{{$v->jenjang}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div> --}}
+                        <div class="form-group">
+                            <label class="control-label">Bukti SIAK-NG</label><br>
+                            <a class="btn btn-xs btn-success" href="{{url('unduh-file/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                        </div>
                     </form>
                     @if ($profil->mahasiswa_user->flag==0)
                         

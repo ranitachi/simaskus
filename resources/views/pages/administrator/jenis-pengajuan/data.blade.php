@@ -17,6 +17,7 @@
                     <th>No</th>
                     <th> Kode </th>
                     <th> Jenis </th>
+                    <th> Urutan</th>
                     <th> Keterangan</th>
                     <th> # </th>
                 </tr>
@@ -28,6 +29,7 @@
                     <td>{{(++$i)}}</td>
                     <td>{{$v->code}}</td>
                     <td>{{$v->jenis}}</td>
+                    <td>{{$v->urutan}}</td>
                     <td>{{$v->keterangan}}</td>
                     <td>
                         <div style="width:80px;">

@@ -29,7 +29,7 @@ class QuotaPembimbingController extends Controller
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
         $quota=QuotaPembimbing::where('departemen_id',$dept_id)->with('departemen')->get();
 
-        $jenis=MasterJenisPengajuan::all();
+        $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->get();
         $jns=array();
         foreach($jenis as $kj=>$vj)
         {
@@ -60,7 +60,7 @@ class QuotaPembimbingController extends Controller
 
         $det=array();
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $jenis=MasterJenisPengajuan::all();
+        $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->get();
         $jns=array();
         foreach($jenis as $kj=>$vj)
         {
@@ -88,6 +88,7 @@ class QuotaPembimbingController extends Controller
         $quota->level=$request->level;
         $quota->quota=$request->quota;
         $quota->maksimal=$request->maksimal;
+        $quota->keterangan=$request->keterangan;
         $cr=$quota->save();
         return response()->json([$cr]);
         // return redirect('dosen-admin')->with('status',$pesan);
@@ -100,6 +101,7 @@ class QuotaPembimbingController extends Controller
         $quota->level=$request->level;
         $quota->maksimal=$request->maksimal;
         $quota->quota=$request->quota;
+        $quota->keterangan=$request->keterangan;
         $cr=$quota->save();
         return response()->json([$cr]);
     }

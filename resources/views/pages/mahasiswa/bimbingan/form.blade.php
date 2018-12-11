@@ -41,7 +41,11 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
-                    <label class="control-label">Dosen Pembimbing</label>
+                    @if ($mhs->programstudi->jenjang=='S3')
+                        <label class="control-label">Promotor & Co-Promotor</label>
+                    @else
+                        <label class="control-label">Dosen Pembimbing</label>
+                    @endif
                     <select class="bs-select form-control has-success" data-placeholder="" name="dospem_id" id="dospem_id">
                         <option value="-1">-Pilih Dosen-</option>
                         @foreach ($dospem as $i => $v)

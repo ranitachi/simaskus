@@ -429,6 +429,7 @@ class ComposerStaticInitff6860b8468c57a2fa97aae212f5809b
         'App\\Http\\Controllers\\KerjaPraktekController' => __DIR__ . '/../..' . '/app/Http/Controllers/KerjaPraktekController.php',
         'App\\Http\\Controllers\\MahasiswaController' => __DIR__ . '/../..' . '/app/Http/Controllers/MahasiswaController.php',
         'App\\Http\\Controllers\\Mahasiswa\\DaftarSidangController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mahasiswa/DaftarSidangController.php',
+        'App\\Http\\Controllers\\Mahasiswa\\PengajuanS3Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Mahasiswa/PengajuanS3Controller.php',
         'App\\Http\\Controllers\\Mahasiswa\\PengajuanSkripsiController' => __DIR__ . '/../..' . '/app/Http/Controllers/Mahasiswa/PengajuanSkripsiController.php',
         'App\\Http\\Controllers\\MasterDepartemenController' => __DIR__ . '/../..' . '/app/Http/Controllers/MasterDepartemenController.php',
         'App\\Http\\Controllers\\MasterPimpinanController' => __DIR__ . '/../..' . '/app/Http/Controllers/MasterPimpinanController.php',

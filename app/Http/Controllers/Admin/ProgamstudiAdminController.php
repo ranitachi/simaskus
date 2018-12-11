@@ -18,7 +18,7 @@ class ProgamstudiAdminController extends Controller
     public function data()
     {
         $dept=MasterDepartemen::with('pimpinan')->orderBy('nama_departemen')->get();
-        $prodi=ProgamStudi::with('pimpinan')->with('departemen')->orderBy('departemen_id')->orderBy('nama_program_studi')->get();
+        $prodi=ProgamStudi::with('pimpinan')->with('departemen')->orderBy('departemen_id')->orderBy('jenjang')->orderBy('nama_program_studi')->get();
         return view('pages.administrator.program-studi.data')
                 ->with('prodi',$prodi)
                 ->with('dept',$dept);

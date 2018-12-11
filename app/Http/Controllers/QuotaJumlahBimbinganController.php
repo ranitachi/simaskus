@@ -61,7 +61,7 @@ class QuotaJumlahBimbinganController extends Controller
 
         $det=array();
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $jenis=MasterJenisPengajuan::all();
+        $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->get();
         $jns=array();
         foreach($jenis as $kj=>$vj)
         {

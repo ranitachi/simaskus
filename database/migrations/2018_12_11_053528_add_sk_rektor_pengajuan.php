@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIelts extends Migration
+class AddSkRektorPengajuan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddIelts extends Migration
     public function up()
     {
         Schema::table('pengajuan', function (Blueprint $table) {
-            $table->string('ielts')->nullable();
-            $table->string('file_ielts')->nullable();
-            
+            $table->string('sk_rektor_promotor')->nullable();
         });
     }
 
@@ -28,9 +26,7 @@ class AddIelts extends Migration
     public function down()
     {
         Schema::table('pengajuan', function (Blueprint $table) {
-             $table->dropColumn('ielts');
-             $table->dropColumn('file_ielts');
-             
+            $table->dropColumn('sk_rektor_promotor');
         });
     }
 }

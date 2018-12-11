@@ -44,9 +44,6 @@
                 </div>
                 <div class="portlet-body">
                     <!-- BEGIN FORM-->
-                    @php
-                        $mahasiswa=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
-                    @endphp
                     @if ($mahasiswa->programstudi->jenjang=='S3')
                         <form action="{{$id==-1 ? url('pengajuan-s3') : url('pengajuan-s3/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
                     @else
@@ -90,7 +87,7 @@
                                                     if (strpos(strtolower($v->jenis),'praktek')!==false)
                                                         continue;
 
-                                                    
+                                                    $mahasiswa=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
                                                     // dd($mahasiswa->programstudi);
                                                 @endphp
 

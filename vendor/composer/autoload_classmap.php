@@ -49,6 +49,7 @@ return array(
     'App\\Http\\Controllers\\KerjaPraktekController' => $baseDir . '/app/Http/Controllers/KerjaPraktekController.php',
     'App\\Http\\Controllers\\MahasiswaController' => $baseDir . '/app/Http/Controllers/MahasiswaController.php',
     'App\\Http\\Controllers\\Mahasiswa\\DaftarSidangController' => $baseDir . '/app/Http/Controllers/Mahasiswa/DaftarSidangController.php',
+    'App\\Http\\Controllers\\Mahasiswa\\PengajuanS3Controller' => $baseDir . '/app/Http/Controllers/Mahasiswa/PengajuanS3Controller.php',
     'App\\Http\\Controllers\\Mahasiswa\\PengajuanSkripsiController' => $baseDir . '/app/Http/Controllers/Mahasiswa/PengajuanSkripsiController.php',
     'App\\Http\\Controllers\\MasterDepartemenController' => $baseDir . '/app/Http/Controllers/MasterDepartemenController.php',
     'App\\Http\\Controllers\\MasterPimpinanController' => $baseDir . '/app/Http/Controllers/MasterPimpinanController.php',

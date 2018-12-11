@@ -26,6 +26,16 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
+                    <label class="control-label">Urutan Ke</label>
+                    <input type="text" id="urutan" name="urutan" class="form-control input-circle" placeholder="Urutan" value="{{$id==-1 ? '' : $det->urutan}}" style="width:40% !important;">
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-12">
+                <div class="form-group has-success">
                     <label class="control-label">Level</label>
                     <input type="hidden" name="departemen_id" value="{{$dept_id}}">
                     {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}

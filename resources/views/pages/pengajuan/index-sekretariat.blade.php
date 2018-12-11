@@ -59,11 +59,15 @@
                                 <td> {{$v->topik_diajukan}}</td>
                                 <td> 
                                     @php
-                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->orderBy('keterangan','desc')->get();
                                     @endphp
                                     @foreach ($p_bimbingan as $key=>$item)
                                         @if (isset($item->dosen->nama))
-                                            <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                            @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                                <small><u>{{$item->keterangan}}</u></small><br>
+                                            @else
+                                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                            @endif
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     @if ($item->status==1)
@@ -87,7 +91,17 @@
                                         @endif
                                     @endforeach
                                 </td>
-                                <td>{!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}</td>
+                                <td>
+                                    {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}
+                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                        @if ($v->sk_rektor_promotor!=null)
+                                            <br>
+                                            <br>
+                                            SK Rektor Promotor<br>
+                                            <a href="{{url('unduh-file/'.$v->sk_rektor_promotor)}}" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="File SK Rektor" id=""><i class="fa fa-file-o font-white" title=""></i> Lihat File</a>
+                                        @endif
+                                    @endif
+                                </td>
 
                                 @php
                                     $st_pbb=0;
@@ -110,6 +124,11 @@
                                         <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i></a>
                                         @if ($v->status_pengajuan==0)    
                                             <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
+                                        @endif
+                                    @endif
+                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                        @if ($v->status_pengajuan==0)    
+                                            <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
                                         @endif
                                     @endif
                                     <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i></a>
@@ -157,6 +176,11 @@
                 location.href='{{url("pengajuan-verifikasi")}}/'+id+'/'+jns;
             } 
         });
+    }
+    function verifikasis3(id,jns)
+    {
+        $('#id_pengajuan').val(id);
+        $('#ajax').modal('show');
     }
     function setujuipengajuan(pengajuan_id,mahasiswa_id,dosen_id)
     {
@@ -242,4 +266,35 @@
         font-size: 11px !important;
     }
 </style>
+<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Unggah SK Rektor</h4>
+            </div>
+            <form action="{{url('unggah-sk-rektor')}}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="form-group has-success">
+                        <label class="control-label">Upload daftar Bimbingan dari SIAK-NG</label>
+                        <input type="file" name="sk_rektor" class="form-control">
+                    </div>
+                    <input type="hidden" name="id_pengajuan" id="id_pengajuan">
+                    <div class="form-group has-success">
+                        <label class="control-label">Status Pengajuan</label>
+                            <select class="form-control" data-placeholder="Status " name="status" id="status" style="width:100%">
+                                <option value="1">Setujui</option>
+                                <option value="0">Tolak</option>
+                            </select>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="submit" class="btn green" id="ok">OK</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

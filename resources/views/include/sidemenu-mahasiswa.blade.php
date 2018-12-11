@@ -172,13 +172,18 @@
     </a>
     <ul class="sub-menu">
         <li class="nav-item  {{Request::path()=='pengajuan-disertasi' ? 'active' : ''}}">
-            <a href="{{url('pengajuan')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Bimbingan</span>
+            <a href="{{url('pengajuan-disertasi')}}" class="nav-link ">
+                <span class="title">Pengajuan Bimbingan</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='data-bimbingan-disertasi-mhs' ? 'active' : ''}}">
+            <a href="{{url('data-bimbingan-disertasi-mhs')}}" class="nav-link ">
+                <span class="title">Data Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='daftar-sidang-disertasi' ? 'active' : ''}}">
             <a href="{{url('daftar-sidang')}}" class="nav-link ">
-                <span class="title">Data Pengajuan Sidang</span>
+                <span class="title">Pengajuan Sidang</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='jadwal-sidang-disertasi' ? 'active' : ''}}">

@@ -108,14 +108,21 @@ Route::post('/simpan_password_mhs', 'MahasiswaController@simpanpassword')->name(
 Route::post('/simpan-college-mhs', 'MahasiswaController@simpancollege')->name('simpan.college')->middleware('auth');
 Route::post('/simpan-profil-mhs', 'MahasiswaController@simpanprofil')->name('simpan.profil')->middleware('auth');
 
-Route::resource('pengajuan','Mahasiswa\PengajuanSkripsiController')->middleware('auth');
 // Route::post('pengajuan-admin','Mahasiswa\PengajuanSkripsiController@store')->middleware('auth');
 // Route::post('pengajuan-admin/{id}','Mahasiswa\PengajuanSkripsiController@update')->middleware('auth');
+Route::resource('pengajuan','Mahasiswa\PengajuanSkripsiController')->middleware('auth');
 Route::get('pengajuan-data/{id?}', 'Mahasiswa\PengajuanSkripsiController@data')->middleware('auth');
 Route::get('pengajuan-hapus/{id}', 'Mahasiswa\PengajuanSkripsiController@destroy')->middleware('auth');
 Route::get('pengajuan-detail/{id}','Mahasiswa\PengajuanSkripsiController@detail')->middleware('auth');
 Route::get('data-bimbingan-mhs/{id?}','Mahasiswa\PengajuanSkripsiController@index_bimbingan_mhs')->middleware('auth');
-
+//----------Pengajuan S3
+Route::resource('pengajuan-disertasi','Mahasiswa\PengajuanS3Controller')->middleware('auth');
+Route::get('pengajuan-data-disertasi/{id?}', 'Mahasiswa\PengajuanS3Controller@data')->middleware('auth');
+Route::get('pengajuan-hapus-disertasi/{id}', 'Mahasiswa\PengajuanS3Controller@destroy')->middleware('auth');
+Route::get('pengajuan-detail-disertasi/{id}','Mahasiswa\PengajuanS3Controller@detail')->middleware('auth');
+Route::get('data-bimbingan-disertasi-mhs/{id?}','Mahasiswa\PengajuanS3Controller@index_bimbingan_mhs')->middleware('auth');
+Route::post('unggah-sk-rektor','Mahasiswa\PengajuanS3Controller@unggah_sk_rektor');
+///-----------------------
 
 Route::get('data-pengajuan','Admin\PengajuanController@pengajuan')->middleware('auth');
 Route::get('data-bimbingan','Admin\PengajuanController@data_bimbingan')->middleware('auth');

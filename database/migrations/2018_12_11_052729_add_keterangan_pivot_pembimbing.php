@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIelts extends Migration
+class AddKeteranganPivotPembimbing extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class AddIelts extends Migration
      */
     public function up()
     {
-        Schema::table('pengajuan', function (Blueprint $table) {
-            $table->string('ielts')->nullable();
-            $table->string('file_ielts')->nullable();
-            
+        Schema::table('pivot_bimbingan', function (Blueprint $table) {
+            $table->string('keterangan')->nullable();
         });
     }
 
@@ -27,10 +25,8 @@ class AddIelts extends Migration
      */
     public function down()
     {
-        Schema::table('pengajuan', function (Blueprint $table) {
-             $table->dropColumn('ielts');
-             $table->dropColumn('file_ielts');
-             
+        Schema::table('pivot_bimbingan', function (Blueprint $table) {
+            $table->dropColumn('keterangan');
         });
     }
 }

@@ -20,10 +20,10 @@ class MasterJenisPengajuanController extends Controller
     public function data($dept_id=null)
     {
         if($dept_id==null || $dept_id==0)
-            $jenis=MasterJenisPengajuan::orderBy('jenis')->get();
+            $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
         else
         {
-            $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('jenis')->get();
+            $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
         }
 
         return view('pages.administrator.jenis-pengajuan.data')
@@ -53,6 +53,7 @@ class MasterJenisPengajuanController extends Controller
         $jenis->jenis=$request->jenis;
         $jenis->keterangan=$request->keterangan;
         $jenis->departemen_id=$request->departemen_id;
+        $jenis->urutan=$request->urutan;
         $jenis->created_at=date('Y-m-d H:i:s');
         $jenis->updated_at=date('Y-m-d H:i:s');
         $cr=$jenis->save();
@@ -67,6 +68,7 @@ class MasterJenisPengajuanController extends Controller
         $jenis->jenis=$request->jenis;
         $jenis->keterangan=$request->keterangan;
         $jenis->departemen_id=$request->departemen_id;
+        $jenis->urutan=$request->urutan;
         $jenis->updated_at=date('Y-m-d H:i:s');
         $up=$jenis->save();
         return response()->json([$up]);

@@ -525,4 +525,15 @@ function getFormFields($data)
 		$ujian=['Ujian Proposal Riset','Ujian Hasil Riset','Sidang Promosi'];
 		return $ujian;
 	}
+
+	function jab_promotor()
+	{
+		$jab=['professor','profesor','guru-besar','lektor-kepala'];
+		return $jab;
+	}
+	function jab_copromotor()
+	{
+		$jab=['lektor','guru-besar'];
+		return $jab;
+	}
 ?>

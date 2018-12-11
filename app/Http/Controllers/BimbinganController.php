@@ -8,6 +8,7 @@ use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
 use App\Model\Pengajuan;
 use App\Model\Users;
+use App\Model\Mahasiswa;
 use Auth;
 class BimbinganController extends Controller
 {
@@ -90,7 +91,13 @@ class BimbinganController extends Controller
     public function show($id)
     {
         $det=array();
-        $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('status',1)->with('dosen')->with('mahasiswa')->get();
+        $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+
+        if($mhs->programstudi->jenjang=='S3')
+            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->with('mahasiswa')->get();
+        else
+            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('status',1)->with('dosen')->with('mahasiswa')->get();
+
         $dospem=array();
         foreach($dos as $k=>$v)
         {
@@ -100,7 +107,10 @@ class BimbinganController extends Controller
             $det=Bimbingan::find($id);
 
         $count=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->count();
-        return view('pages.mahasiswa.bimbingan.form',compact('dospem','det','id','count'));
+
+        // 
+
+        return view('pages.mahasiswa.bimbingan.form',compact('dospem','det','id','count','mhs'));
     }
 
     /**
