@@ -45,7 +45,7 @@
                 <div class="portlet-body">
                     <!-- BEGIN FORM-->
                     @if ($mahasiswa->programstudi->jenjang=='S3')
-                        <form action="{{$id==-1 ? url('pengajuan-s3') : url('pengajuan-s3/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
+                        <form action="{{$id==-1 ? url('pengajuan-disertasi') : url('pengajuan-disertasi/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
                     @else
 
                         <form action="{{$id==-1 ? url('pengajuan') : url('pengajuan/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
