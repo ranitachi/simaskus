@@ -277,7 +277,7 @@
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <div class="form-group has-success">
-                        <label class="control-label">Upload daftar Bimbingan dari SIAK-NG</label>
+                        <label class="control-label">Upload SK Rektor Promotor</label>
                         <input type="file" name="sk_rektor" class="form-control">
                     </div>
                     <input type="hidden" name="id_pengajuan" id="id_pengajuan">
