@@ -200,7 +200,7 @@
         <li class="nav-item  {{strpos(Request::path(),'quota-bimbingan')!==false ? 'active' : ''}} ">
             <a href="{{url('quota-bimbingan')}}" class="nav-link ">
                 
-                <span class="title">Quota Bimbingan</span>
+                <span class="title">Quota Mahasiswa Bimbingan</span>
             </a>
         </li>
         <li class="nav-item  {{strpos(Request::path(),'quota-penguji')!==false ? 'active' : ''}} ">
