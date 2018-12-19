@@ -186,7 +186,7 @@
                                 <div class="col-md-12">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi</label>
-                                        <textarea class="wysihtml5 form-control" rows="6" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : '-'}}</textarea>
+                                        <textarea class="wysihtml5 form-control" rows="6" id="deskripsi" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : '-'}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -370,9 +370,36 @@
     }
     function jenis(val)
     {
+        var status_dosen=$('#pengambilan_ke').val();
         $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val,function(){
             
         });
+        $.ajax({
+            url:'{{url("cek-pengajuan")}}/'+val,
+            dataType:'json',
+            success:function(res){
+                if(res.status!=0)
+                {
+                    var str=(res.status).split('-');
+                    if(str[2]!=5)
+                        swal("Warning", "Pengajuan "+str[1]+" Anda Belum Masih Berjalan", "warning");
+                }
+                if(res.ada!=0)
+                {
+
+                    $('#topik_diajukan').val(res.sebelum.topik_diajukan);
+                    $('#skema').val(res.sebelum.skema);
+                    $('#skema').trigger('change');
+                    $('#judul_ind').val(res.sebelum.judul_ind);
+                    $('#judul_eng').val(res.sebelum.judul_eng);
+                    // $('#deskripsi').val(res.sebelum.deskripsi);
+                    $("#deskripsi").data("wysihtml5").editor.setValue(res.sebelum.deskripsi_rencana)
+                    $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val+'/'+status_dosen+'/'+res.sebelum.id,function(){
+            
+                    });
+                }
+            }
+        });  
     }
 
     $(document).ready(function(){

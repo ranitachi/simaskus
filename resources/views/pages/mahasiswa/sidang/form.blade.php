@@ -17,15 +17,15 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Form Pengauan</span>
+                    <span>Form Pengjauan</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Pengajuan 
-            <small>{{$id==-1 ? 'Tambah Data' :'Edit Data'}}</small>
+        <h1 class="page-title"> Daftar Sidang 
+            <small>Form</small>
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
@@ -51,11 +51,11 @@
                         @endif
                         <div class="form-body">
                             <div class="row">
-                                @if (count($penguji)!=0)
+                                @if (isset($penguji[$id]))
                                     @php
                                         $no=1;
                                     @endphp
-                                    @foreach ($penguji as $kp => $vp)
+                                    @foreach ($penguji[$id] as $kp => $vp)
                                         <div class="col-md-4">
                                             <div class="form-group has-success">
                                                 <label class="control-label">Nama Usulan Penguji {{$no}}</label>
@@ -74,8 +74,8 @@
                                         @endphp
                                     @endforeach
                                 @else
-                                    <div class="col-md-12">
-                                        <h3>Nama Penguji Belum Diajukan dan Diinput</h3>
+                                    <div class="col-md-12" style="margin-bottom:20px;">
+                                        <h3>Unggah Berkas Untuk Daftar Sidang <b>{{$det->jenispengajuan->jenis}}</b></h3>
                                     </div>
                                 @endif
                                 @if (isset($mhs->programstudi->nama_program_studi))
@@ -121,13 +121,29 @@
                             <div class="row">
                                 <div class="col-md-4"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Upload Dokumen (.doc)</label>
+                                        @if (isset($mhs->programstudi->jenjang))
+                                            @if ($mhs->programstudi->jenjang=='S3')
+                                                <label class="control-label">Upload Buku Ujian (.doc)</label>
+                                            @else
+                                                <label class="control-label">Upload Dokumen (.doc)</label>
+                                            @endif
+                                        @else
+                                            <label class="control-label">Upload Dokumen (.doc)</label>
+                                        @endif
                                         <input type="file" name="dokumen['dokumen_doc']" id="documen_doc" class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="col-md-4"> 
                                     <div class="form-group has-success">
-                                        <label class="control-label">Upload Dokumen (.pdf)</label>
+                                         @if (isset($mhs->programstudi->jenjang))
+                                            @if ($mhs->programstudi->jenjang=='S3')
+                                                <label class="control-label">Upload Buku Ujian (.pdf)</label>
+                                            @else
+                                                <label class="control-label">Upload Dokumen (.pdf)</label>
+                                            @endif
+                                        @else
+                                            <label class="control-label">Upload Dokumen (.pdf)</label>
+                                        @endif
                                         <input type="file" name="dokumen['dokumen_pdf']" id="documen_pdf" class="form-control"><br>
                                     </div>
                                 </div>
@@ -139,6 +155,67 @@
                                 </div>
 
                             </div>
+                            @if ($det->jenispengajuan->keterangan=='S3')
+                                @if (str_slug($det->jenispengajuan->jenis)=='ujian-hasil-riset')
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <legend>Publikasi</legend>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        
+                                                        <div class="col-md-3">
+                                                            Judul Publikasi
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            Lokasi Publikasi
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            Penulis
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            URL
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            File
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" id="dynamic_form">
+                                                    
+                                                    <div class="row">
+                                                        
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="judul" id="p_name" placeholder="Judul Publikasi" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Publikasi">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control" name="penulis" id="penulis" placeholder="Penulis">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control" name="url" id="url" placeholder="URL">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="file" class="form-control" name="file" id="file" placeholder="File">
+                                                        </div>
+                                                        <div class="button-group">
+                                                            <a href="javascript:void(0)" class="btn btn-primary" id="plus5"><i class="fa fa-plus-circle"></i></a>
+                                                            <a href="javascript:void(0)" class="btn btn-danger" id="minus5"><i class="fa fa-close"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
                             {{-- <div class="row">
                                 <div class="col-md-6"> 
                                     <div class="form-group has-success">
@@ -172,11 +249,29 @@
 @endsection
 @section('footscript')
 
+<script src="{{asset('js/dynamic-form.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>
 
     $(document).ready(function(){
+        var dynamic_form =  $("#dynamic_form").dynamicForm("#dynamic_form","#plus5", "#minus5", {
+		        limit:10,
+		        formPrefix : "dynamic_form",
+		        normalizeFullForm : false
+		    });
+
+        	//dynamic_form.inject([{p_name: 'Hemant',quantity: '123',remarks: 'testing remark'},{p_name: 'Harshal',quantity: '123',remarks: 'testing remark'}]);
+
+		    $("#dynamic_form #minus5").on('click', function(){
+		    	var initDynamicId = $(this).closest('#dynamic_form').parent().find("[id^='dynamic_form']").length;
+		    	if (initDynamicId === 2) {
+		    		$(this).closest('#dynamic_form').next().find('#minus5').hide();
+		    	}
+		    	$(this).closest('#dynamic_form').remove();
+		    });
+             
+
         $('.date-picker').datepicker({
                 rtl: App.isRTL(),
                 orientation: "left",
@@ -191,7 +286,7 @@
                 "stylesheets": ["{{asset('assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css')}}"]
         });
         // swal("Good job!", "You clicked the button!", "success")
-        $('#simpan').on('click',function(){
+        $('#simpan').on('click',function(event){
             //$('#form-pengajuan').submit();
             var penguji1=$('#penguji1').val();
             var penguji2=$('#penguji2').val();
@@ -205,6 +300,12 @@
            
             else
             {
+                var values = {};
+				$.each($('form').serializeArray(), function(i, field) {
+				    values[field.name] = field.value;
+				});
+				//console.log(values)
+        		event.preventDefault();
                 $('#form-pengajuan').submit();
             }
         });

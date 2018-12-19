@@ -20,7 +20,7 @@
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Pengajuan Bimbingan Skripsi
+        <h1 class="page-title"> Pengajuan Ujian S3
             <small>Daftar</small>
         </h1>
         <!-- END PAGE TITLE-->

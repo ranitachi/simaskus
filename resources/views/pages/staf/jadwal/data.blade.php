@@ -55,7 +55,7 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                         @php
-                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('judul_id',$v->id)->where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
                         @endphp
                     {{-- <td>
                         @foreach ($p_bimbingan as $key=>$item)
@@ -119,8 +119,7 @@
                             @foreach ($dok[$v->id] as $kd => $vd)
                                 <small><u>{{$kd}}</u></small><br>
                                 @if ($vd->status==0)
-                                    <a href="#" class="btn btn-xs btn-danger btn-rounded" data-toggle="tooltip" title="Belum Di Verifikasi" style="font-size:10px;margin-right:0px;"><i class="fa fa-exclamation-circle"></i></a>    
-
+                                    <a href="#" class="btn btn-xs btn-danger btn-rounded" data-toggle="tooltip" title="Belum Di Verifikasi" style="font-size:10px;margin-right:0px;"><i class="fa fa-exclamation-circle"></i></a>  
 
                                     <a href="javascript:setujuidokumen({{$vd->id}},1)" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i></a> 
                                     @php
@@ -136,14 +135,32 @@
                                 <a href="{{url('unduh-file/'.$vd->file)}}" target="_blank" class="btn btn-xs btn-success" data-toggle="tooltip" title="Lihat Dokumen" style="font-size:10px;"><i class="fa fa-search"></i> Lihat</a>
                             @endforeach
                         @endif
+                        @php
+                            $wh=['pengajuan_id'=>$v->id,'mahasiswa_id'=>$v->mahasiswa_id];
+                            $publk=\App\Model\Publikasi::where($wh)->get();
+                            if($v->mahasiswa->programstudi->jenjang=='S3')
+                            {
+                                if(str_slug($v->jenispengajuan->jenis)=='ujian-hasil-riset')
+                                {
+                                    echo '<br><br><b>Publikasi</b><br>';
+                                    foreach($publk as $kpb => $vpb)
+                                    {
+                                        echo '<b>
+                                            <a href="'.url('unduh-file').'/'.$vpb->file.'" target="_blank"><i class="fa fa-download"></i></a>&nbsp;
+                                            <i class="fa fa-file-o"></i>
+                                            &nbsp; '.$vpb->judul.'</b><br>';
+                                    }
+                                }
+                            }
+                        @endphp
                         </div>
                     </td>
                     <td class="text-left">
                     {{-- @if(count($jadwal)!=0) --}}
                         {{-- @if (isset($jadwal->id)) --}}
                         
-                            @if (isset($uji[$v->mahasiswa_id]))
-                                @foreach ($uji[$v->mahasiswa_id] as $kk => $vv)
+                            @if (isset($uji[$v->id][$v->mahasiswa_id]))
+                                @foreach ($uji[$v->id][$v->mahasiswa_id] as $kk => $vv)
                                     {{-- @if ($vv->status==0)
                                             <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                         @else --}}
@@ -158,9 +175,9 @@
                             </center>
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
-                            <center>
+                            {{-- <center>
                                 <a href="javascript:tambahpenguji({{$v->id}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
-                            </center>
+                            </center> --}}
                         @endif
                     {{-- @endif --}}
                     </td>
@@ -181,7 +198,11 @@
                             @endphp
                             @foreach ($p_bimbingan as $key=>$item)
                                 @if (isset($item->dosen->nama))
-                                    <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                        <small><u>{{ucwords($item->keterangan)}}</u></small><br>
+                                    @else
+                                        <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                    @endif
                                         @if (in_array($item->dosen_id,$acc_s))
                                             <i class="fa fa-check-circle font-blue-steel"></i>
                                         @else

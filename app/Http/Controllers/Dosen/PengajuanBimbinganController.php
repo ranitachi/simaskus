@@ -32,7 +32,14 @@ class PengajuanBimbinganController extends Controller
     public function daftar()
     {
         $jenis='daftar';
-        return view('pages.dosen.bimbingan.index',compact('jenis'));
+        $user=Users::where('id',Auth::user()->id)->with('dosen')->first();
+        $dept_id=0;
+        if($user)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        return view('pages.dosen.bimbingan.index',compact('jenis','dept_id','dosen'));
     }
     public function data($jenis)
     {
@@ -53,7 +60,7 @@ class PengajuanBimbinganController extends Controller
         $acc_sid=array();
         foreach($acc_sidang as $k =>$v)
         {
-            $acc_sid[$v->dosen_id][$v->mahasiswa_id]=$v;
+            $acc_sid[$v->dosen_id][$v->mahasiswa_id][$v->pengajuan_id]=$v;
             // $acc_sid2[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
 
@@ -170,12 +177,38 @@ class PengajuanBimbinganController extends Controller
                 ->with('pembimbing_sebelum')
                 ->orderBy('created_at','desc')->first();
 
-        return view('pages.dosen.bimbingan.detail',compact('jenis','pengajuan','mp','jenis','id','mahasiswa_id','penilaian','ev','acc','eval','dosen','q_penguji','piv_uji'));
+        $mhs=Mahasiswa::where('id',$mahasiswa_id)->with('programstudi')->first();
+        if($mhs->programstudi->jenjang=='S3')
+        {
+            $cekpromotor=PivotBimbingan::where('mahasiswa_id',$mahasiswa_id)->where('judul_id',$id)->get();
+            foreach($cekpromotor as $ck=>$vk)
+            {
+                $accsid=PivotSetujuSidang::where('pengajuan_id',$id)->where('dosen_id',$vk->dosen_id)->where('mahasiswa_id',$mahasiswa_id)->first();
+                if(!$accsid)
+                {
+                    $accsid=new PivotSetujuSidang;
+                    $accsid->dosen_id=$vk->dosen_id;
+                    $accsid->mahasiswa_id=$mahasiswa_id;
+                    $accsid->jenis_bimbingan=$pengajuan->jenispengajuan->jenis;
+                    $accsid->pengajuan_id=$id;
+                    $accsid->status=1;
+                    $accsid->save();
+                }
+            }
+            return redirect('daftar-bimbingan')->with('status','Pengajuan Sidang Mahasiswa '.$mhs->nama.' Telah Disetujui');
+            
+        }
+
+        return view('pages.dosen.bimbingan.detail',compact('mhs','jenis','pengajuan','mp','jenis','id','mahasiswa_id','penilaian','ev','acc','eval','dosen','q_penguji','piv_uji','dept_id'));
     }
-    public function bimbingandata($id)
+    public function bimbingandata($id,$idpengajuan=null)
     {
-        $bimbingan=Bimbingan::where('mahasiswa_id',$id)->with('dospem')->with('mahasiswa')->get();
-        return view('pages.dosen.bimbingan.bimbingan-data',compact('bimbingan'));
+        if($idpengajuan==null)
+            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->with('dospem')->with('mahasiswa')->get();
+        else
+            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->where('pengajuan_id',$idpengajuan)->with('dospem')->with('mahasiswa')->get();
+
+        return view('pages.dosen.bimbingan.bimbingan-data',compact('bimbingan','idpengajuan'));
     }
 
     public function simpan_form_evaluasi_skipsi(Request $request)

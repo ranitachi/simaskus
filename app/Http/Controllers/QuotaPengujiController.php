@@ -54,7 +54,7 @@ class QuotaPengujiController extends Controller
 
         $det=array();
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $jenis=MasterJenisPengajuan::all();
+        $jenis=MasterJenisPengajuan::where('keterangan','not like',"%Tugas%")->orderBy('keterangan')->orderBy('urutan')->get();
         if($id!=-1)
         {
             // $det=QuotaPenguji::find($id);
@@ -75,6 +75,7 @@ class QuotaPengujiController extends Controller
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
         $quota->quota=$request->quota;
+        $quota->minimal=$request->minimal;
         $cr=$quota->save();
         return response()->json([$cr]);
         // return redirect('dosen-admin')->with('status',$pesan);
@@ -86,6 +87,7 @@ class QuotaPengujiController extends Controller
         $quota->departemen_id=$request->departemen_id;
         $quota->level=$request->level;
         $quota->quota=$request->quota;
+        $quota->minimal=$request->minimal;
         $cr=$quota->save();
         return response()->json([$cr]);
     }

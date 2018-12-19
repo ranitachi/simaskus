@@ -18,6 +18,7 @@ use App\Model\PivotSetujuSidang;
 use App\Model\Mahasiswa;
 use App\Model\PivotDocumentSidang;
 use App\Model\QuotaPenguji;
+use App\Model\Publikasi;
 use Auth;
 class DaftarSidangController extends Controller
 {
@@ -50,12 +51,12 @@ class DaftarSidangController extends Controller
                     ->where('pivot_jadwal.mahasiswa_id',Auth::user()->id_user)
                     ->with('ruangan')
                     ->get();
-
+        // dd($jadwal[0]);
         $penguji=PivotPenguji::with('dosen')->get();
         $uji=array();
         foreach($penguji as $k => $v)
         {
-            $uji[$v->mahasiswa_id][$v->penguji_id]=$v;
+            $uji[$v->pengajuan_id][$v->mahasiswa_id][$v->penguji_id]=$v;
         }
 
         $pivot=PivotBimbingan::all();
@@ -69,7 +70,7 @@ class DaftarSidangController extends Controller
         $acc_sid=array();
         foreach($acc_sidang as $k =>$v)
         {
-            $acc_sid[$v->mahasiswa_id][$v->dosen_id]=$v;
+            $acc_sid[$v->pengajuan_id][$v->mahasiswa_id][$v->dosen_id]=$v;
         }
         
         $dokumen=PivotDocumentSidang::where('mahasiswa_id',Auth::user()->id_user)->get();
@@ -78,7 +79,7 @@ class DaftarSidangController extends Controller
         {
             $dok[$vd->jenis_dokumen]=$vd;
         }
-
+        // dd($jadwal);
         return view('pages.mahasiswa.sidang.data')
                     ->with('pengajuan',$pengajuan)
                     ->with('dok',$dok)
@@ -90,7 +91,7 @@ class DaftarSidangController extends Controller
     public function show($id)
     {
         $idmhs=Auth::user()->id_user;
-        $det=Pengajuan::find($id);
+        $det=Pengajuan::where('id',$id)->with('jenispengajuan')->first();
         $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
 
@@ -98,7 +99,7 @@ class DaftarSidangController extends Controller
         $penguji=array();
         foreach($p_uji as $k =>$v)
         {
-            $penguji[$v->penguji_id]=$v;
+            $penguji[$v->pengajuan_id][$v->penguji_id]=$v;
         }
 
         $quota_penguji=QuotaPenguji::where('departemen_id',$mhs->departemen_id)->get();
@@ -129,11 +130,35 @@ class DaftarSidangController extends Controller
     }
     public function update(Request $request, $idpengajuan)
     {
+        // dd($request->all());
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==3)
         {
             $dept_id=$user->mahasiswa->departemen_id;
+        }
+
+        if(isset($request->dynamic_form))
+        {
+            $post=$request->dynamic_form;
+            // dd($post['dynamic_form']);
+            foreach($post['dynamic_form'] as $kd=>$vdf)
+            {
+
+                $val_publ=$vdf['file'];
+                $val_publ->storeAs('publikasi',$val_publ->getClientOriginalName());
+                $dir_publ='publikasi/'.$val_publ->getClientOriginalName(); 
+
+                $Publ=new Publikasi;
+                $Publ->judul = $vdf['judul'];
+                $Publ->pengajuan_id = $idpengajuan;
+                $Publ->mahasiswa_id = Auth::user()->id_user;
+                $Publ->url = $vdf['url'];
+                $Publ->penulis = $vdf['penulis'];
+                $Publ->lokasi_publikasi = $vdf['lokasi'];
+                $Publ->file = $dir_publ;
+                $Publ->save();
+            }
         }
 
         $pengajuan=Pengajuan::where('id',$idpengajuan)->with('jenispengajuan')->first();

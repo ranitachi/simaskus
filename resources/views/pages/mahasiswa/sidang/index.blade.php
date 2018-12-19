@@ -87,11 +87,12 @@
             } 
         });
     }
-    function tambahpenguji(idpengajuan)
+    function tambahpenguji(idpengajuan,idmahasiswa)
     {
         // $('.modal-body').load('{{url("form-add-penguji")}}',function(){
         //     $('.select2').select2({ width: '100%' });
         // });
+        $('#mahasiswa_id').val(idmahasiswa);
         $('#ajax-sm').modal('show');
         $('#ok-ajax-sm').one('click',function(){
             var iddos=$('#dosen_id').val();
@@ -138,11 +139,12 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                <form action="{{url('add-penguji/'.$dept_id) }}" class="horizontal-form" id="form-add-penguji" method="POST" enctype="multipart/form-data">
+                <form action="#" class="horizontal-form" id="form-add-penguji" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
+                                <input type="hidden" name="mahasiswa_id" id="mahasiswa_id">
                                 <div class="form-group has-success">
                                     <label class="control-label">Nama Penguji</label>
                                     <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Penguji" id="dosen_id" name="dosen_id">

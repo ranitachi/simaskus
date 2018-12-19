@@ -17,7 +17,8 @@
                     <th>No</th>
                     <th> Departemen </th>
                     <th> Level </th>
-                    <th> Maksimal Penguji</th>
+                    <th> Minimal <br>Jlh Penguji</th>
+                    <th> Maksimal <br>Jlh Penguji</th>
                     {{-- <th> Pimpinan</th> --}}
                     <th> # </th>
                 </tr>
@@ -31,7 +32,8 @@
                 <tr class="odd gradeX">
                     <td>{{($no++)}}</td>
                     <td>{{$v->departemen->nama_departemen}}</td>
-                    <td>{{$jns[$v->level]->jenis}}</td>
+                    <td>{{$jns[$v->level]->keterangan}} - {{$jns[$v->level]->jenis}}</td>
+                    <td>{{$v->minimal}}</td>
                     <td>{{$v->quota}}</td>
                     <td>
                         <div style="width:80px;">

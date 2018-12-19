@@ -9,6 +9,7 @@ use App\Model\MasterDepartemen;
 use App\Model\MasterJenisPengajuan;
 use App\Model\Dosen;
 use App\Model\PivotBimbingan;
+use App\Model\Pengajuan;
 use App\Model\Users;
 use Auth;
 class QuotaPembimbingController extends Controller
@@ -112,7 +113,7 @@ class QuotaPembimbingController extends Controller
         return response()->json([$c]);
     }
 
-    public function jlh_pembimbing($idjenis,$kat_dosen=null)
+    public function jlh_pembimbing($idjenis,$kat_dosen=null,$idpengajuan=null)
     {
         $jenis=MasterJenisPengajuan::find($idjenis);                     
         $quota=QuotaPembimbing::where('level',$idjenis)->first();
@@ -123,23 +124,48 @@ class QuotaPembimbingController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         } 
-        if($kat_dosen==null)
+        if($kat_dosen==null || $kat_dosen==1)
             $dosen=Dosen::where('departemen_id',$dept_id)->get();
         else
             $dosen=Dosen::all();
         
         // dd($dosen);
+        $p_ajuan=array();
+
+        if($idpengajuan!=null)
+        {
+            $pengajuan=Pengajuan::where('id',$idpengajuan)->get();
+            foreach($pengajuan as $k=>$v)
+            {
+                $p_ajuan[$v->id]=$v;
+            }
+        }
 
         $pivot=PivotBimbingan::with('dosen')->get();
         $piv=array();
+        $promotor=$copromotor=array();
         foreach($pivot as $kp=>$vp)
         {
             if($vp->dosen->departemen_id==$dept_id)
             {
                 $piv[$vp->dosen_id][]=$vp;
             }
+            if($idpengajuan!=null)
+            {
+                if($pengajuan[0]->id==$vp->judul_id)
+                {
+                    if($vp->keterangan=='promotor')
+                    {
+                        $promotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                    elseif($vp->keterangan=='co-promotor')
+                    {
+                        $copromotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                }
+            }
         }
-
+        // dd($p_ajuan);
         $qut_bim=QuotaBimbingan::all();
         $qb=array();
         foreach($qut_bim as $kq=>$vq)
@@ -150,6 +176,9 @@ class QuotaPembimbingController extends Controller
         return view('pages.administrator.dosen.jumlah-pembimbing')
                 ->with('dosen',$dosen)
                 ->with('piv',$piv)
+                ->with('pengajuan',$p_ajuan)
+                ->with('promotor',$promotor)
+                ->with('copromotor',$copromotor)
                 ->with('quota_bim',$qb)
                 ->with('jenis',$jenis)
                 ->with('kat_dosen',$kat_dosen)

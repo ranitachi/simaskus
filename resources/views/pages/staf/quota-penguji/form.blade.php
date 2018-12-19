@@ -18,12 +18,12 @@
                             @foreach ($jenis as $item)
                                 @if ($id!=-1)
                                     @if ($item->id==$det->level)
-                                        <option value="{{$item->id}}" selected="selected">{{$item->jenis}}</option>
+                                        <option value="{{$item->id}}" selected="selected">{{$item->keterangan}} - {{$item->jenis}}</option>
                                     @else
-                                        <option value="{{$item->id}}">{{$item->jenis}}</option>
+                                        <option value="{{$item->id}}">{{$item->keterangan}} - {{$item->jenis}}</option>
                                     @endif
                                 @else
-                                    <option value="{{$item->id}}">{{$item->jenis}}</option>
+                                    <option value="{{$item->id}}">{{$item->keterangan}} - {{$item->jenis}}</option>
                                 @endif
                             @endforeach
                         
@@ -32,6 +32,18 @@
             </div>
             <!--/span-->
         </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-4">
+                <div class="form-group has-success">
+                    <label class="control-label">Quota Minimal</label>
+                    
+                    <input type="text" id="minimal" name="minimal" class="form-control input-circle" placeholder="Minimal" value="{{$id==-1 ? '' : $det->minimal}}">
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+       
         <div class="row">
             <!--/span-->
             <div class="col-md-4">

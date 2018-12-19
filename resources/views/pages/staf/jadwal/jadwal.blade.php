@@ -20,16 +20,34 @@
             @foreach ($pengajuan as $i => $v)
             @if (count($jadwal) != 0)
                 @php
+                    $back=$pesan='';
                     $idpengajuan=$v->id;
+                    if($v->jenispengajuan->keterangan=='S3')
+                    {
+                        if(str_slug($v->jenispengajuan->jenis)=='ujian-hasil-riset')
+                        {
+                            if($v->acc_manager_akademik==0)
+                            {
+                                //$back='background:pink';
+                                $pesan="<i style='color: red'>Jadwal Ini Belum Di ACC <br>Manager Akademik</i>";
+                            }
+                        }
+                    }
                 @endphp
-                <tr class="odd gradeX">
+                <tr class="odd gradeX" data-toggle="tooltip" title="Penguji Sudah Setuju">
                     <td>{{(++$i)}}</td>
-                    <td>
+                    <td style="{{$back}}">
+                       
                         <b>{{$v->mahasiswa->nama}}</b><br>
                         {{$v->mahasiswa->npm}}<br>
                         {{$v->mahasiswa->programstudi->nama_program_studi}}
+                        <br>
+                        <br>
+                        <br>
+                        
                     </td>
-                    <td>
+                    <td style="{{$back}}">
+                        
                         @if ($v->jenispengajuan->keterangan=='S2')
                             <b>Thesis</b>
                         @else
@@ -38,6 +56,7 @@
                         
                         <br><br>T.A. <br>{{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}</td>
                     <td>
+                       
                         <small><u>Indonesia</u></small><br>
                         <strong>{{$v->judul_ind}}</strong>
                         <br>
@@ -45,13 +64,19 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                     <td>
+                        
                          @php
-                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->where('judul_id',$idpengajuan)->with('dosen')->orderBy('keterangan','desc')->get();
                         @endphp
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))
-                                <small><u>Pembimbing {{$key+1}}</u></small><br>
-                            
+                                @if ($v->jenispengajuan->keterangan=='S3')
+                                    @if (str_slug($v->jenispengajuan->jenis)=='ujian-hasil-riset')
+                                         <small><u><b>{{ucwords($item->keterangan)}}</b></u></small><br>     
+                                    @endif
+                                @else 
+                                    <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                @endif
                                 <strong>{{$item->dosen->nama}}<br></strong>
                             @endif
                         @endforeach
@@ -95,18 +120,27 @@
                     @if(count($jadwal)!=0)
                         @if (isset($jadwal[$idpengajuan]->id))
                             
-                            @if (isset($uji[$v->mahasiswa_id]))
-                                @foreach ($uji[$v->mahasiswa_id] as $kk => $vv)
+                            @if (isset($uji[$idpengajuan][$v->mahasiswa_id]))
+                                @foreach ($uji[$idpengajuan][$v->mahasiswa_id] as $kk => $vvv)
                                     {{-- @if ($vv->status==0)
                                             <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                         @else --}}
-                                            <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
+                                            <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vvv->dosen->nama}}</a><br>
                                         {{-- @endif --}}
                                 @endforeach
                             @endif
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                         @endif
+                    @endif
+                    <br>
+                    <br>
+                    @if ($pesan!='')
+                        
+                    
+                        {!!$pesan!!}
+                        <br>
+                        <a href="javascript:setujumanager({{$idpengajuan}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-info btn-rounded" data-toggle="tooltip" title="Setujui" style="font-size:10px;margin-right:0px;"><i class="fa fa-check"></i> SETUJUI</a> 
                     @endif
                     </td>
                     

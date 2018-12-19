@@ -51,7 +51,7 @@
             swal("Berhasil", "{{Session::get('status')}}", "success")
         }
     });
-
+    
     function loaddata()
     {
         var status_pengajuan='{{$status_pengajuan}}';

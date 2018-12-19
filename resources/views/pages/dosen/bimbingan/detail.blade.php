@@ -34,9 +34,11 @@
                     <li>
                         <a href="#tab_5_2" data-toggle="tab"> Bimbingan </a>
                     </li>
+                    @if ($mhs->programstudi->jenjang!='S3')
                     <li>
                         <a href="#tab_5_3" data-toggle="tab"> ACC Sidang </a>
                     </li>
+                    @endif
                     @if (!is_null($acc))
                     <li>
                         <a href="#tab_5_4" data-toggle="tab"> Pengajuan Penguji </a>
@@ -159,7 +161,7 @@
                                 </div>
                             <div class="col-md-6"> 
                                 @php
-                                    $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('dosen')->get();
+                                    $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('judul_id',$id)->with('dosen')->get();
                                 @endphp
                                     @foreach ($pembinging as $key=>$item)
                                         <div class="form-group has-success">
@@ -225,11 +227,13 @@
                             <div class="col-sm-12" id="data-bimbingan"></div>
                         </div>
                     </div>
+                    
                     <div class="tab-pane" id="tab_5_3">
                         <div class="row">
                             @include('pages.dosen.bimbingan.acc-sidang')
                         </div>
                     </div>
+                    
                     @if (!is_null($acc))
                     
                     <div class="tab-pane" id="tab_5_4">
@@ -297,7 +301,7 @@
     function loaddatabimbingan(id)
     {
         $('#loader').show();
-        $('#data-bimbingan').load('{{url("bimbingan-data-dosen")}}/'+id,function(){
+        $('#data-bimbingan').load('{{url("bimbingan-data-dosen")}}/'+id+'/{{$id}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
@@ -383,6 +387,7 @@
             } 
         });
     }
-
+    
 </script>
+
 @endsection

@@ -32,13 +32,27 @@
                     </center>
                 </div>
             </div> --}}
+            <div class="row" style="padding:5px 20px;">
+
+                <div class="col-md-6">
+                    <div class="btn-group pull-left">
+                        <a href="javascript:generate(-1)" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Pembimbing
+                            <i class="fa fa-users"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
            <div class="portlet light portlet-fit portlet-datatable bordered">
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_4">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th> Tanggal Pengajuan</th>
+                            <th> Tanggal<br>Pengajuan</th>
+                            <th>Jenis</th>
                             <th> Mahasiswa</th>
                             <th> Judul</th>
                             <th> Pembimbing</th>
@@ -51,6 +65,7 @@
                             <tr>
                                 <td>{{++$k}}</td>
                                 <td class="text-center">{{ tgl_indo2($v->created_at)}}</td>
+                                <td class="text-center">{{ ($v->jenispengajuan->jenis)}}</td>
                                 <td>
                                     <b>{{$v->mahasiswa->nama}}</b><br>
                                     NPM : {{ ($v->mahasiswa->npm)}}<br>
@@ -59,7 +74,7 @@
                                 <td> {{$v->topik_diajukan}}</td>
                                 <td> 
                                     @php
-                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->orderBy('keterangan','desc')->get();
+                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->where('judul_id',$v->id)->with('dosen')->orderBy('keterangan','desc')->get();
                                     @endphp
                                     @foreach ($p_bimbingan as $key=>$item)
                                         @if (isset($item->dosen->nama))
@@ -157,7 +172,26 @@
         }
         $('#tooltips').tooltip();
     });
-
+    function generate(id)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Men-Generate Data Pembimbing Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Verifikasi",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                location.href='{{url("generate-pembimbing")}}/{{$dept_id}}';
+            } 
+        });
+        
+    }
     function verifikasi(id,jns)
     {
         swal({

@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         @php
-                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->get();
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$v->id)->with('dosen')->get();
                         @endphp
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))

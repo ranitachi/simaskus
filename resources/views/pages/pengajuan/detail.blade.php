@@ -255,7 +255,7 @@
     {
         $('#loader').show();
         var idMhs='{{$pengajuan->mahasiswa_id}}';
-        $('#data-bimbingan').load('{{url("bimbingan-data")}}/'+idMhs,function(){
+        $('#data-bimbingan').load('{{url("bimbingan-data")}}/'+idMhs+'/{{$id}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
             $('.tooltips').tooltip();

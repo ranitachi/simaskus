@@ -50,8 +50,8 @@
                         <option value="-1">-Pilih Dosen-</option>
                         @foreach ($dospem as $i => $v)
                             @if ($id!=-1)
-                                @if ($det->dosen_id==$v->dosen_id)
-                                    <option value="{{$v->dosen_id}}" selected="selected">{{$v->dosen->nama}}</option>    
+                                @if ($det->dospem_id==$v->dosen_id)
+                                    <option value="{{$det->dospem_id}}" selected="selected">{{$v->dosen->nama}}</option>    
                                 @else
                                     <option value="{{$v->dosen_id}}">{{$v->dosen->nama}}</option>
                                 @endif
@@ -74,10 +74,13 @@
             </div>
             <!--/span-->
         </div>
+    <input type="hidden" name="pengajuan_id" value="{{$idpengajuan}}">
         <div class="form-actions right">
             <a href="{{URL::previous()}}" class="btn default">Batal</a>
             <button type="button" id="simpan" class="btn blue">
                 <i class="fa fa-check"></i> Simpan</button>
+            <button type="button" id="baru" class="btn green">
+                <i class="fa fa-plus-circle"></i> Baru</button>
         </div>
     </div>
 </form>

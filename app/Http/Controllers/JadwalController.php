@@ -197,14 +197,14 @@ class JadwalController extends Controller
         $uji=array();
         foreach($penguji as $k => $v)
         {
-            $uji[$v->mahasiswa_id][$v->penguji_id]=$v;
+            $uji[$v->pengajuan_id][$v->mahasiswa_id][$v->penguji_id]=$v;
         }
         // dd($uji);
         $pivot=PivotBimbingan::all();
         $piv=array();
         foreach($pivot as $k =>$v)
         {
-            $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+            $piv[$v->judul_id][$v->mahasiswa_id][$v->dosen_id]=$v;
         }
 
         $dokumen=PivotDocumentSidang::where('departemen_id',$dept_id)->get();
@@ -520,7 +520,13 @@ class JadwalController extends Controller
     {
 
     }
-
+    public function setuju_acc_manager($Idpengajuan,$idmahasiswa)
+    {
+        $pengajuan=Pengajuan::find($Idpengajuan);
+        $pengajuan->acc_manager_akademik = 2;
+        $pengajuan->save();
+        return redirect('data-jadwal/2')->with('status','Pengajuan Telah Di Setujui Oleh Manager Akademik');
+    }
     public function berkas_sidang($jenis,$jadwal_id,$pengajuan_id)
     {
         $jadwal=Jadwal::select('*',DB::raw('pivot_jadwal.id as pj_id'))

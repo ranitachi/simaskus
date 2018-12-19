@@ -22,15 +22,19 @@ class BimbinganController extends Controller
         //
     }
 
-    public function data($idmhs=null)
+    public function data($idmhs=null,$idpengajuan=null)
     {
-        if($idmhs==null)
-            $bimbingan=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dospem')->with('mahasiswa')->get();
+        if($idmhs==null && $idpengajuan==null)
+            $wh=['mahasiswa_id'=>Auth::user()->id_user];
+            // $bimbingan=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dospem')->with('mahasiswa')->get();
         else
-            $bimbingan=Bimbingan::where('mahasiswa_id',$idmhs)->with('dospem')->with('mahasiswa')->get();
+            $wh=['mahasiswa_id'=>$idmhs, 'pengajuan_id'=>$idpengajuan];
+            
+        
+        $bimbingan=Bimbingan::where($wh)->with('dospem')->with('mahasiswa')->get();
           
 
-        return view('pages.mahasiswa.bimbingan.data',compact('bimbingan'));
+        return view('pages.mahasiswa.bimbingan.data',compact('bimbingan','idpengajuan'));
     }
 
     /**
@@ -59,6 +63,7 @@ class BimbinganController extends Controller
         $bimbingan->mahasiswa_id=Auth::user()->id_user;
         $bimbingan->flag=0;
         $bimbingan->deskripsi_bimbingan=$request->deskripsi_bimbingan;
+        $bimbingan->pengajuan_id=$request->pengajuan_id;
         $bimbingan->created_at=date('Y-m-d H:i:s');
         $bimbingan->updated_at=date('Y-m-d H:i:s');
         $c=$bimbingan->save();
@@ -82,21 +87,36 @@ class BimbinganController extends Controller
         return response()->json([$c]);
     }
 
+    public function update(Request $request,$id)
+    {
+        $bimbingan=Bimbingan::find($id);
+        $bimbingan->tanggal_bimbingan=date('Y-m-d',strtotime($request->tanggal_bimbingan));
+        $bimbingan->bimbingan_ke=$request->bimbingan_ke;
+        $bimbingan->judul=$request->judul;
+        $bimbingan->dospem_id=$request->dospem_id;
+        $bimbingan->mahasiswa_id=Auth::user()->id_user;
+        // $bimbingan->flag=0;
+        $bimbingan->deskripsi_bimbingan=$request->deskripsi_bimbingan;
+        $bimbingan->pengajuan_id=$request->pengajuan_id;
+        $c=$bimbingan->save();
+         return response()->json([$c]);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$idpengajuan)
     {
         $det=array();
         $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
 
         if($mhs->programstudi->jenjang=='S3')
-            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->with('mahasiswa')->get();
+            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->with('dosen')->with('mahasiswa')->get();
         else
-            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('status',1)->with('dosen')->with('mahasiswa')->get();
+            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->where('status',1)->with('dosen')->with('mahasiswa')->get();
 
         $dospem=array();
         foreach($dos as $k=>$v)
@@ -106,11 +126,11 @@ class BimbinganController extends Controller
         if($id!=-1)
             $det=Bimbingan::find($id);
 
-        $count=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->count();
+        $count=Bimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('pengajuan_id',$idpengajuan)->count();
 
         // 
 
-        return view('pages.mahasiswa.bimbingan.form',compact('dospem','det','id','count','mhs'));
+        return view('pages.mahasiswa.bimbingan.form',compact('dospem','det','id','count','mhs','idpengajuan'));
     }
 
     /**
@@ -120,18 +140,6 @@ class BimbinganController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         //
     }

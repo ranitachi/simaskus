@@ -6,7 +6,7 @@
             @if ($pengajuan->count()==0)
                 
             <div class="btn-group pull-right">
-                <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                <a href="{{url('pengajuan-s3/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
                     <i class="fa fa-plus"></i>
                 </a>
             </div>
@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         @php
-                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->orderBy('keterangan','desc')->get();
+                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->with('dosen')->where('judul_id',$v->id)->orderBy('keterangan','desc')->get();
                         @endphp
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))

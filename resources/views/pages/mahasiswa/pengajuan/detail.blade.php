@@ -166,7 +166,7 @@
                             </div>
                             <div class="col-md-6"> 
                                 @php
-                                    $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('dosen')->get();
+                                    $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('judul_id',$pengajuan->id)->with('dosen')->get();
                                 @endphp
                                     @foreach ($pembinging as $key=>$item)
                                         <div class="form-group has-success">
@@ -234,7 +234,7 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data-bimbingan').load('{{url("bimbingan-data")}}',function(){
+        $('#data-bimbingan').load('{{url("bimbingan-data")}}/{{$pengajuan->mahasiswa_id}}/{{$id}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
             $('.tooltips').tooltip();
@@ -245,7 +245,7 @@
     {
         // var pengajuan_id='{{$pengajuan->id}}';
         
-        $('#form-bimbingan').load('{{url("bimbingan")}}/'+id,function(){
+        $('#form-bimbingan').load('{{url("bimbingan")}}/'+id+'/{{$id}}',function(){
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
                 orientation: "left",
@@ -295,6 +295,10 @@
                     } 
                 });
             });
+
+            $('#baru').one('click',function(){
+                loadform(-1);
+            });
         });
     }
     function hapus(id)
@@ -343,5 +347,6 @@
             }
         });
     }
+    
 </script>
 @endsection

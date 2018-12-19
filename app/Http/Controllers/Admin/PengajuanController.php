@@ -9,6 +9,7 @@ use App\Model\Pengajuan;
 use App\Model\MasterJenisPengajuan;
 use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
+use App\Model\QuotaPembimbing;
 use App\Model\Users;
 use App\Model\Staf;
 use App\User;
@@ -24,8 +25,8 @@ class PengajuanController extends Controller
             $mp[$v->id]=$v;
         }
 
-         $staf=Staf::where('id',Auth::user()->id_user)->first();
-        
+        $staf=Staf::where('id',Auth::user()->id_user)->first();
+        $dept_id=$staf->departemen_id;
         // $idjenis=$mp[strtolower($jenis)];
         $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',0)
                 ->with('jenispengajuan')
@@ -42,7 +43,7 @@ class PengajuanController extends Controller
         {
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
-        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv'));
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id'));
     }
     public function setujui_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
     {
@@ -76,7 +77,7 @@ class PengajuanController extends Controller
         }
 
         $staf=Staf::where('id',Auth::user()->id_user)->first();
-        
+        $dept_id=$staf->departemen_id;
         // $idjenis=$mp[strtolower($jenis)];
         $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',1)
                 ->with('jenispengajuan')
@@ -93,7 +94,7 @@ class PengajuanController extends Controller
         {
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
-        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv'));
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id'));
     }
     public function detail($id)
     {
@@ -113,7 +114,7 @@ class PengajuanController extends Controller
                 ->with('dospem_3')
                 ->orderBy('created_at','desc')->first();
 
-        return view('pages.pengajuan.detail',compact('jenis','pengajuan','mp'));
+        return view('pages.pengajuan.detail',compact('jenis','pengajuan','mp','id'));
     }
 
     public function verifikasi($id,$jenis)
@@ -156,5 +157,64 @@ class PengajuanController extends Controller
             echo 1;
         else
             echo 0;
+    }
+
+    public function generate_pembimbing($dept_id)
+    {
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('status_pengajuan',0)->get();
+        $piv_bimb=PivotBimbingan::all();
+        $piv=array();
+        foreach($piv_bimb as $kpiv=>$vpiv)
+        {
+            $piv[$vpiv->judul_id][$vpiv->dosen_id]=$vpiv;
+        }
+        $data_rand=array();
+        foreach($pengajuan as $kp=>$vp)
+        {
+            if(isset($piv[$vp->id]))
+            {
+                foreach($piv[$vp->id] as $kdos=>$vdos)
+                {
+                    $data_rand[$vp->id][$kdos]=$vdos;
+                    // echo $vdos->id.'<br>';
+                    // PivotBimbingan::
+                    
+                }
+                PivotBimbingan::where('judul_id',$vp->id)->delete();
+            }
+        }
+        // dd($data_rand);
+        foreach($data_rand as $krand=>$vrand)
+        {
+            // /foreach($vrand as $kvv=>$vvv)
+            $pengajuan=Pengajuan::where('id',$krand)->with('jenispengajuan')->first();
+            $quota=QuotaPembimbing::where('level',$pengajuan->jenis_id)->where('departemen_id',$dept_id)->first();
+            // dd($quota);
+            if($quota)
+                $qty=$quota->quota;
+            else
+                $qty=2;
+
+            for($c=1;$c<=$qty;$c++)
+            {
+                $iddos=array_rand($vrand);
+                $id=$vrand[$iddos]->id;
+
+                $insert=new PivotBimbingan;
+                $insert->dosen_id=$iddos;
+                $insert->mahasiswa_id=$vrand[$iddos]->mahasiswa_id;
+                $insert->jenis_bimbingan=$vrand[$iddos]->jenis_bimbingan;
+                $insert->judul_id=$krand;
+                $insert->status=$vrand[$iddos]->status;
+                $insert->keterangan=$vrand[$iddos]->keterangan;
+                $insert->save();
+                unset($vrand[$iddos]);
+                echo $qty.'-'.$c.'-'.$iddos.'<br>';
+            }
+            // echo $iddos;
+            // echo $vrand[$iddos]->dosen_id;
+            // $insert->save();
+        }
+        return redirect('data-pengajuan')->with('status','Generate Pembimbing Berhasil');
     }
 }

@@ -48,20 +48,62 @@
                     @php
                         $jabatan=str_slug($v->jabatan);
                     @endphp
-                    @if (in_array($jabatan,$jab_promotor))
-                        @if ($jabatan=='lektor-kepala')
-                            @if ($v->pendidikan=='S3')
+                    @if (count($promotor)!=0)
+                        @if (in_array($v->id,$promotor))
+                            
+                                @if (in_array($jabatan,$jab_promotor))
+                                    @if ($jabatan=='lektor-kepala')
+                                        @if ($v->pendidikan=='S3')
+                                            @if (isset($piv[$v->id]))
+                                                <option selected="selected" value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                            @else
+                                                <option selected="selected" value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                            @endif
+                                        @endif
+                                    @else
+                                        @if (isset($piv[$v->id]))
+                                            <option selected="selected" value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @else
+                                            <option selected="selected" value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @endif
+                                    @endif
+                                @endif
+                            
+                        @else
+                            @if (in_array($jabatan,$jab_promotor))
+                                @if ($jabatan=='lektor-kepala')
+                                    @if ($v->pendidikan=='S3')
+                                        @if (isset($piv[$v->id]))
+                                            <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @else
+                                            <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @endif
+                                    @endif
+                                @else
+                                    @if (isset($piv[$v->id]))
+                                        <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @else
+                                        <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @endif
+                                @endif
+                            @endif
+                        @endif                                                                               
+                    @else
+                        @if (in_array($jabatan,$jab_promotor))
+                            @if ($jabatan=='lektor-kepala')
+                                @if ($v->pendidikan=='S3')
+                                    @if (isset($piv[$v->id]))
+                                        <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @else
+                                        <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @endif
+                                @endif
+                            @else
                                 @if (isset($piv[$v->id]))
                                     <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                                 @else
                                     <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                                 @endif
-                            @endif
-                        @else
-                            @if (isset($piv[$v->id]))
-                                <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
-                            @else
-                                <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                             @endif
                         @endif
                     @endif
@@ -78,20 +120,60 @@
                     @php
                         $jabatan=str_slug($v->jabatan);
                     @endphp
-                    @if (in_array($jabatan,$jab_copromotor))
-                        @if ($jabatan=='lektor')
-                            @if ($v->pendidikan=='S3')
+                    @if (count($copromotor)!=0)
+                        @if (in_array($v->id,$copromotor))
+                            @if (in_array($jabatan,$jab_copromotor))
+                                @if ($jabatan=='lektor')
+                                    @if ($v->pendidikan=='S3')
+                                        @if (isset($piv[$v->id]))
+                                            <option selected="selected" value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @else
+                                            <option selected="selected" value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @endif
+                                    @endif
+                                @else
+                                    @if (isset($piv[$v->id]))
+                                        <option selected="selected" value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @else
+                                        <option selected="selected" value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @endif
+                                @endif
+                            @endif
+                        @else
+                            @if (in_array($jabatan,$jab_copromotor))
+                                @if ($jabatan=='lektor')
+                                    @if ($v->pendidikan=='S3')
+                                        @if (isset($piv[$v->id]))
+                                            <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @else
+                                            <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                        @endif
+                                    @endif
+                                @else
+                                    @if (isset($piv[$v->id]))
+                                        <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @else
+                                        <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @endif
+                                @endif
+                            @endif
+                        @endif                                                                               
+                    @else    
+                        @if (in_array($jabatan,$jab_copromotor))
+                            @if ($jabatan=='lektor')
+                                @if ($v->pendidikan=='S3')
+                                    @if (isset($piv[$v->id]))
+                                        <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @else
+                                        <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
+                                    @endif
+                                @endif
+                            @else
                                 @if (isset($piv[$v->id]))
                                     <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                                 @else
                                     <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                                 @endif
-                            @endif
-                        @else
-                            @if (isset($piv[$v->id]))
-                                <option value="{{$v->id}}">[{{count($piv[$v->id])}}] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
-                            @else
-                                <option value="{{$v->id}}">[0] - {{$v->nama}} - [{{strtoupper($jabatan)}}]</option>
                             @endif
                         @endif
                     @endif
@@ -139,13 +221,19 @@
 .select2-container
 {
     width:100%
-}
+}]
 </style>
+@php
+    if(isset($qt['Co-Promotor']))
+        $qco=$qt['Co-Promotor'];
+    else
+        $qco=2;
+@endphp
 <script>
-    var maks=parseInt("{{$qt['Co-Promotor']}}");
     var jenjang = '{{$jenjang}}';
     if(jenjang=='S3')
     {
+        var maks=parseInt("{{$qco}}");
         $('#dosen_promotor').select2({
         });
         $('#dosen_co').select2({

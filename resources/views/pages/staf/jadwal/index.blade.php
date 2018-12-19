@@ -70,6 +70,31 @@
             }
         });
     });
+    function setujumanager(idpengajuan,idmahasiswa)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Menyetujui Data Pengajuan Ujian Hasil Riset Ini ?",
+            type: "success",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Setuju",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("setujui-acc-manager")}}/'+idpengajuan+'/'+idmahasiswa,
+                    success:function(){
+                        loaddata();
+                        swal("Sukses!", "Hapus Data Penguji Berhasil", "success");
+                    }
+                });
+            }
+        });
+    }
     function hapusenguji(dosen_id,id)
     {
         swal({

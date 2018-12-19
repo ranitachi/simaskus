@@ -20,12 +20,15 @@
             </thead>
             
             <tbody>
+                @php
+                    $no=1;
+                @endphp
                 @foreach ($data as $k =>$v)
                 @if ($jenis=='pengajuan')
                     @if (isset($piv[$v->mahasiswa_id]) && $v->status_pengajuan==0)
                             @if ($piv[$v->mahasiswa_id]->status==0)
                                 <tr>
-                                    <td>{{++$k}}</td>
+                                    <td>{{$no}}</td>
                                     <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
@@ -34,7 +37,11 @@
                                     <td class="text-center"> {!!isset($piv[$v->mahasiswa_id]) ? ($piv[$v->mahasiswa_id]->status==0 ? '<span class="label label-sm label-info"><i class="fa fa-exclamation-triangle"></i> Belum Bersedia</span>' : ($piv[$v->mahasiswa_id]->status==1 ? '<span class="label label-sm label-success"><i class="fa fa-check"></i>  Bersedia</span>' : '<span class="label label-sm label-danger"><i class="fa fa-ban"></i> Tidak Bersedia</span>')) : ''!!} </td>
                                    
                                     <td>
-                                    
+                                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                             <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id)}}" class="btn btn-xs btn-success">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        @endif
                                         <a href="javascript:setujui({{$piv[$v->mahasiswa_id]->id}})" class="btn btn-xs btn-primary tooltips" data-container="body" data-placement="top" data-original-title="Klik Untuk Memverifikasi" title="Klik Untuk Memverifikasi">
                                             <i class="fa fa-check"></i>
                                         </a>
@@ -44,7 +51,7 @@
                                 </tr>
                             @else
                                 <tr>
-                                    <td>{{++$k}}</td>
+                                    <td>{{$no}}</td>
                                     <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
@@ -64,7 +71,7 @@
                         @if ($v->status_pengajuan>=1)
                             @if ($piv[$v->mahasiswa_id]->status==1)
                                 <tr>
-                                    <td>{{++$k}}</td>
+                                    <td>{{$no}}</td>
                                     <td> {{$v->jenispengajuan->jenis}}</td>
                                     <td> {{$v->mahasiswa->npm}}</td>
                                     <td> {{$v->mahasiswa->nama}}</td>
@@ -107,36 +114,40 @@
                                         @endif
                                         </div>
                                     </td>
-                                    <td class="text-center">
-                                        @if (isset($acc_sid[Auth::user()->id_user][$v->mahasiswa_id]))
+                                    <td class="text-left">
+                                        @if (isset($acc_sid[Auth::user()->id_user][$v->mahasiswa_id][$v->id]))
                                             <a href="#" class="btn btn-xs btn-primary">
                                                 <i class="fa fa-check"></i> Telah Di Setujui
                                             </a>
                                             <br>
                                             @if (isset($penguji[$v->mahasiswa_id]))
                                                 <br>Usulan Penguji :
-                                                <ul style="text-align:left">
                                                 @foreach ($penguji[$v->mahasiswa_id]  as $idx=>$vl)
-                                                    <li><i class="fa fa-user"></i> {{$vl->dosen->nama}}</li>   
+                                                    <br><i class="fa fa-user"></i> <b>{{$vl->dosen->nama}}</b>
                                                 @endforeach
-                                                </ul>
+                                                
+                                            @endif
+                                            <br>
+                                            <br>
+                                            @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                                <a href="javascript:usulpenguji('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
                                             @else
-                                                <br>
                                                 <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_4')}}" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
                                             @endif
+                                                
                                         @else
                                             @php
                                                 $jadwal=\App\Model\PivotJadwal::where('judul_id',$v->id)->where('mahasiswa_id',$v->mahasiswa_id)->first();    
                                             @endphp
                                             @if($jadwal)
-                                            <div style="width:140px;">
-                                                <a href="#" class="btn btn-xs btn-danger">
-                                                    <i class="fa fa-exclamation-triangle"></i> Acc Sidang
-                                                </a>
-                                                <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            </div>
+                                                <div style="width:140px;">
+                                                    <a href="#" class="btn btn-xs btn-danger">
+                                                        <i class="fa fa-exclamation-triangle"></i> Acc Sidang
+                                                    </a>
+                                                    <a href="javascript:setujusidang('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-primary">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                </div>
                                             @endif
                                         @endif
                                     </td>
@@ -155,6 +166,9 @@
                             
                             @endif  
                         @endif  
+                        @php
+                            $no++;
+                        @endphp
                     @endif
                 @endforeach     
             </tbody>

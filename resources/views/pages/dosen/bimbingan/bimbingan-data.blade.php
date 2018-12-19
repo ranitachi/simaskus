@@ -26,25 +26,27 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($bimbingan as $i => $v)   
-                <tr class="odd gradeX">
-                    <td>{{($v->bimbingan_ke)}}</td>
-                    <td>{{tgl_indo2($v->tanggal_bimbingan)}}</td>
-                    <td>{{$v->judul}}</td>
-                    <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
-                    <td>{!!$v->deskripsi_bimbingan!!}</td>
-                    <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Telah Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-info"><i class="fa fa-check"></i> Menunggu Persetujuan</a>'!!}</td>
-                    <td>
-                        @if ($v->dospem->id==Auth::user()->id_user)
-                            <div style="width:110px;">
-                                <a href="javascript:setujui({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
-                                <a href="javascript:tolak({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-info"><i class="fa fa-ban"></i></a>
-                                <a href="javascript:hapus({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            </div>
-                        @endif
-                    </td>
-                </tr>
-           
+            @foreach ($bimbingan as $i => $v)  
+                @if ($v->pengajuan_id==$idpengajuan)
+                
+                    <tr class="odd gradeX">
+                        <td>{{($v->bimbingan_ke)}}</td>
+                        <td>{{tgl_indo2($v->tanggal_bimbingan)}}</td>
+                        <td>{{$v->judul}}</td>
+                        <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
+                        <td>{!!$v->deskripsi_bimbingan!!}</td>
+                        <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Telah Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-info"><i class="fa fa-check"></i> Menunggu Persetujuan</a>'!!}</td>
+                        <td>
+                            @if ($v->dospem->id==Auth::user()->id_user)
+                                <div style="width:110px;">
+                                    <a href="javascript:setujui({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-primary"><i class="fa fa-check"></i></a>
+                                    <a href="javascript:tolak({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-info"><i class="fa fa-ban"></i></a>
+                                    <a href="javascript:hapus({{$v->id}},{{$v->mahasiswa_id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
             @endforeach                
             </tbody>
         </table>

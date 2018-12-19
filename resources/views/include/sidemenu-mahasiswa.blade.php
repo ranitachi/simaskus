@@ -95,7 +95,7 @@
             </a>
         </li> --}}
         <li class="nav-item  ">
-            <a href="form_validation.html" class="nav-link ">
+            <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
         </li>

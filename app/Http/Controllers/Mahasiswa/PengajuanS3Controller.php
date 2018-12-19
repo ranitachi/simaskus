@@ -87,7 +87,7 @@ class PengajuanS3Controller extends Controller
     {
         $det=array();
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
-        $mhs=Mahasiswa::find(Auth::user()->id_user);
+        $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
         $jenispengajuan=MasterJenisPengajuan::all();
@@ -104,6 +104,7 @@ class PengajuanS3Controller extends Controller
                 ->with('det',$det)
                 ->with('dosen',$dosen)
                 ->with('ta',$ta)
+                ->with('mahasiswa',$mhs)
                 ->with('jenispengajuan',$jenispengajuan)
                 ->with('id',$id);
     }
@@ -328,8 +329,42 @@ class PengajuanS3Controller extends Controller
         $notif->pesan="Staf : Pengajuan Anda dengan Judul <b>".$pengajuan->judul_ind."</b>Telah Di Verifikasi";
         $notif->save();
 
-        $bimb=PivotBimbingan::where('judul_id',$id)->update(['status'=>1]);
+        $bimb=PivotBimbingan::where('judul_id',$id)->update(['status'=>$request->status]);
 
         return redirect('data-bimbingan')->with('status',"Pengajuan Berhasil Di Verifikasi");
+    }
+
+    public function cek_pengajuan($id)
+    {
+        $idmhs=Auth::user()->id_user;
+        $idjenis=$id;
+        $aju=MasterJenisPengajuan::find($idjenis);
+        $pengajuan=Pengajuan::where('mahasiswa_id',$idmhs)->with('jenispengajuan')->get();
+        $mahasiswa=Mahasiswa::where('id',$idmhs)->with('programstudi')->first();
+        $promotor=PivotBimbingan::where('mahasiswa_id',$idmhs)->with('dosen')->get();
+        $status=0;
+        $data['sebelum']=$ada=array();
+        $data=$prm=$d_promotor=array();
+        foreach($promotor as $kp=>$vp)
+        {
+            $prm[$vp->judul_id]=$vp;
+        }
+        foreach($pengajuan as $k=>$v)
+        {
+            if($mahasiswa->programstudi->jenjang==$v->jenispengajuan->keterangan)
+            {
+                $ada[]=$v;
+                $data['sebelum']=$v;
+                $d_promotor=$prm[$v->id];
+                if($v->status_pengajuan!=5)
+                {
+                    $status= $v->id.'-'.$v->jenispengajuan->jenis.'-'.$v->status_pengajuan;         
+                }    
+            }
+        }
+        $data['status']=$status;
+        $data['ada']=count($ada);
+        $data['promotor']=$d_promotor;
+        return $data;
     }
 }
