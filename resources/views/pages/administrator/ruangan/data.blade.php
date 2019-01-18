@@ -19,6 +19,7 @@
                     <th> Nama Ruangan </th>
                     <th> Lokasi </th>
                     <th> Departemen </th>
+                    <th> Ruang Sidang Promosi </th>
                     <th> Keterangan</th>
                     <th> # </th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{$v->nama_ruangan}}</td>
                     <td>{{$v->lokasi}}</td>
                     <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                    <td class="text-center">{!!$v->ruang_sidang_promosi==0 ? '<span class="label label-danger">Tidak Bisa Sidang Promosi</span>' : '<span class="label label-info">Bisa Sidang Promosi</span>'!!}</td>
                     <td>{{$v->deskripsi}}</td>
                     <td>
                         <div style="width:80px;">

@@ -66,6 +66,20 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
+                    <label class="control-label">Untuk Sidang Promosi</label>
+                    <select class="bs-select form-control has-success" data-placeholder="Pilih" name="sidang_promosi" id="sidang_promosi">
+                        <option value="0" {{$id!=-1 ? ($det->ruang_sidang_promosi==0 ? 'selected="selected"' : '') :'' }}>Tidak Bisa Dipakai</option>
+                        <option value="1" {{$id!=-1 ? ($det->ruang_sidang_promosi==1 ? 'selected="selected"' : '') :'' }}>Bisa Dipakai</option>
+                        
+                    </select>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-12">
+                <div class="form-group has-success">
                     <label class="control-label">Keterangan</label>
                     <textarea name="deskripsi" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->deskripsi}}</textarea>
                 </div>

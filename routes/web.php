@@ -170,6 +170,7 @@ Route::get('setujui-acc-manager/{idpengajuan}/{idmahasiswa}','JadwalController@s
 
 //Generate Jadwal
 Route::post('generate-jadwal/{dept_id}','JadwalController@generate')->middleware('auth');
+Route::post('atur-jadwal/{dept_id}','JadwalController@atur_jadwal')->middleware('auth');
 Route::get('berkas-sidang/{jenis}/{jadwal_id}/{pengajuan_id}','JadwalController@berkas_sidang')->middleware('auth');
 //---------Notifikasi---------
 Route::resource('notifikasi', 'NotifikasiController')->middleware('auth');
