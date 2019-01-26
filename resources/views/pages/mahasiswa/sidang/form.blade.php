@@ -156,7 +156,7 @@
 
                             </div>
                             @if ($det->jenispengajuan->keterangan=='S3')
-                                @if (str_slug($det->jenispengajuan->jenis)=='ujian-hasil-riset')
+                                @if (str_slug($det->jenispengajuan->jenis)=='sidang-promosi')
                                     <div class="row">
                                         <div class="col-md-12">
                                             <legend>Publikasi</legend>
@@ -172,7 +172,7 @@
                                                             Judul Publikasi
                                                         </div>
                                                         <div class="col-md-2">
-                                                            Lokasi Publikasi
+                                                            Nama Publisher
                                                         </div>
                                                         <div class="col-md-2">
                                                             Penulis
@@ -181,7 +181,7 @@
                                                             URL
                                                         </div>
                                                         <div class="col-md-2">
-                                                            File
+                                                            File Bukti Publikasi
                                                         </div>
                                                         
                                                     </div>
@@ -194,7 +194,7 @@
                                                             <input type="text" name="judul" id="p_name" placeholder="Judul Publikasi" class="form-control">
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Lokasi Publikasi">
+                                                            <input type="text" class="form-control" name="lokasi" id="lokasi" placeholder="Nama Publisher">
                                                         </div>
                                                         <div class="col-md-2">
                                                             <input type="text" class="form-control" name="penulis" id="penulis" placeholder="Penulis">

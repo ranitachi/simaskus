@@ -283,6 +283,15 @@
         // var iddos=$('#dosen_id').val();
         
     }
+    function aturjadwals3(mahasiswa_id,pengajuan_id)
+    {
+        $('#daterpicker').datepicker({
+            format: 'DD/MM/YYYY'
+        });
+        $('#mahasiswa_id_s3').val(mahasiswa_id);
+        $('#pengajuan_id_s3').val(pengajuan_id);
+        $('#ajax-atur-jadwal').modal('show');
+    }
 </script>
 
 <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true">
@@ -322,6 +331,75 @@
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                 <button type="button" class="btn green" id="ok-ajax-sm">OK</button>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ajax-atur-jadwal" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{url('atur-jadwal/'.$dept_id) }}" class="horizontal-form" id="form-generate-jadwal" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="hidden" nama="mahasiswa_id_s3" id="mahasiswa_id_s3">
+                                <input type="hidden" nama="pengajuan_id_s3" id="pengajuan_id_s3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Tanggal</label>
+                                    <input type="text" name="datetime" placeholder="dd/mm/yyyy" class="form-control" id="datepicker"/>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                
+                                <div class="form-group has-success">
+                                    <label class="control-label">Waktu</label>
+                                    <select name="waktu" id="waktu" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            $waktu=waktu();
+                                            foreach($waktu as $item)
+                                            {
+                                                echo '<option value="'.$item.'">'.$item.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                @php
+                                    $ruangan=\App\Model\MasterRuangan::where('ruang_sidang_promosi',1)->with('departemen')->get();
+                                @endphp
+                                <div class="form-group has-success">
+                                    <label class="control-label">Ruangan</label>
+                                    <select name="ruangan" id="ruangan" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            
+                                            foreach($ruangan as $item)
+                                            {
+                                                echo '<option value="'.$item->id.'">'.$item->departemen->nama_departemen.' -- '.$item->nama_ruangan.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="submit" class="btn green" id="ok-ajax-sm">OK</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>

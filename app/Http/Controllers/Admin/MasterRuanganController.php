@@ -54,6 +54,7 @@ class MasterRuanganController extends Controller
         $ruangan->deskripsi=$request->deskripsi;
         $ruangan->departemen_id=$request->departemen_id;
         $ruangan->lokasi=$request->lokasi;
+        $ruangan->ruang_sidang_promosi=$request->sidang_promosi;
         $ruangan->created_at=date('Y-m-d H:i:s');
         $ruangan->updated_at=date('Y-m-d H:i:s');
         $cr=$ruangan->save();
@@ -69,6 +70,7 @@ class MasterRuanganController extends Controller
         $ruangan->deskripsi=$request->deskripsi;
         $ruangan->departemen_id=$request->departemen_id;
         $ruangan->lokasi=$request->lokasi;
+        $ruangan->ruang_sidang_promosi=$request->sidang_promosi;
         $ruangan->updated_at=date('Y-m-d H:i:s');
         $up=$ruangan->save();
         return response()->json([$up]);

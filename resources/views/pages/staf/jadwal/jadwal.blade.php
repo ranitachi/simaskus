@@ -24,7 +24,7 @@
                     $idpengajuan=$v->id;
                     if($v->jenispengajuan->keterangan=='S3')
                     {
-                        if(str_slug($v->jenispengajuan->jenis)=='ujian-hasil-riset')
+                        if(str_slug($v->jenispengajuan->jenis)=='sidang-promosi')
                         {
                             if($v->acc_manager_akademik==0)
                             {

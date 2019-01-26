@@ -270,7 +270,100 @@ class JadwalController extends Controller
 
         return response()->json(['done']);
     }
+    public function atur_jadwal(Request $reqeuest, $dept_id)
+    {
+       list($tg1,$bl1,$th1)=explode('/',$reqeuest->datetime);
+       $date=$th1.'-'.$bl1.'-'.$tg1;
+       $waktu=$reqeuest->waktu; 
+       $ruangan_id=$reqeuest->ruangan; 
+       $dept=MasterDepartemen::find($dept_id);
+        $idta=$reqeuest->tahunajaran_id;
+        $ruangan=MasterRuangan::where('departemen_id',$dept_id)->get();
+        $d_ruang=array();
+        foreach($ruangan as $kr => $vr)
+        {
+            $d_ruang[]=$vr->id.'__'.$vr->code_ruangan.'__'.$vr->nama_ruangan;
+        }
 
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_pengajuan',1)->get();
+
+        $izin=IzinDosen::where('status',1)->get();
+        $iz=array();
+        foreach($izin as $k => $v)
+        {
+            $iz[$v->dosen_id][]=$v;
+        }
+
+        $penguji=PivotPenguji::with('dosen')->get();
+        $p_uji=array();
+        foreach($penguji as $k => $v)
+        {
+            // echo $v->id.'-';
+            $p_uji[$v->pengajuan_id][$v->penguji_id]=$v;
+        }
+
+        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                    ->with('ruangan')
+                    ->get();
+
+        $p_jdwl=array();
+        foreach($jadwal as $kj => $vj)
+        {
+            $p_jdwl[$vj->mahasiswa_id][]=$vj;
+        }
+            
+        foreach($pengajuan as $kp => $vp)
+            {
+                // $p_aju=Pengajuan::find($vp->id);
+                $vp->status_pengajuan=2;
+                $vp->save();
+
+                $idmhs=$vp->mahasiswa_id;
+                $mhs=Mahasiswa::find($idmhs);
+                // $idjadwal=$p_jdwl[$idmhs][0];
+                // $date=array_rand($tgl);
+                // $ruang=array_rand($d_ruang);
+                // dd($idjadwal);
+                // $r=explode('__',$d_ruang[$ruang]);
+
+                // $waktu=array_rand(waktu(),1);
+                // $wkt=waktu();
+                // $jadw=Jadwal::find($idjadwal->id);
+                $jadw=new Jadwal;
+                $jadw->ruangan_id=$ruangan_id;
+                $jadw->departemen_id=$dept_id;
+                $jadw->tanggal=$date;
+                $jadw->hari=date('D',strtotime($date));
+                $jadw->waktu=$waktu;
+                $jadw->save();
+
+
+                // $piv_jad=PivotJadwal::where('jadwal_id',$jadw->id)->first();
+                $piv_jad=new PivotJadwal;
+                $piv_jad->jadwal_id=$jadw->id;
+                $piv_jad->ruangan_id=$ruangan_id;
+                $piv_jad->mahasiswa_id=$idmhs;
+                $piv_jad->judul_id=$vp->id;
+                $piv_jad->status=0;
+                $piv_jad->save();
+
+                foreach($p_uji[$vp->id] as $ku=>$vu)
+                {
+                    // $user=Users::where('id_user',$ku)->first();
+                    // $notif=new Notifikasi;
+                    // $notif->title="Jadwal Menguji Sidang";
+                    // $notif->from=Auth::user()->id;
+                    // $notif->to=$user->id;
+                    // $notif->flag_active=1;
+                    // $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
+                    // <br>Ruangan : ".$r[1]." - ".$r[2];
+                    // $notif->save();
+                }
+
+                // dd($ruang);
+            }
+            return redirect('data-jadwal/2')->with('status','Jadwal Sidang Berhasil Di Generate');
+    }
     public function generate(Request $reqeuest, $dept_id)
     {
         

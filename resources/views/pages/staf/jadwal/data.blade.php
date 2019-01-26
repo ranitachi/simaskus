@@ -29,6 +29,7 @@
                     <th>Dokumen</th>
                     <th> Penguji </th>
                     <th> Status Acc Sidang <br>Pembimbing</th>
+                    <th> Atur Jadwal</th>
                    
                 </tr>
             </thead>
@@ -140,7 +141,7 @@
                             $publk=\App\Model\Publikasi::where($wh)->get();
                             if($v->mahasiswa->programstudi->jenjang=='S3')
                             {
-                                if(str_slug($v->jenispengajuan->jenis)=='ujian-hasil-riset')
+                                if(str_slug($v->jenispengajuan->jenis)=='sidang-promosi')
                                 {
                                     echo '<br><br><b>Publikasi</b><br>';
                                     foreach($publk as $kpb => $vpb)
@@ -217,6 +218,11 @@
 
                         @if (in_array(0,$verif_dok))
                             <a href="#" class="btn btn-xs btn-danger" style="font-size:10px;">Berkas Sidang Belum Di verifikasi</a>    
+                        @endif
+                    </td>
+                    <td>
+                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                            <a class="btn btn-info btn-xs" href="javascript:aturjadwals3('{{$v->mahasiswa_id}}','{{$v->id}}')"><i class="fa fa-calendar"></i> Atur Jadwal</a>
                         @endif
                     </td>
                    
