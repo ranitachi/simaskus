@@ -13,7 +13,13 @@ class ComponentController extends Controller
 {
     public function index()
     {
-        $jenis=MasterJenisPengajuan::all();
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('keterangan')->get();
         return view('pages.administrator.component.index')->with('jenis',$jenis);
     }
     public function data($id)
@@ -33,8 +39,9 @@ class ComponentController extends Controller
                 ->with('component',$component);
     }
 
-    public function show($id)
+    public function show($idd)
     {
+        list($id,$idmodule)=explode('__',$idd);
         $det=array();
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
@@ -50,7 +57,9 @@ class ComponentController extends Controller
         
         $dept=MasterDepartemen::all();
         // dd($dept);        
+        // $module=Module::where('id',$idmodule)->where('departemen_id',$dept_id)->with('jenis')->get();
         $module=Module::where('departemen_id',$dept_id)->with('jenis')->get();
+        
         return view('pages.administrator.component.form')
                 ->with('det',$det)
                 ->with('module',$module)

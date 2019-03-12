@@ -40,14 +40,16 @@
                         <select class="bs-select form-control has-success" id="jenis" name="jenis" onchange="loaddata(this.value)">
                             <option value="-1">-Semua Jenis-</option>
                             @foreach ($jenis as $k => $v)
-                                    <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                    <option value="{{$v->id}}">{{$v->keterangan}} - {{$v->jenis}}</option>
                             @endforeach
                         </select>
 
                     </div>
                 </div>
 
-            <div id="data"></div>
+            <div id="data">
+                <h2 class="text-center">Silahkan Pilih Module Terlebih Dahulu</h2>
+            </div>
             
         </div>
     </div>
@@ -56,8 +58,8 @@
 @section('footscript')
 <script>
     $(document).ready(function(){
-        $('#loader').show();
-        loaddata(-1);
+        $('#loader').hide();
+        // loaddata(-1);
 
         var ps = "{{Session::has('status')}}";
         if(ps!="")
@@ -68,18 +70,17 @@
 
     function loaddata(id)
     {
-        
-
         $('#loader').show();
         $('#data').load('{{url("komponen-penilaian-data")}}/'+id,function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
     }
-    function loadform(id)
+    function loadform(id,idmodule)
     {
+        var idd=id+"__"+idmodule;
         $.ajax({
-            url : '{{url("komponen-penilaian")}}/'+id,
+            url : '{{url("komponen-penilaian")}}/'+idd,
             success: function(html){
                 bootbox.confirm({
                     title: "Form Module Penilaian",

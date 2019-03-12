@@ -4,13 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Staf;
+use App\Model\IzinDosen;
 use App\Model\Jadwal;
+use Carbon\Carbon;
 use Auth;
 use Storage;
 class DashboardController extends Controller
 {
+    public function updateizindosen()
+    {
+        $izin=IzinDosen::where('status',1)->whereDate('end_date', '<=', Carbon::now('Asia/Jakarta'))->get();
+        // return $izin;
+        // $izin=IzinDosen::where('end_date', '<', Carbon::now('Asia/Jakarta'))->get();
+        foreach($izin as $k=>$v)
+        {
+            $time=strtotime($v->end_time);
+            $now=strtotime(date('H:i'));
+            if(strtotime($v->end_date) < strtotime(date('Y-m-d')))
+            {
+                // echo $v->end_date.'-'.strtotime($v->end_date).'- || - '.date('Y-m-d').' - '.strtotime(date('Y-m-d')).'<br>';
+                IzinDosen::where('id',$v->id)->update(['status'=>0]);
+            }
+            else
+            {
+                if($now>$time)
+                {
+                    IzinDosen::where('id',$v->id)->update(['status'=>0]);
+                    // echo $v->end_time.'-'.$time.'- || - '.date('H:i').' - '.$now.'<br>';
+                }
+            }
+        }
+    }
     public function index()
     {
+
+        
+
         if(Auth::check())
         {
             if(Auth::user()->kat_user==0)

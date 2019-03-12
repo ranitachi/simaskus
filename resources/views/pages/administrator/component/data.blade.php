@@ -4,7 +4,7 @@
         <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             <div class="btn-group pull-right">
-                <a href="javascript:loadform(-1)" id="sample_editable_1_new" class="btn btn-xs sbold green"> Tambah Data
+                <a href="javascript:loadform(-1,{{$id}})" id="sample_editable_1_new" class="btn btn-xs sbold green"> Tambah Data
                     <i class="fa fa-plus"></i>
                 </a>
             </div>

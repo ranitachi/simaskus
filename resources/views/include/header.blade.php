@@ -64,7 +64,12 @@
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}" />
+                                    @if (Auth::user()->foto!='')
+                                        <img alt="" class="img-circle" src="{{url('showgambar/'.Auth::user()->foto)}}" />    
+                                    @else
+                                        <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}" />
+                                    @endif
+                                    
                                     <span class="username username-hide-on-mobile"> {{Auth::user()->name}} </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
@@ -80,10 +85,10 @@
                                         
                                     </li>
                                     <li class="divider"> </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="page_user_lock_1.html">
                                             <i class="icon-lock"></i> Lock Screen </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="icon-key"></i> Log Out </a>

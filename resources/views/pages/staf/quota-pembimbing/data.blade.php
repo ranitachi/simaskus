@@ -29,7 +29,9 @@
                 $no=1;
             @endphp
             @foreach ($quota as $i => $v)
-            
+                @if (isset($jns[$v->level]))
+                    
+                
                 <tr class="odd gradeX">
                     <td>{{($no++)}}</td>
                     <td>{{$v->departemen->nama_departemen}}</td>
@@ -44,7 +46,7 @@
                         </div>
                     </td>
                 </tr>
-          
+                @endif
             @endforeach                
             </tbody>
         </table>

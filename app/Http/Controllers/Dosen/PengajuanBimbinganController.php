@@ -27,7 +27,13 @@ class PengajuanBimbinganController extends Controller
     public function pengajuan()
     {
         $jenis='pengajuan';
-        return view('pages.dosen.bimbingan.index',compact('jenis'));
+        $user=Users::where('id',Auth::user()->id)->with('dosen')->first();
+        $dept_id=0;
+        if($user)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+        return view('pages.dosen.bimbingan.index',compact('jenis','dept_id'));
     }
     public function daftar()
     {

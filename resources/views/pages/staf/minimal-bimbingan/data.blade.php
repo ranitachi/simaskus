@@ -27,20 +27,23 @@
                 $no=1;
             @endphp
             @foreach ($quota as $i => $v)
-            
-                <tr class="odd gradeX">
-                    <td>{{($no++)}}</td>
-                    <td>{{$v->departemen->nama_departemen}}</td>
-                    <td>{{$jns[$v->level]->jenis}}</td>
-                    <td>{{$v->minimal}}</td>
+                @if (isset($jns[$v->level]))
                     
-                    <td>
-                        <div style="width:80px;">
-                            <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                
+                    <tr class="odd gradeX">
+                        <td>{{($no++)}}</td>
+                        <td>{{$v->departemen->nama_departemen}}</td>
+                        <td>{{$jns[$v->level]->jenis}}</td>
+                        <td>{{$v->minimal}}</td>
+                        
+                        <td>
+                            <div style="width:80px;">
+                                <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @endif
           
             @endforeach                
             </tbody>

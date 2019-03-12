@@ -34,7 +34,7 @@
             <div class="col-md-5">
                 <div class="form-group has-success">
                     <label class="control-label">Sejak Tanggal</label>
-                    <div class="input-group input-medium date date-picker" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                    <div class="input-group input-medium date start-date" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                         <input type="text" name="start_date" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}" id="start_date">
                         <span class="input-group-btn">
                             <button class="btn default" type="button">
@@ -48,7 +48,7 @@
             <div class="col-md-5">
                 <div class="form-group has-success">
                     <label class="control-label">Sampai Tanggal</label>
-                    <div class="input-group input-medium date date-picker" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                    <div class="input-group input-medium date end-date" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                         <input type="text" name="end_date" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}" id="end_date">
                         <span class="input-group-btn">
                             <button class="btn default" type="button">
@@ -127,11 +127,22 @@
 }
 </style>
 <script>
-$('.date-picker').datepicker({
+$('.start-date').datepicker({
+    rtl: App.isRTL(),
+    orientation: "left",
+    autoclose: true
+}).on('changeDate', function(selected){
+        startDate = new Date(selected.date.valueOf());
+        startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+        $('.end-date').datepicker('setStartDate', startDate);
+});
+
+$('.end-date').datepicker({
     rtl: App.isRTL(),
     orientation: "left",
     autoclose: true
 });
+
 $('.select2').parents('.bootbox').removeAttr('tabindex');
 $('.select2').select2();
 </script>

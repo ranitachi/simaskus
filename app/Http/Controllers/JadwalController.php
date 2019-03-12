@@ -181,6 +181,7 @@ class JadwalController extends Controller
                     ->with('dospem_3')
                     ->orderBy('created_at')->get();
 
+        // return $pengajuan;
         $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->where('jadwals.departemen_id',$dept_id)
                     ->with('ruangan')

@@ -38,7 +38,7 @@
                     <div class="col-md-7">&nbsp;</div>
                     <div class="col-md-3">
                         <select class="bs-select form-control has-success" id="tahun_ajaran" name="tahun_ajaran" onchange="loaddata(this.value)">
-                            <option value="-1">-Pilih Tahun Ajaran-</option>
+                            <option value="-1">-Pilih Tahun Akademik-</option>
                             @foreach ($ta as $k => $v)
                                 @if (Session::get('idta') == $v->id)
                                     <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
@@ -61,7 +61,7 @@
             <div id="data">
                 <div class="row">
                     <div class="col-md-12">
-                        Pilih Tahun Ajaran Terlebih Dahulu
+                        Pilih Tahun Akademik Terlebih Dahulu
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
         var ta=$('#tahun_ajaran').val();
         if(ta==-1)
         {
-            pesan("Silahkan Pilih Tahun Ajaran Terlebih Dahulu",'error');
+            pesan("Silahkan Pilih Tahun Akademik Terlebih Dahulu",'error');
         }
         else
         {

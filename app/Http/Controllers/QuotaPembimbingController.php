@@ -30,7 +30,7 @@ class QuotaPembimbingController extends Controller
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
         $quota=QuotaPembimbing::where('departemen_id',$dept_id)->with('departemen')->get();
 
-        $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->get();
+        $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('keterangan')->orderBy('urutan')->get();
         $jns=array();
         foreach($jenis as $kj=>$vj)
         {
@@ -61,7 +61,7 @@ class QuotaPembimbingController extends Controller
 
         $det=array();
         $dept=MasterDepartemen::where('id',$dept_id)->with('pimpinan')->orderBy('nama_departemen')->get();
-        $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->get();
+        $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('keterangan')->orderBy('urutan')->get();
         $jns=array();
         foreach($jenis as $kj=>$vj)
         {
@@ -73,7 +73,7 @@ class QuotaPembimbingController extends Controller
             // $det=QuotaPembimbing::find($id);
             $det=$quodet[$id];
         }
-        
+        // return $dept_id;
         return view('pages.staf.quota-pembimbing.form')
                 ->with('det',$det)
                 ->with('dept',$dept)

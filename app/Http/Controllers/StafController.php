@@ -49,6 +49,17 @@ class StafController extends Controller
         $mh->departemen_id=$request->departemen;
         $mh->kota=$request->kota;
         $mh->save();
+
+        if ($request->hasFile('foto')) {
+            $user=Users::where('id_user',$mh->id)->where('kat_user',1)->first();
+            $val_foto=$request->foto;
+            $val_foto->storeAs('foto_staf',$val_foto->getClientOriginalName());
+            $foto='foto_staf/'.$val_foto->getClientOriginalName();
+            
+            $user->foto=$foto;
+            $user->save();
+        }
+
         return redirect('profil-staf')->with('status','Data Profil Staf Berhasil Di Edit');
     }
 }

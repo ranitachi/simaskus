@@ -57,8 +57,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tahun Ajaran</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Ajaran" id="tahun_ajaran" name="tahun_ajaran">
-                                            <option value="-1">-Pilih Tahun Ajaran-</option>
+                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Akademik" id="tahun_ajaran" name="tahun_ajaran">
+                                            <option value="-1">-Pilih Tahun Akademik-</option>
                                             @foreach ($ta as $i => $v)
                                                 @if ($id!=-1)
                                                     @if ($det->tahunajaran_id==$v->id)

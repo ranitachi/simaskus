@@ -252,48 +252,61 @@
                 autoclose: true
             });
 
-            $('button#simpan').one('click',function(){
-                swal({
-                    title: "Apakah Anda Yakin",
-                    text: "Ingin Menyimpan Data Bimbingan Ini ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-info",
-                    confirmButtonText: "Ya, Simpan",
-                    cancelButtonText: "Tidak",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                },
-                function(isConfirm) {
-                    if (isConfirm) {
-                        if(id==-1)
-                        {
-                            var t_url = '{{url("bimbingan")}}';
-                        }
-                        else
-                            var t_url = '{{url("bimbingan")}}/'+id;
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
+            $('button#simpan').on('click',function(){
 
-                        $.ajax({
-                            url : t_url,
-                            type : "POST",
-                            dataType: 'json',
-                            cache: false,
-                            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                            data: $('#simpan-bimbingan').serialize()
-                        }).done(function(){
-                            loaddata();
-                            loadform(id)
-                            swal("Berhasil", "Data Berhasil Di Simpan", "success");
-                        }).fail(function(){
-                            swal("Fail!", "Simpan Data Gagal", "danger");
-                        });
-                    } 
-                });
+                var judul = $('#judul').val();
+                var dospem_id = $('#dospem_id').val();
+                if(judul=='')
+                    // swal("Fail!", "Judul Bimbingan Harus Di Isi", "warning");
+                    pesan("Judul Bimbingan Harus Di Isi","error");
+                else if(dospem_id==-1)
+                    pesan("Dosen Pembimbing Harus Di Pilih","error");
+                    // swal("Fail!", "Dosen Pembimbing Harus Di Pilih", "warning");
+                else
+                {
+                    swal({
+                        title: "Apakah Anda Yakin",
+                        text: "Ingin Menyimpan Data Bimbingan Ini ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn-info",
+                        confirmButtonText: "Ya, Simpan",
+                        cancelButtonText: "Tidak",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    },
+                    function(isConfirm) {
+                        if (isConfirm) {
+                            if(id==-1)
+                            {
+                                var t_url = '{{url("bimbingan")}}';
+                            }
+                            else
+                                var t_url = '{{url("bimbingan")}}/'+id;
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+
+                            $.ajax({
+                                url : t_url,
+                                type : "POST",
+                                dataType: 'json',
+                                cache: false,
+                                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                                data: $('#simpan-bimbingan').serialize()
+                            }).done(function(){
+                                loaddata();
+                                loadform(id)
+                                swal("Berhasil", "Data Berhasil Di Simpan", "success");
+                            }).fail(function(){
+                                swal("Fail!", "Simpan Data Gagal", "error");
+                            });
+                        } 
+                    });
+                }
+                
             });
 
             $('#baru').one('click',function(){

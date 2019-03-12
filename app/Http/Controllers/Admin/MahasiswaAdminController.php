@@ -161,6 +161,7 @@ class MahasiswaAdminController extends Controller
         $user=User::where('id_user',$mhs->id)->where('kat_user',3)->first();
         $dept=MasterDepartemen::all();
         $jenjang=ProgamStudi::all();
+        // return $user;
         return view('pages.administrator.mahasiswa.detail')
             ->with('profil',$mhs)
             ->with('id',$id)

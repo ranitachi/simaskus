@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Intervention\Image\ImageManagerStatic as Image;
 
 Route::get('/', function () {
     $bln=date('n');
@@ -33,7 +34,11 @@ Route::get('/', function () {
             'jenis'=>$jenis
         ]);
     }
-    return view('auth.login');
+
+    if(Auth::check())
+        return redirect('beranda');
+    else
+        return view('auth.login');
 });
 Route::get('/getcontent','DashboardController@getcontent');
 
@@ -317,3 +322,12 @@ Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_a
 
 Route::get('add_pendidikan','HomeController@add_pendidikan')->middleware('auth');
 Route::get('kolom-topik/{id}','HomeController@kolom_topik')->middleware('auth');
+
+Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
+{
+    
+    $file=$folder.'/'.$filename;
+    //return Image::make(storage_path($file))->response();
+    return response()->file(storage_path('app').'/'.$file);
+});
+Route::get('izindosen','DashboardController@updateizindosen');
