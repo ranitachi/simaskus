@@ -19,7 +19,7 @@
                 <tr>
                     <th>No</th>
                     <th> Tanggal Pengajuan </th>
-                    <th> Jenis Pengajuan </th>
+                    <th> Mata Kuliah Spesial </th>
                     <th> Judul </th>
                     <th> Pembimbing </th>
                     <th> Status </th>

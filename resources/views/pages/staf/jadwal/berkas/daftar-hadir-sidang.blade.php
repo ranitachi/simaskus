@@ -13,7 +13,7 @@
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
                             <tr>
-                                <td width="50%" rowspan="2" align="left"><img src="https://online.civil.ui.ac.id/assets/images/logoUIFakultasTeknik.jpg"></td>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
                                 <td align="right">
                                     <font size="1">Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id</font>
                                 </td>

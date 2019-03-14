@@ -55,7 +55,7 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data').load('{{url("Jumlah-pembimbing-data")}}',function(){
+        $('#data').load('{{url("quota-pembimbing-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
@@ -63,7 +63,7 @@
     function loadform(id)
     {
         $.ajax({
-            url : '{{url("Jumlah-pembimbing")}}/'+id,
+            url : '{{url("quota-pembimbing")}}/'+id,
             success: function(html){
                 bootbox.confirm({
                     title: "Form Jumlah Bimbingan",

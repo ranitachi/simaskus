@@ -64,7 +64,7 @@ class MahasiswaAdminController extends Controller
     public function data()
     {
         $departemen=MasterDepartemen::all();
-        $mhs=Mahasiswa::orderBy('departemen_id','nama')
+        $mhs=Mahasiswa::orderBy('nama')
                 ->with('departemen')
                 ->with('programstudi')
                 ->with('mahasiswa_user')

@@ -12,7 +12,7 @@
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
                             <tr>
-                                <td width="50%" rowspan="2" align="left"><img src="https://online.civil.ui.ac.id/assets/images/logoUIFakultasTeknik.png"></td>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
                                 <td align="right">
                                     Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id
                                 </td>
@@ -33,7 +33,7 @@
                         <td width="200px">Nama Mahasiswa</td>
                         <td width="4px">:</td>
                         <td width="40px">&nbsp;</td>
-                        <td><b>{{$mhs->nama}}</b></td>
+                        <td><b>{{isset($mhs->nama) ? $mhs->nama : '______________________'}}</b></td>
                         
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@
                         <td width="200px">Nomor Pokok Mahasiswa</td>
                         <td width="4px">:</td>
                         <td width="40px">&nbsp;</td>
-                        <td><b>{{$mhs->npm}}</b></td>
+                        <td><b>{{isset($mhs->npm) ? $mhs->npm : '______________________'}}</b></td>
                         
                     </tr>
                     <tr>
@@ -81,6 +81,15 @@
                             </b>
                         </td>
                     </tr>
+                    @if (isset($pembimbing['lapangan']))
+                    <tr>
+                        <td width="200px" style="vertical-align:top;">Pembimbing Lapangan</td>
+                        <td width="6px" style="vertical-align:top;">:</td>
+                        <td>
+                            <b>{{$pembimbing['lapangan'][0]->nama}}</b>
+                        </td>
+                    </tr>
+                    @endif
                     <tr>
                         <td width="200px">Tema Kegiatan</td>
                         <td width="6px">:</td>

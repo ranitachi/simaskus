@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Pengajuan Mata Kuliah Khusus :: SIMA-sp</title>
+    <title>Data Pengajuan Mata Kuliah Spesial :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Detail Pengajuan Mata Kuliah Khusus</span>
+                    <span>Detail Pengajuan Mata Kuliah Spesial</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Pengajuan Mata Kuliah Khusus
+        <h1 class="page-title"> Pengajuan Mata Kuliah Spesial
             <small>Detail</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Jenis Pengajuan</label>
+                                        <label class="control-label">Mata Kuliah Spesial</label>
                                         <input type="text" readonly  id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir"  style="" value="{{$pengajuan->jenispengajuan->jenis}}">
                                     </div>
                                 </div>

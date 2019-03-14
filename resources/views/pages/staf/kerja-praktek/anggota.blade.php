@@ -22,8 +22,9 @@
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-3 control-label" for="form_control_1">Ketua Kelompok</label>
                 <div class="col-md-9" style="padding-top:6px;">
-                   
+                    
                     @foreach ($grupkp as $item)
+                        
                         @if ($item->kategori=='ketua')
                             <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->nama}}
                                 <a href="javascript:hapusanggota({{$item->id}},'tab_1_1_5')" class="font-red-thunderbird">    

@@ -12,7 +12,7 @@
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
                             <tr>
-                                <td width="50%" rowspan="2" align="left"><img src="https://online.civil.ui.ac.id/assets/images/logoUIFakultasTeknik.jpg"></td>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
                                 <td align="right">
                                     <font size="1">Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id</font>
                                 </td>
@@ -28,8 +28,8 @@
                         <td width="70px">Nomor</td>
                         <td width="4px">:</td>
                         <td width="40px">&nbsp;</td>
-                        <td>/UN2.F4.DTS/PDP.04.00/2018</td>
-                        <td align="right">{{tgl_indo(date('Y-m-d'))}}</td>
+                        <td>___/UN2.F4.DTS/PDP.04.00/2018</td>
+                        <td align="right">Depok, {{tgl_indo(date('Y-m-d'))}}</td>
                     </tr>
                     <tr>
                         <td>Lampiran</td>
@@ -47,13 +47,13 @@
             <div style="padding: 0px 55px 0px;">
                 <div>
                     Yth,<br />
-                    Bapak Donni D.P. (Project Manager)<br />
-                    PT. WIKA GEDUNG<br />
-                    Jalan Edutown Kav.3 BSD City, Tangerang<br />
+                    {{isset($inf['pimpinan-perusahaan-penanggung-jawab']) ? $inf['pimpinan-perusahaan-penanggung-jawab']->isi : '___________________________'}}<br />
+                    {{isset($inf['instansiperusahaan']) ? $inf['instansiperusahaan']->isi : '___________________________'}}<br />
+                    {{isset($inf['alamat-perusahaan']) ? $inf['alamat-perusahaan']->isi : '___________________________'}}<br /><br />
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
-                    Bersama  ini  kami  memohon kesediaan  Bapak/Ibu, kiranya  kepada mahasiswa kami dapat diberi  kesempatan  dalam melaksanakan kerja praktek (kerja nyata) pada proyek Proyek B Residence dibawah naungan PT. WIKA GEDUNG selama 150 - 200 jam, untuk dapat memenuhi salah satu persyaratan kurikulum pendidikan di Fakultas Teknik Universitas Indonesia.<br><br>
+                    Bersama  ini  kami  memohon kesediaan  Bapak/Ibu, kiranya  kepada mahasiswa kami dapat diberi  kesempatan  dalam melaksanakan kerja praktek (kerja nyata) pada {{isset($inf['nama-pekerjaan']) ? $inf['nama-pekerjaan']->isi.' dibawah naungan' : ''}}  {{isset($inf['instansiperusahaan']) ? $inf['instansiperusahaan']->isi : ''}} selama 150 - 200 jam, untuk dapat memenuhi salah satu persyaratan kurikulum pendidikan di Fakultas Teknik Universitas Indonesia.<br><br>
                     Berikut ini daftar mahasiswa yang akan melakukan Kerja Praktek:
                 </div>
                 <div>&nbsp;</div>
@@ -64,7 +64,15 @@
                             <th align="center">NPM</th>
                             <th align="center">Program Studi</th>
                         </tr>
-                        <tr><td align='center'>Joshua Agung Nugraha</td><td align='center'>1506725224</td><td align='center'>S1 Reguler Teknik Sipil</td>                        <tr><td align='center'>Kiuntoro Hongsen</td><td align='center'>1506733056</td><td align='center'>S1 Reguler Teknik Sipil</td>                        <tr><td align='center'>Rizka Putri Adriani</td><td align='center'>1506673901</td><td align='center'>S1 Reguler Teknik Lingkungan</td>                    </table>
+                        @foreach ($grup as $k=>$v)
+                            <tr>
+                                <td align='center'>{{$v->mahasiswa->nama}}</td>
+                                <td align='center'>{{$v->mahasiswa->npm}}</td>
+                                <td align='center'>{{$v->mahasiswa->programstudi->nama_program_studi}}</td>       
+                            </tr>
+                            
+                        @endforeach
+                    </table>
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
@@ -72,10 +80,31 @@
                     Agar tujuan kerja praktek ini tercapai kami sangat mengharapkan bimbingan dari Bapak/Ibu, sehingga pada akhir kegiatan mereka bisa menyusun laporan akhir.<br><br>
                     Demikian yang dapat kami sampaikan. Atas bantuan dan kerjasama Bapak/Ibu kami ucapkan terima kasih.
                 </div>
+                <br>
+                <br>
                 <table border="0" width="100%">
                     <tr>
                         <td width="60%">&nbsp;</td>
-                        <td align="left">Ketua Departemen Teknik Sipil,<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</u><br>NIP. 196205281991031009</td>
+                        <td align="left">Ketua {{$departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br>
+                            @if (isset($pimpinan['ketua-departemen']))
+                                @if (isset($dosen[$pimpinan['ketua-departemen']->dosen_id]))
+                                    @php
+                                        $pimp=$dosen[$pimpinan['ketua-departemen']->dosen_id];
+                                    @endphp
+                                    <u>{{$pimp->nama}}</u>
+                                    <br>
+                                    NIP. {{$pimp->nip}}
+                                @else
+                                _________________________
+                                <br>
+                                NIP.
+                                @endif
+                            @else
+                                _________________________
+                                <br>
+                                NIP.
+                            @endif
+                        </td>
                     </tr>
                 </table>	
             </div>

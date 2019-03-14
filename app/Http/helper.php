@@ -536,4 +536,20 @@ function getFormFields($data)
 		$jab=['lektor','guru-besar'];
 		return $jab;
 	}
+	function departemeninggris($dept)
+	{
+		$dept_name=['Departemen Teknik Sipil','Departemen Teknik Mesin','Departemen Teknik Elektro','Departemen Teknik Metalurgi dan Material','Departemen Teknik Kimia','Departemen Arsitektur','Departemen Teknik Industri'];
+		$name=array();
+		foreach($dept_name as $k=>$v)
+		{
+			$name[$k]=str_slug($v);
+		}
+
+		$eng=['Department of Civil Engineering','Departemen of Mechanical Engineering','Department of Electrical Engineering','Department of Metallurgical and Material Engineering','Department of Chemical Engineering','Department of Architecture','Department of Industrial Engineering'];
+
+		$key=array_search($dept,$name);
+
+		return isset($eng[$key]) ? $eng[$key] : '';
+
+	}
 ?>

@@ -331,3 +331,4 @@ Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
     return response()->file(storage_path('app').'/'.$file);
 });
 Route::get('izindosen','DashboardController@updateizindosen');
+Route::get('updatemulaikp','DashboardController@updatemulaikp');

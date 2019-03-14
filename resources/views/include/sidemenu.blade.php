@@ -138,7 +138,7 @@
     <ul class="sub-menu">
         <li class="nav-item  {{strpos(Request::path(),'jenispengajuan')!==false ? 'active' : ''}} ">
             <a href="{{url('master-jenispengajuan')}}" class="nav-link ">
-                <span class="title">Data Jenis Pengajuan</span>
+                <span class="title">Data Mata Kuliah Spesial</span>
             </a>
         </li>
         <li class="nav-item  {{strpos(Request::path(),'syaratpengajuan')!==false ? 'active' : ''}} ">

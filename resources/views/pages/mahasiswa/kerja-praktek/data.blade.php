@@ -34,7 +34,7 @@
                         @if ($pengajuan[0]->status_pengajuan!=0)
                             <th> Grup <br>Kerja Praktek </th>
                             <th> Informasi<br>Kerja Praktek</th>
-                            <th> Status<br>Kerja Praktek</th>
+                            
                         @endif
                     @endif
                     <th> Status <br>Pengajuan</th>
@@ -63,37 +63,44 @@
                                     <br>
                                     <a href="#" data-toggle="tooltip" title="{{$item->mahasiswa->nama}}" style="font-size:11px;padding-left:20px;"><i class="fa fa-user"></i> {{$item->mahasiswa->nama}}</a> 
                                     &nbsp;&nbsp;
-                                    <a href="javascript:hapusanggota({{$item->id}})" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
-                                    <br>
+                                    @if($item->kategori!='ketua')
+                                        <a href="javascript:hapusanggota({{$item->id}})" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                                        <br>
+                                    @endif
                                 @endforeach
-                                @if ($ketua==1)
-                                    <br>
-                                    <div class="text-center">
-                                        <a href="javascript:addanggota({{$grupkp[0]->code}},'-1')" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Anggota</a>
-                                    </div>
+
+                                @if($v->status_kp!=2)
+                                    @if ($ketua==1)
+                                        <br>
+                                        <div class="text-center">
+                                            <a href="javascript:addanggota({{$grupkp[0]->code}},'-1')" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Anggota</a>
+                                        </div>
+                                    @endif
                                 @endif
                             @else
                                 <a href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Grup</a>
                             @endif
                         </td>
-                        <td class="text-center">
+                        <td class="text-left">
+                            <small>Status KP</small><br>
+                            {!! $v->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($v->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($v->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>'))!!}
 
-                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}#tab_1_1_2" class="btn btn-success btn-xs">Detail Info KP</a>
-                        </td>
-                        <td class="text-center">
-                            {!! $v->status_kp == 0 ? '<span class="label label-info label-sm">Belum Di Mulai</span>' : ($v->status_kp == 1 ? '<span class="label label-success label-sm">Sedang Aktif</span>' : ($v->status_kp == 2 ? '<span class="label label-success label-sm">Sudah Selesai</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>'))!!}
+                            <br>
+                            <br>
+                            <small>Info KP</small><br>
+                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}#tab_1_1_2" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Detail Info KP</a>
                         </td>
                     @endif
-                    <td>{!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}</td>
+                    <td>{!! $v->status_pengajuan == 0 ? '<a class="btn btn-info btn-xs">Belum Di Verifikasi</a>' : ($v->status_pengajuan == 1 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Di Setujui</a>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}</td>
 
-                    <td>
-                        <div style="width:110px;">
+                    <td style="text-center">
                             @if ($v->status_pengajuan == 1)
                                 <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a>
                             @endif
                             <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </div>
+                            @if($v->status_kp==0)
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            @endif
                     </td>
                 </tr>
 

@@ -82,7 +82,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Jenis Pengajuan</label>
+                                        <label class="control-label">Mata Kuliah Spesial</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id" onchange="jenis(this.value)">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
@@ -407,7 +407,7 @@
             }
             else if(jenis_id=='-1')
             {
-                pesan("Jenis Pengajuan Harus Dipilih",'error');
+                pesan("Mata Kuliah Spesial Harus Dipilih",'error');
                 $('#jenis_id').focus();
             }    
             else if(skema=='-1')

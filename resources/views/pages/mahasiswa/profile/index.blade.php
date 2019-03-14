@@ -125,7 +125,7 @@
                                                 <input type="text" placeholder="Kota" class="form-control" name="kota" value="{{$profil->kota}}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Foto</label>
-                                                <input type="file" placeholder="Foto" class="form-control" name="foto"/> 
+                                                <input type="file" placeholder="Foto" class="form-control" name="foto" accept=".png,.jpg,.jpeg"/> 
                                             </div>
                                                 <div class="margiv-top-10">
                                                 <button type="submit" class="btn green pull-right"> Simpan </button>

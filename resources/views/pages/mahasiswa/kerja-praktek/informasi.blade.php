@@ -66,6 +66,12 @@
                 </div>
             </div>
             <div class="form-padding form-group form-md-line-input has-success">
+                <label class="col-md-4 control-label" for="form_control_1">Nama Pekerjaan/Proyek</label>
+                <div class="col-md-8" style="padding-top:6px;">
+                    {{isset($info['nama-pekerjaan']) ? $info['nama-pekerjaan']->isi : '-'}}
+                </div>
+            </div>
+            <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-4 control-label" for="form_control_1">Deksripsi</label>
                 <div class="col-md-8" style="padding-top:6px;">
                     {{isset($info['deskripsi']) ? $info['deskripsi']->isi : '-'}}
@@ -168,6 +174,13 @@
                         </div>
                     </div>
                 
+            </div>
+            <div class="form-group form-md-line-input has-success">
+                <label class="col-md-4 control-label" for="form_control_1">Nama Pekerjaan/Proyek</label>
+                <div class="col-md-8">
+                    <input type="hidden" name="title_tambahan[]" value="utama__Nama Pekerjaan">
+                    <input type="text" class="form-control" name="isi_tambahan[]" id="form_control_1" placeholder="Pekerjaan/Proyek" value="{{isset($info['nama-pekerjaan']) ? $info['nama-pekerjaan']->isi : '-'}}">
+                </div>
             </div>
             <div class="form-group form-md-line-input has-success">
                 <label class="col-md-4 control-label" for="form_control_1">Deksripsi</label>
