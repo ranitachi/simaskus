@@ -65,12 +65,12 @@
             <tr>
                 <td style="text-align:left">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">Periode Kegiatan</td>
@@ -127,19 +127,23 @@
             </tr>
             <tr>
                 <td>Tempat/Tanggal Lahir</td>
-                <td>{{$mhs->tempat_lahir}} / {{isset($mhs->tanggal_lahir) ? tgl_indo($mhs->tanggal_lahir) : ''}}</td>
+                @if (isset($mhs->tempat_lahir))
+                    <td>{{$mhs->tempat_lahir}} / {{isset($mhs->tanggal_lahir) ? tgl_indo($mhs->tanggal_lahir) : ''}}</td>
+                @else
+                    <td>_____________ / _______________________</td>
+                @endif
             </tr>
             <tr>
                 <td>Program Studi</td>
-                <td>{{$mhs->programstudi->nama_program_studi}}</td>
+                <td>{{isset($mhs->programstudi->nama_program_studi) ? $mhs->programstudi->nama_program_studi : '________________________'}}</td>
             </tr>
             <tr>
                 <td>HP/Telp</td>
-                <td>{{$mhs->hp}}</td>
+                <td>{{isset($mhs->hp) ? $mhs->hp : '________________________'}}</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td>{{$mhs->email}}</td>
+                <td>{{isset($mhs->email) ? $mhs->email : '________________________'}}</td>
             </tr>
             <tr>
                 <td colspan="3" style="padding:20px;text-align:center"><b>INFORMASI PEKERJAAN / PROYEK</b></td>
@@ -226,12 +230,12 @@
             <tr>
                 <td style="text-align:left;width:30%">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">Dosen Pembimbing</td>
@@ -282,12 +286,12 @@
             <tr>
                 <td style="text-align:left;width:30%">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">Pembimbing Lapangan</td>
@@ -326,12 +330,12 @@
             <tr>
                 <td style="text-align:left;width:30%">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">Pembimbing Lapangan</td>
@@ -371,12 +375,12 @@
             <tr>
                 <td style="text-align:left;width:30%">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">Pembimbing Lapangan</td>
@@ -418,12 +422,12 @@
             <tr>
                 <td style="text-align:left;width:30%">Nama Mahasiswa</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->nama}}</td>
+                <td style="text-align:left">{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
             </tr>
             <tr>
                 <td style="text-align:left">NPM</td>
                 <td style="text-align:left;width:1%">:</td>
-                <td style="text-align:left">{{$mhs->npm}}</td>
+                <td style="text-align:left">{{isset($mhs->npm) ? $mhs->npm : '________________________'}}</td>
             </tr>
             
         </table>
