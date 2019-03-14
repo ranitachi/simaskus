@@ -6,7 +6,7 @@
                 <tr>
                     <th>No</th>
                     <th> NPM<br>Mahasiswa </th>
-                    <th> Jenis<br>Pengajuan </th>
+                    <th> Mata Kuliah Spesial </th>
                     <th> Judul </th>
                     <th> Pembimbing </th>
                     <th> Hari/Tanggal/<br>Ruangan Sidang </th>

@@ -26,10 +26,10 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
-                    <label class="control-label">Jenis Pengajuan</label>
-                    <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis Pengajuan" name="pengajuan_id" id="pengajuan_id" onchange="pilihdepartemen(this.value)">
-                        <option value="-1">-Pilih Jenis Pengajuan-</option>
-                        <option value="0">-Input Data Jenis Pengajuan Baru-</option>
+                    <label class="control-label">Mata Kuliah Spesial</label>
+                    <select class="bs-select form-control has-success" data-placeholder="Pilih Mata Kuliah Spesial" name="pengajuan_id" id="pengajuan_id" onchange="pilihdepartemen(this.value)">
+                        <option value="-1">-Pilih Mata Kuliah Spesial-</option>
+                        <option value="0">-Input Data Mata Kuliah Spesial Baru-</option>
                         @foreach ($jenis as $i => $v)
                             @if ($id!=-1)
                                 @if ($det->pengajuan_id==$v->id)

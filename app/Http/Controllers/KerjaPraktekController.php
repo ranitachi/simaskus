@@ -21,6 +21,8 @@ use App\Model\ProgamStudi;
 use App\Model\JadwalSidangKP;
 use App\Model\InformasiKP;
 use App\Model\PengujiKP;
+use App\Model\MasterPimpinan;
+use App\Model\MasterDepartemen;
 use Auth;
 class KerjaPraktekController extends Controller
 {
@@ -223,7 +225,11 @@ class KerjaPraktekController extends Controller
                 else
                     $ketua=0;
             }
+
+            if(Auth::user()->kat_user==1)
+                $idgrup=$v->code;
         }
+        // return $idgrup;
         $grupkp=array();
         foreach($grup as $kg=>$vg)
         {          
@@ -680,14 +686,47 @@ class KerjaPraktekController extends Controller
         {
             $pbb[$v->kategori][]=$v;
         }
-        $mhs=Mahasiswa::find(Auth::user()->id_user);
+        
+
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        $mhs=array();
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+            $mhs=Mahasiswa::find(Auth::user()->id_user);
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+
+        $pimp=MasterPimpinan::where('departemen_id',$dept_id)->get();
+        $pimpinan=array();
+        foreach($pimp as $k=>$v)
+        {
+            $pimpinan[str_slug($v->jabatan)]=$v;
+        }
+        $departemen=MasterDepartemen::find($dept_id);
+
+        $dos=Dosen::where('departemen_id',$dept_id)->get();
+        $dosen=array();
+        foreach($dos as $k=>$v)
+        {
+            $dosen[$v->id]=$v;
+        }
+        // return $inf;
         if(isset($brks[$jenis]))
         {
             return view('pages.mahasiswa.kerja-praktek.berkas.'.$jenis)
+                ->with('departemen',$departemen)
                 ->with('grup',$grup)
                 ->with('pembimbing',$pbb)
                 ->with('mhs',$mhs)
+                ->with('dosen',$dosen)
                 ->with('inf',$inf)
+                ->with('pimpinan',$pimpinan)
                 ->with('prodi',$prodi);
         }
         // dd($brks);

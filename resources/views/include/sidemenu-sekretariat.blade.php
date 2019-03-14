@@ -181,7 +181,7 @@
 <li class="nav-item  {{strpos(Request::path(),'jenispengajuan')!==false ? 'active' : ''}} ">
     <a href="{{url('master-jenispengajuan')}}" class="nav-link ">
         <i class="fa fa-gear font-white"></i>
-        <span class="title">Data Jenis Pengajuan</span>
+        <span class="title">Data Jenis Mata Kuliah Spesial</span>
     </a>
 </li>
 <li class="nav-item  {{strpos(Request::path(),'kalender-akademik')!==false ? 'active' : ''}} ">

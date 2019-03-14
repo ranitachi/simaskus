@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Jenis Pengajuan</label>
+                                        <label class="control-label">Mata Kuliah Spesial</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)
@@ -122,10 +122,10 @@
                                     @php
                                         $path=asset('../storage/app/'.$det->file_riwayat_akademis);
                                     @endphp
-                                    <div id="example1"></div>
+                                    {{-- <div id="example1"></div> --}}
                                 
                                 </div>
-                            </div> --}}
+                            </div>
                         @endif
                         <div class="form-actions pull-right">
                             <a href="{{URL::previous()}}" class="btn default">Batal</a>

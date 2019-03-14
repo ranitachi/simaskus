@@ -98,7 +98,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group has-success">
-                                                    <label class="control-label">Jenis Pengajuan</label>
+                                                    <label class="control-label">Mata Kuliah Spesial</label>
                                                     <select disabled class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
                                                         <option value="-1">-Pilih Jenis-</option>
                                                         @foreach ($jenispengajuan as $i => $v)
@@ -117,41 +117,59 @@
                                                     </select>
                                                 </div>
                                             </div>
+
                                         @if ($det->status_pengajuan==1)
                                             <div class="col-md-4">&nbsp;</div>
                                             <div class="col-md-4">
                                                     <div class="pull-right text-center">
                                                         <h4>Status Pengajuan</h4>
                                                         <div class="alert alert-info" style="font-size:20px;">
-                                                            <i class="fa fa-check"></i><strong>Di Terima</strong>
+                                                            <i class="fa fa-check"></i>&nbsp;<strong>Di Terima</strong>
                                                         </div>
                                                     </div>
                                             </div>
                                         @endif
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                
+                                        <div class="col-md-4">&nbsp;</div>
+                                        <div class="col-md-4">
+                                                @if ($det->status_kp==0)
+                                                    <div class="pull-right text-center">
+                                                        <h4>Status Pelaksanaan KP</h4>
+                                                        <div class="alert alert-warning" style="font-size:20px;">
+                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;<strong>Belum Dimulai</strong>
+                                                        </div>
+                                                    </div>
+                                                @elseif ($det->status_kp==1)
+                                                    <div class="pull-right text-center">
+                                                        <h4>Status Pelaksanaan KP</h4>
+                                                        <div class="alert alert-info" style="font-size:20px;">
+                                                            <i class="fa fa-check"></i>&nbsp;<strong>Sedang Berjalan</strong>
+                                                        </div>
+                                                    </div>
+                                                @elseif ($det->status_kp==2)
+                                                    <div class="pull-right text-center">
+                                                        <h4>Status Pelaksanaan KP</h4>
+                                                        <div class="alert alert-success" style="font-size:20px;">
+                                                            <i class="fa fa-check"></i>&nbsp;<strong>Sudah Selesai</strong>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
-                                            
-                                        
-                                        <div class="col-md-6"> 
-                                                
                                         </div>
-                                    </div>
+                                        
+                                        
 
                                     @if ($id!=-1)    
                                         <div class="row" style="margin-bottom:30px;">
                                             <div class="col-md-12">
                                                 <div class="form-group has-success">
-                                                        <label class="control-label">Daftar Bimbingan dari SIAK-NG
-                                                        </label>
+                                                        {{-- <label class="control-label">Daftar Bimbingan dari SIAK-NG
+                                                        </label> --}}
                                                 </div>        
                                                 {{-- {{ storage_path('app/'.$det->file_riwayat_akademis) }} --}}
                                                 @php
                                                     $path=asset('../storage/app/'.$det->file_riwayat_akademis);
                                                 @endphp
-                                                <div id="example1"></div>
+                                                {{-- <div id="example1"></div> --}}
                                             
                                             </div>
                                         </div>
@@ -210,6 +228,8 @@
                 orientation: "left",
                 autoclose: true
             });
+
+        
     });
 
     function verifikasi(id)

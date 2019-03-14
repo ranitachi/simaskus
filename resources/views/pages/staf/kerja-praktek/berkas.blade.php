@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     @if ($det->balasan_surat!='')
                         
-                        <a target="" href="{{asset('../storage/app/'.$det->balasan_surat)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        <a target="_blank" href="{{asset('../storage/app/'.$det->balasan_surat)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
                         &nbsp;&nbsp;
 
                         @if ($det->status_kp==1)
@@ -59,7 +59,7 @@
                 <div class="col-md-4">
                     @if ($det->surat_pernyataan_selesai!='')
                         
-                        <a target="" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
                         &nbsp;&nbsp;
 
                         @if ($det->status_kp==2)

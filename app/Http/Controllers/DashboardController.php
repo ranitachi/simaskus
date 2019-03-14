@@ -6,40 +6,17 @@ use Illuminate\Http\Request;
 use App\Model\Staf;
 use App\Model\IzinDosen;
 use App\Model\Jadwal;
+use App\Model\KerjaPraktek;
+use App\Model\InformasiKP;
+use App\Model\KelompokKP;
 use Carbon\Carbon;
 use Auth;
 use Storage;
 class DashboardController extends Controller
 {
-    public function updateizindosen()
-    {
-        $izin=IzinDosen::where('status',1)->whereDate('end_date', '<=', Carbon::now('Asia/Jakarta'))->get();
-        // return $izin;
-        // $izin=IzinDosen::where('end_date', '<', Carbon::now('Asia/Jakarta'))->get();
-        foreach($izin as $k=>$v)
-        {
-            $time=strtotime($v->end_time);
-            $now=strtotime(date('H:i'));
-            if(strtotime($v->end_date) < strtotime(date('Y-m-d')))
-            {
-                // echo $v->end_date.'-'.strtotime($v->end_date).'- || - '.date('Y-m-d').' - '.strtotime(date('Y-m-d')).'<br>';
-                IzinDosen::where('id',$v->id)->update(['status'=>0]);
-            }
-            else
-            {
-                if($now>$time)
-                {
-                    IzinDosen::where('id',$v->id)->update(['status'=>0]);
-                    // echo $v->end_time.'-'.$time.'- || - '.date('H:i').' - '.$now.'<br>';
-                }
-            }
-        }
-    }
+    
     public function index()
     {
-
-        
-
         if(Auth::check())
         {
             if(Auth::user()->kat_user==0)
@@ -100,66 +77,53 @@ class DashboardController extends Controller
         $hasil=curl_exec($ch);
         curl_close ($ch);
         Storage::put('file.txt', $hasil);
-        // $EMAIL            = $username;
-        // $PASSWORD         = $password;
-        // $cookie_file_path = "/home/user/Users/Documents/cookies.txt";
-        // // $LOGINURL         = "https://cart2.barnesandnoble.com/mobileacct/op.asp?stage=signIn"; 
-        // $LOGINURL         = "https://academic.ui.ac.id/main/Authentication/"; 
-        // $agent            = "Nokia-Communicator-WWW-Browser/2.0 (Geos 3.0 Nokia-9000i)";
 
-
-        // // begin script
-        // $ch = curl_init(); 
-
-        // // extra headers
-        // $headers[] = "Accept: */*";
-        // $headers[] = "Connection: Keep-Alive";
-
-        // // basic curl options for all requests
-        // curl_setopt($ch, CURLOPT_HTTPHEADER,  $headers);
-        // curl_setopt($ch, CURLOPT_HEADER,  0);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);         
-        // curl_setopt($ch, CURLOPT_USERAGENT, $agent); 
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
-        // curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path); 
-        // curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file_path); 
-
-        // // set first URL
-        // curl_setopt($ch, CURLOPT_URL, $LOGINURL);
-
-        // // execute session to get cookies and required form inputs
-        // $content = curl_exec($ch); 
-
-        // // grab the hidden inputs from the form required to login
-        // $fields = getFormFields($content);
-        // $fields['emailAddress'] = $EMAIL;
-        // $fields['acctPassword'] = $PASSWORD;
-
-        // // get x value that is used in the login url
-        // $x = '';
-        // // if (preg_match('/op\.asp\?x=(\d+)/i', $content, $match)) {
-        // //     $x = $match[1];
-        // // }
-
-        // //$LOGINURL   = "https://cart2.barnesandnoble.com/mobileacct/op.asp?stage=signIn";
-        // // $LOGINURL   = "https://cart2.barnesandnoble.com/mobileacct/op.asp?x=$x";
-        //  $LOGINURL         = "https://academic.ui.ac.id/main/Authentication/"; 
-
-        // // set postfields using what we extracted from the form
-        // $POSTFIELDS = http_build_query($fields); 
-
-        // // change URL to login URL
-        // curl_setopt($ch, CURLOPT_URL, $LOGINURL); 
-
-        // // set post options
-        // curl_setopt($ch, CURLOPT_POST, 1); 
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $POSTFIELDS); 
-
-        // // perform login
-        // $result = curl_exec($ch);
-        // Storage::put('file.txt', $result);
     }
-    
+    public function updateizindosen()
+    {
+        $izin=IzinDosen::where('status',1)->whereDate('end_date', '<=', Carbon::now('Asia/Jakarta'))->get();
+        // return $izin;
+        // $izin=IzinDosen::where('end_date', '<', Carbon::now('Asia/Jakarta'))->get();
+        foreach($izin as $k=>$v)
+        {
+            $time=strtotime($v->end_time);
+            $now=strtotime(date('H:i'));
+            if(strtotime($v->end_date) < strtotime(date('Y-m-d')))
+            {
+                // echo $v->end_date.'-'.strtotime($v->end_date).'- || - '.date('Y-m-d').' - '.strtotime(date('Y-m-d')).'<br>';
+                IzinDosen::where('id',$v->id)->update(['status'=>0]);
+            }
+            else
+            {
+                if($now>$time)
+                {
+                    IzinDosen::where('id',$v->id)->update(['status'=>0]);
+                    // echo $v->end_time.'-'.$time.'- || - '.date('H:i').' - '.$now.'<br>';
+                }
+            }
+        }
+    }
+    public function updatemulaikp()
+    {
+        $kp=KerjaPraktek::where('status_kp','0')->get();
+        foreach($kp as $k=>$p)
+        {
+            $grup=KelompokKP::select('code')->where('mahasiswa_id',$p->mahasiswa_id)->first();
+            if($grup)
+            {
+                $info=InformasiKP::where('grup_id',$grup->code)->where('judul','like','%Periode Awal%')->first();
+                if($info)
+                {
+                    list($tgl,$bln,$thn)=explode('-',$info->isi);
+                    $date=$thn.'-'.$bln.'-'.$tgl;
+                    if(strtotime($date) <= strtotime(date('Y-m-d')))
+                    {
+                        // echo $p->id.'<br>';
+                        KerjaPraktek::where('id',$p->id)->update(['status_kp'=>1]);
+                    }
+                }
+            }
+
+        }
+    }  
 }

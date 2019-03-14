@@ -86,7 +86,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group has-success">
-                                        <label class="control-label">Jenis Pengajuan</label>
+                                        <label class="control-label">Mata Kuliah Spesial</label>
                                         <select disabled class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
                                             <option value="-1">-Pilih Jenis-</option>
                                             @foreach ($jenispengajuan as $i => $v)

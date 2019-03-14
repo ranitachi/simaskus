@@ -12,7 +12,7 @@
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
                             <tr>
-                                <td width="50%" rowspan="2" align="left"><img src="https://online.civil.ui.ac.id/assets/images/logoUIFakultasTeknik.png"></td>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
                                 <td align="right">
                                     <font size="1">Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id</font>
                                 </td>
@@ -28,7 +28,7 @@
                         <td width="70px">Ref</td>
                         <td width="4px">:</td>
                         <td width="40px">&nbsp;</td>
-                        <td>/UN2.F4.DTS/PDP.04.00/2018</td>
+                        <td>___/UN2.F4.DTS/PDP.04.00/2018</td>
                         <td align="right">02 September, 2018</td>
                     </tr>
                     <tr>
@@ -41,14 +41,14 @@
                 <div>&nbsp;</div>
                 <div>
                     To,<br />
-                    Jabatan Lorem Ipsum<br />
-                    Perusahaan Lorem Ipsum<br />
-                    Lokasi Lorem Ipsum<br />
+                    {{isset($inf['pimpinan-perusahaan-penanggung-jawab']) ? $inf['pimpinan-perusahaan-penanggung-jawab']->isi : '___________________________'}}<br />
+                    {{isset($inf['instansiperusahaan']) ? $inf['instansiperusahaan']->isi : '___________________________'}}<br />
+                    {{isset($inf['alamat-perusahaan']) ? $inf['alamat-perusahaan']->isi : '___________________________'}}<br /><br />
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
                     Dear Sir/Madam,<br /><br />
-                    Herewith we would like to invoke your sincerity to give an opportunity for our student to conduct a practical training at one of your construction project. The training is part of the curriculum requirements of the undergraduate program in Civil Engineering Department, Faculty of Engineering, Universitas Indonesia. The curriculum requires students to spend about 150 – 200 hours at the project which is equivalent to 3 credits. Following are list of the students that will be taking part at your project:
+                    Herewith we would like to invoke your sincerity to give an opportunity for our student to conduct a practical training at one of your construction project. The training is part of the curriculum requirements of the undergraduate program in {{departemeninggris($departemen->nama_departemen)}}, Faculty of Engineering, Universitas Indonesia. The curriculum requires students to spend about 150 – 200 hours at the project which is equivalent to 3 credits. Following are list of the students that will be taking part at your project:
                 </div>
                 <div>&nbsp;</div>
                 <div align="center">
@@ -56,9 +56,16 @@
                         <tr align='center'>
                             <th align="center">Name</th>
                             <th align="center">Student Number</th>
-                            <th align="center">Program</th>
+                            <th align="center">Programm</th>
                         </tr>
-                        <tr><td align='center'>sendok</td><td align='center'>86987870707</td><td align='center'>S1 Reguler Teknik Lingkungan</td>                        <tr><td align='center'>garpu</td><td align='center'>7645745756756</td><td align='center'>S1 Reguler Teknik Sipil</td>                                            </table>
+                        @foreach ($grup as $k=>$v)
+                            <tr>
+                                <td align='center'>{{$v->mahasiswa->nama}}</td>
+                                <td align='center'>{{$v->mahasiswa->npm}}</td>
+                                <td align='center'>{{$v->mahasiswa->programstudi->nama_program_studi}}</td>       
+                            </tr>
+                            
+                        @endforeach
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
@@ -68,10 +75,31 @@
                     <div>&nbsp;</div>
                     <div>&nbsp;</div>
                 </div>
+                <br>
+                <br>
                 <table border="0" width="100%">
                     <tr>
                         <td width="55%">&nbsp;</td>
-                        <td align="left">Yours faithfully,<br><br><br><br><br><b>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</b><br>Head of Civil Engineering Department<br />Faculty of Engineering<br />Universitas Indonesia<br />UI Campus Depok</td>
+                        <td align="left">Yours faithfully,<br><br><br><br><br>
+                            @if (isset($pimpinan['ketua-departemen']))
+                                @if (isset($dosen[$pimpinan['ketua-departemen']->dosen_id]))
+                                    @php
+                                        $pimp=$dosen[$pimpinan['ketua-departemen']->dosen_id];
+                                    @endphp
+                                    <b>{{$pimp->nama}}</b>
+                                    <br>Head of {{departemeninggris($departemen->nama_departemen)}}
+
+                                @else
+                                <b>_________________________</b><br>
+                                Head of _________________________________
+                                @endif
+                            @else
+                                <b>_________________________</b><br>
+                                Head of _________________________________
+                                
+                            @endif
+                            <br />Faculty of Engineering<br />Universitas Indonesia<br />UI Campus Depok
+                        </td>
                     </tr>
                 </table>	
             </div>

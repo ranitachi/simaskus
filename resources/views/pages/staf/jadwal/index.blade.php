@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Mata Kuliah Khusus :: SIMA-sp</title>
+    <title>Data Mata Kuliah Spesial :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Data Mata Kuliah Khusus</span>
+                    <span>Data Mata Kuliah Spesial</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Mata Kuliah Khusus
+        <h1 class="page-title"> Mata Kuliah Spesial
             <small>Daftar</small>
         </h1>
         <!-- END PAGE TITLE-->

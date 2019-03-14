@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Data Jenis Pengajuan :: SIMA-sp</title>
+    <title>Data Mata Kuliah Spesial :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Data Jenis Pengajuan</span>
+                    <span>Data Mata Kuliah Spesial</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Jenis Pengajuan
+        <h1 class="page-title"> Mata Kuliah Spesial
             <small>Daftar</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -68,7 +68,7 @@
             url : '{{url("master-jenispengajuan")}}/'+id,
             success: function(html){
                 bootbox.confirm({
-                    title: "Form Jenis Pengajuan",
+                    title: "Form Mata Kuliah Spesial",
                     message: html,
                     buttons: {
                         cancel: {
@@ -111,15 +111,15 @@
                                     loaddata();
                                     if(id==-1)
                                     {
-                                        var ps="Data Jenis Pengajuan Berhasil Disimpan";
+                                        var ps="Data Mata Kuliah Spesial Berhasil Disimpan";
                                     }
                                     else
                                     {
-                                        var ps="Data Jenis Pengajuan Berhasil Di Edit";
+                                        var ps="Data Mata Kuliah Spesial Berhasil Di Edit";
                                     }
                                     swal("Berhasil", ps, "success");
                                 }).fail(function(dt){ 
-                                    var ps='Data Jenis Pengajuan Gagal Disimpan';
+                                    var ps='Data Mata Kuliah Spesial Gagal Disimpan';
                                     pesan(ps,'error');
                                 });
                             }

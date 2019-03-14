@@ -8,12 +8,25 @@ function pesan(txt,jns)
         toastr.error(txt, "Peringatan");
 }
 
-function updateizindosen()
+function updateizindosen(durl)
 {
     setInterval(function(){
 
         $.ajax({
-            url: 'izindosen',
+            url: durl+'/izindosen',
+            success:function(res){
+
+            }
+        });
+
+    },(1000 * 60 * 60));
+}
+function updatemulaikp(durl)
+{
+    setInterval(function(){
+
+        $.ajax({
+            url: durl+'/updatemulaikp',
             success:function(res){
 
             }

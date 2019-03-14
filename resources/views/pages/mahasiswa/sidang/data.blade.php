@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th> Jenis<br>Pengajuan </th>
+                    {{-- <th> Jenis<br>Mata Kuliah Spesial </th> --}}
                     <th> Judul </th>
                     {{-- <th> Pembimbing </th> --}}
                     <th> Hari/Tanggal<br>Ruang Sidang </th>
@@ -23,8 +23,10 @@
                 @endphp
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
-                    <td>{{$v->jenispengajuan->jenis}}</td>
+                    {{-- <td></td> --}}
                     <td>
+                        <small><u>Jenis Mata Kuliah Spesial</u></small><br>
+                        <b>{{$v->jenispengajuan->jenis}}</b><br><br>
                         <small><u>Indonesia</u></small><br>
                         <strong>{{$v->judul_ind}}</strong>
                         <br>

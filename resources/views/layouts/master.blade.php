@@ -73,7 +73,16 @@
     @yield('footscript')
     <script>
         $(document).ready(function(){
-            updateizindosen();
+            var url='{{url("/")}}';
+            updateizindosen(url);
+            updatemulaikp(url);
+
+            var ses="{{Session::get('status')}}";
+            if(ses!='')
+            {
+                swal('Informasi',ses,'success');
+            }
+
         });
         function updatenotif(id)
         {

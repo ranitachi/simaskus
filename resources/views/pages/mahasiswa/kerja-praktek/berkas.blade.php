@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     @if ($det->balasan_surat!='')
                         <a target="_blank" href="javascript:uploadbalasan({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
-                        <a target="_blank" href="{{asset('../storage/app/'.$det->balasan_surat)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        <a target="_blank" href="{{asset('../storage/app/'.$det->balasan_surat)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
                     @else
                         <a target="" href="javascript:uploadbalasan({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
                     @endif
@@ -50,7 +50,7 @@
                 <div class="col-md-4">
                     @if ($det->surat_pernyataan_selesai!='')
                         <a target="_blank" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
-                        <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
                     @else
                         <a target="" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
                     @endif

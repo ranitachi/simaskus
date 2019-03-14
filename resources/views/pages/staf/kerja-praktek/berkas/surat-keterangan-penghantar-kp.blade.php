@@ -12,7 +12,7 @@
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
                             <tr>
-                                <td width="50%" rowspan="2" align="left"><img src="https://online.civil.ui.ac.id/assets/images/logoUIFakultasTeknik.png"></td>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
                                 <td align="right">
                                     Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id
                                 </td>
@@ -29,7 +29,7 @@
                         <td width="70px"><u>Nomor</u><br><i>Ref. No.</td>
                         <td width="4px">:</td>
                         <td width="40px">&nbsp;</td>
-                        <td>/UN2.F4.DTS/PDP.04.01/2018</td>
+                        <td>___/UN2.F4.DTS/PDP.04.01/2018</td>
                         <td align="right">{{tgl_indo(date('Y-m-d'))}}</td>
                     </tr>
                 </table>
@@ -56,7 +56,7 @@
                 </table>
                 <div>&nbsp;</div>
                 <p style="text-align:justify;">
-                    Adalah benar mahasiswa Departemen Teknik Sipil Fakultas Teknik Universitas Indonesia Kampus Universitas Indonesia, Depok, Jawa Barat.<br>
+                    Adalah benar mahasiswa {{$departemen->nama_departemen}} Fakultas Teknik Universitas Indonesia Kampus Universitas Indonesia, Depok, Jawa Barat.<br>
                     <i>are students of Civil Engineering Department, Faculty of Engineering, Universitas Indonesia.</i><br><br>
                     Surat keterangan ini diberikan untuk mencari lokasi kerja praktek.<br>
                     <i>This letter is made for the purpose to find the location of internship.</i><br><br>
@@ -66,7 +66,18 @@
                 <table border="0" width="100%">
                     <tr>
                         <td width="40%">&nbsp;</td>
-                        <td align="left"><u>Sekretaris Departemen Teknik Sipil FTUI,</u><br><i>Secretary Department<br>Civil Engineering Department Faculty of Engineering,</i><br><br><br><br><br><u>Dr. Cindy Rianti Priadi, ST, MSc</u><br>NIP. 198401302012122001</td>
+                        <td align="left"><u>Sekretaris {{$departemen->nama_departemen}} FTUI,</u><br><i>Secretary Department<br>Civil Engineering Department Faculty of Engineering,</i><br><br><br><br><br>
+                        @if (isset($pimpinan['sekretaris-departemen']))
+                            @if (isset($dosen[$pimpinan['sekretaris-departemen']->dosen_id]))
+                                @php
+                                    $pimp=$dosen[$pimpinan['sekretaris-departemen']->dosen_id];
+                                @endphp
+                                <u>{{$pimp->nama}}</u>
+                                <br>
+                                NIP. {{$pimp->nip}}</td>
+                            @else
+                            @endif
+                        @endif
                     </tr>
                 </table>
             </div>

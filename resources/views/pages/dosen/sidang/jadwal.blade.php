@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th> Jenis<br>Pengajuan </th>
+                    <th> Mata Kuliah Spesial </th>
                     <th> Judul </th>
                     <th> Pembimbing </th>
                     <th> Hari/Tanggal<br>Ruang Sidang </th>
