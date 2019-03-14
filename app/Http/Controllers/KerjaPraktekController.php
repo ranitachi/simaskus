@@ -24,6 +24,7 @@ use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
 use App\Model\MasterDepartemen;
 use Auth;
+use PDF;
 class KerjaPraktekController extends Controller
 {
     //
@@ -717,12 +718,47 @@ class KerjaPraktekController extends Controller
             $dosen[$v->id]=$v;
         }
         // return $inf;
+
+        $periode='';
+            if($inf['periode-awal'])
+            {
+                list($tgl,$bln,$thn)=explode('-',$inf['periode-awal']->isi);
+                $periode=tgl_indo($thn.'-'.$bln.'-'.$tgl);
+
+                if($inf['periode-selesai'])
+                {
+                    list($tgl,$bln,$thn)=explode('-',$inf['periode-selesai']->isi);
+                    $periode=$periode.' s.d. '.tgl_indo($thn.'-'.$bln.'-'.$tgl);
+                }   
+
+            }
+        // $user=Users::where('kat_user',)->first();
+        if(strpos($jenis,'log-book')!==false)
+        {
+            // return $jenis;
+            // return $mhs->mahasiswa_user;
+            
+            $view='pages.mahasiswa.kerja-praktek.berkas.'.$jenis;
+            $data['departemen']=$departemen;
+            $data['periode']=$periode;
+            $data['grup']=$grup;
+            $data['pembimbing']=$pbb;
+            $data['mhs']=$mhs;
+            $data['dosen']=$dosen;
+            $data['inf']=$inf;
+            $data['pimpinan']=$pimpinan;
+            $data['prodi']=$prodi;
+            $pdf = PDF::loadView($view,$data);
+		    return $pdf->download('LogBookKP.pdf');
+        }
+
         if(isset($brks[$jenis]))
         {
             return view('pages.mahasiswa.kerja-praktek.berkas.'.$jenis)
                 ->with('departemen',$departemen)
                 ->with('grup',$grup)
                 ->with('pembimbing',$pbb)
+                ->with('periode',$periode)
                 ->with('mhs',$mhs)
                 ->with('dosen',$dosen)
                 ->with('inf',$inf)
