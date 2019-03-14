@@ -659,7 +659,7 @@ class KerjaPraktekController extends Controller
     }
 
     //---------Cetak Berkas-----------
-    public function cetak_berkas($code_grup,$kat_user,$jenis,$idmhs=null)
+    public function cetak_berkas($code_grup,$kat_user,$jenis,$idkp=null)
     {
         $level=Auth::user()->kat_user;
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
@@ -689,14 +689,14 @@ class KerjaPraktekController extends Controller
 
         $grup=KelompokKP::where('code',$code_grup)->with('mahasiswa')->get();
         $det=array();
-        if($idmhs!=null)
+        if($idkp!=null)
         {
-            $det=KerjaPraktek::where('id',$idmhs)
+            $det=KerjaPraktek::where('id',$idkp)
                     ->with('jenispengajuan')
                     ->with('tahunajaran')
                     ->with('mahasiswa')->first();
         }
-
+        // return $det;
 
         $info=InformasiKP::where('grup_id',$code_grup)->get();
         $prod=ProgamStudi::where('departemen_id',$dept_id)->get();

@@ -46,13 +46,23 @@
                         <th align="center"><u>NPM</u><br /><i>Student Number</i></th>
                         <th align="center"><u>Program Studi</u><br /><i>Program</i></th>
                     </tr>
-                    @foreach ($grup as $item)
-                        <tr>
-                            <td align="center">{{$item->mahasiswa->nama}}</td>
-                            <td align="center">{{$item->mahasiswa->npm}}</td>
-                            <td align="center">{{$prodi[$item->mahasiswa->program_studi_id]->nama_program_studi}}</td>
-                        </tr>
-                    @endforeach
+                    @if ($code_grup!=-1)                        
+                        @foreach ($grup as $item)
+                            <tr>
+                                <td align="center">{{$item->mahasiswa->nama}}</td>
+                                <td align="center">{{$item->mahasiswa->npm}}</td>
+                                <td align="center">{{$prodi[$item->mahasiswa->program_studi_id]->nama_program_studi}}</td>
+                            </tr>
+                        @endforeach
+                    @else
+                        @foreach ($det as $item)
+                            <tr>
+                                <td align="center">{{$item->mahasiswa->nama}}</td>
+                                <td align="center">{{$item->mahasiswa->npm}}</td>
+                                <td align="center">{{$prodi[$item->mahasiswa->program_studi_id]->nama_program_studi}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </table>
                 <div>&nbsp;</div>
                 <p style="text-align:justify;">
