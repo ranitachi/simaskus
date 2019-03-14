@@ -659,7 +659,7 @@ class KerjaPraktekController extends Controller
     }
 
     //---------Cetak Berkas-----------
-    public function cetak_berkas($code_grup,$kat_user,$jenis)
+    public function cetak_berkas($code_grup,$kat_user,$jenis,$idmhs=null)
     {
         $level=Auth::user()->kat_user;
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
@@ -688,6 +688,16 @@ class KerjaPraktekController extends Controller
         }
 
         $grup=KelompokKP::where('code',$code_grup)->with('mahasiswa')->get();
+        $det=array();
+        if($idmhs!=null)
+        {
+            $det=KerjaPraktek::where('id',$id)
+                    ->with('jenispengajuan')
+                    ->with('tahunajaran')
+                    ->with('mahasiswa')->first();
+        }
+
+
         $info=InformasiKP::where('grup_id',$code_grup)->get();
         $prod=ProgamStudi::where('departemen_id',$dept_id)->get();
         $prodi=$inf=array();
@@ -749,6 +759,7 @@ class KerjaPraktekController extends Controller
             $data['mhs']=$mhs;
             $data['dosen']=$dosen;
             $data['inf']=$inf;
+            $data['det']=$det;
             $data['pimpinan']=$pimpinan;
             $data['prodi']=$prodi;
             $pdf = PDF::loadView($view,$data);
@@ -762,6 +773,7 @@ class KerjaPraktekController extends Controller
                 ->with('grup',$grup)
                 ->with('pembimbing',$pbb)
                 ->with('periode',$periode)
+                ->with('det',$det)
                 ->with('mhs',$mhs)
                 ->with('dosen',$dosen)
                 ->with('inf',$inf)
