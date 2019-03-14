@@ -47,8 +47,20 @@ class DosenController extends Controller
         $mh->alamat=$request->alamat;
         $mh->departemen_id=$request->departemen;
         $mh->kota=$request->kota;
+
+        if ($request->hasFile('foto')) {
+            $user=Users::where('id_user',$mh->id)->where('kat_user',2)->first();
+            $val_foto=$request->foto;
+            $val_foto->storeAs('foto_dosen',$val_foto->getClientOriginalName());
+            $foto='foto_dosen/'.$val_foto->getClientOriginalName();
+            
+            $user->foto=$foto;
+            $user->save();
+        }
+        
+
         $mh->save();
-        return redirect('profil-dosen')->with('status','Data Profil Staf Berhasil Di Edit');
+        return redirect('profil-dosen')->with('status','Data Profil Dosen Berhasil Di Edit');
     }
 
     public function formadd_penguji()

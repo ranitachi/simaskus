@@ -11,7 +11,7 @@
                 <div class="form-group has-success">
                     <label class="control-label">Nama Departemen</label>
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
-                        <option value="-1">-Pilih Departemen-</option>
+                        {{-- <option value="-1">-Pilih Departemen-</option> --}}
                         @foreach ($dept as $i => $v)
                             @if ($id!=-1)
                                 @if ($det->departemen_id==$v->id)
@@ -36,14 +36,18 @@
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" name="jenis_id" id="jenis_id">
                         <option value="-1">-Pilih Jenis-</option>
                         @foreach ($jenis as $i => $v)
-                            @if ($id!=-1)
-                                @if ($det->jenis_id==$v->id)
-                                    <option value="{{$v->id}}" selected="selected">{{$v->jenis}}</option>    
+                            @if($dept_id==$v->departemen_id)
+                                
+                            
+                                @if ($id!=-1)
+                                    @if ($det->jenis_id==$v->id)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->keterangan}} - {{$v->jenis}}</option>    
+                                    @else
+                                        <option value="{{$v->id}}">{{$v->keterangan}} - {{$v->jenis}}</option>
+                                    @endif
                                 @else
-                                    <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                    <option value="{{$v->id}}">{{$v->keterangan}} - {{$v->jenis}}</option>
                                 @endif
-                            @else
-                                <option value="{{$v->id}}">{{$v->jenis}}</option>
                             @endif
                         @endforeach
                     </select>

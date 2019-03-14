@@ -24,21 +24,28 @@
             </thead>
             
             <tbody>
+                @php
+                    $no=1;
+                @endphp
             @foreach ($module as $i => $v)
-                <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
-                    <td>{{$v->departemen->nama_departemen}}</td>
-                    <td>{{$v->jenis->jenis}}</td>
-                    <td>{{$v->nama_module}}</td>
-                    <td>{!!'<span class="badge badge-primary badge-roundless">'.$v->bobot_module.' %</span>'!!}</td>
-                    <td>
-                        <div style="width:80px;">
-                            <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
-
+                @if (isset($v->jenis->jenis))
+                    <tr class="odd gradeX">
+                        <td>{{($no)}}</td>
+                        <td>{{$v->departemen->nama_departemen}}</td>
+                        <td>{{$v->jenis->jenis}}</td>
+                        <td>{{$v->nama_module}}</td>
+                        <td>{!!'<span class="badge badge-primary badge-roundless">'.$v->bobot_module.' %</span>'!!}</td>
+                        <td>
+                            <div style="width:80px;">
+                                <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    @php
+                        $no++;
+                    @endphp
+                @endif
             @endforeach                
             </tbody>
         </table>

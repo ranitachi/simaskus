@@ -72,6 +72,9 @@
     </body>
     @yield('footscript')
     <script>
+        $(document).ready(function(){
+            updateizindosen();
+        });
         function updatenotif(id)
         {
             $.ajax({

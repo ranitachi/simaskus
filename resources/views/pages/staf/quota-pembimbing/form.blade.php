@@ -16,18 +16,20 @@
                             $level=array('S1','S2','S3');
                         @endphp
                             @foreach ($jenis as $item)
-                                @if (in_array($item->keterangan,$level))
-                                
-                                    @if ($id!=-1)
-                                        @if ($item->id==$det->level)
-                                            <option value="{{$item->id}}" selected="selected">{{$item->keterangan}}-{{$item->jenis}}</option>
+                                {{-- @if ($dept_id==$item->departemen_id) --}}
+                                    @if (in_array($item->keterangan,$level))
+                                    
+                                        @if ($id!=-1)
+                                            @if ($item->id==$det->level)
+                                                <option value="{{$item->id}}" selected="selected">{{$item->keterangan}} - {{$item->jenis}}</option>
+                                            @else
+                                                <option value="{{$item->id}}">{{$item->keterangan}} - {{$item->jenis}}</option>
+                                            @endif
                                         @else
-                                            <option value="{{$item->id}}">{{$item->keterangan}}-{{$item->jenis}}</option>
+                                            <option value="{{$item->id}}">{{$item->keterangan}} - {{$item->jenis}}</option>
                                         @endif
-                                    @else
-                                        <option value="{{$item->id}}">{{$item->keterangan}}-{{$item->jenis}}</option>
                                     @endif
-                                @endif
+                                {{-- @endif --}}
                             @endforeach
                     </select>
                 </div>

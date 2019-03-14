@@ -26,8 +26,13 @@
                 <!-- PORTLET MAIN -->
                 <div class="portlet light profile-sidebar-portlet ">
                 <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="{{asset('img/dosen.png')}}" class="img-responsive" alt=""> </div>
+                <div class="profile-userpic" >
+                    @if (Auth::user()->foto!='')
+                        <img src="{{url('showgambar/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
+                    @else
+                        <img src="{{asset('img/dosen.png')}}" class="img-responsive" alt=""> 
+                    @endif
+                </div>        
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
@@ -68,7 +73,7 @@
                                 <div class="tab-content">
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
-                                        <form role="form" action="{{url('simpan-profil-dosen')}}" method="POST">
+                                        <form role="form" action="{{url('simpan-profil-dosen')}}" method="POST" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label class="control-label">Nama Lengkap</label>
@@ -121,6 +126,10 @@
                                             <div class="form-group">
                                                 <label class="control-label">Kota</label>
                                                 <input type="text" placeholder="Kota" class="form-control" name="kota" value="{{$profil->kota}}"/> </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Foto</label>
+                                                <input type="file" placeholder="Foto" class="form-control" name="foto"/> 
+                                            </div>
                                             <div class="margiv-top-10">
                                                 <button type="submit" class="btn green"> Simpan </button>
                                             </div>
@@ -178,12 +187,20 @@
         //var pass=$('#password').val();
         var newpass=$('#newpassword').val();
         var repass=$('#repassword').val();
-        if(newpass!=repass)
+       if(newpass=='')
+            pesan("Password Tidak Boleh Kosong",'error');    
+        else if(nrepass=='')
+            pesan("Re-Type Password Tidak Boleh Kosong",'error');    
+        else
         {
-            pesan("Password yang anda Input Tidak Sama",'error');    
-        }
-        else{
-            $('#simpan-password').submit();
+
+            if(newpass!=repass)
+            {
+                pesan("Password yang anda Input Tidak Sama",'error');    
+            }
+            else{
+                $('#simpan-password').submit();
+            }
         }
         
     }

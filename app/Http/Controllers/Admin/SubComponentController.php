@@ -26,6 +26,7 @@ class SubComponentController extends Controller
             ->join('component', 'component.module_id', '=', 'module.id')
             ->join('master_jenis_pengajuan', 'master_jenis_pengajuan.id', '=', 'module.jenis_id')
             ->where('module.departemen_id',$dept_id)
+            ->whereNull('component.deleted_at')
             ->orderBy('component.code_component')->get();
 
         return view('pages.administrator.sub-component.index')->with('com_module',$com_module);

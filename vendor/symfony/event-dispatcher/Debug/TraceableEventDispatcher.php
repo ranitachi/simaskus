@@ -134,23 +134,18 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
         }
 
         $this->preProcess($eventName);
-        try {
-            $this->preDispatch($eventName, $event);
-            try {
-                $e = $this->stopwatch->start($eventName, 'section');
-                try {
-                    $this->dispatcher->dispatch($eventName, $event);
-                } finally {
-                    if ($e->isStarted()) {
-                        $e->stop();
-                    }
-                }
-            } finally {
-                $this->postDispatch($eventName, $event);
-            }
-        } finally {
-            $this->postProcess($eventName);
+        $this->preDispatch($eventName, $event);
+
+        $e = $this->stopwatch->start($eventName, 'section');
+
+        $this->dispatcher->dispatch($eventName, $event);
+
+        if ($e->isStarted()) {
+            $e->stop();
         }
+
+        $this->postDispatch($eventName, $event);
+        $this->postProcess($eventName);
 
         return $event;
     }
@@ -235,7 +230,7 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
      */
     public function __call($method, $arguments)
     {
-        return $this->dispatcher->{$method}(...$arguments);
+        return \call_user_func_array(array($this->dispatcher, $method), $arguments);
     }
 
     /**
@@ -268,7 +263,7 @@ class TraceableEventDispatcher implements TraceableEventDispatcherInterface
 
         foreach ($this->dispatcher->getListeners($eventName) as $listener) {
             $priority = $this->getListenerPriority($eventName, $listener);
-            $wrappedListener = new WrappedListener($listener instanceof WrappedListener ? $listener->getWrappedListener() : $listener, null, $this->stopwatch, $this);
+            $wrappedListener = new WrappedListener($listener, null, $this->stopwatch, $this);
             $this->wrappedListeners[$eventName][] = $wrappedListener;
             $this->dispatcher->removeListener($eventName, $listener);
             $this->dispatcher->addListener($eventName, $wrappedListener, $priority);

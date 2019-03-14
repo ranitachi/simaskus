@@ -23,7 +23,7 @@ class ModuleController extends Controller
             $dept_id=$user->staf->departemen_id;
         }
         
-        $module=Module::with('departemen')->with('jenis')->orderBy('nama_module')->get();
+        $module=Module::where('departemen_id',$dept_id)->with('departemen')->with('jenis')->orderBy('nama_module')->get();
         return view('pages.administrator.module.data')
                 ->with('dept_id',$dept_id)
                 ->with('module',$module);
@@ -44,7 +44,7 @@ class ModuleController extends Controller
         
         $dept=MasterDepartemen::all();
         // dd($dept);        
-        $jenis=MasterJenisPengajuan::all();
+        $jenis=MasterJenisPengajuan::orderBy('keterangan')->get();
         return view('pages.administrator.module.form')
                 ->with('det',$det)
                 ->with('jenis',$jenis)

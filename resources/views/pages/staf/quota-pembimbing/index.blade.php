@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    <title>Quota Pembimbing :: SIMA-sp</title>
+    <title>Jumlah Pembimbing :: SIMA-sp</title>
 @endsection
 
 @section('konten')
@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Quota Pembimbing</span>
+                    <span>Jumlah Pembimbing</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Quota Pembimbing
+        <h1 class="page-title"> Jumlah Pembimbing
             <small>Data</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -55,7 +55,7 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data').load('{{url("quota-pembimbing-data")}}',function(){
+        $('#data').load('{{url("Jumlah-pembimbing-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
         });
@@ -63,10 +63,10 @@
     function loadform(id)
     {
         $.ajax({
-            url : '{{url("quota-pembimbing")}}/'+id,
+            url : '{{url("Jumlah-pembimbing")}}/'+id,
             success: function(html){
                 bootbox.confirm({
-                    title: "Form Quota Bimbingan",
+                    title: "Form Jumlah Bimbingan",
                     message: html,
                     buttons: {
                         cancel: {
@@ -82,24 +82,24 @@
                         {
                             if(id==-1)
                             {
-                                var t_url = '{{url("quota-pembimbing")}}';
+                                var t_url = '{{url("Jumlah-pembimbing")}}';
                             }
                             else
-                                var t_url = '{{url("quota-pembimbing")}}/'+id;
+                                var t_url = '{{url("Jumlah-pembimbing")}}/'+id;
         
                             var t_method = 'POST';
                             var code=$('#level').val();
-                            var quota=$('#quota').val();
+                            var Jumlah=$('#Jumlah').val();
                             if(code=='')
                             {
                                 pesan("Level harus dipilih",'error');
                                 $('#level').focus();
                                 return false;
                             }
-                            else if(quota=='')
+                            else if(Jumlah=='')
                             {
-                                pesan("Quota Harud Diisi",'error');
-                                $('#quota').focus();
+                                pesan("Jumlah Harud Diisi",'error');
+                                $('#Jumlah').focus();
                                 return false;
                             }
                             else
@@ -115,15 +115,15 @@
                                     loaddata();
                                     if(id==-1)
                                     {
-                                        var ps="Quota Pembimbing Berhasil Disimpan";
+                                        var ps="Jumlah Pembimbing Berhasil Disimpan";
                                     }
                                     else
                                     {
-                                        var ps="Quota Pembimbing Berhasil Di Edit";
+                                        var ps="Jumlah Pembimbing Berhasil Di Edit";
                                     }
                                     swal("Berhasil", ps, "success");
                                 }).fail(function(dt){ 
-                                    var ps='Quota Pembimbing Gagal Disimpan';
+                                    var ps='Jumlah Pembimbing Gagal Disimpan';
                                     pesan(ps,'error');
                                 });
                             }
@@ -150,7 +150,7 @@
         function(isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : '{{url("quota-pembimbing-hapus")}}/'+id,
+                    url : '{{url("Jumlah-pembimbing-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
                     loaddata();

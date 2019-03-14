@@ -222,9 +222,12 @@
                                     <label class="control-label">Nama Penguji</label>
                                     <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Penguji" id="dosen_id" name="dosen_id">
                                         <option value="-1">-Pilih Penguji-</option>
-                                        @foreach ($dosen as $k=>$v)
-                                            <option value="{{$v->id}}">{{$v->nama}}</option>
-                                        @endforeach
+                                        @if (isset($dosen))    
+                                            @foreach ($dosen as $k=>$v)
+                                                <option value="{{$v->id}}">{{$v->nama}}</option>
+                                            @endforeach
+                                        @endif
+
                                     </select>
                                 </div>
                             </div>

@@ -66,7 +66,7 @@
             url : '{{url("minimal-bimbingan")}}/'+id,
             success: function(html){
                 bootbox.confirm({
-                    title: "Form Quota Bimbingan",
+                    title: "Form Jumlah Bimbingan",
                     message: html,
                     buttons: {
                         cancel: {
@@ -89,17 +89,17 @@
         
                             var t_method = 'POST';
                             var code=$('#level').val();
-                            var quota=$('#quota').val();
+                            var Jumlah=$('#Jumlah').val();
                             if(code=='')
                             {
                                 pesan("Level harus dipilih",'error');
                                 $('#level').focus();
                                 return false;
                             }
-                            else if(quota=='')
+                            else if(Jumlah=='')
                             {
-                                pesan("Quota Harud Diisi",'error');
-                                $('#quota').focus();
+                                pesan("Jumlah Harud Diisi",'error');
+                                $('#Jumlah').focus();
                                 return false;
                             }
                             else

@@ -4,9 +4,7 @@
                 <tr>
                     <th>No</th>
                     <th> Jenis Bimbingan </th>
-                    <th> NPM </th>
-                    <th> Mahasiswa </th>
-                    <th> Program Studi </th>
+                    <th> Data Mahasiswa </th>
                     <th> Judul </th>
                     @if ($jenis=='pengajuan')
                         <th> Kesediaan Pembimbing </th>
@@ -30,9 +28,18 @@
                                 <tr>
                                     <td>{{$no}}</td>
                                     <td> {{$v->jenispengajuan->jenis}}</td>
-                                    <td> {{$v->mahasiswa->npm}}</td>
-                                    <td> {{$v->mahasiswa->nama}}</td>
-                                    <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
+                                    <td>
+                                        <i>NPM</i> : <br>
+                                        <b>{{$v->mahasiswa->npm}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Nama</i> : <br>
+                                        <b>{{$v->mahasiswa->nama}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Program Studi</i> : <br>
+                                        <b>{{$v->mahasiswa->programstudi->nama_program_studi}}</b>
+                                    </td>
                                     <td> {{$v->judul_ind}} </td>
                                     <td class="text-center"> {!!isset($piv[$v->mahasiswa_id]) ? ($piv[$v->mahasiswa_id]->status==0 ? '<span class="label label-sm label-info"><i class="fa fa-exclamation-triangle"></i> Belum Bersedia</span>' : ($piv[$v->mahasiswa_id]->status==1 ? '<span class="label label-sm label-success"><i class="fa fa-check"></i>  Bersedia</span>' : '<span class="label label-sm label-danger"><i class="fa fa-ban"></i> Tidak Bersedia</span>')) : ''!!} </td>
                                    
@@ -53,9 +60,19 @@
                                 <tr>
                                     <td>{{$no}}</td>
                                     <td> {{$v->jenispengajuan->jenis}}</td>
-                                    <td> {{$v->mahasiswa->npm}}</td>
-                                    <td> {{$v->mahasiswa->nama}}</td>
-                                    <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
+                                    <td>
+                                        <i>NPM</i> : <br>
+                                        <b>{{$v->mahasiswa->npm}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Nama</i> : <br>
+                                        <b>{{$v->mahasiswa->nama}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Program Studi</i> : <br>
+                                        <b>{{$v->mahasiswa->programstudi->nama_program_studi}}</b>
+                                    </td>
+                                   
                                     <td> {{$v->judul_ind}} </td>
                                     <td class="text-center"> {!!isset($piv[$v->mahasiswa_id]) ? ($piv[$v->mahasiswa_id]->status==0 ? '<span class="label label-sm label-info"><i class="fa fa-exclamation-triangle"></i> Belum Bersedia</span>' : ($piv[$v->mahasiswa_id]->status==1 ? '<span class="label label-sm label-success"><i class="fa fa-check"></i>  Bersedia</span>' : '<span class="label label-sm label-danger"><i class="fa fa-ban"></i> Tidak Bersedia</span>')) : ''!!} </td>
                                     <td>
@@ -72,10 +89,20 @@
                             @if ($piv[$v->mahasiswa_id]->status==1)
                                 <tr>
                                     <td>{{$no}}</td>
-                                    <td> {{$v->jenispengajuan->jenis}}</td>
-                                    <td> {{$v->mahasiswa->npm}}</td>
-                                    <td> {{$v->mahasiswa->nama}}</td>
-                                    <td> {{$v->mahasiswa->programstudi->nama_program_studi}} </td>
+                                    <td> {{isset($v->jenispengajuan->jenis) ? $v->jenispengajuan->jenis : 'n/a'}}</td>
+                                    <td>
+                                        <i>NPM</i> : <br>
+                                        <b>{{$v->mahasiswa->npm}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Nama</i> : <br>
+                                        <b>{{$v->mahasiswa->nama}}</b>
+                                        <br>
+                                        <br>
+                                        <i>Program Studi</i> : <br>
+                                        <b>{{$v->mahasiswa->programstudi->nama_program_studi}}</b>
+                                    </td>
+                                   
                                     <td> {{$v->judul_ind}} </td>
                                     <td>
                                         <div style="width:110px;">

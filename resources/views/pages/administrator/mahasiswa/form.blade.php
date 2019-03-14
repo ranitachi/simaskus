@@ -107,7 +107,7 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Departemen</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
-                                            <option value="-1">-Pilih Departemen-</option>
+                                            {{-- <option value="-1">-Pilih Departemen-</option> --}}
                                             @foreach ($departemen as $i => $v)
                                                 @if (Auth::user()->kat_user==0)
                                                     @if ($id!=-1)
@@ -141,14 +141,12 @@
                                         <label class="control-label">Program Studi</label>
                                         <div id="prog_studi">
                                             <select class="bs-select form-control has-success" data-placeholder="Pilih Program Studi" name="program_studi" id="program_studi">
-                                                <option value="-1">-Pilih Program Studi-</option>
+                                                {{-- <option value="-1">-Pilih Program Studi-</option> --}}
                                                     @if ($id!=-1)
                                                         @foreach ($prodi[$det->departemen_id] as $kd => $vd)        
                                                             @if ($det->program_studi_id==$vd->id))
                                                                 <option value="{{$det->program_studi_id}}" selected="selected">{{$det->programstudi->nama_program_studi}}</option> 
-                                                            @else   
-                                                                <option value="{{$vd->id}}">{{$vd->nama_program_studi}}</option> 
-
+                                                            
                                                             @endif
                                                         @endforeach
                                                     @elseif($dept_id!=-1)

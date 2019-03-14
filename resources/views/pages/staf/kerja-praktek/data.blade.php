@@ -17,9 +17,9 @@
                 @endforeach
                 @if ($state==0)
                     
-                <a href="{{url('data-kp/-1/'.Auth::user()->kat_user)}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                {{-- <a href="{{url('data-kp/-1/'.Auth::user()->kat_user)}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
                 @endif
             </div>
         </div>

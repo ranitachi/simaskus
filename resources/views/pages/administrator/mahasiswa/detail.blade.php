@@ -36,8 +36,13 @@
                 <!-- PORTLET MAIN -->
                 <div class="portlet light profile-sidebar-portlet ">
                 <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="{{asset('img/mhs.png')}}" class="img-responsive" alt=""> </div>
+                <div class="profile-userpic" >
+                    @if ($user->foto!='')
+                        <img src="{{url('showgambar/'.$user->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
+                    @else
+                        <img src="{{asset('img/mhs.png')}}" class="img-responsive" alt=""> 
+                    @endif
+                </div> 
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
@@ -92,14 +97,14 @@
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label class="control-label">Nama Lengkap</label>
-                                                <input type="text" placeholder="Nama Lengkap" class="form-control" name="nama" value="{{$profil->nama}}"/> </div>
+                                                <input type="text" readonly placeholder="Nama Lengkap" class="form-control" name="nama" value="{{$profil->nama}}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Tempat Lahir</label>
-                                                <input type="text" placeholder="Tempat Lahir" class="form-control" name="tempat_lahir" value="{{$profil->tempat_lahir}}"/> </div>
+                                                <input type="text" readonly placeholder="Tempat Lahir" class="form-control" name="tempat_lahir" value="{{$profil->tempat_lahir}}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Tanggal Lahir</label>
                                                 <div class="input-group input-medium date date-picker" data-date="{{date('d-m-Y',strtotime($profil->tanggal_lahir))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                                    <input type="text" name="tanggal_lahir" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{date('d-m-Y',strtotime($profil->tanggal_lahir))}}">
+                                                    <input type="text" readonly name="tanggal_lahir" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{date('d-m-Y',strtotime($profil->tanggal_lahir))}}">
                                                     <span class="input-group-btn">
                                                         <button class="btn default" type="button">
                                                             <i class="fa fa-calendar"></i>
@@ -110,24 +115,29 @@
                                             <div class="form-group">
                                                     <label class="control-label">Jenis Kelamin</label>
                                                     <select class="bs-select col-md-4 form-control has-success" name="gender">
-                                                        <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Pria</option>
-                                                        <option value="2" {{$profil->gender==2 ? 'selected="selected"' : ''}}>Wanita</option>
+                                                        @if ($profil->gender==1)
+                                                            <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Pria</option>
+                                                        @endif
+
+                                                        @if ($profil->gender==2)
+                                                            <option value="2" {{$profil->gender==2 ? 'selected="selected"' : ''}}>Wanita</option>
+                                                        @endif
                                                     </select>
                                                 
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Email</label>
-                                                <input type="text" placeholder="Email" class="form-control" name="email" value="{{$profil->email}}"/> </div>
+                                                <input type="text" readonly placeholder="Email" class="form-control" name="email" value="{{$profil->email}}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Telp/HP</label>
-                                                <input type="text" placeholder="Telp/Hp" class="form-control" name="hp" value="{{$profil->hp}}"/> </div>
+                                                <input type="text" readonly placeholder="Telp/Hp" class="form-control" name="hp" value="{{$profil->hp}}"/> </div>
                                     
                                             <div class="form-group">
                                                 <label class="control-label">Alamat</label>
-                                                <input type="text" placeholder="Alamat" class="form-control" name="alamat" value="{{$profil->alamat}}"/> </div>
+                                                <input type="text" readonly placeholder="Alamat" class="form-control" name="alamat" value="{{$profil->alamat}}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Kota</label>
-                                                <input type="text" placeholder="Kota" class="form-control" name="kota" value="{{$profil->kota}}"/> </div>
+                                                <input type="text" readonly placeholder="Kota" class="form-control" name="kota" value="{{$profil->kota}}"/> </div>
                                             
                                         </form>
                                 </div>
@@ -141,12 +151,9 @@
                         <div class="form-group">
                             <label class="control-label">Nama Departemen</label>
                             <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
-                                <option value="-1">-Pilih Departemen-</option>
                                 @foreach ($dept as $i => $v)
                                     @if ($profil->departemen_id==$v->id)
                                         <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
-                                    @else
-                                        <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -155,7 +162,6 @@
                             <label class="control-label">Program Studi</label>
                             <div id="prog_studi">
                                 <select class="bs-select form-control has-success" data-placeholder="Pilih Program Studi" name="program_studi" id="program_studi">
-                                    <option value="-1">-Pilih Program Studi-</option>
                                     @if ($profil->program_studi_id!=0)
                                         @if (isset($profil->programstudi->nama_program_studi))    
                                             <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
@@ -167,12 +173,9 @@
                         <div class="form-group">
                             <label class="control-label">Tahun Masuk</label>
                             <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Masuk" id="tahun_masuk" name="tahun_masuk">
-                                <option value="-1">-Pilih Tahun Masuk-</option>
                                 @for ($i=(date('Y')-10) ; $i<=date('Y') ; $i++)
                                         @if ($i==$profil->tahun_masuk)
                                             <option value="{{$i}}" selected="selected">{{$i}}</option>
-                                        @else
-                                            <option value="{{$i}}">{{$i}}</option>
                                         @endif                                                    
                                     
                                 @endfor
@@ -180,7 +183,11 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Bukti SIAK-NG</label><br>
-                            <a class="btn btn-xs btn-success" href="{{url('unduh-file/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                            @if ($profil->bukti_siak_ng!='')
+                                <a class="btn btn-xs btn-success" target="_blank" href="{{url('showgambar/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                            @else
+                                <a class="btn btn-xs btn-danger" href="#">Belum Upload Bukti SIAK-NG</a>
+                            @endif
                         </div>
                     </form>
                     @if ($profil->mahasiswa_user->flag==0)

@@ -110,7 +110,7 @@
                                     <label class="control-label visible-ie8 visible-ie9">Nama Lengkap</label>
                                     <div class="input-icon">
                                         <i class="fa fa-user"></i>
-                                        <input class="form-control placeholder-no-fix" type="text" placeholder="Nama Lengkap" name="nama" id="nama" /> </div>
+                                        <input class="form-control placeholder-no-fix" type="text" placeholder="Nama Lengkap" name="nama" id="nama_lengkap" /> </div>
                                 </div>
                                 <div class="form-group" style="margin-bottom:5px;">
                                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -155,13 +155,13 @@
                                     <label class="control-label visible-ie8 visible-ie9">Password</label>
                                     <div class="input-icon">
                                         <i class="fa fa-key"></i>
-                                        <input class="form-control placeholder-no-fix" type="password" placeholder="Password" name="password" /> </div>
+                                        <input class="form-control placeholder-no-fix" type="password" placeholder="Password" name="password" id="password_regis"/> </div>
                                 </div>
                                 <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label" style="color:black;font-style:italic;font-size:10px;">Upload Bukti SIAK-NG</label>
                                     <div class="input-icon">
                                         <i class="fa fa-file-o"></i>
-                                        <input class="form-control placeholder-no-fix" type="file" placeholder="Upload Bukti SIAK-NG" name="file_upload" /> </div>
+                                        <input class="form-control placeholder-no-fix" required type="file" placeholder="Upload Bukti SIAK-NG" name="file_upload" id="file_upload"/> </div>
                                 </div>
                                 {{-- <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label visible-ie8 visible-ie9">Re-Password</label>
@@ -252,28 +252,52 @@
                 });
                 $('#register-submit-btn').on('click',function(){
                     var email=$('#email_regis').val();
-                    $.ajax({
-                        url : '{{url("mahasiswa-by-email")}}/'+email,
-                        dataType : 'json',
-                        success : function(a)
-                        {
-                            // var count = Object.keys(a).length;
-                            if(a==null)
+                    var npm=$('#npm').val();
+                    var nama=$('#nama_lengkap').val();
+                    var departemen_id=$('#departemen_id').val();
+                    var jenjang=$('#program_studi').val();
+                    var password_regis=$('#password_regis').val();
+                    var file_upload=$('#file_upload').val();
+                    
+                    if(npm=='')
+                        swal("Peringatan", "NPM Harus Di Isi", "error")
+                    else if(nama=='')
+                        swal("Peringatan", "Nama Harus Di Isi", "error")
+                    else if(departemen_id==0)
+                        swal("Peringatan", "Departemen Harus Dipilih", "error")
+                    else if(jenjang==0)
+                        swal("Peringatan", "Program Studi", "error")
+                    else if(email=="")
+                        swal("Peringatan", "Email Wajib Diisi", "error")
+                    else if(password_regis=="")
+                        swal("Peringatan", "Silahkan Isi Password", "error")
+                    else if( document.getElementById("file_upload").files.length == 0 )
+                        swal("Peringatan", "Silahkan Pilih File Bukti SIAK NG", "error")
+                    else
+                    {
+                        $.ajax({
+                            url : '{{url("mahasiswa-by-email")}}/'+email,
+                            dataType : 'json',
+                            success : function(a)
                             {
-                                //alert(a.nama);
-                                //$().
-                                $('#register-form').submit();
-                            }
-                            else
-                            {
-                                
-                                $('#nama').val(a.nama);
-                                $('#email').val(a.email);
-                                $('#hp').val(a.hp);
-                                swal("Sudah Terdaftar", "Email Sudah Terdaftar Sebleumnya, Silahkan Gunakan Email Lain", "success")
-                            }
-                        }    
-                    });
+                                // var count = Object.keys(a).length;
+                                if(a==null)
+                                {
+                                    //alert(a.nama);
+                                    //$().
+                                    $('#register-form').submit();
+                                }
+                                else
+                                {
+                                    
+                                    $('#nama').val(a.nama);
+                                    $('#email').val(a.email);
+                                    $('#hp').val(a.hp);
+                                    swal("Sudah Terdaftar", "Email Sudah Terdaftar Sebleumnya, Silahkan Gunakan Email Lain", "success")
+                                }
+                            }    
+                        });
+                    }
                 });
             })
 
