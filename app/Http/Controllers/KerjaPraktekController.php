@@ -661,6 +661,24 @@ class KerjaPraktekController extends Controller
     //---------Cetak Berkas-----------
     public function cetak_berkas($code_grup,$kat_user,$jenis)
     {
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        $mhs=array();
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+            $mhs=Mahasiswa::find(Auth::user()->id_user);
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+
         $berkas=array('Surat Keterangan / Penghantar KP','Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Indonesia','Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Inggris','Form Asistensi Bimbingan Dosen','Form Asistensi Bimbingan Lapangan (Log Book)','Upload Surat Balasan Dari Perusahaan','Upload Surat Pernyataan Selesai KP Dari Perusahaan','Cetak Undangan Sidang');
         $brks=array();
         foreach($berkas as $k=>$v)
@@ -671,7 +689,7 @@ class KerjaPraktekController extends Controller
 
         $grup=KelompokKP::where('code',$code_grup)->with('mahasiswa')->get();
         $info=InformasiKP::where('grup_id',$code_grup)->get();
-        $prod=ProgamStudi::where('departemen_id',$grup->first()->departemen_id)->get();
+        $prod=ProgamStudi::where('departemen_id',$dept_id)->get();
         $prodi=$inf=array();
         foreach($info as $k=>$v)
         {
@@ -688,21 +706,6 @@ class KerjaPraktekController extends Controller
             $pbb[$v->kategori][]=$v;
         }
         
-
-        $level=Auth::user()->kat_user;
-        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
-        $dept_id=0;
-        $mhs=array();
-        if($level==3)
-        {
-            $dept_id=$user->mahasiswa->departemen_id;
-            $mhs=Mahasiswa::find(Auth::user()->id_user);
-        }
-        elseif($level==1)
-        {
-            $dept_id=$user->staf->departemen_id;
-        }
-
         $pimp=MasterPimpinan::where('departemen_id',$dept_id)->get();
         $pimpinan=array();
         foreach($pimp as $k=>$v)
