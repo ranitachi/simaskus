@@ -694,7 +694,7 @@ class KerjaPraktekController extends Controller
             $det=KerjaPraktek::where('id',$idkp)
                     ->with('jenispengajuan')
                     ->with('tahunajaran')
-                    ->with('mahasiswa')->first();
+                    ->with('mahasiswa')->get();
         }
         // return $det;
 
