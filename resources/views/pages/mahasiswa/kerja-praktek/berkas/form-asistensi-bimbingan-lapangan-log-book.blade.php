@@ -115,7 +115,7 @@
         <table style="width:85%;border:1px solid #111;margin:10px auto 0 auto;font-size:12px;font-family:Arial, Helvetica, sans-serif;" border="1" cellpadding="2">
             <tr>
                 <td>Nama Lengkap</td>
-                <td>{{$mhs->nama}}</td>
+                <td>{{isset($mhs->nama) ? $mhs->nama : '________________________'}}</td>
                 <td rowspan="5" style="text-align:center">
                     @if (isset(Auth::user()->foto))
                         @if (Auth::user()->foto!='')   
