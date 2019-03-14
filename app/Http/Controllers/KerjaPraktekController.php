@@ -691,7 +691,7 @@ class KerjaPraktekController extends Controller
         $det=array();
         if($idmhs!=null)
         {
-            $det=KerjaPraktek::where('id',$id)
+            $det=KerjaPraktek::where('id',$idmhs)
                     ->with('jenispengajuan')
                     ->with('tahunajaran')
                     ->with('mahasiswa')->first();

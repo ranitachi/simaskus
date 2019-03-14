@@ -4,17 +4,17 @@
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-6 control-label" for="form_control_1">Surat Keterangan / Penghantar KP</label>
                 <div class="col-md-4">
-                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Keterangan / Penghantar KP'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
+                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Keterangan / Penghantar KP').'/'.$id)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-6 control-label" for="form_control_1">Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan</label>
                 <div class="col-md-4">
-                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Indonesia'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
+                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Indonesia').'/'.$id)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                     <img src="{{asset('img/bendera_indonesia.png')}}" style="height:20px;">
                     &nbsp;&nbsp; <br>
-                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Inggris'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
+                    <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Permohonan Izin KP/Surat Balasan Untuk Perusahaan Inggris').'/'.$id)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                     <img src="{{asset('img/bendera_inggris.png')}}" style="height:20px;">
                 </div>
                 <div class="col-md-2">&nbsp;</div>
@@ -22,14 +22,14 @@
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-6 control-label" for="form_control_1">Form Asistensi Bimbingan Dosen</label>
                 <div class="col-md-4">
-                     <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Form Asistensi Bimbingan Dosen'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
+                     <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Form Asistensi Bimbingan Dosen').'/'.$id)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-6 control-label" for="form_control_1">Form Asistensi Bimbingan Lapangan (Log Book)</label>
                 <div class="col-md-4">
-                     <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Form Asistensi Bimbingan Lapangan (Log Book)'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
+                     <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Form Asistensi Bimbingan Lapangan (Log Book)').'/'.$id)}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
