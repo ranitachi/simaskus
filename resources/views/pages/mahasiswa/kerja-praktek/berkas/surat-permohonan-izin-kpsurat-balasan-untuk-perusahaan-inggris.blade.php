@@ -58,14 +58,23 @@
                             <th align="center">Student Number</th>
                             <th align="center">Programm</th>
                         </tr>
-                        @foreach ($grup as $k=>$v)
+                        @if ($code_grup!=-1)                        
+                        @foreach ($grup as $item)
                             <tr>
-                                <td align='center'>{{$v->mahasiswa->nama}}</td>
-                                <td align='center'>{{$v->mahasiswa->npm}}</td>
-                                <td align='center'>{{$v->mahasiswa->programstudi->nama_program_studi}}</td>       
+                                <td align="center">{{$item->mahasiswa->nama}}</td>
+                                <td align="center">{{$item->mahasiswa->npm}}</td>
+                                <td align="center">{{$prodi[$item->mahasiswa->program_studi_id]->nama_program_studi}}</td>
                             </tr>
-                            
                         @endforeach
+                    @else
+                        @foreach ($det as $item)
+                            <tr>
+                                <td align="center">{{$item->mahasiswa->nama}}</td>
+                                <td align="center">{{$item->mahasiswa->npm}}</td>
+                                <td align="center">{{$prodi[$item->mahasiswa->program_studi_id]->nama_program_studi}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
