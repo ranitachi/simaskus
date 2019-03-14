@@ -46,7 +46,7 @@
                         <th align="center"><u>NPM</u><br /><i>Student Number</i></th>
                         <th align="center"><u>Program Studi</u><br /><i>Program</i></th>
                     </tr>
-                    @if ($grup->count()!=0)                        
+                    @if (count($grup)!=0)                        
                         @foreach ($grup as $item)
                             <tr>
                                 <td align="center">{{$item->mahasiswa->nama}}</td>
