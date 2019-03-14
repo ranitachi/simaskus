@@ -760,6 +760,7 @@ class KerjaPraktekController extends Controller
             $data['dosen']=$dosen;
             $data['inf']=$inf;
             $data['det']=$det;
+            $data['code_grup']=$code_grup;
             $data['pimpinan']=$pimpinan;
             $data['prodi']=$prodi;
             $pdf = PDF::loadView($view,$data);
@@ -776,6 +777,7 @@ class KerjaPraktekController extends Controller
                 ->with('det',$det)
                 ->with('mhs',$mhs)
                 ->with('dosen',$dosen)
+                ->with('code_grup',$code_grup)
                 ->with('inf',$inf)
                 ->with('pimpinan',$pimpinan)
                 ->with('prodi',$prodi);
