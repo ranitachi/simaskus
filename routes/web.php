@@ -299,7 +299,7 @@ Route::post('anggota-kelompok-proses/{idgrup}/{id}','KerjaPraktekController@angg
 Route::post('pembimbing-proses/{idgrup}/{id}','KerjaPraktekController@pembimbing_proses')->middleware('auth');
 Route::get('data-kp-hapus-pembimbing/{id}/{kat_user}/{idp}','KerjaPraktekController@hapus_pembimbing')->middleware('auth');
 
-Route::get('cetak-berkas/{code_grup}/{kat_user}/{jenis}','KerjaPraktekController@cetak_berkas')->middleware('auth');
+Route::get('cetak-berkas/{code_grup}/{kat_user}/{jenis}/{idmhs?}','KerjaPraktekController@cetak_berkas')->middleware('auth');
 Route::post('upload-balasan-kp','KerjaPraktekController@upload_balasan_kp')->middleware('auth');
 Route::post('upload-selesai-kp','KerjaPraktekController@upload_selesai_kp')->middleware('auth');
 Route::get('data-kp-mulai/{code}','KerjaPraktekController@data_kp_mulai')->middleware('auth');
