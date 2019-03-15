@@ -167,11 +167,15 @@
     {
         $('.modal-title').text('Form Daftar Perbaikan');
         $('.modal-body').load('{{url("daftar-perbaikan-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id,function(){
+            var startDate = new Date();
+            startDate.setDate(startDate.getDate(new Date()));
+            
             $('.date-picker').datepicker({
                 rtl: App.isRTL(),
                 orientation: "left",
                 autoclose: true
             });
+            $('.date-picker').datepicker('setStartDate', startDate);
         });
         $('#ajax').modal('show');
 

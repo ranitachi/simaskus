@@ -194,7 +194,8 @@ class PenilaianControllerStaf extends Controller
     }
 
     public function perbaikan($idjadwal,$idpengajuan,$iddosen)
-    {list($kategori,$iddosen)=explode('-',$request->pembimbing_id);
+    {
+        // list($kategori,$iddosen)=explode('-',$request->pembimbing_id);
         list($kategori,$iddosen)=explode('-',$iddosen);
         $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->first();
         $jadwal=Jadwal::select('*',DB::raw('pivot_jadwal.id as pj_id'))
@@ -232,7 +233,8 @@ class PenilaianControllerStaf extends Controller
         // dd($request->all());
         list($tgl,$bln,$thn)=explode('-',$request->start_date);
         $date=$thn.'-'.$bln.'-'.$tgl;
-        list($kategori,$iddosen)=explode('-',$request->pembimbing_id);
+        // list($kategori,$iddosen)=explode('-',$request->pembimbing_id);
+        $iddosen=$request->pembimbing_id;
         $dt['jadwal_id'] = $request->jadwal_id;
         $dt['mahasiswa_id'] = $request->mahasiswa_id;
         $dt['pembimbing_id'] = $iddosen;
