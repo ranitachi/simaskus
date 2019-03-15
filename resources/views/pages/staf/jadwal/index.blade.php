@@ -63,11 +63,12 @@
             $('#alert-msg').html("{{Session::get('gagal')}}");
             $('#pesan-alert').show();
         }
-
+        
         $('#daterangerpicker').daterangepicker({
             locale: {
                 format: 'DD/MM/YYYY'
-            }
+            },
+            minDate: moment()
         });
     });
     function setujumanager(idpengajuan,idmahasiswa)

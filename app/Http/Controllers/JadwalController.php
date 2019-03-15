@@ -378,11 +378,11 @@ class JadwalController extends Controller
         
         // echo $date1.'-'.$date2;
         // dd($reqeuest->all());
-
+        // return $date1.'-'.$date2;
         $dept=MasterDepartemen::find($dept_id);
         $idta=$reqeuest->tahunajaran_id;
-        // $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_sidang',1)->get();
         $tanggal=$tgl=array();
+        // $kalender=KalenderAkademik::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_sidang',1)->get();
         // foreach($kalender as $k=>$v)
         // {
         //     $tanggal[]=createDateRange($v->start_date,$v->end_date);
@@ -409,6 +409,12 @@ class JadwalController extends Controller
         }
         
         $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('tahunajaran_id',$idta)->where('status_pengajuan',1)->get();
+        $peng=$idpeng=array();
+        foreach($pengajuan as $k => $v)
+        {
+            $peng[$v->id]=$v;
+            $idpeng[$v->id]=$v->id;
+        }
 
         $izin=IzinDosen::where('status',1)->get();
         $iz=array();
@@ -436,60 +442,71 @@ class JadwalController extends Controller
         }
 
         // dd($p_jdwl);
-
+        foreach($tgl as $tg)
+        {
+            $idpengajuan=array_search(array_rand($idpeng),$idpeng);
+            
+            // echo $idpengajuan.'-';
+        }
+        // return $peng;
         if(count($tgl)!=0)
         {
             foreach($pengajuan as $kp => $vp)
             {
-                // $p_aju=Pengajuan::find($vp->id);
-                $vp->status_pengajuan=2;
-                $vp->save();
-
-                $idmhs=$vp->mahasiswa_id;
-                $mhs=Mahasiswa::find($idmhs);
-                // $idjadwal=$p_jdwl[$idmhs][0];
-                $date=array_rand($tgl);
-                $ruang=array_rand($d_ruang);
-                // dd($idjadwal);
-                $r=explode('__',$d_ruang[$ruang]);
-
-                $waktu=array_rand(waktu(),1);
-                $wkt=waktu();
-                // $jadw=Jadwal::find($idjadwal->id);
-                $jadw=new Jadwal;
-                $jadw->ruangan_id=$r[0];
-                $jadw->departemen_id=$dept_id;
-                $jadw->tanggal=$date;
-                $jadw->hari=date('D',strtotime($date));
-                $jadw->waktu=$wkt[$waktu];
-                $jadw->save();
-
-
-                // $piv_jad=PivotJadwal::where('jadwal_id',$jadw->id)->first();
-                $piv_jad=new PivotJadwal;
-                $piv_jad->jadwal_id=$jadw->id;
-                $piv_jad->ruangan_id=$r[0];
-                $piv_jad->mahasiswa_id=$idmhs;
-                $piv_jad->judul_id=$vp->id;
-                $piv_jad->status=0;
-                $piv_jad->save();
-
-                foreach($p_uji[$vp->id] as $ku=>$vu)
+                if(isset($p_uji[$vp->id]))
                 {
-                    $user=Users::where('id_user',$ku)->first();
-                    $notif=new Notifikasi;
-                    $notif->title="Jadwal Menguji Sidang";
-                    $notif->from=Auth::user()->id;
-                    $notif->to=$user->id;
-                    $notif->flag_active=1;
-                    $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
-                    <br>Ruangan : ".$r[1]." - ".$r[2];
-                    $notif->save();
-                }
+                    // $p_aju=Pengajuan::find($vp->id);
+                    $vp->status_pengajuan=2;
+                    $vp->save();
 
-                // dd($ruang);
-            }
-            return redirect('data-jadwal/2')->with('status','Jadwal Sidang Berhasil Di Generate');
+                    $idmhs=$vp->mahasiswa_id;
+                    $mhs=Mahasiswa::find($idmhs);
+                    // $idjadwal=$p_jdwl[$idmhs][0];
+                    $date=array_rand($tgl);
+                    $ruang=array_rand($d_ruang);
+                    // dd($idjadwal);
+                    $r=explode('__',$d_ruang[$ruang]);
+
+                    $waktu=array_rand(waktu2(),1);
+                    $wkt=waktu2();
+                    // $jadw=Jadwal::find($idjadwal->id);
+                    $jadw=new Jadwal;
+                    $jadw->ruangan_id=$r[0];
+                    $jadw->departemen_id=$dept_id;
+                    $jadw->tanggal=$date;
+                    $jadw->hari=date('D',strtotime($date));
+                    $jadw->waktu=$wkt[$waktu];
+                    $jadw->save();
+
+
+                    // $piv_jad=PivotJadwal::where('jadwal_id',$jadw->id)->first();
+                    $piv_jad=new PivotJadwal;
+                    $piv_jad->jadwal_id=$jadw->id;
+                    $piv_jad->ruangan_id=$r[0];
+                    $piv_jad->mahasiswa_id=$idmhs;
+                    $piv_jad->judul_id=$vp->id;
+                    $piv_jad->status=0;
+                    $piv_jad->save();
+
+                    
+                        foreach($p_uji[$vp->id] as $ku=>$vu)
+                        {
+                            $user=Users::where('id_user',$ku)->first();
+                            $notif=new Notifikasi;
+                            $notif->title="Jadwal Menguji Sidang";
+                            $notif->from=Auth::user()->id;
+                            $notif->to=$user->id;
+                            $notif->flag_active=1;
+                            $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
+                            <br>Ruangan : ".$r[1]." - ".$r[2];
+                            $notif->save();
+                        }
+                    
+
+                    // dd($ruang);
+                    }
+                }
+                return redirect('data-jadwal/2')->with('status','Jadwal Sidang Berhasil Di Generate');
         }
         else
         {
@@ -518,7 +535,7 @@ class JadwalController extends Controller
     {
 
     }
-    public function pengajuan_sidang_staf_kp_data()
+    public function pengajuan_sidang_kp_form($id)
     {
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
@@ -529,6 +546,109 @@ class JadwalController extends Controller
         elseif(Auth::user()->kat_user==2)
         {
             $dept_id=$user->dosen->departemen_id;
+        }
+        // dd( $dept_id);
+        $kelompok_kp=KelompokKP::where('departemen_id',$dept_id)->get();
+        $klp=$mhs_id=array();
+        foreach($kelompok_kp as $kkp=>$vkp)
+        {
+            $klp[$vkp->code][]=$vkp;
+            $mhs_id[$vkp->code][]=$vkp->mahasiswa_id;
+        }
+        $jadwalkp=array();
+        if($id!=-1)
+        {
+            list($idjadwal,$id_grup)=explode('__',$id);
+            $pengajuan=KerjaPraktek::whereIn('mahasiswa_id',$mhs_id[$id_grup])
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->orderBy('created_at')
+                        ->get();
+
+            $jadwalkp=JadwalSidangKP::find($idjadwal);
+        }
+        else
+        {
+            $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        ->where('status_kp',2)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->orderBy('created_at')
+                        ->get();
+        }
+        // return $pengajuan;
+        // dd($pengajuan);
+        $kpp=array();
+        foreach($pengajuan as $kp => $vp)
+        {
+            // print_r($vp);
+            $kpp[$vp->mahasiswa_id]=$vp;
+        }
+
+       
+
+        $penguji=PivotPenguji::with('dosen')->get();
+        $uji=array();
+        foreach($penguji as $k => $v)
+        {
+            $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
+        }
+
+        $pivot=PembimbingKP::all();
+        $piv=array();
+        foreach($pivot as $k =>$v)
+        {
+            $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+        }
+
+        $info=InformasiKP::where('departemen_id',$dept_id)->get();
+        $infokp=array();
+        foreach($info as $kg=>$vg)
+        {          
+            $infokp[$vg->grup_id][str_slug($vg->judul)]=$vg;
+        }
+        
+        $pembimbing=PembimbingKP::where('kategori','like','dosen')->with('dosen')->get();
+        $pemb=array();
+        foreach($pembimbing as $k=>$vv)
+        {
+            $pemb[$vv->grup_id][$vv->dosen_id]=$vv;     
+        }
+
+        $ruangan=MasterRuangan::where('departemen_id',$dept_id)->get();
+        // dd($infokp);
+        // return $klp;
+        $waktu=waktu();
+        return view('pages.staf.kerja-praktek.jadwal-sidang.form')
+                    ->with('pengajuan',$kpp)
+                    ->with('uji',$uji)
+                    ->with('klp',$klp)
+                    ->with('infokp',$infokp)
+                    ->with('jadwalkp',$jadwalkp)
+                    ->with('ruangan',$ruangan)
+                    ->with('waktu',$waktu)
+                    ->with('id',$id)
+                    ->with('pemb',$pemb)
+                    ->with('piv',$piv);
+       
+    }
+    public function pengajuan_sidang_staf_kp_data()
+    {
+        $user=Users::where('id',Auth::user()->id)->with('staf')->with('dosen')->with('mahasiswa')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
         }
         // dd( $dept_id);
         $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
@@ -648,5 +768,135 @@ class JadwalController extends Controller
                     ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
 
         return view('pages.staf.jadwal.berkas.'.$jenis,compact('jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
+    }
+
+    public function simpan_jadwal_sidang_kp(Request $request,$all_one,$id,$idkp=null)
+    {
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+
+        if($all_one=='one')
+        {
+            // return $request->all();
+            $idgrup=$request->idgrup;
+            $ruangan=$request->ruangan;
+            $tanggal=$request->tanggal;
+            $waktu=$request->waktu;
+            
+            list($tgl,$bln,$thn)=explode('-',$tanggal);
+            $date=$thn.'-'.$bln.'-'.$tgl;
+            $hari=hari(date('D',strtotime($date)));
+
+            if($id!=-1)
+            {
+                list($idjadwal,$grupid)=explode('__',$id);
+                $insert=JadwalSidangKP::find($idjadwal);
+                $insert->id_grup=$idgrup;
+                $insert->ruangan_id=$ruangan;
+                $insert->departemen_id=$dept_id;
+                $insert->tanggal=$date;
+                $insert->waktu=$waktu;
+                $insert->hari=$hari;
+                $c=$insert->save();
+            }
+            else
+            {
+                $insert=new JadwalSidangKP;
+                $insert->id_grup=$idgrup;
+                $insert->ruangan_id=$ruangan;
+                $insert->departemen_id=$dept_id;
+                $insert->tanggal=$date;
+                $insert->waktu=$waktu;
+                $insert->hari=$hari;
+                $c=$insert->save();
+            }
+
+            if($idkp!=null)
+            {
+                $kp=KerjaPraktek::find($idkp);
+                $kp->status_kp=10;
+                $kp->save();
+
+            }
+
+            if($c)
+                $data['status']=1;
+            else
+                $data['status']=0;
+
+            return $data;
+        }
+        elseif($all_one=='all')
+        {
+            $tanggal=$request->tanggal_sidang;
+            $ruangan=$request->ruangan_id;
+            $waktu=$request->waktu;
+            $idkp=$request->idkp;
+            foreach($tanggal as $idgrup=>$v)
+            {
+                list($tgl,$bln,$thn)=explode('-',$v);
+                $date=$thn.'-'.$bln.'-'.$tgl;
+                $hari=hari(date('D',strtotime($date)));
+
+                $ruangan_id=$ruangan[$idgrup];
+                $wkt=$waktu[$idgrup];
+                $insert=new JadwalSidangKP;
+                $insert->id_grup=$idgrup;
+                $insert->departemen_id=$dept_id;
+                $insert->ruangan_id=$ruangan_id;
+                $insert->tanggal=$date;
+                $insert->waktu=$wkt;
+                $insert->hari=$hari;
+                $insert->save();
+                $idk=$idkp[$idgrup];
+                if($idk!='')
+                {
+                    $kp=KerjaPraktek::find($idk);
+                    $kp->status_kp=10;
+                    $kp->save();
+                }
+            }
+            return redirect('data-jadwal-kp')->with('pesan','Generate Jadwal Berhasil Di Lakukan');
+        }
+    }
+    public function publish_kp($idjadwal)
+    {
+        if($idjadwal==-1)
+        {
+            $jadwal=JadwalSidangKP::whereNull('publish_date')->get();
+            foreach($jadwal as $k)
+            {
+                $k->publish_date=date('Y-m-d H:i:s');
+                $k->save();
+            }
+            return redirect('data-jadwal-kp')
+                    ->with('status','Jadwal Sidang KP Sudah Di Publish')
+                    ->with('pesan','Jadwal Sidang KP Sudah Di Publish');
+        }
+        else
+        {
+            $jadwal=JadwalSidangKP::find($idjadwal);
+            $jadwal->publish_date=date('Y-m-d H:i:s');
+            $c=$jadwal->save();
+            if($c)
+                echo 1;
+            else
+                echo 0;
+        }
+    }
+
+    public function hapusjadwalkp($idjadwal)
+    {
+        $jadwal=JadwalSidangKP::find($idjadwal);
+        $c=$jadwal->delete();
+        if($c)
+            echo 1;
+        else
+            echo 0;
+        
     }
 }

@@ -35,13 +35,19 @@
             </thead>
             
             <tbody>
+            @php
+                $no=0;
+            @endphp
             @foreach ($pengajuan as $i => $v)
             {{-- @if (count($jadwal) != 0) --}}
                 @php
                     $idpengajuan=$v->id;
-                @endphp
+                    $no++;
+
+                    @endphp
+                @if(isset($jadwal[$v->id]))
                 <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
+                    <td>{{($no)}}</td>
                     <td>
                         <b>{{$v->mahasiswa->nama}}</b><br>
                         {{$v->mahasiswa->npm}}<br>
@@ -227,7 +233,8 @@
                     </td>
                    
                 </tr>
-            {{-- @endif --}}
+                
+            @endif
             @endforeach                
             </tbody>
         </table>

@@ -66,7 +66,7 @@
             url : '{{url("quota-penguji")}}/'+id,
             success: function(html){
                 bootbox.confirm({
-                    title: "Form Quota Bimgbingan",
+                    title: "Form Quota Penguji",
                     message: html,
                     buttons: {
                         cancel: {

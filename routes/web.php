@@ -308,10 +308,13 @@ Route::get('data-kp-selesai/{code}','KerjaPraktekController@data_kp_selesai')->m
 // data-pengajuan-sidang-kp
 //Pengajuan Sidang
 Route::get('data-jadwal-kp','JadwalController@pengajuan_sidang_kp')->middleware('auth');
+Route::get('data-jadwal-kp-form/{id}','JadwalController@pengajuan_sidang_kp_form')->middleware('auth');
 Route::get('data-pengajuan-sidang-kp','JadwalController@pengajuan_sidang_staf_kp')->middleware('auth');
 Route::get('data-pengajuan-sidang-kp-data','JadwalController@pengajuan_sidang_staf_kp_data')->middleware('auth');
 Route::get('pengajuan-sidang-kp-verifikasi/{id}','JadwalController@pengajuan_sidang_verifikasi_kp')->middleware('auth');
-Route::post('jadwal-sidang-kp-simpan/{idgrup}','KerjaPraktekController@simpan_jadwal_sidang_kp')->middleware('auth');
+Route::get('publish-kp/{idjadwal}','JadwalController@publish_kp')->middleware('auth');
+Route::get('hapusjadwalkp/{idjadwal}','JadwalController@hapusjadwalkp')->middleware('auth');
+Route::post('jadwal-sidang-kp-simpan/{all_one}/{id}/{idkp?}','JadwalController@simpan_jadwal_sidang_kp')->middleware('auth');
 
 //Acc Sidang
 Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@simpan_form_evaluasi_skipsi')->middleware('auth');

@@ -48,6 +48,14 @@
             @foreach ($pengajuan as $i => $v)
                 @php
                     $idpengajuan=$v->id;
+                    if(isset($grupkp[$v->mahasiswa_id]))
+                    {
+                        // $idgrup=$grupkp[$v->mahasiswa_id]->code;
+                        $idgrup=key($grupkp[$v->mahasiswa_id]);
+                        if(isset($jadwal[$idgrup]))
+                            continue;
+                        // break;
+                    }
                 @endphp
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>

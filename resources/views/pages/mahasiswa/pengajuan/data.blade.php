@@ -51,9 +51,9 @@
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))
                                 <small><u>Pembimbing {{$key+1}}</u></small><br>
-                                   @if ($item->status==1)
+                                   @if ($item->status==1 && $item->status_fix==1)
                                         <i class="fa fa-check font-blue-steel"></i>
-                                    @elseif($item->status==0)
+                                    @elseif($item->status==0 || $item->status_fix==0)
                                         <i class="fa fa-exclamation-circle font-red-thunderbird"></i>
                                     @endif
                                 
