@@ -192,7 +192,7 @@ class MahasiswaAdminController extends Controller
     {
         // $id=$request->idmhs;
         $users=Users::where('kat_user',3)->where('id_user',$id)->first();
-        $users->status_mahasiswa=1;
+        $users->flag=1;
         $simpan=$users->save();
 
         $notif=new Notifikasi;

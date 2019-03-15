@@ -202,8 +202,7 @@ class PengajuanBimbinganController extends Controller
                     $accsid->save();
                 }
             }
-            return redirect('daftar-bimbingan')->with('status','Pengajuan Sidang Mahasiswa '.$mhs->nama.' Telah Disetujui');
-            
+            // return redirect('daftar-bimbingan')->with('status','Pengajuan Sidang Mahasiswa '.$mhs->nama.' Telah Disetujui');
         }
 
         return view('pages.dosen.bimbingan.detail',compact('mhs','jenis','pengajuan','mp','jenis','id','mahasiswa_id','penilaian','ev','acc','eval','dosen','q_penguji','piv_uji','dept_id'));
