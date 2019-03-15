@@ -51,8 +51,9 @@ class DosenController extends Controller
         if ($request->hasFile('foto')) {
             $user=Users::where('id_user',$mh->id)->where('kat_user',2)->first();
             $val_foto=$request->foto;
-            $val_foto->storeAs('foto_dosen',$val_foto->getClientOriginalName());
+            $val_foto->storeAs('public/foto_dosen',$val_foto->getClientOriginalName());
             $foto='foto_dosen/'.$val_foto->getClientOriginalName();
+            // $foto='foto_dosen/'.$val_foto->getClientOriginalName();
             
             $user->foto=$foto;
             $user->save();

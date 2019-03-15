@@ -83,8 +83,9 @@ class MahasiswaController extends Controller
         if ($request->hasFile('foto')) {
             $user=Users::where('id_user',$mh->id)->where('kat_user',3)->first();
             $val_foto=$request->foto;
-            $val_foto->storeAs('foto_mhs',$val_foto->getClientOriginalName());
+            $val_foto->storeAs('public/foto_mhs',$val_foto->getClientOriginalName());
             $foto='foto_mhs/'.$val_foto->getClientOriginalName();
+            // $foto='foto_mhs/'.$val_foto->getClientOriginalName();
             
             $user->foto=$foto;
             $user->save();

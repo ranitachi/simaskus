@@ -28,7 +28,8 @@
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic" >
                     @if (Auth::user()->foto!='')
-                        <img src="{{url('showgambar/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
+                        {{-- <img src="{{url('showgambar/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;"> --}}
+                        <img src="{{asset('storage/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
                     @else
                         <img src="{{asset('img/dosen.png')}}" class="img-responsive" alt=""> 
                     @endif
