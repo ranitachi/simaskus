@@ -54,6 +54,7 @@ class StafController extends Controller
             $user=Users::where('id_user',$mh->id)->where('kat_user',1)->first();
             $val_foto=$request->foto;
             $val_foto->storeAs('foto_staf',$val_foto->getClientOriginalName());
+            // $foto='public/foto_staf/'.$val_foto->getClientOriginalName();
             $foto='foto_staf/'.$val_foto->getClientOriginalName();
             
             $user->foto=$foto;

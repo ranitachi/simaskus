@@ -41,9 +41,9 @@
                         <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
                         <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                         <td>
-                            {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+                            {!! $user[3][$v->id]->status_mahasiswa ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
 
-                            @if ($user[3][$v->id]->flag==0 )
+                            @if ($user[3][$v->id]->status_mahasiswa==0 )
                                 <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
                             @endif
                         </td>
