@@ -101,7 +101,7 @@ class KerjaPraktekController extends Controller
                 }
             }
 
-            
+            // return $grupkp;
             // dd($grupkp);
             return view('pages.mahasiswa.kerja-praktek.data')
                     ->with('pengajuan',$pengajuan)
@@ -147,6 +147,7 @@ class KerjaPraktekController extends Controller
                 $infokp[$vg->grup_id][str_slug($vg->judul)]=$vg;
             }
             // dd($infokp);
+            // return $jadwal;
             return view('pages.staf.kerja-praktek.data')
                     ->with('pengajuan',$pengajuan)
                     ->with('ketua',$ketua)

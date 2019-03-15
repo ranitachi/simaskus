@@ -82,7 +82,7 @@
     </a>
     <ul class="sub-menu">
         <li class="nav-item  ">
-            <a href="form_controls.html" class="nav-link ">
+            <a href="{{url('data-kp')}}" class="nav-link ">
                 <span class="title">Data Kerja Praktek</span>
             </a>
         </li>
@@ -92,8 +92,8 @@
             </a>
         </li> --}}
         <li class="nav-item  ">
-            <a href="form_validation.html" class="nav-link ">
-                <span class="title">Jadwal Kerja Praktek</span>
+            <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
+                <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
         </li>
     </ul>

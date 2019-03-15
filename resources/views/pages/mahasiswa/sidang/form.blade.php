@@ -130,7 +130,7 @@
                                         @else
                                             <label class="control-label">Upload Dokumen (.doc)</label>
                                         @endif
-                                        <input type="file" name="dokumen['dokumen_doc']" id="documen_doc" class="form-control"><br>
+                                        <input type="file" name="dokumen['dokumen_doc']" accept=".doc,.docx" id="documen_doc" class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="col-md-4"> 
@@ -144,13 +144,13 @@
                                         @else
                                             <label class="control-label">Upload Dokumen (.pdf)</label>
                                         @endif
-                                        <input type="file" name="dokumen['dokumen_pdf']" id="documen_pdf" class="form-control"><br>
+                                        <input type="file" name="dokumen['dokumen_pdf']" id="documen_pdf" accept=".pdf" class="form-control"><br>
                                     </div>
                                 </div>
                                 <div class="col-md-4"> 
                                     <div class="form-group has-success">
                                         <label class="control-label">Upload Dokumen (.ppt *optional)</label>
-                                        <input type="file" name="dokumen['dokumen_ppt']" id="documen_ppt" class="form-control"><br>
+                                        <input type="file" name="dokumen['dokumen_ppt']" id="documen_ppt" accept=".ppt,.pptx" class="form-control"><br>
                                     </div>
                                 </div>
 

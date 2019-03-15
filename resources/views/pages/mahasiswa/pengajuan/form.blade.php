@@ -343,7 +343,12 @@
 </div>
 @endsection
 @section('footscript')
-
+<style>
+.select2-selection__choice
+{
+    margin-bottom:20px !important;
+}
+</style>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js')}}" type="text/javascript"></script>
 <script>

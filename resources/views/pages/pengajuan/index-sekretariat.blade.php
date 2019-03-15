@@ -62,6 +62,10 @@
                     </thead>
                     <tbody>
                         @foreach ($pengajuan as $k => $v)
+                            @php
+                                if(isset($jdwl[$v->id]))
+                                    continue;
+                            @endphp
                             <tr>
                                 <td>{{++$k}}</td>
                                 <td class="text-center">{{ tgl_indo2($v->created_at)}}</td>
@@ -69,7 +73,8 @@
                                 <td>
                                     <b>{{$v->mahasiswa->nama}}</b><br>
                                     NPM : {{ ($v->mahasiswa->npm)}}<br>
-                                    {{$v->mahasiswa->programstudi->nama_program_studi}}
+                                    {{$v->mahasiswa->programstudi->nama_program_studi}}<br>
+                                    T.A : {{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}
                                 </td>
                                 <td> {{$v->topik_diajukan}}</td>
                                 <td> 

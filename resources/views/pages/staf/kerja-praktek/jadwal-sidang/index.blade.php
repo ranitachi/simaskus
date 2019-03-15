@@ -58,7 +58,21 @@
         $('#data').load('{{url("data-pengajuan-sidang-kp-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
+            $('.tooltips').tooltip();
         });
+    }
+    function publish(idjadwal)
+    {
+        $.ajax({
+                url : '{{url("/")}}/publish-kp/'+idjadwal,
+                success:function(res){
+                    loaddata();
+                    if(res==1)
+                        pesan('Jadwal Sudah Di Publish','success');
+                    else
+                        pesan('Jadwal Gagal Di Publish','error');
+                }
+            });
     }
     function setujui(id,jns)
     {
@@ -131,13 +145,16 @@
         function(isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : '{{url("pengajuan-hapus")}}/'+id,
-                    dataType : 'JSON'
-                }).done(function(){
-                    loaddata();
-                    swal("Deleted!", "Data Berhasil Di Hapus", "success");
-                }).fail(function(){
-                    swal("Fail!", "Hapus Data Gagal", "danger");
+                    url : '{{url("hapusjadwalkp")}}/'+id,
+                    success : function(res){
+                        if(res==1)
+                        {
+                            loaddata();
+                            swal("Deleted!", "Jadwal Berhasil Di Hapus", "success");
+                        }
+                        else
+                            swal("Fail!", "Hapus Jadwal Gagal", "error");
+                    }
                 });
             } 
         });

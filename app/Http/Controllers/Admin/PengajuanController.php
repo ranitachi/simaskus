@@ -12,6 +12,7 @@ use App\Model\Notifikasi;
 use App\Model\QuotaPembimbing;
 use App\Model\Users;
 use App\Model\Staf;
+use App\Model\Jadwal;
 use App\User;
 use Auth;
 class PengajuanController extends Controller
@@ -94,7 +95,20 @@ class PengajuanController extends Controller
         {
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
-        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id'));
+
+        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                    ->where('jadwals.departemen_id',$dept_id)
+                    ->with('ruangan')
+                    ->get();
+
+        // dd($pengajuan);
+        $jdwl=array();
+        foreach($jadwal as $kj=>$vjj)
+        {
+            $jdwl[$vjj->judul_id]=$vjj;
+        }
+
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','jdwl'));
     }
     public function detail($id)
     {
@@ -207,6 +221,7 @@ class PengajuanController extends Controller
                 $insert->judul_id=$krand;
                 $insert->status=$vrand[$iddos]->status;
                 $insert->keterangan=$vrand[$iddos]->keterangan;
+                $insert->status_fix=1;
                 $insert->save();
                 unset($vrand[$iddos]);
                 echo $qty.'-'.$c.'-'.$iddos.'<br>';

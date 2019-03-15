@@ -27,10 +27,13 @@
             </thead>
             
             <tbody>
+                @php
+                    $no=1;
+                @endphp
             @foreach ($component as $i => $v)
                 @if ($id==-1)
                     <tr class="odd gradeX">
-                        <td>{{(++$i)}}</td>
+                        <td>{{($no)}}</td>
                         <td>{{$v->module->jenis->jenis}} - {{$v->module->nama_module}}</td>
                         <td class="text-center">{{$v->code_component}}</td>
                         <td>{{$v->nama_component}}</td>
@@ -56,11 +59,15 @@
                             </div>
                         </td>
                     </tr>
+                    @php
+                        $no++;
+                    @endphp
                 @else
                     @if ($id==$v->module->jenis_id)
                         <tr class="odd gradeX">
-                            <td>{{(++$i)}}</td>
+                            <td>{{($no)}}</td>
                             <td>{{$v->module->jenis->jenis}} - {{$v->module->nama_module}}</td>
+                            <td class="text-center">{{$v->code_component}}</td>
                             <td>{{$v->nama_component}}</td>
                             <td class="text-center">
                             @if ($v->bobot_component!=0)
@@ -84,6 +91,9 @@
                                 </div>
                             </td>
                         </tr>
+                        @php
+                            $no++;
+                        @endphp
                     @endif
                 @endif
                 

@@ -86,11 +86,17 @@ class PengajuanSkripsiController extends Controller
     public function show($id)
     {
         $det=array();
+        $dept_id=0;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
         $mhs=Mahasiswa::find(Auth::user()->id_user);
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
-        $jenispengajuan=MasterJenisPengajuan::all();
+        $jenispengajuan=MasterJenisPengajuan::where('departemen_id',$dept_id)->get();
         if($id!=-1)
             $det=Pengajuan::where('id',$id)->with('mahasiswa')
                     ->with('dospem_1')
@@ -98,7 +104,7 @@ class PengajuanSkripsiController extends Controller
                     ->with('dospem_3')->first();
 
         
-
+        // return $jenispengajuan;
         return view('pages.mahasiswa.pengajuan.form')
                 ->with('judul',$judul)
                 ->with('det',$det)

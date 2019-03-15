@@ -199,7 +199,7 @@
                     </td>
                     <td class="text-center">
                         @php
-                            
+                            $st_acc_sidang=0;
                         @endphp
                         @if ($jadwal)  
                             @if ($jadwal->count()!=0)  

@@ -22,6 +22,7 @@
             @endphp
             @foreach ($pengajuan as $i => $v)
             @if (count($jadwal) != 0)
+                
                 @if (isset($v->jenispengajuan->keterangan))
                     
                     @php
