@@ -65,7 +65,7 @@
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     @if (Auth::user()->foto!='')
-                                        <img alt="" class="img-circle" src="{{url('showgambar/'.Auth::user()->foto)}}" />    
+                                        <img alt="" class="img-circle" src="{{asset('storage/'.Auth::user()->foto)}}" />    
                                     @else
                                         <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}" />
                                     @endif
