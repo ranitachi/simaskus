@@ -73,7 +73,7 @@
                                 <div class="tab-content">
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
-                                        <form role="form" action="{{url('simpan-profil-staf')}}" method="POST">
+                                        <form role="form" action="{{url('simpan-profil-staf')}}" method="POST" enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label class="control-label">Nama Lengkap</label>
