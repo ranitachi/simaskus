@@ -61,18 +61,20 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Tahun Ajaran</label>
+                                        <label class="control-label">Tahun Akademik</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Akademik" id="tahun_ajaran" name="tahun_ajaran">
                                             <option value="-1">-Pilih Tahun Akademik-</option>
                                             @foreach ($ta as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->tahunajaran_id==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
+                                                @if (strpos($v,date('Y'))!==false)
+                                                    @if ($id!=-1)
+                                                        @if ($det->tahunajaran_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                                     @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -407,7 +409,7 @@
 
             if(tahun_ajaran=='-1')
             {
-                pesan("Tahun Ajaran Harus Dipilih",'error');
+                pesan("Tahun Akademik Harus Dipilih",'error');
                 $('#tahun_ajaran').focus();
             }
             else if(jenis_id=='-1')

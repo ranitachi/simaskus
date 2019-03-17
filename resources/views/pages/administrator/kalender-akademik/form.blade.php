@@ -66,7 +66,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tahun Akademik</label>
-                                        <input type="text" id="tahun_akademik" name="tahun_akademik" class="form-control input-circle" placeholder="Tahun Ajaran" value="{{ $tahunajaran->tahun_ajaran}}">
+                                        <input type="text" id="tahun_akademik" name="tahun_akademik" class="form-control input-circle" placeholder="Tahun Akademik" value="{{ $tahunajaran->tahun_ajaran}}">
 
                                     </div>
                                 </div>

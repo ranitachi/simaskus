@@ -309,14 +309,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group has-success">
-                                    <label class="control-label">Tahun Ajaran</label>
+                                    <label class="control-label">Tahun Akademik</label>
                                     <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Tahun Akademik" id="tahunajaran_id" name="tahunajaran_id" required>
                                         <option value="-1">-Pilih Tahun Akademik-</option>
                                         @foreach ($ta as $k=>$v)
                                             <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                         @endforeach
                                     </select>
-                                    <span class="font-red" id="pesan-ta" style="display:none"><small>*Tahun Ajaran Harus Dipilih</small></span>
+                                    <span class="font-red" id="pesan-ta" style="display:none"><small>*Tahun Akademik Harus Dipilih</small></span>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="control-label">Durasi Waktu</label>

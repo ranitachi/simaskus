@@ -15,7 +15,8 @@
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^2.1",
         "nategood/httpful": "*",
-        "nesbot/carbon": "^1.24.1"
+        "nesbot/carbon": "^1.24.1",
+        "ristek/sso": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -62,3 +63,4 @@
         "optimize-autoloader": true
     }
 }
+

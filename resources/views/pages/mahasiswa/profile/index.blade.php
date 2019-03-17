@@ -138,7 +138,7 @@
                 <!-- END PERSONAL INFO TAB -->
                 <!-- CHANGE AVATAR TAB -->
                 <div class="tab-pane" id="tab_1_2">
-                    <form role="form" action="{{url('simpan-college-mhs')}}" method="POST">
+                    <form role="form" action="{{url('simpan-college-mhs')}}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="control-label">Nama Departemen</label>
@@ -184,9 +184,18 @@
                         <div class="form-group">
                             <label class="control-label">Bukti SIAK-NG</label><br>
                             @if ($profil->bukti_siak_ng!='')
-                                <a class="btn btn-xs btn-success" target="_blank" href="{{url('showgambar/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                                <a class="btn btn-xs btn-success" target="_blank" href="{{asset('storage/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                                <div class="form-group">
+                                    <label class="control-label">Upload Ulang Bukti SIAK-NG</label>
+                                    <input type="file" placeholder="Bukti SIAK-NG" class="form-control" name="siak_ng" accept=".png,.jpg,.jpeg,.pdf"/> 
+                                </div>
+                                {{-- <a class="btn btn-xs btn-success" target="_blank" href="{{url('showgambar/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a> --}}
                             @else
                                 <a class="btn btn-xs btn-danger" href="#">Belum Upload Bukti SIAK-NG</a>
+                                <div class="form-group">
+                                    <label class="control-label">Upload Bukti SIAK-NG</label>
+                                    <input type="file" placeholder="Bukti SIAK-NG" class="form-control" name="siak_ng" accept=".png,.jpg,.jpeg,.pdf"/> 
+                                </div>
                             @endif
                         </div>
                         {{-- <div class="form-group">

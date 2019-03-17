@@ -77,10 +77,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-8 col-md-offset-4">
-                        <input type="submit" class="btn btn-primary" value="Login">
+                    <div class="col-md-12 col-md-offset-2">
+                            <input type="submit" class="btn btn-primary" value="Login">
                         {{-- @if (isset($jenis))
                             @if ($jenis=='mahasiswa') --}}
+                            <a href="{{url('secret')}}" id="sso-btn" class="btn btn-info">
+                                Login SSO
+                            </a>
                             <button type="button" id="register-btn" class="btn btn-success">
                                 Register
                             </button>
@@ -156,6 +159,12 @@
                                     <div class="input-icon">
                                         <i class="fa fa-key"></i>
                                         <input class="form-control placeholder-no-fix" type="password" placeholder="Password" name="password" id="password_regis"/> </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:5px;">
+                                    <label class="control-label visible-ie8 visible-ie9">Configm Password</label>
+                                    <div class="input-icon">
+                                        <i class="fa fa-key"></i>
+                                        <input class="form-control placeholder-no-fix" type="password" placeholder="Confirm Password" name="c_password" id="c_password_regis"/> </div>
                                 </div>
                                 <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label" style="color:black;font-style:italic;font-size:10px;">Upload Bukti SIAK-NG</label>
@@ -245,11 +254,18 @@
                                 $('#nama').val(a.nama);
                                 $('#email').val(a.email);
                                 $('#hp').val(a.hp);
-                                swal("Sudah Terdaftar", "Akun Anda Sudah Terdaftar Sebleumnya, Silahkan Lakukan Login", "success")
+                                swal("Sudah Terdaftar", "Akun Anda Sudah Terdaftar Sebleumnya, Silahkan Lakukan Login", "error");
+                                $('#register-submit-btn').prop('disabled',true);
                             }
+                            else
+                                $('#register-submit-btn').prop('disabled',false);
                         }    
                     });
                 });
+                // $('#email_regis').on('blur',function(){
+                //     var email=$(this).val();
+                //     alert(email);
+                // });
                 $('#register-submit-btn').on('click',function(){
                     var email=$('#email_regis').val();
                     var npm=$('#npm').val();
@@ -257,6 +273,7 @@
                     var departemen_id=$('#departemen_id').val();
                     var jenjang=$('#program_studi').val();
                     var password_regis=$('#password_regis').val();
+                    var c_password_regis=$('#c_password_regis').val();
                     var file_upload=$('#file_upload').val();
                     
                     if(npm=='')
@@ -271,6 +288,10 @@
                         swal("Peringatan", "Email Wajib Diisi", "error")
                     else if(password_regis=="")
                         swal("Peringatan", "Silahkan Isi Password", "error")
+                    else if(c_password_regis=="")
+                        swal("Peringatan", "Silahkan Isi Konfirmasi Password", "error")
+                    else if(password_regis!=c_password_regis)
+                        swal("Peringatan", "Password Tidak Sama", "error")
                     else if( document.getElementById("file_upload").files.length == 0 )
                         swal("Peringatan", "Silahkan Pilih File Bukti SIAK NG", "error")
                     else
@@ -285,6 +306,22 @@
                                 {
                                     //alert(a.nama);
                                     //$().
+                                    // var npm=$(this).val();
+                                    // $.ajax({
+                                    //     url : '{{url("mahasiswa-by-npm")}}/'+npm,
+                                    //     dataType : 'json',
+                                    //     success : function(aa)
+                                    //     {
+                                    //         // var count = Object.keys(a).length;
+                                    //         if(aa!=null)
+                                    //         {
+                                    //             swal("Sudah Terdaftar", "Akun Anda Sudah Terdaftar Sebleumnya, Silahkan Lakukan Login", "error");
+                                    //             $('#register-submit-btn').prop('disabled',true);
+                                    //         }
+                                    //         else
+                                    //             $('#register-form').submit();
+                                    //     }    
+                                    // });
                                     $('#register-form').submit();
                                 }
                                 else
@@ -293,7 +330,8 @@
                                     $('#nama').val(a.nama);
                                     $('#email').val(a.email);
                                     $('#hp').val(a.hp);
-                                    swal("Sudah Terdaftar", "Email Sudah Terdaftar Sebleumnya, Silahkan Gunakan Email Lain", "success")
+                                    swal("Sudah Terdaftar", "Email Sudah Terdaftar Sebleumnya, Silahkan Gunakan Email Lain", "error")
+                                    $('#register-submit-btn').prop('disabled',true);
                                 }
                             }    
                         });
