@@ -56,7 +56,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Tahun Ajaran</label>
+                                        <label class="control-label">Tahun Akademik</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Akademik" id="tahun_ajaran" name="tahun_ajaran">
                                             <option value="-1">-Pilih Tahun Akademik-</option>
                                             @foreach ($ta as $i => $v)

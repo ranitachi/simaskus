@@ -64,6 +64,16 @@ class MahasiswaController extends Controller
         $mh->program_studi_id=$request->program_studi;
         $mh->tahun_masuk=$request->tahun_masuk;
         $mh->jenjang_id=$request->program_studi;
+
+        if ($request->hasFile('siak_ng')) {
+            $val_siak=$request->siak_ng;
+            $val_siak->storeAs('public/siak-ng',$val_siak->getClientOriginalName());
+            $siak='siak-ng/'.$val_siak->getClientOriginalName();
+            // $foto='foto_mhs/'.$val_foto->getClientOriginalName();
+            
+            $mh->bukti_siak_ng=$siak;
+        }
+
         $mh->save();
         return redirect('profil')->with('status','Data Departemen dan Program Studi Berhasil Di Edit');
     }
@@ -92,13 +102,19 @@ class MahasiswaController extends Controller
         }
 
         $mh->save();
+
+        $users=Users::where('id_user',$mh->id)->where('kat_user',3)->first();
+        $users->name=$request->nama;
+        $users->email=$request->email;
+        $users->save();
+
         return redirect('profil')->with('status','Data Profil Mahasiswa Berhasil Di Edit');
     }
     public function registrasi(Request $request)
     {
         //dd($request->all());
         $val=$request->file_upload;
-        $val->storeAs('siak-ng',$val->getClientOriginalName());
+        $val->storeAs('public/siak-ng',$val->getClientOriginalName());
         $dir='siak-ng/'.$val->getClientOriginalName(); 
 
         $mhs=new Mahasiswa;

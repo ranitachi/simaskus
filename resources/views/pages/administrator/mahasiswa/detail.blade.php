@@ -184,7 +184,8 @@
                         <div class="form-group">
                             <label class="control-label">Bukti SIAK-NG</label><br>
                             @if ($profil->bukti_siak_ng!='')
-                                <a class="btn btn-xs btn-success" target="_blank" href="{{url('showgambar/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
+                                {{-- <a class="btn btn-xs btn-success" target="_blank" href="{{url('showgambar/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a> --}}
+                                <a class="btn btn-xs btn-success" target="_blank" href="{{asset('storage/'.$profil->bukti_siak_ng)}}"><i class="fa fa-file-o"></i>&nbsp;Lihat Bukti SIAK-NG</a>
                             @else
                                 <a class="btn btn-xs btn-danger" href="#">Belum Upload Bukti SIAK-NG</a>
                             @endif
@@ -196,7 +197,7 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="idmhs" value="{{$id}}">   
                             <div class="margiv-top-10">
-                                <button type="submit" class="btn green"> Verifikasi </submit>
+                                <button type="submit" class="btn green"> Verifikasi </button>
                                 </div>
                         </form>
                     @endif

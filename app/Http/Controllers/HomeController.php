@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 use File;
 use App\Model\Dosen;
+use App\Model\Mahasiswa;
+use App\Model\Users;
+use App\User;
+use SSO\SSO;
 class HomeController extends Controller
 {
     /**
@@ -107,5 +111,79 @@ class HomeController extends Controller
             $data['pendidikan']=str_replace('-','',$pnd);
             Dosen::where('nip',$nip)->update($data);
         }
+    }
+
+    public function secret()
+    {
+        if(!SSO::check())
+            SSO::authenticate();
+        
+        $user = SSO::getUser();
+
+        if(isset($user->role))
+        {
+
+            if($user->role=='mahasiswa')
+            {
+                $username=$user->username;
+                $npm=$user->npm;
+                $mahasiswa=Mahasiswa::where('npm',$npm)->first();
+                if($mahasiswa)
+                {
+                    $users=User::where('kat_user',3)->where('id_user',$mahasiswa->id)->first();
+                    // return $users;
+                    Auth::login($users);
+                    return redirect('profil')->with('status','Selamat Datang '.$user->name);
+                }
+                else
+                {
+                    // username : ar.royya
+                    // name : Ar Royya Noor Gunadi Ahmad
+                    // role : mahasiswa
+                    // npm : 1706106652
+                    // org_code : 08.00.12.01
+                    // faculty : ILMU KOMPUTER
+                    // study_program : Sistem Informasi (Information System)
+                    // educational_program : S1 Paralel (S1 Paralel)
+                    $nama=$user->name;
+                    $prodi=$user->study_program;
+                    $program=$user->educational_program;
+                    
+                    $mhs=new Mahasiswa;
+                    $mhs->npm=$npm;
+                    $mhs->nama=$nama;
+                    $mhs->email=$username;
+                    $mhs->departemen_id='0';
+                    $mhs->jenjang_id='0';
+                    $mhs->bukti_siak_ng='';
+                    $mhs->program_studi_id='0';
+                    $mhs->hp='';
+                    $mhs->save();
+
+                    $us=new Users;
+                    $us->id_user=$mhs->id;
+                    $us->email=$username;
+                    $us->name=$nama;
+                    $us->flag=0;
+                    $us->kat_user=3;
+                    $us->password=bcrypt($npm);
+                    $us->save();
+
+                    $usr = User::where('id',$us->id)->where('kat_user',3)->first();
+                    // return $usr;
+                    Auth::login($usr);      
+                    return redirect('profil')->with('status','Anda Sudah Berhasil Registrasi, Status Akun Anda Akan DI Verifikasi Oleh Sekretariat');    
+                }
+            }
+        }
+
+        return view('welcome',[
+            'user'=>$user
+        ]);
+    }
+
+    public function logout()
+    {
+        return SSO::logout(url('/'));
     }
 }

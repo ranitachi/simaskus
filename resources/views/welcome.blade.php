@@ -34,16 +34,19 @@
     <body class="">
         <div class="container">
             <div style="background:#fff;width:80%;margin:50px auto;" class="logo">
+                
                 <div class="row">
-                    <div class="col-md-12 coming-soon-header text-center" style="margin-top:40px !important;">
-                        
-                            <img src="{{asset('img/simaskus.png')}}" alt="logo" style="height:100px;padding:5px;"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 coming-soon-content">
-                        
-                            <div class="row">
+                    <div class="col-md-12 coming-soon-content" style="padding-left:40px;">
+
+                            @foreach ($user as $key=>$item)
+                                <h3>{{$key}} : {{$item}}</h3>
+                            @endforeach
+                            <br><br>
+                            <h3><a href="{{url('logout_sso')}}">LOGOUT</a></h3>
+                            {{-- <h3>Nama : {{$user->name}}</h3>
+                            <h3>NIM/NPM : {{$user->npm}}</h3>
+                            <h3>Fakultas : {{$user->faculty}}</h3> --}}
+                            {{-- <div class="row">
                                 <div class="col-md-3 " style="cursor:pointer">
                                     <center class="link-login" style="padding:10px 0 10px 0;">
                                         <a href="{{url('login/admin')}}">
@@ -76,9 +79,9 @@
                                         </a>
                                     </center>
                                 </div>
-                            </div>
+                            </div> --}}
                             
-                        </center>
+                        {{-- </center> --}}
                     </div>
                 </div>
                 <!--/end row-->

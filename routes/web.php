@@ -45,6 +45,7 @@ Route::get('/getcontent','DashboardController@getcontent');
 Auth::routes();
 Route::post('/logout','UsersController@performLogout');
 Route::get('/logout','UsersController@logout');
+Route::get('/logout_akun','UsersController@logout_akun');
 
 //Route::get('/login/{jenis}', 'Auth\LoginController@index');
 Route::get('/beranda', 'DashboardController@index')->name('beranda');
@@ -335,3 +336,6 @@ Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
 });
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
+
+Route::get('secret','HomeController@secret');
+Route::get('logout_sso','HomeController@logout');
