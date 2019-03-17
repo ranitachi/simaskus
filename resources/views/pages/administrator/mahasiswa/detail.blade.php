@@ -112,16 +112,11 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                           <div class="form-group">
                                                     <label class="control-label">Jenis Kelamin</label>
                                                     <select class="bs-select col-md-4 form-control has-success" name="gender">
-                                                        @if ($profil->gender==1)
-                                                            <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Pria</option>
-                                                        @endif
-
-                                                        @if ($profil->gender==2)
-                                                            <option value="2" {{$profil->gender==2 ? 'selected="selected"' : ''}}>Wanita</option>
-                                                        @endif
+                                                        <option value="1" {{$profil->gender==1 ? 'selected="selected"' : ''}}>Pria</option>
+                                                        <option value="0" {{$profil->gender==0 ? 'selected="selected"' : ''}}>Wanita</option>
                                                     </select>
                                                 
                                             </div>
