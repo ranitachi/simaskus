@@ -7,18 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
 {
     public static $files = array (
-        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '3d5a4d29ce3a373ff9fae05310ce663f' => __DIR__ . '/../..' . '/app/Http/helper.php',
@@ -46,10 +50,14 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'S' => 
         array (
             'Symfony\\Polyfill\\Util\\' => 22,
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Php70\\' => 23,
             'Symfony\\Polyfill\\Php56\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
+            'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Routing\\' => 26,
@@ -140,8 +148,8 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -167,6 +175,10 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-util',
         ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
         'Symfony\\Polyfill\\Php70\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php70',
@@ -179,9 +191,21 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
+        'Symfony\\Polyfill\\Iconv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
         ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
@@ -676,6 +700,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'Dotenv\\Exception\\InvalidPathException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidPathException.php',
         'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
         'Dotenv\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader.php',
+        'Dotenv\\Parser' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Parser.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
         'Egulias\\EmailValidator\\EmailLexer' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/EmailLexer.php',
         'Egulias\\EmailValidator\\EmailParser' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/EmailParser.php',
@@ -1282,6 +1307,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'GuzzleHttp\\Psr7\\PumpStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/PumpStream.php',
         'GuzzleHttp\\Psr7\\Request' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Request.php',
         'GuzzleHttp\\Psr7\\Response' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Response.php',
+        'GuzzleHttp\\Psr7\\Rfc7230' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Rfc7230.php',
         'GuzzleHttp\\Psr7\\ServerRequest' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/ServerRequest.php',
         'GuzzleHttp\\Psr7\\Stream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/Stream.php',
         'GuzzleHttp\\Psr7\\StreamDecoratorTrait' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/StreamDecoratorTrait.php',
@@ -2571,6 +2597,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'PHPExcel_Chart_Layout' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Layout.php',
         'PHPExcel_Chart_Legend' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Legend.php',
         'PHPExcel_Chart_PlotArea' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/PlotArea.php',
+        'PHPExcel_Chart_Properties' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Properties.php',
         'PHPExcel_Chart_Renderer_jpgraph' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Renderer/jpgraph.php',
         'PHPExcel_Chart_Title' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Title.php',
         'PHPExcel_Comment' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Comment.php',
@@ -2587,7 +2614,6 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'PHPExcel_NamedRange' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/NamedRange.php',
         'PHPExcel_Polynomial_Best_Fit' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Shared/trend/polynomialBestFitClass.php',
         'PHPExcel_Power_Best_Fit' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Shared/trend/powerBestFitClass.php',
-        'PHPExcel_Properties' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Chart/Properties.php',
         'PHPExcel_Reader_Abstract' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Abstract.php',
         'PHPExcel_Reader_CSV' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/CSV.php',
         'PHPExcel_Reader_DefaultReadFilter' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/DefaultReadFilter.php',
@@ -2596,9 +2622,16 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'PHPExcel_Reader_Excel2007_Chart' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel2007/Chart.php',
         'PHPExcel_Reader_Excel2007_Theme' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel2007/Theme.php',
         'PHPExcel_Reader_Excel5' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5.php',
+        'PHPExcel_Reader_Excel5_Color' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Color.php',
+        'PHPExcel_Reader_Excel5_Color_BIFF5' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Color/BIFF5.php',
+        'PHPExcel_Reader_Excel5_Color_BIFF8' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Color/BIFF8.php',
+        'PHPExcel_Reader_Excel5_Color_BuiltIn' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Color/BuiltIn.php',
+        'PHPExcel_Reader_Excel5_ErrorCode' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/ErrorCode.php',
         'PHPExcel_Reader_Excel5_Escher' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Escher.php',
         'PHPExcel_Reader_Excel5_MD5' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/MD5.php',
         'PHPExcel_Reader_Excel5_RC4' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/RC4.php',
+        'PHPExcel_Reader_Excel5_Style_Border' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Style/Border.php',
+        'PHPExcel_Reader_Excel5_Style_FillPattern' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Excel5/Style/FillPattern.php',
         'PHPExcel_Reader_Exception' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Exception.php',
         'PHPExcel_Reader_Gnumeric' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/Gnumeric.php',
         'PHPExcel_Reader_HTML' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Reader/HTML.php',
@@ -2663,6 +2696,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'PHPExcel_Worksheet_ColumnCellIterator' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/ColumnCellIterator.php',
         'PHPExcel_Worksheet_ColumnDimension' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/ColumnDimension.php',
         'PHPExcel_Worksheet_ColumnIterator' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/ColumnIterator.php',
+        'PHPExcel_Worksheet_Dimension' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/Dimension.php',
         'PHPExcel_Worksheet_Drawing' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/Drawing.php',
         'PHPExcel_Worksheet_Drawing_Shadow' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/Drawing/Shadow.php',
         'PHPExcel_Worksheet_HeaderFooter' => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes/PHPExcel/Worksheet/HeaderFooter.php',
@@ -3214,6 +3248,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'PhpParser\\Node\\Expr\\AssignOp\\BitwiseAnd' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/BitwiseAnd.php',
         'PhpParser\\Node\\Expr\\AssignOp\\BitwiseOr' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/BitwiseOr.php',
         'PhpParser\\Node\\Expr\\AssignOp\\BitwiseXor' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/BitwiseXor.php',
+        'PhpParser\\Node\\Expr\\AssignOp\\Coalesce' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/Coalesce.php',
         'PhpParser\\Node\\Expr\\AssignOp\\Concat' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/Concat.php',
         'PhpParser\\Node\\Expr\\AssignOp\\Div' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/Div.php',
         'PhpParser\\Node\\Expr\\AssignOp\\Minus' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node/Expr/AssignOp/Minus.php',
@@ -3483,6 +3518,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/NullLogger.php',
         'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
+        'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
         'Psr\\SimpleCache\\CacheException' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheException.php',
         'Psr\\SimpleCache\\CacheInterface' => __DIR__ . '/..' . '/psr/simple-cache/src/CacheInterface.php',
         'Psr\\SimpleCache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/simple-cache/src/InvalidArgumentException.php',
@@ -4339,6 +4375,8 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'Symfony\\Component\\Translation\\Extractor\\PhpExtractor' => __DIR__ . '/..' . '/symfony/translation/Extractor/PhpExtractor.php',
         'Symfony\\Component\\Translation\\Extractor\\PhpStringTokenParser' => __DIR__ . '/..' . '/symfony/translation/Extractor/PhpStringTokenParser.php',
         'Symfony\\Component\\Translation\\Formatter\\ChoiceMessageFormatterInterface' => __DIR__ . '/..' . '/symfony/translation/Formatter/ChoiceMessageFormatterInterface.php',
+        'Symfony\\Component\\Translation\\Formatter\\IntlFormatter' => __DIR__ . '/..' . '/symfony/translation/Formatter/IntlFormatter.php',
+        'Symfony\\Component\\Translation\\Formatter\\IntlFormatterInterface' => __DIR__ . '/..' . '/symfony/translation/Formatter/IntlFormatterInterface.php',
         'Symfony\\Component\\Translation\\Formatter\\MessageFormatter' => __DIR__ . '/..' . '/symfony/translation/Formatter/MessageFormatter.php',
         'Symfony\\Component\\Translation\\Formatter\\MessageFormatterInterface' => __DIR__ . '/..' . '/symfony/translation/Formatter/MessageFormatterInterface.php',
         'Symfony\\Component\\Translation\\IdentityTranslator' => __DIR__ . '/..' . '/symfony/translation/IdentityTranslator.php',
@@ -4369,6 +4407,7 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'Symfony\\Component\\Translation\\TranslatorBagInterface' => __DIR__ . '/..' . '/symfony/translation/TranslatorBagInterface.php',
         'Symfony\\Component\\Translation\\TranslatorInterface' => __DIR__ . '/..' . '/symfony/translation/TranslatorInterface.php',
         'Symfony\\Component\\Translation\\Util\\ArrayConverter' => __DIR__ . '/..' . '/symfony/translation/Util/ArrayConverter.php',
+        'Symfony\\Component\\Translation\\Util\\XliffUtils' => __DIR__ . '/..' . '/symfony/translation/Util/XliffUtils.php',
         'Symfony\\Component\\Translation\\Writer\\TranslationWriter' => __DIR__ . '/..' . '/symfony/translation/Writer/TranslationWriter.php',
         'Symfony\\Component\\Translation\\Writer\\TranslationWriterInterface' => __DIR__ . '/..' . '/symfony/translation/Writer/TranslationWriterInterface.php',
         'Symfony\\Component\\VarDumper\\Caster\\AmqpCaster' => __DIR__ . '/..' . '/symfony/var-dumper/Caster/AmqpCaster.php',
@@ -4411,10 +4450,33 @@ class ComposerStaticIniteb5832cd4bc774028a4c47dac7821249
         'Symfony\\Component\\VarDumper\\Exception\\ThrowingCasterException' => __DIR__ . '/..' . '/symfony/var-dumper/Exception/ThrowingCasterException.php',
         'Symfony\\Component\\VarDumper\\Test\\VarDumperTestTrait' => __DIR__ . '/..' . '/symfony/var-dumper/Test/VarDumperTestTrait.php',
         'Symfony\\Component\\VarDumper\\VarDumper' => __DIR__ . '/..' . '/symfony/var-dumper/VarDumper.php',
+        'Symfony\\Contracts\\Cache\\CacheInterface' => __DIR__ . '/..' . '/symfony/contracts/Cache/CacheInterface.php',
+        'Symfony\\Contracts\\Cache\\CacheTrait' => __DIR__ . '/..' . '/symfony/contracts/Cache/CacheTrait.php',
+        'Symfony\\Contracts\\Cache\\CallbackInterface' => __DIR__ . '/..' . '/symfony/contracts/Cache/CallbackInterface.php',
+        'Symfony\\Contracts\\Cache\\ItemInterface' => __DIR__ . '/..' . '/symfony/contracts/Cache/ItemInterface.php',
+        'Symfony\\Contracts\\Cache\\TagAwareCacheInterface' => __DIR__ . '/..' . '/symfony/contracts/Cache/TagAwareCacheInterface.php',
+        'Symfony\\Contracts\\Service\\ResetInterface' => __DIR__ . '/..' . '/symfony/contracts/Service/ResetInterface.php',
+        'Symfony\\Contracts\\Service\\ServiceLocatorTrait' => __DIR__ . '/..' . '/symfony/contracts/Service/ServiceLocatorTrait.php',
+        'Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/contracts/Service/ServiceSubscriberInterface.php',
+        'Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/contracts/Service/ServiceSubscriberTrait.php',
+        'Symfony\\Contracts\\Tests\\Cache\\CacheTraitTest' => __DIR__ . '/..' . '/symfony/contracts/Tests/Cache/CacheTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Cache\\TestPool' => __DIR__ . '/..' . '/symfony/contracts/Tests/Cache/CacheTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Service\\ChildTestService' => __DIR__ . '/..' . '/symfony/contracts/Tests/Service/ServiceSubscriberTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Service\\ParentTestService' => __DIR__ . '/..' . '/symfony/contracts/Tests/Service/ServiceSubscriberTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Service\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/contracts/Tests/Service/ServiceLocatorTest.php',
+        'Symfony\\Contracts\\Tests\\Service\\ServiceSubscriberTraitTest' => __DIR__ . '/..' . '/symfony/contracts/Tests/Service/ServiceSubscriberTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Service\\TestService' => __DIR__ . '/..' . '/symfony/contracts/Tests/Service/ServiceSubscriberTraitTest.php',
+        'Symfony\\Contracts\\Tests\\Translation\\TranslatorTest' => __DIR__ . '/..' . '/symfony/contracts/Tests/Translation/TranslatorTest.php',
+        'Symfony\\Contracts\\Translation\\LocaleAwareInterface' => __DIR__ . '/..' . '/symfony/contracts/Translation/LocaleAwareInterface.php',
+        'Symfony\\Contracts\\Translation\\TranslatorInterface' => __DIR__ . '/..' . '/symfony/contracts/Translation/TranslatorInterface.php',
+        'Symfony\\Contracts\\Translation\\TranslatorTrait' => __DIR__ . '/..' . '/symfony/contracts/Translation/TranslatorTrait.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+        'Symfony\\Polyfill\\Iconv\\Iconv' => __DIR__ . '/..' . '/symfony/polyfill-iconv/Iconv.php',
+        'Symfony\\Polyfill\\Intl\\Idn\\Idn' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Idn.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php56\\Php56' => __DIR__ . '/..' . '/symfony/polyfill-php56/Php56.php',
         'Symfony\\Polyfill\\Php70\\Php70' => __DIR__ . '/..' . '/symfony/polyfill-php70/Php70.php',
+        'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
         'Symfony\\Polyfill\\Util\\Binary' => __DIR__ . '/..' . '/symfony/polyfill-util/Binary.php',
         'Symfony\\Polyfill\\Util\\BinaryNoFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryNoFuncOverload.php',
         'Symfony\\Polyfill\\Util\\BinaryOnFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryOnFuncOverload.php',
