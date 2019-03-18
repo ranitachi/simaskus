@@ -296,15 +296,17 @@ class PengajuanSkripsiController extends Controller
             $mp[$v->id]=$v;
         }
         $jenis='';
-        $pengajuan=Pengajuan::find($id)
+        $pengajuan=Pengajuan::where('id',$id)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('dospem_1')
                 ->with('dospem_2')
                 ->with('dospem_3')
                 ->with('dosenketua')
-                ->with('pembimbing_sebelum')
-                ->orderBy('created_at','desc')->first();
+                ->with('pembimbing_sebelum')->first();
+
+        // return $pengajuan;
+        
         return view('pages.mahasiswa.pengajuan.detail',compact('jenis','pengajuan','mp','jenis','id'));
     }
 }

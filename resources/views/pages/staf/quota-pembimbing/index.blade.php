@@ -82,14 +82,14 @@
                         {
                             if(id==-1)
                             {
-                                var t_url = '{{url("Jumlah-pembimbing")}}';
+                                var t_url = '{{url("quota-pembimbing")}}';
                             }
                             else
-                                var t_url = '{{url("Jumlah-pembimbing")}}/'+id;
+                                var t_url = '{{url("quota-pembimbing")}}/'+id;
         
                             var t_method = 'POST';
                             var code=$('#level').val();
-                            var Jumlah=$('#Jumlah').val();
+                            var Jumlah=$('#quota').val();
                             if(code=='')
                             {
                                 pesan("Level harus dipilih",'error');
@@ -99,7 +99,7 @@
                             else if(Jumlah=='')
                             {
                                 pesan("Jumlah Harud Diisi",'error');
-                                $('#Jumlah').focus();
+                                $('#quota').focus();
                                 return false;
                             }
                             else
@@ -150,7 +150,7 @@
         function(isConfirm) {
             if (isConfirm) {
                 $.ajax({
-                    url : '{{url("Jumlah-pembimbing-hapus")}}/'+id,
+                    url : '{{url("quota-pembimbing-hapus")}}/'+id,
                     dataType : 'JSON'
                 }).done(function(){
                     loaddata();
