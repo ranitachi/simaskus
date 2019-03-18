@@ -82,12 +82,15 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group has-success">
                                         <label class="control-label">Kategori Khusus</label>
                                         <select class="bs-select form-control has-success" name="kategori_khusus">
-                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus=='masa-pengajuan-pembimbing' ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Pembimbing</option>
-                                            <option value="masa-generate-pembimbing" {{$id!='-1' ? ($det->kategori_khusus=='masa-generate-pembimbing' ? 'selected="selected"' : '') : ''}}>Masa Generate Pembimbing</option>
+                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pengajuan Mata Kuliah Khusus') ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Mata Kuliah Khusus</option>
+                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pengajuan Sidang Mata Kuliah Khusus') ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Sidang Mata Kuliah Khusus</option>
+                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Penjadwalan') ? 'selected="selected"' : '') : ''}}>Masa Penjadwalan</option>
+                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pelaksanaan Sidang') ? 'selected="selected"' : '') : ''}}>Masa Pelaksanaan Sidang</option>
+                                            
                                         </select>
                                     </div>
                                 </div>

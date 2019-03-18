@@ -40,10 +40,12 @@
                         <select class="bs-select form-control has-success" id="tahun_ajaran" name="tahun_ajaran" onchange="loaddata(this.value)">
                             <option value="-1">-Pilih Tahun Akademik-</option>
                             @foreach ($ta as $k => $v)
-                                @if (Session::get('idta') == $v->id)
-                                    <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
-                                @else
-                                    <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                @if (strpos($v,date('Y'))!==false)
+                                    @if (Session::get('idta') == $v->id)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                    @else
+                                        <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                    @endif
                                 @endif
                             @endforeach
                         </select>
