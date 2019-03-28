@@ -147,11 +147,14 @@
                                     </div>
                                 </div>
                         </div>
-                        
-                        <div class="form-actions pull-right">
-                            <a href="{{URL::previous()}}" class="btn default">Batal</a>
-                            <button type="button" id="simpan" class="btn blue">
-                                <i class="fa fa-save"></i> Simpan</button>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-actions pull-right">
+                                        <a href="{{URL::previous()}}" class="btn default">Batal</a>
+                                        <button type="button" id="simpan" class="btn blue">
+                                            <i class="fa fa-save"></i> Simpan</button>
+                                    </div>
+                                </div>
                         </div>
                     </form>
                     <!-- END FORM-->

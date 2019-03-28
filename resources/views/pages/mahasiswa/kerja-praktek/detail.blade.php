@@ -129,13 +129,25 @@
                                                     </div>
                                             </div>
                                         @endif
-                                        <div class="col-md-4">&nbsp;</div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">&nbsp;</div>
+                                        <div class="col-md-5">
                                                 @if ($det->status_kp==0)
-                                                    <div class="pull-right text-center">
+                                                    <div class="pull-right text-right">
                                                         <h4>Status Pelaksanaan KP</h4>
-                                                        <div class="alert alert-warning" style="font-size:20px;">
-                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;<strong>Belum Dimulai</strong>
+                                                        <div class="row">
+                                                            <div class="col-md-4">&nbsp;</div>
+                                                            <div class="col-md-8">
+                                                                <div class="alert alert-warning" style="font-size:20px;">
+                                                                    <i class="fa fa-exclamation-circle"></i>&nbsp;<strong>Belum Dimulai</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">&nbsp;</div>
+                                                            <div class="col-md-6">
+                                                                <a href="{{url('mulai-kp/'.$det->id)}}"><div class="alert alert-success" style="font-size:20px;">
+                                                                    <i class="fa fa-check"></i>&nbsp;<strong>Klik Mulai</strong>
+                                                                </div></a>
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 @elseif ($det->status_kp==1)
@@ -190,10 +202,15 @@
                     @include('pages.mahasiswa.kerja-praktek.anggota')
                 </div>
                 <div class="tab-pane" id="tab_1_1_2">
+                   
                     @include('pages.mahasiswa.kerja-praktek.informasi')
                 </div>
                 <div class="tab-pane" id="tab_1_1_3">
-                    @include('pages.mahasiswa.kerja-praktek.berkas')
+                     @if (count($info)==0)
+                       <h3>Silahkan Lengkapi Informasi KP Terlebih Dahulu untuk Mengunduh Berkas</h3>     
+                    @else
+                        @include('pages.mahasiswa.kerja-praktek.berkas')
+                    @endif
                 </div>
                 <div class="tab-pane" id="tab_1_1_4">
                     @include('pages.mahasiswa.kerja-praktek.pembimbing')

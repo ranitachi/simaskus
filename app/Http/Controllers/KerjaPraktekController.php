@@ -258,7 +258,7 @@ class KerjaPraktekController extends Controller
                 $pemb[$vv->kategori][]=$vv;
 
         }
-        
+        // return $pemb;
         $penguji_kp=PengujiKP::where('grup_id',$idgrup)->where('departemen_id',$dept_id)->with('dosen')->get();
         // $peng_kp=array();
         // foreach($pembimbing as $k=>$vv)
@@ -274,7 +274,7 @@ class KerjaPraktekController extends Controller
         }
 
         $ruangan=MasterRuangan::where('departemen_id',$dept_id)->with('departemen')->get();
-
+        // return $grupkp;
         if($level==3)
         {
             return view('pages.mahasiswa.kerja-praktek.detail')
@@ -439,6 +439,31 @@ class KerjaPraktekController extends Controller
                 ->with('mhs',$mhs);
     }
 
+    public function no_grup_kp($idkp,$idmhs,$idgrup=-1)
+    {
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        $katuser=Auth::user()->kat_user;
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
+
+        $c=abs(crc32(sha1(rand())));
+        $code=substr($c,0,7);
+        $nm_grup='no-grup';
+        $ketua=$idmhs;
+        $grup=new KelompokKP;
+        $grup->code=$code;
+        $grup->nama_kelompok=$nm_grup;
+        $grup->kategori='ketua';
+        $grup->mahasiswa_id=$ketua;
+        $grup->departemen_id=$dept_id;
+        $grup->save();
+
+        // return redirect('data-kp')->with('status','Data Kelompok Kerja Praktek Berhasil Di Simpan'); 
+        return redirect('data-kp-detail/'.$idkp.'/'.$katuser.'#tab_1_1_2'); 
+    }
     public function grup_kp_simpan(Request $request,$idkp,$idmhs,$idgrup=-1)
     {
         // dd($request->all());
@@ -485,6 +510,7 @@ class KerjaPraktekController extends Controller
                 $pembimbing->grup_id=$code;
                 $pembimbing->status=1;
                 $pembimbing->departemen_id=$dept_id;
+                $pembimbing->keterangan='dosen';
                 $pembimbing->save();
             }
         }   
@@ -585,10 +611,11 @@ class KerjaPraktekController extends Controller
         $url=$request->url;
         $idd=$request->id;
         $kat_user=$request->kat_user;
+        $nama_grup=$request->nama_grup;
         // dd($request->all());
         $cek=KelompokKP::where('code',$idgrup);
         $c=$cek->get();
-        $nama_grup=$c[0]->nama_kelompok;
+        // $nama_grup=$c[0]->nama_kelompok;
         $cek->forceDelete();
 
         $ketua=new KelompokKP;
@@ -969,5 +996,13 @@ class KerjaPraktekController extends Controller
             return redirect('data-jadwal-kp')->with('status','Jadwal Sidang Kerja Praktek Telah berhasil, dan Sudah Dapat Di Publish');
         else
             return redirect('data-jadwal-kp')->with('status','Jadwal Sidang Kerja Praktek Telah berhasil, dan Telah Di Publish');
+    }
+
+    public function mulai_kp($id)
+    {
+        $kp=KerjaPraktek::find($id);
+        $kp->status_kp=1;
+        $kp->save();
+        return redirect('data-kp-detail/'.$id.'/'.(Auth::user()->kat_user))->with('status','Status Kerja Prakter Sudah Dimulai');
     }
 }

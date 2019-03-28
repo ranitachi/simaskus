@@ -86,7 +86,8 @@
                                     @endif
                                 @endif
                             @else
-                                <a href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Grup</a>
+                                <a href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Grup</a><br><br>
+                                <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Jika Tidak Memiliki Grup" href="{{url('no-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-primary btn-xs tooltips"><i class="fa fa-hand-pointer-o"></i> Tidak Ada Grup</a>
                             @endif
                         </td>
                         <td class="text-left">

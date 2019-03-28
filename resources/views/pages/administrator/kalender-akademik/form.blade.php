@@ -40,7 +40,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tanggal Mulai</label>
-                                        <div class="input-group input-medium date date-picker" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                        <div class="input-group input-medium date start-date" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                             <input type="text" name="start_date" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->start_date))}}">
                                             <span class="input-group-btn">
                                                 <button class="btn default" type="button">
@@ -53,7 +53,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tanggal Selesai</label>
-                                        <div class="input-group input-medium date date-picker" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                        <div class="input-group input-medium date end-date" data-date="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                             <input type="text" name="end_date" class="form-control input-circle" placeholder="dd-mm-yyyy" value="{{$id==-1 ? date('d-m-Y') : date('d-m-Y',strtotime($det->end_date))}}">
                                             <span class="input-group-btn">
                                                 <button class="btn default" type="button">
@@ -66,7 +66,8 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tahun Akademik</label>
-                                        <input type="text" id="tahun_akademik" name="tahun_akademik" class="form-control input-circle" placeholder="Tahun Akademik" value="{{ $tahunajaran->tahun_ajaran}}">
+                                        <input type="text" readonly class="form-control input-circle" placeholder="Tahun Akademik" value="{{ $tahunajaran->tahun_ajaran}} - {{$tahunajaran->jenis}}">
+                                        <input type="hidden" id="tahun_akademik" name="tahun_akademik" class="form-control input-circle" placeholder="Tahun Akademik" value="{{ $tahunajaran->tahun_ajaran}}">
 
                                     </div>
                                 </div>
@@ -86,11 +87,13 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Kategori Khusus</label>
                                         <select class="bs-select form-control has-success" name="kategori_khusus">
-                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pengajuan Mata Kuliah Khusus') ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Mata Kuliah Khusus</option>
-                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pengajuan Sidang Mata Kuliah Khusus') ? 'selected="selected"' : '') : ''}}>Masa Pengajuan Sidang Mata Kuliah Khusus</option>
-                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Penjadwalan') ? 'selected="selected"' : '') : ''}}>Masa Penjadwalan</option>
-                                            <option value="masa-pengajuan" {{$id!='-1' ? ($det->kategori_khusus==str_slug('Masa Pelaksanaan Sidang') ? 'selected="selected"' : '') : ''}}>Masa Pelaksanaan Sidang</option>
-                                            
+                                            @foreach ($d_kal as $item)
+                                                @if (in_array(str_slug($item),$kalm))
+                                                        
+                                                @else
+                                                    <option value="{{str_slug($item)}}" {{$id!='-1' ? ($det->kategori_khusus==str_slug($item) ? 'selected="selected"' : '') : ''}}>{{$item}}</option>        
+                                                @endif
+                                            @endforeach                                            
                                         </select>
                                     </div>
                                 </div>
@@ -140,6 +143,21 @@
                 pesan("Kegiatan Akademik Harus Diisi",'error');
             else
                 $('#form-kalender').submit();
+        });
+        $('.start-date').datepicker({
+            rtl: App.isRTL(),
+            orientation: "left",
+            autoclose: true
+        }).on('changeDate', function(selected){
+                startDate = new Date(selected.date.valueOf());
+                startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+                $('.end-date').datepicker('setStartDate', startDate);
+        });
+
+        $('.end-date').datepicker({
+            rtl: App.isRTL(),
+            orientation: "left",
+            autoclose: true
         });
     });
 </script>

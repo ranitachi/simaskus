@@ -61,26 +61,26 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group has-success">
                                         <div class="form-group has-success">
-                                        <label class="control-label">Dosen Pembimbing 1</label>
-                                        <div id="prog_studi">
-                                            <select class="form-control select2"data-placeholder="Pilih Dosen" name="dospem[]" id="dosen">
-                                                <option value="0">Pilih</option>
-                                                @foreach ($dosen as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->dospem1==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
+                                            <div class="form-group has-success">
+                                            <label class="control-label">Dosen Pembimbing 1</label>
+                                            <div id="prog_studi">
+                                                <select class="form-control select2"data-placeholder="Pilih Dosen" name="dospem[]" id="dosen">
+                                                    <option value="0">Pilih</option>
+                                                    @foreach ($dosen as $i => $v)
+                                                    @if ($id!=-1)
+                                                        @if ($det->dospem1==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->nama}}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->nama}}</option>
                                                     @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->nama}}</option>
-                                                @endif
-                                            @endforeach
-                                            </select>
+                                                @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                                 
@@ -118,40 +118,44 @@
                                             </select>
                                         </div>
                                     </div>
-                                    </div>
                                 </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Anggota Kelompok</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
-                                            <option value="-1">Pilih</option>
-                                            @foreach ($anggota as $item)
-                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Anggota Kelompok</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_kelompok" name="anggota[]">
-                                            <option value="-1">Pilih</option>
-                                            @foreach ($anggota as $item)
-                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                        </div>
+                            </div>
                         
-                        <div class="form-actions pull-right">
-                            <a href="{{URL::previous()}}" class="btn default">Batal</a>
-                            <button type="button" id="simpan" class="btn blue">
-                                <i class="fa fa-save"></i> Simpan</button>
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Anggota Kelompok</label>
+                                            <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
+                                                <option value="-1">Pilih</option>
+                                                @foreach ($anggota as $item)
+                                                    <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Anggota Kelompok</label>
+                                            <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_kelompok" name="anggota[]">
+                                                <option value="-1">Pilih</option>
+                                                @foreach ($anggota as $item)
+                                                    <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-actions pull-right">
+                                        <a href="{{URL::previous()}}" class="btn default">Batal</a>
+                                        <button type="button" id="simpan" class="btn blue">
+                                            <i class="fa fa-save"></i> Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <!-- END FORM-->
