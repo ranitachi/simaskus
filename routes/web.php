@@ -287,12 +287,14 @@ Route::get('data-kp-data','KerjaPraktekController@data')->middleware('auth');
 Route::get('data-kp-hapus/{id}','KerjaPraktekController@destroy')->middleware('auth');
 Route::get('data-kp-detail/{id}/{kat_user}','KerjaPraktekController@detail')->middleware('auth');
 Route::get('data-kp-verifikasi/{id}/{status}','KerjaPraktekController@verifikasi')->middleware('auth');
+Route::get('mulai-kp/{id}','KerjaPraktekController@mulai_kp')->middleware('auth');
 
 Route::get('data-kp-grup/{idkp}/{idmhs}/{idgrup}','KerjaPraktekController@grup_kp')->middleware('auth');
 Route::get('data-kp-anggota/{code_grup}/{id}','KerjaPraktekController@form_anggota')->middleware('auth');
 Route::get('data-kp-hapus-anggota/{id}','KerjaPraktekController@hapus_anggota')->middleware('auth');
 Route::post('data-kp-anggota-proses/{code_grup}/{id}','KerjaPraktekController@form_anggota_proses')->middleware('auth');
 Route::post('data-kp-grup/{idkp}/{idmhs}/{idgrup}','KerjaPraktekController@grup_kp_simpan')->middleware('auth');
+Route::get('no-grup/{idkp}/{idmhs}/{idgrup}','KerjaPraktekController@no_grup_kp')->middleware('auth');
 
 Route::post('data-kp-proses/{id}','KerjaPraktekController@proses')->middleware('auth');
 Route::post('informasi-kp-proses/{idgrup}/{id}','KerjaPraktekController@informasi_kp_proses')->middleware('auth');

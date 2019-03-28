@@ -557,4 +557,10 @@ function getFormFields($data)
 		return isset($eng[$key]) ? $eng[$key] : '';
 
 	}
+
+	function datakalamik()
+	{
+		$d=['Masa Pengajuan Mata Kuliah Khusus','Masa Pengajuan Sidang Mata Kuliah Khusus','Masa Penjadwalan','Masa Pelaksanaan Sidang'];
+		return $d;
+	}
 ?>

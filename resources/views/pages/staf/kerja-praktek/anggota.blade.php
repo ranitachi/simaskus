@@ -121,11 +121,12 @@
                 </div>
                 <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
             </div>
-        </div>
-         <div class="form-actions">
+            
             <div class="row">
                 <div class="col-md-12">
-                    <a href="javascript:simpankelompok({{$idgrup}})" class="btn blue pull-right" id="tambah-field" style="margin-right:20px;">Simpan&nbsp;<i class="fa fa-save"></i> </a>
+                    <div class="form-actions">
+                        <a href="javascript:simpankelompok({{$idgrup}})" class="btn blue pull-right" id="tambah-field" style="margin-right:20px;">Simpan&nbsp;<i class="fa fa-save"></i> </a>
+                    </div>
                 </div>
             </div>
         </div>

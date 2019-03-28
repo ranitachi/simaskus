@@ -60,6 +60,7 @@
         $('#data').load('{{url("data-kp-data")}}',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
+            $('.tooltips').tooltip();
         });
     }
     function hapus(id)

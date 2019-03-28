@@ -185,19 +185,23 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="form-actions pull-right">
-                                        <a href="{{url('data-kp')}}" id="sample_editable_1_new" class="btn sbold green"> Kembali
-                                            <i class="fa fa-chevron-left"></i>
-                                        </a>
-                                        @if ($det->status_pengajuan==0)
-                                            <a href="javascript:verifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold blue" style="margin-left:10px;"> Verifikasi
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        @else
-                                            <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        @endif
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-actions pull-right">
+                                                <a href="{{url('data-kp')}}" id="sample_editable_1_new" class="btn sbold green"> Kembali
+                                                    <i class="fa fa-chevron-left"></i>
+                                                </a>
+                                                @if ($det->status_pengajuan==0)
+                                                    <a href="javascript:verifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold blue" style="margin-left:10px;"> Verifikasi
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </form>
                                 <!-- END FORM-->
@@ -213,7 +217,11 @@
                     @include('pages.staf.kerja-praktek.informasi')
                 </div>
                 <div class="tab-pane" id="tab_1_1_3">
-                    @include('pages.staf.kerja-praktek.berkas')
+                    @if (count($info)==0)
+                       <h3>Silahkan Lengkapi Informasi KP Terlebih Dahulu untuk Mengunduh Berkas</h3>     
+                    @else
+                        @include('pages.staf.kerja-praktek.berkas')
+                    @endif
                 </div>
                 <div class="tab-pane" id="tab_1_1_4">
                     @include('pages.staf.kerja-praktek.pembimbing')

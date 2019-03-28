@@ -60,14 +60,16 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Akademik" id="tahun_ajaran" name="tahun_ajaran">
                                             <option value="-1">-Pilih Tahun Akademik-</option>
                                             @foreach ($ta as $i => $v)
-                                                @if ($id!=-1)
-                                                    @if ($det->tahunajaran_id==$v->id)
-                                                        <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
+                                                @if (strpos($v,date('Y')))
+                                                    @if ($id!=-1)
+                                                        @if ($det->tahunajaran_id==$v->id)
+                                                            <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
+                                                        @else
+                                                            <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                                        @endif
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                                     @endif
-                                                @else
-                                                    <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -79,7 +81,7 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Mata Kuliah Spesial</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Jenis" id="jenis_id" name="jenis_id">
-                                            <option value="-1">-Pilih Jenis-</option>
+                                            {{-- <option value="-1">-Pilih Jenis-</option> --}}
                                             @foreach ($jenispengajuan as $i => $v)
                                                 @if (strpos(strtolower($v->jenis),'kerja praktek')!==false) 
                                                     @if ($id!=-1)
@@ -120,17 +122,21 @@
                                     </div>        
                                     {{-- {{ storage_path('app/'.$det->file_riwayat_akademis) }} --}}
                                     @php
-                                        $path=asset('../storage/app/'.$det->file_riwayat_akademis);
+                                        // $path=asset('../storage/app/'.$det->file_riwayat_akademis);
                                     @endphp
                                     {{-- <div id="example1"></div> --}}
                                 
+                                {{-- </div>
+                            </div> --}}
+                        @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-actions pull-right">
+                                    <a href="{{URL::previous()}}" class="btn default">Batal</a>
+                                    <button type="button" id="simpan" class="btn blue">
+                                        <i class="fa fa-save"></i> Simpan</button>
                                 </div>
                             </div>
-                        @endif
-                        <div class="form-actions pull-right">
-                            <a href="{{URL::previous()}}" class="btn default">Batal</a>
-                            <button type="button" id="simpan" class="btn blue">
-                                <i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </form>
                     <!-- END FORM-->

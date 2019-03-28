@@ -35,8 +35,18 @@ class KalenderAkademikController extends Controller
     {
         $dept=MasterDepartemen::all();
         $det=array();
+
+        $kal=KalenderAkademik::where('tahunajaran_id',$idta)->get();
+        $kalamik=$kalm=array();
+        foreach($kal as $k=>$v)
+        {   
+            $kalamik[$v->id]=$v;
+            $kalm[]=$v->kategori_khusus;
+        }
+
         if($id!=-1)
-            $det=KalenderAkademik::find($id);
+            $det=$kalamik[$id];
+            // $det=KalenderAkademik::find($id);
 
         // dd($det  );
         $ta=TahunAjaran::all();
@@ -45,10 +55,13 @@ class KalenderAkademikController extends Controller
         {
             $tahunajaran[$a->id]=$a;
         }
-
+        $d_kal=datakalamik();
         return view('pages.administrator.kalender-akademik.form')
                 ->with('dept',$dept)
                 ->with('det',$det)
+                ->with('kalamik',$kalamik)
+                ->with('kalm',$kalm)
+                ->with('d_kal',$d_kal)
                 ->with('tahunajaran',$tahunajaran[$idta])
                 ->with('idta',$idta)
                 ->with('id',$id);

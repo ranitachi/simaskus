@@ -19,6 +19,16 @@
 <div id="data-kelompok">    
     <form role="form" class="form-horizontal">
         <div class="form-body">
+            @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)                
+                <div class="form-padding form-group form-md-line-input has-success">
+                    <label class="col-md-3 control-label" for="form_control_1">Nama Grup</label>
+                    <div class="col-md-9" style="padding-top:6px;">
+                    
+                        {{$grupkp[0]->nama_kelompok}}
+                    
+                    </div>
+                </div>
+            @endif
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-3 control-label" for="form_control_1">Ketua Kelompok</label>
                 <div class="col-md-9" style="padding-top:6px;">
@@ -59,6 +69,13 @@
             <input type="hidden" name="url" value="tab_1_1_5">
             <input type="hidden" name="dept_id" value="{{$dept_id}}">
             <div class="form-group form-md-line-input has-success" id="title_1">
+                  @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)
+                        <label class="col-md-2 control-label" for="form_control_1">Nama Grup</label>
+                        <div class="col-md-5">
+                            <input type="text" id="nama_grup" name="nama_grup" class="form-control" value="{{$grupkp[0]->nama_kelompok}}" placeholder="Nama Grup (Wajib Diisi)" value="" required>
+                        </div>
+                        <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
+                  @endif
                 @foreach ($grupkp as $index=>$item)
                     @if ($item->kategori=='ketua')
                        <label class="col-md-2 control-label" for="form_control_1">Ketua</label>
@@ -120,9 +137,9 @@
                 <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
             </div>
         </div>
-         <div class="form-actions">
-            <div class="row">
-                <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                 <div class="form-actions">
                     <a href="javascript:simpankelompok({{$idgrup}})" class="btn blue pull-right" id="tambah-field" style="margin-right:20px;">Simpan&nbsp;<i class="fa fa-save"></i> </a>
                 </div>
             </div>
