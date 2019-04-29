@@ -58,11 +58,16 @@ class ComponentController extends Controller
         $dept=MasterDepartemen::all();
         // dd($dept);        
         // $module=Module::where('id',$idmodule)->where('departemen_id',$dept_id)->with('jenis')->get();
-        $module=Module::where('departemen_id',$dept_id)->with('jenis')->get();
+        if($idmodule!=-1)
+            $module=Module::where('jenis_id',$idmodule)->get();
+        else
+            $module=Module::where('departemen_id',$dept_id)->with('jenis')->get();
+
         
         return view('pages.administrator.component.form')
                 ->with('det',$det)
                 ->with('module',$module)
+                ->with('idmodule',$idmodule)
                 ->with('dept',$dept)
                 ->with('dept_id',$dept_id)
                 ->with('category',$category)
@@ -86,7 +91,7 @@ class ComponentController extends Controller
     {
         $com=Component::find($id);
         $com->code_component=$request->code_component;
-         $com->nama_component=$request->nama_component;
+        $com->nama_component=$request->nama_component;
         $com->bobot_penguji=str_replace(array(',','.'),'',$request->bobot_penguji);
         $com->bobot_pembimbing_lapangan=str_replace(array(',','.'),'',$request->bobot_pembimbing_lapangan);
         $com->bobot_component=str_replace(array(',','.'),'',$request->bobot);

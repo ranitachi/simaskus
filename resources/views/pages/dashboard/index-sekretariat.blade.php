@@ -151,7 +151,7 @@
                                 }
                             @endphp
                             @foreach ($jadwal as $no=> $item)
-                                @if ($item->tanggal>=date('Y-m-d'))
+                                {{-- @if ($item->tanggal>=date('Y-m-d')) --}}
                                     
                                 
                                 <tr>
@@ -181,7 +181,7 @@
                                         {{$item->ruangan->nama_ruangan}}
                                     </td>
                                 </tr>
-                                @endif
+                                {{-- @endif --}}
                             @endforeach
                         </tbody>
                     </table>

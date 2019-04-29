@@ -86,7 +86,7 @@
                             
                             <td>
                                 <div style="width:80px;">
-                                    <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="javascript:loadform({{$v->id}},{{$v->module->jenis_id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                                 </div>
                             </td>

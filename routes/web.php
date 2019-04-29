@@ -262,6 +262,8 @@ Route::get('datadosen', 'HomeController@datadosen');
 Route::get('dataruangan', 'HomeController@dataruangan');
 
 Route::resource('penilaian','Dosen\PenilaianController')->middleware('auth');
+Route::get('penilaian-penguji','Dosen\PenilaianController@pengujinonkp')->middleware('auth');
+Route::get('penilaian-penguji-kp','Dosen\PenilaianController@pengujikp')->middleware('auth');
 Route::get('penilaian-pembimbing','Dosen\PenilaianController@penilaian_pembimbing')->middleware('auth');
 Route::get('form-nilai-dosen/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@form')->middleware('auth');
 Route::get('daftar-perbaikan/{idjadwal}/{idpengajuan}','Dosen\PenilaianController@perbaikan')->middleware('auth');

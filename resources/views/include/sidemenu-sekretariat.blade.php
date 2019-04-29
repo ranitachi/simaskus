@@ -237,11 +237,11 @@
                 <span class="title">Komponen</span>
             </a>
         </li>
-        <li class="nav-item  {{strpos(Request::path(),'subkomponen')!==false ? 'active' : ''}} ">
+        {{-- <li class="nav-item  {{strpos(Request::path(),'subkomponen')!==false ? 'active' : ''}} ">
             <a href="{{url('subkomponen')}}" class="nav-link ">
                 <span class="title">Sub Komponen</span>
             </a>
-        </li>
+        </li> --}}
         
     </ul>
 </li>

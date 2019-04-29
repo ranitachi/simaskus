@@ -58,8 +58,8 @@
                                             {
                                                 $nilai_angka=$n[$v->c_id]->nilai_angka;
                                                 $subtotal=$n[$v->c_id]->subtotal;
-                                                $hurufmutu=$n[$v->id]->huruf;
-                                                $total=$n[$v->id]->total;
+                                                $hurufmutu=$n[$v->c_id]->huruf;
+                                                $total=$n[$v->c_id]->total;
                                             }
                                             else
                                             {

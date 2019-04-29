@@ -19,8 +19,13 @@
                                 @endif
                             @else
                                 @if (isset($v->jenis->jenis))
-                                    <option value="{{$v->id}}">{{$v->jenis->jenis}} - {{$v->nama_module}}</option>
+                                    @if ($v->jenis_id==$idmodule)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->jenis->jenis}} - {{$v->nama_module}}</option>
+                                    @else
+                                        <option value="{{$v->id}}">{{$v->jenis->jenis}} - {{$v->nama_module}}</option>
+                                    @endif
                                 @endif
+                                
                             @endif
                         @endforeach
                     </select>
