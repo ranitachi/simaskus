@@ -47,11 +47,11 @@
                 <span class="title">Data Bimbingan</span>
             </a>
         </li>
-        <li class="nav-item  {{Request::path()=='sidang-bimbingan' ? 'active' : ''}}">
+        {{-- <li class="nav-item  {{Request::path()=='sidang-bimbingan' ? 'active' : ''}}">
             <a href="{{url('sidang-bimbingan')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang Bimbingan</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </li>
 
@@ -91,29 +91,29 @@
                 <span class="title">Tambah KP Baru</span>
             </a>
         </li> --}}
-        <li class="nav-item  ">
+        {{-- <li class="nav-item  ">
             <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </li>
 <li class="heading">
     <h3 class="uppercase">Penilaian</h3>
 </li>
-<li class="nav-item  {{strpos(Request::url(),'penilaian')!==false ? 'active' : ''}} ">
+<li class="nav-item  {{strpos(Request::path(),'penilaian')!==false ? 'active' : ''}} ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Penilaian</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{Request::url()=='penilaian'  ? 'active' : ''}}">
+        <li class="nav-item  {{strpos(Request::path(),'penilaian-penguji')!==false  ? 'active' : ''}}">
             <a href="{{url('penilaian')}}" class="nav-link ">
                 <span class="title">Penguji</span>
             </a>
         </li>
-        <li class="nav-item  {{strpos(Request::url(),'penilaian-pembimbing')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='penilaian-pembimbing'  ? 'active' : ''}}">
             <a href="{{url('penilaian-pembimbing')}}" class="nav-link ">
                 <span class="title">Pembimbing</span>
             </a>

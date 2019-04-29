@@ -123,6 +123,13 @@
                                                     @else
                                                         <a href="javascript:formnilai({{$idjadwal}},{{$idpengajuan}},'{{$item['kategori'].'-'.$item['iddosen']}}')" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Form Penilaian</a>    
                                                     @endif
+                                                    <br>
+                                                    @if (isset($perb[$idjadwal][$item['iddosen']]))
+                                                        <a href="javascript:daftarperbaikan({{$idjadwal}},{{$idpengajuan}},'{{$item['kategori'].'-'.$item['iddosen']}}')" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-check"></i> Daftar Perbaikan</a>
+                                                    @else
+                                                        <a href="javascript:daftarperbaikan({{$idjadwal}},{{$idpengajuan}},'{{$item['kategori'].'-'.$item['iddosen']}}')" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Daftar Perbaikan</a>
+                                                    @endif
+                                                    <br>
                                                 @endif    
                                                 </td>
                                             </tr>    

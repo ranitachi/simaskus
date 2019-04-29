@@ -14,6 +14,7 @@ use App\Model\Jadwal;
 use App\Model\Notifikasi;
 use App\Model\PivotBimbingan;
 use App\Model\PivotAccSidang;
+use App\Model\PivotDocumentSidang;
 use App\Model\PivotSetujuSidang;
 use App\Model\PivotPenguji;
 use App\Model\Component;
@@ -28,85 +29,178 @@ class PenilaianController extends Controller
 {
     public function index()
     {
-        $aju=Pengajuan::where('status_pengajuan',2)
+        return view('pages.dosen.penilaian.view');
+    }
+
+    public function pengujikp()
+    {
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+        // dd( $dept_id);
+        $jenis=2;
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)
+                    ->where('status_pengajuan',$jenis)
                     ->with('jenispengajuan')
                     ->with('mahasiswa')
+                    ->with('tahunajaran')
                     ->with('dospem_1')
                     ->with('dospem_2')
                     ->with('dospem_3')
                     ->orderBy('created_at')->get();
-        $pengajuan=$jenis=array();
-        foreach($aju as $ka=>$va)
-        {
-            if($va->status_pengajuan==2)
-            {
-                $pengajuan[$va->id]=$va;
-                $jenis[$va->jenis_id]=$va->jenispengajuan->jenis;
-            }
-        }
-        $jadwal=Jadwal::selectRaw('pivot_jadwal.*,jadwals.*, pivot_jadwal.id as pj_id')
-                    ->join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+
+        // return $pengajuan;
+        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                    ->where('jadwals.departemen_id',$dept_id)
                     ->with('ruangan')
-                    ->orderBy('pivot_jadwal.created_at','desc')
                     ->get();
 
-        $jad=array();
-        foreach($jadwal as $kj=>$vj)
+        // dd($pengajuan);
+        $jdwl=array();
+        foreach($jadwal as $kj=>$vjj)
         {
-            $jad[$vj->pj_id]=$vj;
+            $jdwl[$vjj->judul_id]=$vjj;
         }
-        // dd($jad);
-        $pivot=PivotBimbingan::with('dosen')->get();
-        $piv=$bimb=array();
-        foreach($pivot as $k =>$v)
-        {
-            $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
-            $bimb[$v->dosen_id][$v->mahasiswa_id]=$v;
-        }
-
-        $acc_sidang=PivotSetujuSidang::all();
-        $acc_sid=array();
-        foreach($acc_sidang as $k =>$v)
-        {
-            $acc_sid[$v->pengajuan_id][$v->dosen_id]=$v;
-        }
-        $ruangan=MasterRuangan::all();
-        $ruang=array();
-        foreach($ruangan as $k =>$v)
-        {
-            $ruang[$v->id]=$v;
-        }
-
+        // dd($jdwl);
         $penguji=PivotPenguji::with('dosen')->get();
-        $uji=$nilai=array();
+        $uji=array();
         foreach($penguji as $k => $v)
         {
-
-            if(Auth::user()->id_user==$v->penguji_id)
-            {
-                $uji[$v->pivot_jadwal_id][$v->penguji_id]=$v;
-            }
+            $uji[$v->pengajuan_id][$v->mahasiswa_id][$v->penguji_id]=$v;
         }
-        // dd($pengajuan);
+        // dd($uji);
+        $pivot=PivotBimbingan::all();
+        $piv=array();
+        foreach($pivot as $k =>$v)
+        {
+            $piv[$v->judul_id][$v->mahasiswa_id][$v->dosen_id]=$v;
+        }
+
+        $dokumen=PivotDocumentSidang::where('departemen_id',$dept_id)->get();
+        $dok=array();
+        foreach($dokumen as $kd => $vd)
+        {
+            $dok[$vd->pengajuan_id][$vd->jenis_dokumen]=$vd;
+        }
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
 
         $nilai=Nilai::where('dosen_id',Auth::user()->id_user)->with('dosen')->with('komponen')->get();
 
         $n=array();
         foreach($nilai as $kn => $vn)
         {
-            $n[$vn->jadwal_id]=$vn;
+            $n[$vn->jadwal_id][$vn->penilai][$vn->dosen_id]=$vn;
         }
-        
-        
-        return view('pages.dosen.penilaian.index')
-                    ->with('acc_sid',$acc_sid)
-                    ->with('pengajuan',$pengajuan)         
-                    ->with('jadwal',$jad)
-                    ->with('ruangan',$ruang)
+        $perbaikan=PerbaikanSkripsi::get();
+        $perb=array();
+        foreach($perbaikan as $kn => $vn)
+        {
+            $perb[$vn->jadwal_id][$vn->pembimbing_id]=$vn;
+        }
+        // dd($n);
+        return view('pages.dosen.penilaian.index-kp')
+                    ->with('pengajuan',$pengajuan)
+                    ->with('uji',$uji)
                     ->with('n',$n)
-                    ->with('piv',$piv)
+                    ->with('perb',$perb)
+                    ->with('dok',$dok)
+                    ->with('dept_id',$dept_id)
+                    ->with('dosen',$dosen)
+                    ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
-                    ->with('uji',$uji);
+                    ->with('piv',$piv);
+    }
+    public function pengujinonkp()
+    {
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+        // dd( $dept_id);
+        $jenis=2;
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)
+                    ->where('status_pengajuan',$jenis)
+                    ->with('jenispengajuan')
+                    ->with('mahasiswa')
+                    ->with('tahunajaran')
+                    ->with('dospem_1')
+                    ->with('dospem_2')
+                    ->with('dospem_3')
+                    ->orderBy('created_at')->get();
+
+        // return $pengajuan;
+        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                    ->where('jadwals.departemen_id',$dept_id)
+                    ->with('ruangan')
+                    ->get();
+
+        // dd($pengajuan);
+        $jdwl=array();
+        foreach($jadwal as $kj=>$vjj)
+        {
+            $jdwl[$vjj->judul_id]=$vjj;
+        }
+        // dd($jdwl);
+        $penguji=PivotPenguji::with('dosen')->get();
+        $uji=array();
+        foreach($penguji as $k => $v)
+        {
+            $uji[$v->pengajuan_id][$v->mahasiswa_id][$v->penguji_id]=$v;
+        }
+        // dd($uji);
+        $pivot=PivotBimbingan::all();
+        $piv=array();
+        foreach($pivot as $k =>$v)
+        {
+            $piv[$v->judul_id][$v->mahasiswa_id][$v->dosen_id]=$v;
+        }
+
+        $dokumen=PivotDocumentSidang::where('departemen_id',$dept_id)->get();
+        $dok=array();
+        foreach($dokumen as $kd => $vd)
+        {
+            $dok[$vd->pengajuan_id][$vd->jenis_dokumen]=$vd;
+        }
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
+
+        $nilai=Nilai::where('dosen_id',Auth::user()->id_user)->with('dosen')->with('komponen')->get();
+
+        $n=array();
+        foreach($nilai as $kn => $vn)
+        {
+            $n[$vn->jadwal_id][$vn->penilai][$vn->dosen_id]=$vn;
+        }
+        $perbaikan=PerbaikanSkripsi::get();
+        $perb=array();
+        foreach($perbaikan as $kn => $vn)
+        {
+            $perb[$vn->jadwal_id][$vn->pembimbing_id]=$vn;
+        }
+        // dd($n);
+        return view('pages.dosen.penilaian.index')
+                    ->with('pengajuan',$pengajuan)
+                    ->with('uji',$uji)
+                    ->with('n',$n)
+                    ->with('perb',$perb)
+                    ->with('dok',$dok)
+                    ->with('dept_id',$dept_id)
+                    ->with('dosen',$dosen)
+                    ->with('jadwal',$jdwl)
+                    ->with('jenis',$jenis)
+                    ->with('piv',$piv);
 
     }
     
@@ -213,7 +307,7 @@ class PenilaianController extends Controller
 
     public function form($idjadwal,$idpengajuan)
     {
-        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->first();
+        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->with('jenispengajuan')->first();
         $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->where('jadwals.id',$idjadwal)
                     ->with('ruangan')
@@ -236,8 +330,9 @@ class PenilaianController extends Controller
 
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
-                    ->where('module.departemen_id',$dept_id)
-                    ->where('nama_module','like',"%Penilaian Skripsi%")->get();
+                    ->where('module.jenis_id',0)->get();
+
+        // return $penilaian;
         // dd(Auth::user()->id_user);
 
         $nilai=Nilai::where('jadwal_id',$idjadwal)->where('dosen_id',Auth::user()->id_user)->with('dosen')->with('komponen')->get();
@@ -248,10 +343,20 @@ class PenilaianController extends Controller
             $n[$vn->komponen_id]=$vn;
         }
 
-        // dd(Auth::user()->id_user);
+        // $formnilai=
+        // return $n;
+        $idjenis=isset($pengajuan->jenispengajuan->id) ? $pengajuan->jenispengajuan->id : -1;
+        if($idjenis!=-1)
+        {
+            $penilaian=Component::select('*',DB::raw('component.id as c_id'))
+                    ->join('module','module.id','=','component.module_id')
+                    ->where('module.departemen_id',$dept_id)
+                    ->where('module.jenis_id',$idjenis)->get();
+        }
 
+        // return $penilaian;
         return view('pages.dosen.penilaian.form',
-            compact('pengajuan','jadwal','penilaian','uji','n','idjadwal','idpengajuan'));
+            compact('pengajuan','jadwal','penilaian','uji','n','idjadwal','idpengajuan','penilaian'));
     }
     public function perbaikan($idjadwal,$idpengajuan)
     {
