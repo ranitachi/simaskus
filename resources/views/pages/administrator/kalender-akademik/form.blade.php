@@ -88,10 +88,22 @@
                                         <label class="control-label">Kategori Khusus</label>
                                         <select class="bs-select form-control has-success" name="kategori_khusus">
                                             @foreach ($d_kal as $item)
-                                                @if (in_array(str_slug($item),$kalm))
-                                                        
+                                                @if ($id!=-1)
+                                                    @if ($det->kategori_khusus==str_slug($item))
+                                                        <option value="{{str_slug($item)}}" {{$id!='-1' ? ($det->kategori_khusus==str_slug($item) ? 'selected="selected"' : '') : ''}}>{{$item}}</option>        
+                                                    @else
+                                                        @if (in_array(str_slug($item),$kalm))
+                                                            
+                                                        @else
+                                                            <option value="{{str_slug($item)}}" {{$id!='-1' ? ($det->kategori_khusus==str_slug($item) ? 'selected="selected"' : '') : ''}}>{{$item}}</option>        
+                                                        @endif    
+                                                    @endif
                                                 @else
-                                                    <option value="{{str_slug($item)}}" {{$id!='-1' ? ($det->kategori_khusus==str_slug($item) ? 'selected="selected"' : '') : ''}}>{{$item}}</option>        
+                                                    @if (in_array(str_slug($item),$kalm))
+                                                            
+                                                    @else
+                                                        <option value="{{str_slug($item)}}" {{$id!='-1' ? ($det->kategori_khusus==str_slug($item) ? 'selected="selected"' : '') : ''}}>{{$item}}</option>        
+                                                    @endif
                                                 @endif
                                             @endforeach                                            
                                         </select>

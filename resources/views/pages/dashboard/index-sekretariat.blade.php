@@ -20,92 +20,232 @@
     <!-- BEGIN PAGE TITLE-->
     <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial</h1>
     <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
-                                    <div class="visual">
-                                        <i class="fa fa-comments"></i>
-                                    </div>
-                                    <div class="details">
-                                        <div class="number">
-                                            @php
-                                                $staf=\App\Model\Staf::where('id',Auth::user()->id_user)->first();
-                                                $dept_id=$staf->departemen_id;
-                                                $mhs=\App\Model\Mahasiswa::where('departemen_id',$dept_id)->with('programstudi')->get();
-                                                // dd($mhs);
-                                                $mahasiswa=array();
-                                                foreach($mhs as $k => $v)
-                                                {
-                                                    $mahasiswa[$v->id]=$v;
-                                                }
-                                            @endphp
-                                            <span data-counter="counterup" data-value="{{$mhs->count()}}">{{$mhs->count()}} Orang</span>
-                                        </div>
-                                        <div class="desc"> Jumlah Mahasiswa Aktif </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 red" href="#">
-                                    <div class="visual">
-                                        <i class="fa fa-bar-chart-o"></i>
-                                    </div>
-                                    <div class="details">
-                                    <div class="number">
-                                         @php
-                                                $dosen=\App\Model\Dosen::where('departemen_id',$dept_id)->get();
-                                                $dos=array();
-                                                foreach($dosen as $k => $v)
-                                                {
-                                                    $dos[$v->id]=$v;
-                                                }
-                                                // dd($mhs);
-                                        @endphp
-                                        <span data-counter="counterup" data-value="{{$dosen->count()}}">{{$dosen->count()}} Orang</span></div>
-                                    <div class="desc"> Jumlah Dosen </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 green" href="#">
-                                    <div class="visual">
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </div>
-                                    <div class="details">
-                                        <div class="number">
-                                            @php
-                                                $prodi=\App\Model\ProgamStudi::where('departemen_id',$dept_id)->get();
-                                            @endphp
-                                            <span data-counter="counterup" data-value="{{$prodi->count()}}">{{$prodi->count()}}</span>
-                                        </div>
-                                        <div class="desc"> Jumlah Program Studi </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
-                                    <div class="visual">
-                                        <i class="fa fa-globe"></i>
-                                    </div>
-                                    <div class="details">
-                                        <div class="number"> 
-                                        @php
-                                            $jadwal=\App\Model\Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
-                                                ->where('jadwals.departemen_id',$dept_id)
-                                                ->where('pivot_jadwal.status',0)
-                                                ->where('pivot_jadwal.ruangan_id','!=',0)
-                                                ->orderBy('jadwals.tanggal')
-                                                ->with('ruangan')
-                                                ->get();
-                                            
-                                            echo $jadwal->count();
-                                        @endphp     
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                <div class="visual">
+                    <i class="fa fa-comments"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        @php
+                            $staf=\App\Model\Staf::where('id',Auth::user()->id_user)->first();
+                            $dept_id=$staf->departemen_id;
+                            $mhs=\App\Model\Mahasiswa::where('departemen_id',$dept_id)->with('programstudi')->get();
+                            // dd($mhs);
+                            $mahasiswa=array();
+                            foreach($mhs as $k => $v)
+                            {
+                                $mahasiswa[$v->id]=$v;
+                            }
+                        @endphp
+                        <span data-counter="counterup" data-value="{{$mhs->count()}}">{{$mhs->count()}} Orang</span>
+                    </div>
+                    <div class="desc"> Jumlah Mahasiswa Aktif </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                <div class="visual">
+                    <i class="fa fa-bar-chart-o"></i>
+                </div>
+                <div class="details">
+                <div class="number">
+                     @php
+                            $dosen=\App\Model\Dosen::where('departemen_id',$dept_id)->get();
+                            $dos=array();
+                            foreach($dosen as $k => $v)
+                            {
+                                $dos[$v->id]=$v;
+                            }
+                            // dd($mhs);
+                    @endphp
+                    <span data-counter="counterup" data-value="{{$dosen->count()}}">{{$dosen->count()}} Orang</span></div>
+                <div class="desc"> Jumlah Dosen </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                <div class="visual">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        @php
+                            $prodi=\App\Model\ProgamStudi::where('departemen_id',$dept_id)->get();
+                        @endphp
+                        <span data-counter="counterup" data-value="{{$prodi->count()}}">{{$prodi->count()}}</span>
+                    </div>
+                    <div class="desc"> Jumlah Program Studi </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+                <div class="visual">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="details">
+                    <div class="number"> 
+                    @php
+                        $jadwal=\App\Model\Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                            ->where('jadwals.departemen_id',$dept_id)
+                            ->where('pivot_jadwal.status',0)
+                            ->where('pivot_jadwal.ruangan_id','!=',0)
+                            ->orderBy('jadwals.tanggal')
+                            ->with('ruangan')
+                            ->get();
+                        
+                        echo $jadwal->count();
+                    @endphp 
+                    </div>
+                    <div class="desc">Jadwal Sidang Bulan {{date('F')}}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        @php
+        $warna='grey';
+        $check='';
+        $waktupengajuanmk=$waktupengajuansidang=$waktupendajwalan=$waktusidang='Belum Di Atur Jadwal';
+        if (count($kalender)!=0)
+        {
+                foreach ($kalender as $key => $value) 
+                {
+                    if($value['kategori_khusus']=='masa-pengajuan-mata-kuliah-khusus')
+                    {
+                        $waktupengajuanmk=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $warna='blue';
+                        $check='<i class="fa fa-check"></i>';
+                    }
+                    else
+                    {
+                        $waktupengajuanmk='Belum Di Atur Jadwal';
+                        $warnawaktupengajuanmk='grey';
+                        $checkwaktupengajuanmk='';
+                    }
+                    
+                    if($value['kategori_khusus']=='masa-penjadwalan')
+                    {
+                        $waktupendajwalan=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $warnawaktupendajwalan='blue';
+                        $checkwaktupendajwalan='<i class="fa fa-check"></i>';
+                    }
+                    else
+                    {
+                        $waktupendajwalan='Belum Di Atur Jadwal';
+                        $warnawaktupendajwalan='grey';
+                        $checkwaktupendajwalan='';
+                    }
+                    
+                    if($value['kategori_khusus']=='masa-pengajuan-sidang-mata-kuliah-khusus')
+                    {
+                        $waktupengajuansidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $warnawaktupengajuansidang='blue';
+                        $checkwaktupengajuansidang='<i class="fa fa-check"></i>';
+                    }
+                    else
+                    {
+                        $waktupengajuansidang='Belum Di Atur Jadwal';
+                        $warnawaktupengajuansidang='grey';
+                        $checkwaktupengajuansidang='';
+                    }
+                    
+                    if($value['kategori_khusus']=='masa-pelaksanaan-sidang')
+                    {
+                        $waktusidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $warnawaktusidang='blue';
+                        $checkwaktusidang='<i class="fa fa-check"></i>';
+                    }
+                    else
+                    {
+                        $waktusidang='Belum Di Atur Jadwal';
+                        $warnawaktusidang='grey';
+                        $checkwaktusidang='';
+                    }
+                }
+            // }
+            // else
+            // {
+            //     
+            // }
+        }    
+        else
+        {
+            $waktupengajuanmk=$waktupengajuansidang=$waktupendajwalan=$waktusidang='Belum Di Atur Jadwal';
+            $warnawaktupengajuanmk=$warnawaktupendajwalan=$warnawaktupengajuansidang=$warnawaktusidang='grey';
+            $checkwaktupengajuanmk=$checkwaktupendajwalan=$checkwaktupengajuansidang=$checkwaktusidang='';
+        }
 
-                                        </div>
-                                        <div class="desc">Jadwal Sidang Bulan {{date('F')}}</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+        if(isset($kal_lain['masa-pengajuan-mata-kuliah-khusus']))
+        {
+            $kl=$kal_lain['masa-pengajuan-mata-kuliah-khusus'];
+            $waktupengajuanmk=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));
+        }
+        if(isset($kal_lain['masa-penjadwalan']))
+        {
+            $kl=$kal_lain['masa-penjadwalan'];
+            $waktupendajwalan=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));;
+        }
+        if(isset($kal_lain['masa-pengajuan-sidang-mata-kuliah-khusus']))
+        {
+            $kl=$kal_lain['masa-pengajuan-sidang-mata-kuliah-khusus'];
+            $waktupengajuansidang=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));
+        }
+        if(isset($kal_lain['masa-pelaksanaan-sidang']))
+        {
+            $kl=$kal_lain['masa-pelaksanaan-sidang'];
+            $waktusidang=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));;
+        }
+        @endphp
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 {{$warnawaktupengajuanmk}}" href="#">
+                <div class="visual">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="details text-center">
+                    <div class="desc" style="padding-top:20px;">{{$waktupengajuanmk}}</div>
+                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktupengajuanmk!!} Pengajuan Bimbingan</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 {{$warnawaktupengajuansidang}}" href="#">
+                <div class="visual">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="details text-center">
+                    <div class="desc" style="padding-top:20px;">{{$waktupengajuansidang}}</div>
+                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktupengajuansidang!!} Pengajuan Sidang</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 {{$warnawaktupendajwalan}}" href="#">
+                <div class="visual">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="details text-center">
+                    <div class="desc" style="padding-top:20px;">{{$waktupendajwalan}}</div>
+                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktupendajwalan!!} Pendjadwalan</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a class="dashboard-stat dashboard-stat-v2 {{$warnawaktusidang}}" href="#">
+                <div class="visual">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="details text-center">
+                    <div class="desc" style="padding-top:20px;">{{$waktusidang}}</div>
+                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktusidang!!} Pelaksanaan Sidang</div>
+                </div>
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8">
             <div class="portlet light bordered">

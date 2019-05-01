@@ -14,6 +14,7 @@ use App\Model\PivotBimbingan;
 use App\Model\Mahasiswa;
 use App\Model\TahunAjaran;
 use App\Model\TopikPengajuan;
+use App\Model\KalenderAkademik;
 use Auth;
 class PengajuanSkripsiController extends Controller
 {
@@ -25,6 +26,7 @@ class PengajuanSkripsiController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         }   
+        
         $status_pengajuan=0;
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
         return view('pages.mahasiswa.pengajuan.index')
@@ -49,6 +51,13 @@ class PengajuanSkripsiController extends Controller
     }
     public function data($status_pengajuan=null)
     {
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }  
+        
         if($status_pengajuan==null)
         {
             $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
@@ -79,7 +88,17 @@ class PengajuanSkripsiController extends Controller
         {
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
+
+        $tahun=date('Y-m-d');
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+        $kalender=array();
+        foreach($kal as $val)
+        {
+            $kalender[$val->kategori_khusus]=$val;
+        }
+        // return $kalender
         return view('pages.mahasiswa.pengajuan.data')
+                    ->with('kalender',$kalender)
                     ->with('pengajuan',$pengajuan)
                     ->with('status_pengajuan',$status_pengajuan)
                     ->with('piv',$piv);
