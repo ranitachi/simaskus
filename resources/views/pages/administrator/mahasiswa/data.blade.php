@@ -21,7 +21,7 @@
                     <th> Departemen </th>
                     <th> Program Studi </th>
                     <th> Status Akun</th>
-                    <th> Status Mahasiswa</th>
+                    {{-- <th> Status Mahasiswa</th> --}}
                     <th> # </th>
                 </tr>
             </thead>

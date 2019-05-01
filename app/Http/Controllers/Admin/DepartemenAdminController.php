@@ -9,6 +9,11 @@ class DepartemenAdminController extends Controller
 {
     public function index()
     {
+        // $comparison = new \Atomescrochus\StringSimilarities\Compare(); 
+        // $s1='Departemen Arsitektur';
+        // $s2='departemen arsitektur';
+        // $all = $comparison->jaroWinkler($s1,$s2);
+        // return $all;
         return view('pages.administrator.departemen.index');
     }
     public function data()
@@ -31,6 +36,19 @@ class DepartemenAdminController extends Controller
     }
     public function store(Request $request)
     {
+        $comparison = new \Atomescrochus\StringSimilarities\Compare();
+        $s1=str_replace('departemen','',strtolower($request->nama_departemen));
+        $mdept=MasterDepartemen::all();
+        foreach($mdept as $v)
+        {
+            $s2=str_replace('departemen','',strtolower($v->nama_departemen));
+            $cek=$comparison->jaroWinkler($s1,$s2);
+            if($cek>=0.8)
+            {
+                return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database','comparison'=>$cek]);
+            }
+        }
+
         $dept=new MasterDepartemen;
         $dept->code=$request->code;
         $dept->nama_departemen=$request->nama_departemen;
@@ -46,13 +64,27 @@ class DepartemenAdminController extends Controller
     public function update(Request $request,$id)
     {
         $dept=MasterDepartemen::find($id);
+        $n_dept=$dept->nama_departemen;
         $dept->code=$request->code;
         $dept->nama_departemen=$request->nama_departemen;
         // $dept->pimpinan_id=$request->pimpinan_id;
         $dept->flag='1';
         $dept->updated_at=date('Y-m-d H:i:s');
-        $up=$dept->save();
-        return response()->json([$up]);
+
+
+        $comparison = new \Atomescrochus\StringSimilarities\Compare();
+        $s1=str_replace('departemen','',strtolower($request->nama_departemen));
+        $s2=str_replace('departemen','',strtolower($n_dept));
+        $cek=$comparison->jaroWinkler($s1,$s2);
+        if($cek>=0.9)
+        {
+            return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database','comparison'=>$cek]);
+        }
+        else
+        {
+            $up=$dept->save();
+            return response()->json([$up]);
+        }
         // return redirect('dosen-admin')->with('status',$pesan);
     }
 

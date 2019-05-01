@@ -36,7 +36,7 @@
         <script src="{{asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/pages/scripts/components-select2.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/pages/scripts/components-select2.js')}}" type="text/javascript"></script>
         
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <!-- END THEME GLOBAL SCRIPTS -->

@@ -152,6 +152,7 @@ Route::get('daftar-sidang-data','Mahasiswa\DaftarSidangController@data')->middle
 Route::resource('bimbingan','BimbinganController')->middleware('auth');
 Route::get('bimbingan/{idbimbingan?}/{idpengajuan?}','BimbinganController@show')->middleware('auth');
 Route::get('bimbingan-data/{idmhs?}/{idpengajuan?}','BimbinganController@data')->middleware('auth');
+Route::get('bimbingan-data-hapus/{id}/{idmhs?}/{idpengajuan?}','BimbinganController@destroy')->middleware('auth');
 
 //-----------JADWAL FRONT--------------
 Route::get('jadwal/{jenis}','JadwalController@index');
@@ -208,6 +209,8 @@ Route::resource('quota-pembimbing','QuotaPembimbingController')->middleware('aut
 Route::get('quota-pembimbing-data','QuotaPembimbingController@data')->middleware('auth');
 Route::get('quota-pembimbing-hapus/{id}','QuotaPembimbingController@destroy')->middleware('auth');
 Route::get('jlh_pembimbing/{idjenis}/{kat_dosen?}/{id_pengajuan?}','QuotaPembimbingController@jlh_pembimbing')->middleware('auth');
+Route::get('get-pembimbing/{idjenis}/{i}/{idpm?}/{kat_dosen?}/{idpengajuan?}','QuotaPembimbingController@get_pembimbing')->middleware('auth');
+Route::get('getdatapembimbing/{idjenis}/{iddosen}/{i}/{kuota}/{kat_dosen?}/{idpengajuan?}','QuotaPembimbingController@getdatapembimbing')->middleware('auth');
 
 //DOSEN
 Route::get('pengajuan-bimbingan','Dosen\PengajuanBimbinganController@pengajuan')->middleware('auth');
@@ -217,6 +220,7 @@ Route::get('bimbingan-data-dosen/{id}/{idpengajuan?}','Dosen\PengajuanBimbinganC
 Route::get('pengajuan-data-dosen/{jenis}','Dosen\PengajuanBimbinganController@data')->middleware('auth');
 Route::get('pengajuan-bimbingan-status/{id}/{st}','Dosen\PengajuanBimbinganController@status')->middleware('auth');
 Route::get('data-bimbingan-status/{id}/{st}','Dosen\PengajuanBimbinganController@data_bimbingan_status')->middleware('auth');
+Route::get('data-bimbingan-setuju/{id}/{mhs_id}','Dosen\PengajuanBimbinganController@data_bimbingan_setuju')->middleware('auth');
 
 Route::get('pengajuan-sidang','Dosen\PengajuanSidangController@index')->middleware('auth');
 Route::get('pengajuan-sidang-data','Dosen\PengajuanSidangController@data')->middleware('auth');

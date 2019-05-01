@@ -31,7 +31,7 @@ class BimbinganController extends Controller
             $wh=['mahasiswa_id'=>$idmhs, 'pengajuan_id'=>$idpengajuan];
             
         
-        $bimbingan=Bimbingan::where($wh)->with('dospem')->with('mahasiswa')->get();
+        $bimbingan=Bimbingan::where($wh)->with('dospem')->with('mahasiswa')->orderBy('tanggal_bimbingan','asc')->orderBy('created_at','asc')->get();
           
 
         return view('pages.mahasiswa.bimbingan.data',compact('bimbingan','idpengajuan'));
@@ -152,6 +152,9 @@ class BimbinganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pengajuan=Bimbingan::find($id)->delete();
+        
+        return response()->json([$pengajuan]);
+        // return redirect('data-pengajuan')->with('status',"Pengajuan Sudah Dihapus");
     }
 }

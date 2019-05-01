@@ -32,12 +32,41 @@
             </div>
             <!--/span-->
         </div>
+        @if (Auth::user()->kat_user==0)
+            <div class="row">
+            <!--/span-->
+            <div class="col-md-12">
+                <div class="form-group has-success">
+                    <label class="control-label">Departemen</label>
+                    
+                    {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
+                    <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Departemen" name="departemen_id" id="level">
+                            @foreach ($departemen as $item)
+                                @if ($id!=-1)
+                                    @if ($item->id==$det->departemen_id)
+                                        <option value="{{$item->id}}" selected="selected">{{$item->code}} - {{$item->nama_departemen}}</option>
+                                    @else
+                                        <option value="{{$item->id}}">{{$item->code}} - {{$item->nama_departemen}}</option>
+                                    @endif
+                                @else
+                                    <option value="{{$item->id}}">{{$item->code}} - {{$item->nama_departemen}}</option>
+                                @endif
+                            @endforeach
+                    </select>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+        @else
+            <input type="hidden" name="departemen_id" value="{{$dept_id}}">
+        @endif
+        
         <div class="row">
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
                     <label class="control-label">Level</label>
-                    <input type="hidden" name="departemen_id" value="{{$dept_id}}">
+                    
                     {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
                     <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="keterangan" id="level">
                         @php

@@ -369,5 +369,32 @@
             } 
         });
     }
+    function hapusbimbingan(id)
+    {
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin Menghapus Data Bimbingan Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Hapus",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("bimbingan-data-hapus")}}/'+id,
+                    dataType : 'JSON'
+                }).done(function(){
+                    loaddata();
+                    swal("Deleted!", "Data Bimbingan Berhasil Di Hapus", "success");
+                }).fail(function(){
+                    swal("Fail!", "Hapus Data Bimbingan Gagal", "danger");
+                });
+            } 
+        });
+    }
 </script>
 @endsection

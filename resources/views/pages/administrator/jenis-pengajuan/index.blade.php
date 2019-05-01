@@ -109,15 +109,24 @@
                                     data: $('#form-departemen').serialize()
                                 }).done(function(dt){
                                     loaddata();
-                                    if(id==-1)
+                                    if(dt.status==0)
                                     {
-                                        var ps="Data Mata Kuliah Spesial Berhasil Disimpan";
+                                        var ps=dt.pesan;
+                                        pesan(ps,'error');
                                     }
                                     else
                                     {
-                                        var ps="Data Mata Kuliah Spesial Berhasil Di Edit";
+                                        if(id==-1)
+                                        {
+                                            var ps="Data Mata Kuliah Spesial Berhasil Disimpan";
+                                        }
+                                        else
+                                        {
+                                            var ps="Data Mata Kuliah Spesial Berhasil Di Edit";
+                                        }
+                                        swal("Berhasil", ps, "success");
                                     }
-                                    swal("Berhasil", ps, "success");
+                                    
                                 }).fail(function(dt){ 
                                     var ps='Data Mata Kuliah Spesial Gagal Disimpan';
                                     pesan(ps,'error');
