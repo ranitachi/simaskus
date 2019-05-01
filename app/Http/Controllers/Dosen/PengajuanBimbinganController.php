@@ -119,6 +119,31 @@ class PengajuanBimbinganController extends Controller
 
         return response()->json(['done']);
     }
+   
+    public function data_bimbingan_setuju($id,$mahasiswa_id)
+    {
+        $iddosen=Auth::user()->id_user;
+        $data=Bimbingan::where('pengajuan_id',$id)->where('flag',0)->where('dospem_id',$iddosen)->get();
+        foreach($data as $v)
+        {
+            $v->flag=1;
+            $v->save();
+        }
+
+        $pengajuan=Pengajuan::where('mahasiswa_id',$mahasiswa_id)->where('status_pengajuan',1)->first();
+
+        $id_user_mhs=Users::where('id_user',$mahasiswa_id)->first();
+        $notif=new Notifikasi;
+        $notif->title="Data Bimbingan Telah DI Setujui";
+        $notif->from=Auth::user()->id;
+        $notif->to=$id_user_mhs->id;
+        $notif->flag_active=1;
+        $notif->pesan="Dosen : Data Bimbingan Mahasiswa <u>".$id_user_mhs->name."</u> Sudah Setujui<br>
+        <a href='".url('pengajuan-detail/'.$pengajuan->id.'#tab_5_2')."'></a>";
+        $notif->save();
+
+        return response()->json(['done']);
+    }
 
     public function detail($id,$mahasiswa_id)
     {
@@ -210,9 +235,9 @@ class PengajuanBimbinganController extends Controller
     public function bimbingandata($id,$idpengajuan=null)
     {
         if($idpengajuan==null)
-            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->with('dospem')->with('mahasiswa')->get();
+            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->with('dospem')->with('mahasiswa')->orderBy('tanggal_bimbingan')->get();
         else
-            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->where('pengajuan_id',$idpengajuan)->with('dospem')->with('mahasiswa')->get();
+            $bimbingan=Bimbingan::where('mahasiswa_id',$id)->where('pengajuan_id',$idpengajuan)->with('dospem')->with('mahasiswa')->orderBy('tanggal_bimbingan')->get();
 
         return view('pages.dosen.bimbingan.bimbingan-data',compact('bimbingan','idpengajuan'));
     }

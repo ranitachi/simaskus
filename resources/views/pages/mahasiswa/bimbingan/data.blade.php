@@ -28,9 +28,12 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $x=1;
+                @endphp
             @foreach ($bimbingan as $i => $v)   
                 <tr class="odd gradeX">
-                    <td>{{($v->bimbingan_ke)}}</td>
+                    <td>{{($x)}}</td>
                     <td>{{tgl_indo2($v->tanggal_bimbingan)}}</td>
                     <td>{{$v->judul}}</td>
                     <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
@@ -46,12 +49,14 @@
                     <td>
                         <div style="width:80px;">
                             <a href="javascript:loadform({{$v->id}})" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="javascript:hapusbimbingan({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>
                     @endif
                 </tr>
-           
+            @php
+                $x++;
+            @endphp
             @endforeach                
             </tbody>
         </table>

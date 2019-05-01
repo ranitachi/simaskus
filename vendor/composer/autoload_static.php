@@ -140,6 +140,7 @@ class ComposerStaticInitff6860b8468c57a2fa97aae212f5809b
         ),
         'A' => 
         array (
+            'Atomescrochus\\StringSimilarities\\' => 33,
             'App\\' => 4,
         ),
     );
@@ -379,6 +380,10 @@ class ComposerStaticInitff6860b8468c57a2fa97aae212f5809b
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
         ),
+        'Atomescrochus\\StringSimilarities\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -573,6 +578,12 @@ class ComposerStaticInitff6860b8468c57a2fa97aae212f5809b
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+        'Atomescrochus\\StringSimilarities\\Compare' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/Compare.php',
+        'Atomescrochus\\StringSimilarities\\JaroWinkler' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/JaroWinkler.php',
+        'Atomescrochus\\StringSimilarities\\Levenshtein' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/Levenshtein.php',
+        'Atomescrochus\\StringSimilarities\\SmithWatermanGotoh' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/SmithWatermanGotoh.php',
+        'Atomescrochus\\StringSimilarities\\SmithWatermanMatchMismatch' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/SmithWatermanMatchMismatch.php',
+        'Atomescrochus\\StringSimilarities\\StringSimilaritiesServiceProvider' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/StringSimilaritiesServiceProvider.php',
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',

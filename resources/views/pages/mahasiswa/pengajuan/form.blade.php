@@ -100,7 +100,7 @@
                                                     @if ($mahasiswa->programstudi->jenjang==$v->keterangan)
                                                         @if ($id!=-1)
                                                             @if ($det->jenis_id==$v->id)
-                                                                <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                                <option value="{{$v->id}}" selected="selected">{{$v->jenis}}</option>    
                                                             @else
                                                                 <option value="{{$v->id}}">{{$v->jenis}}</option>
                                                             @endif
@@ -186,15 +186,15 @@
                                 </div>
                                 <!--/span-->
                             </div>
-                           
-                            <div class="row">
+                            <input type="hidden" name="deskripsi" value="">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi</label>
                                         <textarea class="wysihtml5 form-control" rows="6" name="deskripsi_rencana">{{$id!=-1 ? $det->deskripsi_rencana : '-'}}</textarea>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                            
                             <div class="row" style="display:none">
                                 <!--/span-->
@@ -307,13 +307,43 @@
                                     <div id="kolom_topik"></div>
                                 </div>
                             @else
-
-                                <div class="col-md-5"> 
-                                    <div id="jlh-pembimbing"></div>
-                                </div>
-                                <div class="col-md-7"> 
-                                    <div id="kolom_topik"></div>
-                                </div>
+                                @if ($id!=-1)
+                                    <div class="col-md-12"> 
+                                        @foreach ($dospem as $idx=> $item)
+                                        @php
+                                            if($idx%2!=0)
+                                            {
+                                                $border='background:#eee;';
+                                            }
+                                            else
+                                            {
+                                                $border='border:1px solid #eee;';
+                                            }
+                                        @endphp 
+                                            <div class="row" style="margin:2px 0px;padding:10px 0;{{$border}};height:116px">
+                                                <div class="col-md-5"><input type="text" readonly value="{{$item['dosen']['nama']}}" class="form-control" /></div>    
+                                                <div class="col-md-7">
+                                                    @if (isset($kolom_topik[$item['dosen_id']]))
+                                                        <input type="text" name="kolom_topik[{{$item['dosen_id']}}]" class="form-control" placeholder="Topik" value="{{$kolom_topik[$item['dosen_id']]->topik}}">
+                                                        <textarea class="form-control" name="deskripsi_topik[{{$item['dosen_id']}}]" id="deskripsi-topik" placeholder="Deskripsi" style="margin-top:5px;">{{$kolom_topik[$item['dosen_id']]->deskripsi}}</textarea>        
+                                                    @else
+                                                        <input type="text" name="kolom_topik[{{$item['dosen_id']}}]" class="form-control" placeholder="Topik">
+                                                        <textarea class="form-control" name="deskripsi_topik[{{$item['dosen_id']}}]" id="deskripsi-topik" placeholder="Deskripsi" style="margin-top:5px;"></textarea>    
+                                                    @endif
+                                                    
+                                                </div>    
+                                            </div>                                            
+                                        @endforeach
+                                    </div>    
+                                @else
+                                    <div class="col-md-12"> 
+                                        <div id="jlh-pembimbing"></div>
+                                    </div>
+                                    <div class="col-md-7"> 
+                                        <div id="kolom_topik"></div>
+                                    </div>    
+                                @endif
+                                
                             @endif
                         </div>
                         <div class="row">
@@ -331,10 +361,16 @@
                                     </div> --}}
                             </div>
                         </div>
-                        <div class="form-actions ">
-                            <a href="{{URL::previous()}}" class="btn default">Batal</a>
-                            <button type="button" id="simpan" class="btn blue">
-                                <i class="fa fa-save"></i> Simpan</button>
+                        <div class="row">
+                            <div class="col-md-12"> 
+                                <div class="form-actions " style="width:100%;float:right">
+                                    
+                                    <button type="button" id="simpan" class="btn blue pull-right">
+                                        <i class="fa fa-save"></i> Simpan
+                                    </button>
+                                    <a href="{{URL::previous()}}" class="btn default pull-right">Batal</a>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <!-- END FORM-->

@@ -23,7 +23,9 @@
                     <th> Judul </th>
                     <th> Pembimbing </th>
                     <th> Status </th>
-                    <th> Bimbingan </th>
+                    @if ($status_pengajuan!=0)
+                        <th> Bimbingan</th>
+                    @endif
                     <th> # </th>
                 </tr>
             </thead>
@@ -65,31 +67,33 @@
                     <td>
                         {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}
                     </td>
-                    <td class="text-center">
-                         @if ($v->status_pengajuan == 1)
-                            @php
-                                $st_pbb=0;
-                                foreach ($piv[Auth::user()->id_user] as $item)
-                                {
-                                    if($item->status==1)
+                    @if ($status_pengajuan!=0)
+                        <td class="text-center">
+                            @if ($v->status_pengajuan == 1)
+                                @php
+                                    $st_pbb=0;
+                                    foreach ($piv[Auth::user()->id_user] as $item)
                                     {
-                                        $st_pbb=1;
+                                        if($item->status==1)
+                                        {
+                                            $st_pbb=1;
+                                        }
+                                        else
+                                            $st_pbb=0;
                                     }
-                                    else
-                                        $st_pbb=0;
-                                }
-                            @endphp
-                            @if ($st_pbb==1)
-                                <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Input Bimbingan"><i class="fa fa-eye"></i></a>
+                                @endphp
+                                @if ($st_pbb==1)
+                                    <a href="{{url('pengajuan-detail/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Input Bimbingan"><i class="fa fa-eye"></i></a>
+                                @endif
                             @endif
-                        @endif
-                    </td>
+                        </td>
+                    @endif
                     <td>
                         <div style="width:110px;">
                             @if ($v->status_pengajuan == 1)
                                 <a href="{{url('pengajuan-detail/'.$v->id)}}" class="btn btn-xs btn-success" title="Lihat Detail"><i class="fa fa-eye"></i></a>
                             @endif
-                            {{-- <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary" title=""><i class="fa fa-edit"></i></a> --}}
+                            <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary" title=""><i class="fa fa-edit"></i></a>
                             <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger" title="Hapus"><i class="fa fa-trash"></i></a>
                         </div>
                     </td>

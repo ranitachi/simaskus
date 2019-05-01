@@ -16,6 +16,9 @@
                 <tr>
                     <th>No</th>
                     <th> Kode </th>
+                    @if (Auth::user()->kat_user==0)
+                        <th> Departemen </th>
+                    @endif
                     <th> Jenis </th>
                     <th> Urutan</th>
                     <th> Keterangan</th>
@@ -28,6 +31,9 @@
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
                     <td>{{$v->code}}</td>
+                    @if (Auth::user()->kat_user==0)
+                        <td>{{isset($v->departemen->code) ? $v->departemen->code : ''}}</td>
+                    @endif
                     <td>{{$v->jenis}}</td>
                     <td>{{$v->urutan}}</td>
                     <td>{{$v->keterangan}}</td>

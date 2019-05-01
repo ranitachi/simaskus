@@ -81,11 +81,12 @@ class PengajuanSkripsiController extends Controller
         }
         return view('pages.mahasiswa.pengajuan.data')
                     ->with('pengajuan',$pengajuan)
+                    ->with('status_pengajuan',$status_pengajuan)
                     ->with('piv',$piv);
     }
     public function show($id)
     {
-        $det=array();
+        $det=$kolom_topik=$dospem=array();
         $dept_id=0;
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         if(Auth::user()->kat_user==3)
@@ -98,24 +99,32 @@ class PengajuanSkripsiController extends Controller
         $judul=JudulTugasAkhir::all();
         $jenispengajuan=MasterJenisPengajuan::where('departemen_id',$dept_id)->get();
         if($id!=-1)
-            $det=Pengajuan::where('id',$id)->with('mahasiswa')
-                    ->with('dospem_1')
-                    ->with('dospem_2')
-                    ->with('dospem_3')->first();
+        {
+            $det=Pengajuan::where('id',$id)->with('mahasiswa')->first();
+            $dospem=PivotBimbingan::where('judul_id',$id)->with('dosen')->get()->toArray();
+            $kolom=TopikPengajuan::where('pengajuan_id',$id)->get();
+            foreach($kolom as $k => $v)
+            {
+                $kolom_topik[$v->dosen_id]=$v;
+            }
+        }
 
         
-        // return $jenispengajuan;
+        // return $dospem;
         return view('pages.mahasiswa.pengajuan.form')
                 ->with('judul',$judul)
                 ->with('det',$det)
                 ->with('dosen',$dosen)
                 ->with('ta',$ta)
+                ->with('dospem',$dospem)
+                ->with('kolom_topik',$kolom_topik)
                 ->with('jenispengajuan',$jenispengajuan)
                 ->with('id',$id);
     }
 
     public function store(Request $request)
     {
+        // return $request->all();
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==3)
@@ -148,16 +157,7 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->abstrak_eng=$request->abstrak_eng;
         $pengajuan->pengambilan_ke=$request->pengambilan_ke;
         
-        // $xx=1;
-        // foreach($request->dospem as $kdos=>$vdos)
-        // {
-        //     $pengajuan->{'dospem'.$xx}=$vdos;
-        //     $xx++;
-        // }
-
-        // $pengajuan->dospem1=$request->dospem1;
-        // $pengajuan->dospem2=$request->dospem2;
-        // $pengajuan->dospem3=$request->dospem3;
+    
         // $pengajuan->dosen_ketua=$request->dosen_ketua;
         $pengajuan->dosen_ketua='-1';
         $pengajuan->pembimbing_sebelumnya=$request->pembimbing_sebelumnya;
@@ -171,14 +171,7 @@ class PengajuanSkripsiController extends Controller
 
         $idpengajuan=$pengajuan->id;
 
-        foreach($request->kolom_topik as $k=>$v)
-        {
-            $topik=new TopikPengajuan;
-            $topik->pengajuan_id=$idpengajuan;
-            $topik->dosen_id=$k;
-            $topik->topik=$v;
-            $topik->save();
-        }
+        
 
         $getsekre=Users::where('kat_user',1)->with('staf')->get();
         foreach($getsekre as $k => $v)
@@ -195,10 +188,11 @@ class PengajuanSkripsiController extends Controller
                 $notif->save();
             }
         }
-
+        
         // $dospem[0]=$request->dospem1;
         // $dospem[1]=$request->dospem2;
         // $dospem[2]=$request->dospem3;
+        $ds=array();
         foreach($request->dospem as $k=>$v)
         {
             if($v!='' && $v!=0)
@@ -221,14 +215,34 @@ class PengajuanSkripsiController extends Controller
                 $notif->flag_active=1;
                 $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan)."<br><a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
                 $notif->save();
+
+                $ds[$k]=$v;
             }
         }
+        foreach($request->kolom_topik as $k=>$v)
+        {
+            if($v!='')
+            {
+                $desc=$request->deskripsi_topik[$k];
+                $topik=new TopikPengajuan;
+                $topik->pengajuan_id=$idpengajuan;
+                $topik->deskripsi=$desc;
 
+                if(isset($ds[$k]))
+                {
+                    $topik->dosen_id=$da[$k];
+                    $topik->topik=$v;
+                    $topik->save();
+                }
+
+            }
+        }
         return redirect('pengajuan')->with('status','Data Pengajuan Berhasil Diinput, dan Akan Segera Di Verifikasi Oleh Sekretariat');
     }
     
     public function update(Request $request,$id)
     {
+        // return $request->all();
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==3)
@@ -242,6 +256,7 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->jumlah_sks_lulus=$request->jumlah_sks_lulus;
         $pengajuan->topik_diajukan=$request->topik_diajukan;
         $pengajuan->bidang=$request->bidang;
+        $pengajuan->tahunajaran_id=$request->tahun_ajaran;
         $pengajuan->skema=$request->skema;
         $pengajuan->judul_ind=$request->judul_ind;
         $pengajuan->judul_eng=$request->judul_eng;
@@ -249,10 +264,7 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->abstrak_ind=$request->abstrak_ind;
         $pengajuan->abstrak_eng=$request->abstrak_eng;
         $pengajuan->pengambilan_ke=$request->pengambilan_ke;
-        $pengajuan->dospem1=$request->dospem1;
-        $pengajuan->dospem2=$request->dospem2;
-        $pengajuan->dospem3=$request->dospem3;
-        $pengajuan->dosen_ketua=$request->dosen_ketua;
+        $pengajuan->dosen_ketua='-1';
         $pengajuan->pembimbing_sebelumnya=$request->pembimbing_sebelumnya;
         $pengajuan->alasan_mengulang=$request->alasan_mengulang;
         $pengajuan->status_pengajuan=0;
@@ -266,17 +278,33 @@ class PengajuanSkripsiController extends Controller
         {
             if($v->staf->departemen_id==$dept_id)
             {
-                $wh="Mahasiswa : ".$user->name." Melakukan Pengajuan, Harap Segera Di Verifikasi";
-                $notif=Notifikasi::where('pesan','like',$wh)->first();
-                $notif->title="Menunggu Verifikasi Perbaikan Pengajuan";
-                $notif->from=Auth::user()->id;
-                $notif->to=$v->id;
-                $notif->flag_active=1;
-                $notif->pesan="Mahasiswa : ".$user->name." Melakukan Perbaikan Pengajuan, Harap Segera Di Verifikasi";
-                $notif->save();
+                // $wh="Mahasiswa : ".$user->name." Melakukan Pengajuan, Harap Segera Di Verifikasi";
+                // $notif=Notifikasi::where('pesan','like',$wh)->first();
+                // $notif->title="Menunggu Verifikasi Perbaikan Pengajuan";
+                // $notif->from=Auth::user()->id;
+                // $notif->to=$v->id;
+                // $notif->flag_active=1;
+                // $notif->pesan="Mahasiswa : ".$user->name." Melakukan Perbaikan Pengajuan, Harap Segera Di Verifikasi";
+                // $notif->save();
             }
         }
-
+        if(isset($request->kolom_topik))
+        {
+            TopikPengajuan::where('pengajuan_id',$id)->forceDelete();
+            foreach($request->kolom_topik as $iddos=>$v)
+            {
+                if($v!='')
+                {
+                    $desc=$request->deskripsi_topik[$iddos];
+                    $topik=new TopikPengajuan;
+                    $topik->pengajuan_id=$id;
+                    $topik->deskripsi=$desc;
+                    $topik->dosen_id=$iddos;
+                    $topik->topik=$v;
+                    $topik->save();
+                }
+            }
+        }
         return redirect('pengajuan')->with('status','Data Pengajuan Berhasil Di Edit, dan Akan Segera Di Verifikasi Oleh Sekretariat');
     }
 

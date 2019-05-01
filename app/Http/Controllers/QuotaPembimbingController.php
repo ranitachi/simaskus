@@ -11,6 +11,7 @@ use App\Model\Dosen;
 use App\Model\PivotBimbingan;
 use App\Model\Pengajuan;
 use App\Model\Users;
+use App\Model\Mahasiswa;
 use Auth;
 class QuotaPembimbingController extends Controller
 {
@@ -181,7 +182,224 @@ class QuotaPembimbingController extends Controller
                 ->with('copromotor',$copromotor)
                 ->with('quota_bim',$qb)
                 ->with('jenis',$jenis)
+                ->with('idjenis',$idjenis)
+                ->with('idpengajuan',$idpengajuan)
                 ->with('kat_dosen',$kat_dosen)
                 ->with('quota',$quota);
+    }
+
+    public function getdatapembimbing($idjenis,$iddosen,$i,$kuota,$kat_dosen=null,$idpengajuan=null)
+    {
+        $dos_id=explode('_',$iddosen);
+        $jenis=MasterJenisPengajuan::find($idjenis);                     
+        $quota=QuotaPembimbing::where('level',$idjenis)->first();
+
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        } 
+        if($kat_dosen==null || $kat_dosen==1)
+            $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        else
+            $dosen=Dosen::all();
+        
+        // dd($dosen);
+        $p_ajuan=array();
+
+        if($idpengajuan!=null)
+        {
+            $pengajuan=Pengajuan::where('id',$idpengajuan)->get();
+            foreach($pengajuan as $k=>$v)
+            {
+                $p_ajuan[$v->id]=$v;
+            }
+        }
+
+        $pivot=PivotBimbingan::with('dosen')->get();
+        $piv=array();
+        $promotor=$copromotor=array();
+        foreach($pivot as $kp=>$vp)
+        {
+            if($vp->dosen->departemen_id==$dept_id)
+            {
+                $piv[$vp->dosen_id][]=$vp;
+            }
+            if($idpengajuan!=null)
+            {
+                if($pengajuan[0]->id==$vp->judul_id)
+                {
+                    if($vp->keterangan=='promotor')
+                    {
+                        $promotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                    elseif($vp->keterangan=='co-promotor')
+                    {
+                        $copromotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                }
+            }
+        }
+        // dd($p_ajuan);
+        $qut_bim=QuotaBimbingan::all();
+        $qb=array();
+        foreach($qut_bim as $kq=>$vq)
+        {
+            $qb[$vq->level]=$vq;
+        }
+
+        $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+        $jenjang=isset($mhs->programstudi->jenjang) ? $mhs->programstudi->jenjang : 'S1';
+
+        $sel='';
+        for($x=1;$x<=$kuota;$x++)
+        {
+            if($x%2!=0)
+            {
+                $border='background:#eee;';
+            }
+            else
+            {
+                $border='border:1px solid #eee;';
+            }
+            // if($i!=)
+            $sel.='<div class="row" style="margin:2px 0px;padding:10px 0;'.$border.';height:116px">
+                        <div class="col-md-12" style="">
+                            <span id="pilihan_'.$i.'">';
+            $sel.='<select class="form-control select2 dosen_pem" data-placeholder="Pilih Dosen" name="dospem[]" id="dosen_pem_'.$i.'" onchange="pilihdosen(this.value,'.$i.')" '.($i!=1 ? 'disabled="disabled' : '').'>';
+            // $sel.='<option value="0">- Pilih Dosen Pembimbing '.$i.' -</option>';
+            
+            foreach ($dosen as $idx => $v)
+            {
+                if ($jenjang=='S2')
+                {
+                    if ($v->pendidikan=='S3')
+                    {
+                        if (isset($piv[$v->id]))
+                        {
+                            $sel.='<option id="'.$v->id.'" value="'.$v->id.'">['.count($piv[$v->id]).'] - '.$v->nama.' </option>';
+                        }
+                        else
+                        {   
+                            $sel.='<option id="'.$v->id.'" value="'.$v->id.'">[0] - '.$v->nama.' </option>';
+                        }
+                    }
+                }
+                else
+                {
+                    if(in_array($v->id,$dos_id))
+                        $selected='disabled="disabled"';
+                    else
+                        $selected='';
+
+                    if (isset($piv[$v->id]))
+                    {
+                        $sel.='<option id="'.$v->id.'" value="'.$v->id.'" '.$selected.'>['.count($piv[$v->id]).'] - '.$v->nama.' </option>';
+                    }
+                    else
+                    {
+                        $sel.='<option id="'.$v->id.'" value="'.$v->id.'" '.$selected.'>[0] - '.$v->nama.' </option>';
+                    }
+                }
+            }
+
+            $sel.='</select></span></div></div>';
+        }
+        echo $sel;
+    }
+
+    public function get_pembimbing($idjenis,$i,$idpm=null,$kat_dosen=null,$idpengajuan=null)
+    {
+        $dos_id=array();
+        if($idpm!=null)
+            $dos_id=explode('_',$idpm);
+
+        $jenis=MasterJenisPengajuan::find($idjenis);                     
+        $quota=QuotaPembimbing::where('level',$idjenis)->first();
+
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        } 
+        if($kat_dosen==null || $kat_dosen==1)
+            $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        else
+            $dosen=Dosen::all();
+        
+        // dd($dosen);
+        $p_ajuan=array();
+
+        if($idpengajuan!=null)
+        {
+            $pengajuan=Pengajuan::where('id',$idpengajuan)->get();
+            foreach($pengajuan as $k=>$v)
+            {
+                $p_ajuan[$v->id]=$v;
+            }
+        }
+
+        $pivot=PivotBimbingan::with('dosen')->get();
+        $piv=array();
+        $promotor=$copromotor=array();
+        foreach($pivot as $kp=>$vp)
+        {
+            if($vp->dosen->departemen_id==$dept_id)
+            {
+                $piv[$vp->dosen_id][]=$vp;
+            }
+            if($idpengajuan!=null)
+            {
+                if($pengajuan[0]->id==$vp->judul_id)
+                {
+                    if($vp->keterangan=='promotor')
+                    {
+                        $promotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                    elseif($vp->keterangan=='co-promotor')
+                    {
+                        $copromotor[$vp->dosen_id]=$vp->dosen_id;
+                    }
+                }
+            }
+        }
+        // dd($p_ajuan);
+        $qut_bim=QuotaBimbingan::all();
+        $qb=array();
+        foreach($qut_bim as $kq=>$vq)
+        {
+            $qb[$vq->level]=$vq;
+        }
+
+        $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+        $jenjang=isset($mhs->programstudi->jenjang) ? $mhs->programstudi->jenjang : 'S1';
+
+        $sel='';
+
+        $sel.='<div class="row" style="margin:2px 0px;padding:10px 0;height:116px">
+                        <div class="col-md-3 text-right">Pilih Nama Dosen</div>
+                        <div class="col-md-9" style="">';
+        $sel.='<select class="form-control select2" data-placeholder="Pilih Dosen" id="dosen_pemb_'.$i.'" onchange="pilihdos(this.value,\''.$i.'\')">
+                <option value="">Pilih</option>';
+        foreach ($dosen as $idx => $v)
+        {
+            if(in_array($v->id,$dos_id))
+                $disable='disabled';
+            else
+                $disable='';
+
+            if (isset($piv[$v->id]))
+            {
+                $sel.='<option value="'.$v->id.'__'.$v->nama.'" '.$disable.'>['.count($piv[$v->id]).'] - '.$v->nama.' </option>';
+            }
+            else
+            {
+                $sel.='<option value="'.$v->id.'__'.$v->nama.'" '.$disable.'>[0] - '.$v->nama.' </option>';
+            }
+        }
+        $sel.='</select>';
+        echo $sel;
     }
 }

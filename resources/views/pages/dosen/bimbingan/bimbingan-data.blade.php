@@ -26,16 +26,19 @@
                 </tr>
             </thead>
             <tbody>
+            @php
+                $no=1;
+            @endphp
             @foreach ($bimbingan as $i => $v)  
                 @if ($v->pengajuan_id==$idpengajuan)
                 
                     <tr class="odd gradeX">
-                        <td>{{($v->bimbingan_ke)}}</td>
+                        <td>{{($no)}}</td>
                         <td>{{tgl_indo2($v->tanggal_bimbingan)}}</td>
                         <td>{{$v->judul}}</td>
                         <td>{{isset($v->dospem->nama) ? $v->dospem->nama : ''}}</td>
                         <td>{!!$v->deskripsi_bimbingan!!}</td>
-                        <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Telah Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-info"><i class="fa fa-check"></i> Menunggu Persetujuan</a>'!!}</td>
+                        <td>{!!$v->flag==1 ? '<a  href="#" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Telah Disetujui</a>' : '<a href="#"  class="btn btn-xs btn-warning text-primary"><i class="fa fa-exclamation-circle"></i> Menunggu Persetujuan</a>'!!}</td>
                         <td>
                             @if ($v->dospem->id==Auth::user()->id_user)
                                 <div style="width:110px;">
@@ -46,6 +49,9 @@
                             @endif
                         </td>
                     </tr>
+                    @php
+                        $no++;
+                    @endphp
                 @endif
             @endforeach                
             </tbody>

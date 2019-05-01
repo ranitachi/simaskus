@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\MasterJenisPengajuan;
+use App\Model\MasterDepartemen;
 use App\User;
 use App\Model\Staf;
 use Auth;
@@ -20,10 +21,10 @@ class MasterJenisPengajuanController extends Controller
     public function data($dept_id=null)
     {
         if($dept_id==null || $dept_id==0)
-            $jenis=MasterJenisPengajuan::orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
+            $jenis=MasterJenisPengajuan::with('departemen')->orderBy('departemen_id')->orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
         else
         {
-            $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
+            $jenis=MasterJenisPengajuan::where('departemen_id',$dept_id)->with('departemen')->orderBy('departemen_id')->orderBy('keterangan')->orderBy('urutan')->orderBy('jenis')->get();
         }
 
         return view('pages.administrator.jenis-pengajuan.data')
@@ -40,14 +41,27 @@ class MasterJenisPengajuanController extends Controller
         $staf=Staf::find(Auth::user()->id_user);
         if($staf)
             $dept_id=$staf->departemen_id;
-
+        $departemen=MasterDepartemen::all();
         return view('pages.administrator.jenis-pengajuan.form')
                 ->with('det',$det)
+                ->with('departemen',$departemen)
                 ->with('dept_id',$dept_id)
                 ->with('id',$id);
     }
     public function store(Request $request)
     {
+
+        $jen=MasterJenisPengajuan::where('departemen_id',$request->departemen_id)->get();
+        $code=str_slug($request->code);
+        $s1=str_slug($request->jenis);
+        foreach($jen as $k=>$v)
+        {
+            if(str_slug($v->code)==$code)
+                return response()->json(['status'=>'0','pesan'=>'Code Jenis Sudah Ada Di Database']);
+            elseif(str_slug($v->jenis)==$s1)
+                return response()->json(['status'=>'0','pesan'=>'Jenis Pengajuan Sudah Ada Di Database']);
+        }
+
         $jenis=new MasterJenisPengajuan;
         $jenis->code=$request->code;
         $jenis->jenis=$request->jenis;

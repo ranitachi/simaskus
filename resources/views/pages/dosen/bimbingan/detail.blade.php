@@ -224,6 +224,9 @@
                     </div>
                     <div class="tab-pane" id="tab_5_2">
                         <div class="row">
+                            <div class="col-sm-12" style="padding-bottom: 5px;">
+                                <a href='javascript:setujuall({{$pengajuan->id}},{{$pengajuan->mahasiswa_id}})' class="btn btn-sm btn-primary pull-right"><i class="fa fa-check"></i> Setujui Seluruh Data Bimbingan</a>
+                            </div>
                             <div class="col-sm-12" id="data-bimbingan"></div>
                         </div>
                     </div>
@@ -306,7 +309,33 @@
             $('#loader').hide();
         });
     }
-    
+    function setujuall(pengajuan_id,mahasiswa_id)
+    {
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin Menyetujui Seluruh Data Bimbingan Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Setujui",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("data-bimbingan-setuju")}}/'+pengajuan_id+'/'+mahasiswa_id,
+                    dataType : 'JSON'
+                }).done(function(){
+                    loaddatabimbingan(mahasiswa_id);
+                    swal("Sukses!", "Data Data Bimbingan DI Setujui", "success");
+                }).fail(function(){
+                    swal("Fail!", "Data Bimbingan Ditolak", "danger");
+                });
+            } 
+        });
+    }
     function setujui(id,mahasiswa_id)
     {
        
