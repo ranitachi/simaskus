@@ -140,7 +140,6 @@ class ComposerStaticInitb5b4613e87cab9a958445e70a345d166
         ),
         'A' => 
         array (
-            'Atomescrochus\\StringSimilarities\\' => 33,
             'App\\' => 4,
         ),
     );
@@ -380,10 +379,6 @@ class ComposerStaticInitb5b4613e87cab9a958445e70a345d166
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
         ),
-        'Atomescrochus\\StringSimilarities\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -578,12 +573,6 @@ class ComposerStaticInitb5b4613e87cab9a958445e70a345d166
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
-        'Atomescrochus\\StringSimilarities\\Compare' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/Compare.php',
-        'Atomescrochus\\StringSimilarities\\JaroWinkler' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/JaroWinkler.php',
-        'Atomescrochus\\StringSimilarities\\Levenshtein' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/Levenshtein.php',
-        'Atomescrochus\\StringSimilarities\\SmithWatermanGotoh' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/SmithWatermanGotoh.php',
-        'Atomescrochus\\StringSimilarities\\SmithWatermanMatchMismatch' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/SmithWatermanMatchMismatch.php',
-        'Atomescrochus\\StringSimilarities\\StringSimilaritiesServiceProvider' => __DIR__ . '/..' . '/atomescrochus/laravel-string-similarities/src/StringSimilaritiesServiceProvider.php',
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
@@ -4540,8 +4529,10 @@ class ComposerStaticInitb5b4613e87cab9a958445e70a345d166
         'Symfony\\Polyfill\\Util\\Binary' => __DIR__ . '/..' . '/symfony/polyfill-util/Binary.php',
         'Symfony\\Polyfill\\Util\\BinaryNoFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryNoFuncOverload.php',
         'Symfony\\Polyfill\\Util\\BinaryOnFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryOnFuncOverload.php',
-        'Symfony\\Polyfill\\Util\\LegacyTestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/LegacyTestListener.php',
         'Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListener.php',
+        'Symfony\\Polyfill\\Util\\TestListenerForV5' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV5.php',
+        'Symfony\\Polyfill\\Util\\TestListenerForV6' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV6.php',
+        'Symfony\\Polyfill\\Util\\TestListenerForV7' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV7.php',
         'Symfony\\Polyfill\\Util\\TestListenerTrait' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerTrait.php',
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',

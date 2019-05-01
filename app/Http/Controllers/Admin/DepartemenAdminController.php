@@ -36,16 +36,16 @@ class DepartemenAdminController extends Controller
     }
     public function store(Request $request)
     {
-        $comparison = new \Atomescrochus\StringSimilarities\Compare();
-        $s1=str_replace('departemen','',strtolower($request->nama_departemen));
+        // $comparison = new \Atomescrochus\StringSimilarities\Compare();
+        $s1=str_slug($request->nama_departemen);
         $mdept=MasterDepartemen::all();
         foreach($mdept as $v)
         {
-            $s2=str_replace('departemen','',strtolower($v->nama_departemen));
-            $cek=$comparison->jaroWinkler($s1,$s2);
-            if($cek>=0.8)
+            $s2=str_slug($v->nama_departemen);
+            // $cek=$comparison->jaroWinkler($s1,$s2);
+            if($s1==$s2)
             {
-                return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database','comparison'=>$cek]);
+                return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database']);
             }
         }
 
@@ -72,13 +72,13 @@ class DepartemenAdminController extends Controller
         $dept->updated_at=date('Y-m-d H:i:s');
 
 
-        $comparison = new \Atomescrochus\StringSimilarities\Compare();
-        $s1=str_replace('departemen','',strtolower($request->nama_departemen));
-        $s2=str_replace('departemen','',strtolower($n_dept));
-        $cek=$comparison->jaroWinkler($s1,$s2);
-        if($cek>=0.9)
+        // $comparison = new \Atomescrochus\StringSimilarities\Compare();
+        $s1=str_slug($request->nama_departemen);
+        $s2=str_slug($n_dept);
+        
+        if($s1==$s2)
         {
-            return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database','comparison'=>$cek]);
+            return response()->json(['status'=>'0','pesan'=>'Data Yang Anda Kirim Sudah Ada Di Database']);
         }
         else
         {
