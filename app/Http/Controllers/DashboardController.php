@@ -9,6 +9,9 @@ use App\Model\Jadwal;
 use App\Model\KerjaPraktek;
 use App\Model\InformasiKP;
 use App\Model\KelompokKP;
+use App\Model\KalenderAkademik;
+use App\Model\Mahasiswa;
+use App\Model\Dosen;
 use Carbon\Carbon;
 use Auth;
 use Storage;
@@ -17,6 +20,8 @@ class DashboardController extends Controller
     
     public function index()
     {
+        $tahun=date('Y-m-d');
+        $kalender=$kal_lain=array();
         if(Auth::check())
         {
             if(Auth::user()->kat_user==0)
@@ -25,15 +30,37 @@ class DashboardController extends Controller
             {
                 $staf=Staf::where('id',Auth::user()->id_user)->first();
                 $dept_id=$staf->departemen_id;
-                return view('pages.dashboard.index-sekretariat')->with('depat_id',$dept_id);
+                // $kalender=KalenderAkademik::where('departemen_id',$dept_id)->whereRaw('(start_date like "%'.$tahun.'%" or end_date like "%'.$tahun.'%")')->get()->toArray();
+                $kal=KalenderAkademik::where('departemen_id',$dept_id)->orderBy('start_date')->get();
+                // return $kalender;
+                foreach($kal as $v)
+                {
+                    if($v->start_date <= $tahun && $v->end_date>=$tahun)
+                    {
+                        $kalender[]=$v;
+                    }
+                    else
+                        $kal_lain[$v->kategori_khusus]=$v;
+                }
+                // $kal=array();
+                // return $kal_lain;
+                return view('pages.dashboard.index-sekretariat')->with('depat_id',$dept_id)->with('kalender',$kalender)->with('kal_lain',$kal_lain);
             }
             else if(Auth::user()->kat_user==3)
             {
-                return view('pages.dashboard.index-mahasiswa');
+                $mhs=Mahasiswa::where('id',Auth::user()->id_user)->first();
+                $dept_id=$mhs->departemen_id;
+                $kalender=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get()->toArray(); 
+                return view('pages.dashboard.index-mahasiswa')->with('kalender',$kalender);
                 // return redirect('profil');
             }
             else if(Auth::user()->kat_user==2)
-                return view('pages.dashboard.index-dosen');
+            {
+                $dos=Dosen::where('id',Auth::user()->id_user)->first();
+                $dept_id=$dos->departemen_id;
+                $kalender=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get()->toArray(); 
+                return view('pages.dashboard.index-dosen')->with('kalender',$kalender);
+            }
             // dd(Auth::user());
         }
         else

@@ -5,11 +5,13 @@
         <div class="col-md-6">
             @if ($pengajuan->count()==0)
                 
-            <div class="btn-group pull-right">
-                <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
-                    <i class="fa fa-plus"></i>
-                </a>
-            </div>
+            @if (isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
+                <div class="btn-group pull-right">
+                    <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                @endif
             @endif
         </div>
     </div>
