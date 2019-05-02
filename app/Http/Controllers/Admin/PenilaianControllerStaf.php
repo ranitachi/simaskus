@@ -29,7 +29,7 @@ class PenilaianControllerStaf extends Controller
     public function form_pembimbing($idjadwal,$idpengajuan)
     {
         $dos=array();
-        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->first();
+        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->with('jenispengajuan')->first();
         $jadwal=Jadwal::selectRaw('pivot_jadwal.*,jadwals.*, pivot_jadwal.id as pj_id')
                     ->join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->where('jadwals.id',$idjadwal)
@@ -74,17 +74,19 @@ class PenilaianControllerStaf extends Controller
                 $dos[$v->penguji_id][$kat]=$dd;
         }
 
+        
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$dept_id)
-                    ->where('nama_module','like',"%Penilaian Skripsi%")->get();
+                    ->where('component.module_id',1)->get();
 
         $nilai=Nilai::where('jadwal_id',$idjadwal)->with('dosen')->with('komponen')->get();
 
-        $n=array();
+        $n=$n2=array();
         foreach($nilai as $kn => $vn)
         {
             $n[$vn->penilai][$vn->dosen_id]=$vn;
+            $n2[$vn->dosen_id][$vn->komponen_id]=$vn;
         }
 
         $perbaikan=PerbaikanSkripsi::get();
@@ -100,15 +102,27 @@ class PenilaianControllerStaf extends Controller
         {
             $penp[$vn->pengajuan_id]=$vn;
         }
-        // dd($penp);
+
+        $idjenis=isset($pengajuan->jenispengajuan->id) ? $pengajuan->jenispengajuan->id : -1;
+        if($idjenis!=-1)
+        {
+            $pen=Component::select('*',DB::raw('component.id as c_id'))
+                    ->join('module','module.id','=','component.module_id')
+                    ->where('module.departemen_id',$dept_id)
+                    ->where('module.jenis_id',$idjenis)->get();
+            if($pen->count()!=0)
+                $penilaian=$pen;
+
+        }
+        // return ($penilaian);
         return view('pages.staf.penilaian.index',
-            compact('pengajuan','jad','jadwal','penilaian','uji','n','idjadwal','idpengajuan','dos','perb','penp'));
+            compact('pengajuan','jad','jadwal','penilaian','uji','n','n2','idjadwal','idpengajuan','dos','perb','penp'));
     }
 
     public function form($idjadwal,$idpengajuan,$iddosen)
     {
         list($kategori,$iddosen)=explode('-',$iddosen);
-        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->first();
+        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('mahasiswa')->with('jenispengajuan')->first();
         $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
                     ->where('jadwals.id',$idjadwal)
                     ->with('ruangan')
@@ -132,7 +146,7 @@ class PenilaianControllerStaf extends Controller
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$dept_id)
-                    ->where('nama_module','like',"%Penilaian Skripsi%")->get();
+                    ->where('component.module_id',1)->get();
         // dd(Auth::user()->id_user);
 
         $nilai=Nilai::where('jadwal_id',$idjadwal)->where('dosen_id',$iddosen)->with('dosen')->with('komponen')->get();
@@ -144,6 +158,17 @@ class PenilaianControllerStaf extends Controller
         }
 
         $dosen=Dosen::find($iddosen);
+        $idjenis=isset($pengajuan->jenispengajuan->id) ? $pengajuan->jenispengajuan->id : -1;
+        if($idjenis!=-1)
+        {
+            $pen=Component::select('*',DB::raw('component.id as c_id'))
+                    ->join('module','module.id','=','component.module_id')
+                    ->where('module.departemen_id',$dept_id)
+                    ->where('module.jenis_id',$idjenis)->get();
+            if($pen->count()!=0)
+                $penilaian=$pen;
+
+        }
         // dd(Auth::user()->id_user);
 
         return view('pages.staf.penilaian.form',

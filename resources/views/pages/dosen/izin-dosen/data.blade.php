@@ -43,7 +43,7 @@
                             <br>
                             s.d.
                             <br>
-                            {{hari(date('D',strtotime($item->start_date)))}}</td>
+                            {{hari(date('D',strtotime($item->end_date)))}}</td>
                         <td> {{$item->keterangan}} </td>
                         <td> 
                         @if ($item->status==1)

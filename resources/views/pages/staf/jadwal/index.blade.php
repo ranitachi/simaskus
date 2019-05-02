@@ -13,14 +13,14 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Data Mata Kuliah Spesial</span>
+                    <span>Jadwal Sidang</span>
                 </li>
             </ul>
             
         </div>
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
-        <h1 class="page-title"> Mata Kuliah Spesial
+        <h1 class="page-title"> Jadwal Sidang
             <small>Daftar</small>
         </h1>
         <!-- END PAGE TITLE-->
@@ -36,8 +36,18 @@
             <div class="alert alert-danger" id="pesan-alert">
                 <strong>Peringatan !</strong> <span id="alert-msg"></span>
             </div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Jadwal Terdekat</a></li>
+                <li><a data-toggle="tab" href="#menu1">Sudah Terlaksana</a></li>
+            </ul>
+            <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div id="data"></div>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <div id="data_old"></div>
+            </div>
             
-            <div id="data"></div>
             
         </div>
     </div>
@@ -49,6 +59,8 @@
         $('#loader').show();
         loaddata();
         $('#pesan-alert').hide();
+        var start_date='{{$start_date}}';
+        var end_date='{{$end_date}}';
         var ps = "{{Session::has('status')}}";
         if(ps!="")
         {
@@ -64,12 +76,25 @@
             $('#pesan-alert').show();
         }
         
-        $('#daterangerpicker').daterangepicker({
-            locale: {
-                format: 'DD/MM/YYYY'
-            },
-            minDate: moment()
-        });
+        if(start_date=='')
+        {
+            $('#daterangerpicker').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                minDate: moment()
+            });
+        }
+        else
+        {
+            $('#daterangerpicker').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                minDate: new Date('{{$start_date}}'),
+                maxDate: new Date('{{$end_date}}')
+            });
+        }
     });
     function setujumanager(idpengajuan,idmahasiswa)
     {
@@ -125,6 +150,11 @@
     {
         $('#loader').show();
         $('#data').load('{{url("data-pengajuan-sidang-data/".$jenis)}}',function(){
+            $('#sample_4').dataTable();
+            $('#loader').hide();
+            $('.tooltips').tooltip();
+        });
+        $('#data_old').load('{{url("data-pengajuan-sidang-data/".$jenis)}}/old',function(){
             $('#sample_4').dataTable();
             $('#loader').hide();
             $('.tooltips').tooltip();

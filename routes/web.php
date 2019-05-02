@@ -171,7 +171,7 @@ Route::post('/simpan-profil-dosen', 'DosenController@simpanprofil')->name('simpa
 //Pengajuan Sidang
 Route::get('data-jadwal/{jenis}','JadwalController@pengajuan_sidang_staf')->middleware('auth');
 Route::get('data-pengajuan-sidang/{jenis}','JadwalController@pengajuan_sidang_staf')->middleware('auth');
-Route::get('data-pengajuan-sidang-data/{jenis}','JadwalController@pengajuan_sidang_staf_data')->middleware('auth');
+Route::get('data-pengajuan-sidang-data/{jenis}/{old?}','JadwalController@pengajuan_sidang_staf_data')->middleware('auth');
 Route::get('pengajuan-sidang-verifikasi/{id}/{jenis}','JadwalController@pengajuan_sidang_verifikasi')->middleware('auth');
 Route::get('setujui-acc-manager/{idpengajuan}/{idmahasiswa}','JadwalController@setuju_acc_manager')->middleware('auth');
 

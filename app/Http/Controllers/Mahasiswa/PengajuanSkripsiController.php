@@ -128,7 +128,17 @@ class PengajuanSkripsiController extends Controller
             }
         }
 
-        
+        $tahun=date('Y-m-d');
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+        $kalender=array();
+        foreach($kal as $val)
+        {
+            $kalender[$val->kategori_khusus]=$val;
+        }
+        if (!isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
+        {
+            return redirect('pengajuan')->with('status','Anda Tidak Dapat Melakukan Pengajuan Di Luar Jadwal Masa Pengajuan');
+        }
         // return $dospem;
         return view('pages.mahasiswa.pengajuan.form')
                 ->with('judul',$judul)

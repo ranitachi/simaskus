@@ -154,11 +154,24 @@ class JadwalController extends Controller
         }
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
-        return view('pages.staf.jadwal.index',compact('jenis','ta','dept_id','dosen','jadwal','uji','piv'));
+
+
+        $tahun=date('Y-m-d');
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+        $kalender=array();
+        $start_date=$end_date='';
+        foreach($kal as $val)
+        {
+            $kalender[$val->kategori_khusus]=$val;
+            $start_date=$val->start_date;
+            $end_date=$val->end_date;
+        }
+        // return $start_date;
+        return view('pages.staf.jadwal.index',compact('jenis','ta','dept_id','dosen','jadwal','uji','piv','kalender','start_date','end_date'));
     }
 
     
-    public function pengajuan_sidang_staf_data($jenis)
+    public function pengajuan_sidang_staf_data($jenis,$old=null)
     {
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
@@ -182,17 +195,42 @@ class JadwalController extends Controller
                     ->orderBy('created_at')->get();
 
         // return $pengajuan;
-        $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
-                    ->where('jadwals.departemen_id',$dept_id)
-                    ->with('ruangan')
-                    ->get();
+        if($old!=null)
+        {
+            $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                        ->where('jadwals.departemen_id',$dept_id)
+                        ->whereDate('jadwals.tanggal','<',date('Y-m-d'))
+                        ->with('ruangan')
+                        ->get();
+        }
+        else
+        {
+            $jadwal=Jadwal::join('pivot_jadwal','jadwals.id','=','pivot_jadwal.jadwal_id')
+                        ->where('jadwals.departemen_id',$dept_id)
+                        ->whereDate('jadwals.tanggal','>=',date('Y-m-d'))
+                        ->with('ruangan')
+                        ->get();
+        }
 
+        // return $jadwal;
         // dd($pengajuan);
-        $jdwl=array();
+        $jdwl=$jdwlold=array();
         foreach($jadwal as $kj=>$vjj)
         {
-            $jdwl[$vjj->judul_id]=$vjj;
+            if($vjj->tanggal!=NULL)
+                $jdwl[$vjj->judul_id]=$vjj;
+            // if($old!=null)
+            // {
+            //     if($vjj->tanggal<date('Y-m-d'))
+            //         $jdwlold[$vjj->judul_id]=$vjj;
+            // }
+            // else
+            // {
+            //     if($vjj->tanggal>=date('Y-m-d'))
+            //         $jdwl[$vjj->judul_id]=$vjj;
+            // }
         }
+        // return $jdwl;
         // dd($jdwl);
         $penguji=PivotPenguji::with('dosen')->get();
         $uji=array();
@@ -215,6 +253,7 @@ class JadwalController extends Controller
             $dok[$vd->pengajuan_id][$vd->jenis_dokumen]=$vd;
         }
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        // return $jdwlold;
         if($jenis==2)
         {
             return view('pages.staf.jadwal.jadwal')
@@ -225,6 +264,7 @@ class JadwalController extends Controller
                     ->with('dosen',$dosen)
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
+                    ->with('old',$old)
                     ->with('piv',$piv);
         }
         else
@@ -237,6 +277,7 @@ class JadwalController extends Controller
                     ->with('dosen',$dosen)
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
+                    ->with('old',$old)
                     ->with('piv',$piv);
         }
     }
@@ -420,7 +461,8 @@ class JadwalController extends Controller
         $iz=array();
         foreach($izin as $k => $v)
         {
-            $iz[$v->dosen_id][]=$v;
+            $iz[$v->dosen_id]['start_date']=$v->start_date;
+            $iz[$v->dosen_id]['end_date']=$v->end_date;
         }
 
         $penguji=PivotPenguji::with('dosen')->get();
@@ -448,7 +490,7 @@ class JadwalController extends Controller
             
             // echo $idpengajuan.'-';
         }
-        // return $peng;
+        // return $p_uji;
         if(count($tgl)!=0)
         {
             foreach($pengajuan as $kp => $vp)

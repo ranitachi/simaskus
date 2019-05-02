@@ -19,6 +19,7 @@ use App\Model\Mahasiswa;
 use App\Model\PivotDocumentSidang;
 use App\Model\QuotaPenguji;
 use App\Model\Publikasi;
+use App\Model\KalenderAkademik;
 use Auth;
 class DaftarSidangController extends Controller
 {
@@ -38,6 +39,13 @@ class DaftarSidangController extends Controller
     }
     public function data()
     {
+        $det=$kolom_topik=$dospem=array();
+        $dept_id=0;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        if(Auth::user()->kat_user==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
         $pengajuan=Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
                     ->where('status_pengajuan',1)
                     ->with('jenispengajuan')
@@ -80,8 +88,17 @@ class DaftarSidangController extends Controller
             $dok[$vd->jenis_dokumen]=$vd;
         }
         // dd($jadwal);
+        $tahun=date('Y-m-d');
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+        $kalender=array();
+        foreach($kal as $val)
+        {
+            $kalender[$val->kategori_khusus]=$val;
+        }
+        
         return view('pages.mahasiswa.sidang.data')
                     ->with('pengajuan',$pengajuan)
+                    ->with('kalender',$kalender)
                     ->with('dok',$dok)
                     ->with('uji',$uji)
                     ->with('jadwal',$jadwal)

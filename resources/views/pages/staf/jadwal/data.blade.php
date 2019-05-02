@@ -40,16 +40,18 @@
             @endphp
             @foreach ($pengajuan as $i => $v)
             {{-- @if (count($jadwal) != 0) --}}
+            
                 @php
                     $idpengajuan=$v->id;
                     $no++;
 
-                    @endphp
+                @endphp
                 @if(isset($jadwal[$v->id]))
                 <tr class="odd gradeX">
                     <td>{{($no)}}</td>
                     <td>
-                        <b>{{$v->mahasiswa->nama}}</b><br>
+                        <b>
+                        {{$v->mahasiswa->nama}}</b><br>
                         {{$v->mahasiswa->npm}}<br>
                         {{$v->mahasiswa->programstudi->nama_program_studi}}
                     </td>
@@ -182,9 +184,9 @@
                             </center>
                         @else
                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
-                            {{-- <center>
+                            <center>
                                 <a href="javascript:tambahpenguji({{$v->id}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
-                            </center> --}}
+                            </center>
                         @endif
                     {{-- @endif --}}
                     </td>
@@ -234,7 +236,7 @@
                    
                 </tr>
                 
-            @endif
+                @endif
             @endforeach                
             </tbody>
         </table>
