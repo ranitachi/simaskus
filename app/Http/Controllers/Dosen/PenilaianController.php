@@ -287,6 +287,8 @@ class PenilaianController extends Controller
         {
             $penp[$vn->pengajuan_id]=$vn;
         }
+
+        
         // dd($perb);
         return view('pages.dosen.penilaian.index-pembimbing')
                     ->with('acc_sid',$acc_sid)
@@ -348,12 +350,14 @@ class PenilaianController extends Controller
         $idjenis=isset($pengajuan->jenispengajuan->id) ? $pengajuan->jenispengajuan->id : -1;
         if($idjenis!=-1)
         {
-            $penilaian=Component::select('*',DB::raw('component.id as c_id'))
+            $pen=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$dept_id)
                     ->where('module.jenis_id',$idjenis)->get();
-        }
+            if($pen->count()!=0)
+                $penilaian=$pen;
 
+        }
         // return $penilaian;
         return view('pages.dosen.penilaian.form',
             compact('pengajuan','jadwal','penilaian','uji','n','idjadwal','idpengajuan','penilaian'));

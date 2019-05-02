@@ -108,8 +108,9 @@
     <hr>
     <div class="row">
         @php
-        $warna='grey';
-        $check='';
+        $waktupengajuanmk=$waktupengajuansidang=$waktupendajwalan=$waktusidang='Belum Di Atur Jadwal';
+        $warnawaktupengajuanmk=$warnawaktupendajwalan=$warnawaktupengajuansidang=$warnawaktusidang='grey';
+        $checkwaktupengajuanmk=$checkwaktupendajwalan=$checkwaktupengajuansidang=$checkwaktusidang='';
         $waktupengajuanmk=$waktupengajuansidang=$waktupendajwalan=$waktusidang='Belum Di Atur Jadwal';
         if (count($kalender)!=0)
         {
@@ -117,9 +118,9 @@
                 {
                     if($value['kategori_khusus']=='masa-pengajuan-mata-kuliah-khusus')
                     {
-                        $waktupengajuanmk=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
-                        $warna='blue';
-                        $check='<i class="fa fa-check"></i>';
+                        $waktupengajuanmk=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/m/Y',strtotime($value['end_date']));
+                        $warnawaktupengajuanmk='blue';
+                        $checkwaktupengajuanmk='<i class="fa fa-check"></i>';
                     }
                     else
                     {
@@ -130,7 +131,7 @@
                     
                     if($value['kategori_khusus']=='masa-penjadwalan')
                     {
-                        $waktupendajwalan=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $waktupendajwalan=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/m/Y',strtotime($value['end_date']));
                         $warnawaktupendajwalan='blue';
                         $checkwaktupendajwalan='<i class="fa fa-check"></i>';
                     }
@@ -143,7 +144,7 @@
                     
                     if($value['kategori_khusus']=='masa-pengajuan-sidang-mata-kuliah-khusus')
                     {
-                        $waktupengajuansidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $waktupengajuansidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/m/Y',strtotime($value['end_date']));
                         $warnawaktupengajuansidang='blue';
                         $checkwaktupengajuansidang='<i class="fa fa-check"></i>';
                     }
@@ -156,7 +157,7 @@
                     
                     if($value['kategori_khusus']=='masa-pelaksanaan-sidang')
                     {
-                        $waktusidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/mY',strtotime($value['end_date']));
+                        $waktusidang=date('d/m/Y',strtotime($value['start_date'])).' s.d. '.date('d/m/Y',strtotime($value['end_date']));
                         $warnawaktusidang='blue';
                         $checkwaktusidang='<i class="fa fa-check"></i>';
                     }
@@ -188,7 +189,7 @@
         if(isset($kal_lain['masa-penjadwalan']))
         {
             $kl=$kal_lain['masa-penjadwalan'];
-            $waktupendajwalan=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));;
+            $waktupendajwalan=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));
         }
         if(isset($kal_lain['masa-pengajuan-sidang-mata-kuliah-khusus']))
         {
@@ -198,8 +199,9 @@
         if(isset($kal_lain['masa-pelaksanaan-sidang']))
         {
             $kl=$kal_lain['masa-pelaksanaan-sidang'];
-            $waktusidang=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));;
+            $waktusidang=date('d/m/Y',strtotime($kl->start_date)).' s.d. '.date('d/m/Y',strtotime($kl->end_date));
         }
+        // dd($kal_lain);
         @endphp
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <a class="dashboard-stat dashboard-stat-v2 {{$warnawaktupengajuanmk}}" href="#">

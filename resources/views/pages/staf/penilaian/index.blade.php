@@ -84,6 +84,7 @@
                                         <th> Nama Dosen </th>
                                         <th> Kategori </th>
                                         <th> Form </th>
+                                        <th> Nilai </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -131,6 +132,44 @@
                                                     @endif
                                                     <br>
                                                 @endif    
+                                                </td>
+                                                <td>
+                                                    @php
+                                                        $total=0;
+                                                        $hurufmutu='';
+                                                    @endphp
+                                                        @foreach ($penilaian as $v)
+                                                    
+                                                        @php
+                                                            if(isset($n2[$item['iddosen']][$v->c_id]))
+                                                            {
+                                                                $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
+                                                                $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
+                                                                $hurufmutu=$n2[$item['iddosen']][$v->id]->huruf;
+                                                                $total=$n2[$item['iddosen']][$v->id]->total;
+                                                            }
+                                                            else
+                                                            {
+                                                                $subtotal=$nilai_angka=0;
+                                                            }
+                                                            $total+=$subtotal;
+                                                        @endphp
+                                                        <div class="row">
+                                                            <div class="col-md-8">{{$v->nama_component}}</div>
+                                                            <div class="col-md-2">: {{$subtotal}}</div>
+                                                            
+                                                        </div>    
+                                                    @endforeach
+                                                    <div class="row">
+                                                            <div class="col-md-8 text-right"><b>Total</b></div>
+                                                            <div class="col-md-2">: <b>{{$total}}</b></div>
+                                                            
+                                                        </div>
+                                                    <div class="row">
+                                                            <div class="col-md-8 text-right"><b>Huruf Mutu</b></div>
+                                                            <div class="col-md-2">: <b>{{$hurufmutu}}</b></div>       
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>    
                                         @php

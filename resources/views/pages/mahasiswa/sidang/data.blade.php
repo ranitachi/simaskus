@@ -180,20 +180,27 @@
                                 else
                                     $jlh_min=5;
                             @endphp 
-                            @if ($jlhbimbingan->count() >= $jlh_min)
-                                {{-- @if ($st_sid==1) --}}
-                                
-                                <div style="width:110px;">
-                                    <a href="{{url('daftar-sidang/'.$idpengajuan)}}" class="btn btn-xs btn-primary"><i class="fa fa-plus-circle"></i> Daftar Sidang</a>
-                                </div>
+                            @if (isset($kalender['masa-pengajuan-sidang-mata-kuliah-khusus']))
+                                @if ($jlhbimbingan->count() >= $jlh_min)
+                                    {{-- @if ($st_sid==1) --}}
                                     
+                                    <div style="width:110px;">
+                                        <a href="{{url('daftar-sidang/'.$idpengajuan)}}" class="btn btn-xs btn-primary"><i class="fa fa-plus-circle"></i> Daftar Sidang</a>
+                                    </div>
+                                        
+                                @else
+                                    <div style="width:110px;">
+                                        <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger" onclick="belumbisadaftar()"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
+                                    </div>
+                                        
+                                    {{-- @endif --}}
+                                @endif
                             @else
                                 <div style="width:110px;">
-                                    <button data-toggle="tooltip" title="Daftar Sidang Belum Dapat Dilakukan" disable="disable" class="btn btn-xs btn-danger" onclick="belumbisadaftar()"><i class="fa fa-plus-circle"></i> Daftar Sidang</button>
-                                </div>
-                                    
-                                {{-- @endif --}}
+                                        <button data-toggle="tooltip" title="Bukan Masa Pengajuan Sidang" disable="disable" class="btn btn-xs btn-danger" ><i class="fa fa-exclamation-circle"></i> Bukan Masa Pengajuan Sidang</button>
+                                    </div>
                             @endif
+                            
                         
                         @endif
                     </td>

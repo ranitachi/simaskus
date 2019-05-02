@@ -50,16 +50,37 @@ class DashboardController extends Controller
             {
                 $mhs=Mahasiswa::where('id',Auth::user()->id_user)->first();
                 $dept_id=$mhs->departemen_id;
-                $kalender=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get()->toArray(); 
-                return view('pages.dashboard.index-mahasiswa')->with('kalender',$kalender);
+                $kal=KalenderAkademik::where('departemen_id',$dept_id)->orderBy('start_date')->get();
+                // return $kalender;
+                foreach($kal as $v)
+                {
+                    if($v->start_date <= $tahun && $v->end_date>=$tahun)
+                    {
+                        $kalender[]=$v;
+                    }
+                    else
+                        $kal_lain[$v->kategori_khusus]=$v;
+                }
+                
+                return view('pages.dashboard.index-mahasiswa')->with('kalender',$kalender)->with('kal_lain',$kal_lain);
                 // return redirect('profil');
             }
             else if(Auth::user()->kat_user==2)
             {
                 $dos=Dosen::where('id',Auth::user()->id_user)->first();
                 $dept_id=$dos->departemen_id;
-                $kalender=KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get()->toArray(); 
-                return view('pages.dashboard.index-dosen')->with('kalender',$kalender);
+                $kal=KalenderAkademik::where('departemen_id',$dept_id)->orderBy('start_date')->get();
+                // return $kalender;
+                foreach($kal as $v)
+                {
+                    if($v->start_date <= $tahun && $v->end_date>=$tahun)
+                    {
+                        $kalender[]=$v;
+                    }
+                    else
+                        $kal_lain[$v->kategori_khusus]=$v;
+                }
+                return view('pages.dashboard.index-dosen')->with('kalender',$kalender)->with('kal_lain',$kal_lain);
             }
             // dd(Auth::user());
         }
