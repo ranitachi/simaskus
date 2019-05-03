@@ -9,7 +9,7 @@ class Mahasiswa extends Model
 {
     use SoftDeletes;
     protected $table = 'mahasiswa';
-    protected $fillable = ['npm','nama','tempat_lahir','tanggal_lahir','gender','alamat','kota','email','hp','tahun_masuk','program_studi_id','departemen_id','jenjang_id','bukti_siak_ng','created_at','updated_at','deleted_at'];
+    protected $fillable = ['npm','nama','tempat_lahir','tanggal_lahir','gender','lokasi_kuliah','alamat','kota','email','hp','tahun_masuk','program_studi_id','departemen_id','jenjang_id','bukti_siak_ng','created_at','updated_at','deleted_at'];
 
     function departemen()
     {

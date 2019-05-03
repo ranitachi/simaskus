@@ -31,9 +31,9 @@
                     <td>{{(++$i)}}</td>
                     <td>{{$v->code_ruangan}}</td>
                     <td>{{$v->nama_ruangan}}</td>
-                    <td>{{$v->lokasi}}</td>
+                    <td>{{ucwords($v->lokasi_kuliah)}} - {{$v->lokasi}}</td>
                     <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
-                    <td class="text-center">{!!$v->ruang_sidang_promosi==0 ? '<span class="label label-danger">Tidak Bisa Sidang Promosi</span>' : '<span class="label label-info">Bisa Sidang Promosi</span>'!!}</td>
+                    <td class="text-center">{!!$v->ruang_sidang_promosi==0 ? '<span class="label label-danger label-sm">Tidak Bisa Sidang Promosi</span>' : '<span class="label label-info">Bisa Sidang Promosi</span>'!!}</td>
                     <td>{{$v->deskripsi}}</td>
                     <td>
                         <div style="width:80px;">

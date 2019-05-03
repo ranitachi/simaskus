@@ -139,6 +139,17 @@
                                             </select>
                                         </div>
                                 </div>
+                                <div class="form-group" style="margin-bottom:5px;">
+                                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                                    <label class="control-label visible-ie8 visible-ie9">Lokasi Kuliah</label>
+                                        <div id="div_dept">
+                                            <select class="bs-select form-control has-success" name="lokasi_kuliah" id="lokasi_kuliah">
+                                                <option value="0">- Pilih Lokasi Kuliah -</option>
+                                                <option value="depok">Kampus Depok</option>
+                                                <option value="salemba">Kampus Salemba</option>
+                                            </select>
+                                        </div>
+                                </div>
                                 
                                 <div class="form-group" style="margin-bottom:5px;">
                                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -274,6 +285,7 @@
                     var jenjang=$('#program_studi').val();
                     var password_regis=$('#password_regis').val();
                     var c_password_regis=$('#c_password_regis').val();
+                    var lokasi_kuliah=$('#lokasi_kuliah').val();
                     var file_upload=$('#file_upload').val();
                     
                     if(npm=='')
@@ -283,7 +295,9 @@
                     else if(departemen_id==0)
                         swal("Peringatan", "Departemen Harus Dipilih", "error")
                     else if(jenjang==0)
-                        swal("Peringatan", "Program Studi", "error")
+                        swal("Peringatan", "Program Studi Belum Dipilih", "error")
+                    else if(lokasi_kuliah==0)
+                        swal("Peringatan", "Lokasi Kulia Harus Dipilih", "error")
                     else if(email=="")
                         swal("Peringatan", "Email Wajib Diisi", "error")
                     else if(password_regis=="")

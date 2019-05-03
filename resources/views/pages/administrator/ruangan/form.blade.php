@@ -36,6 +36,25 @@
             <!--/span-->
             <div class="col-md-12">
                 <div class="form-group has-success">
+                    <label class="control-label">Lokasi Kuliah</label>
+                    <select class="bs-select form-control has-success" data-placeholder="Pilih Lokasi Kuliah" name="lokasi_kuliah" id="lokasi_kuliah">
+                        <option value="0">-Pilih Lokasi Kuliah-</option>
+                        @if ($id!=-1)
+                            <option value="depok" {{($det->lokasi_kuliah=='depok' ? 'selected="selected"' : '')}}>Kampus Depok</option>
+                            <option value="salemba" {{($det->lokasi_kuliah=='salemba' ? 'selected="selected"' : '')}}>Kampus Salemba</option>
+                        @else
+                            <option value="depok">Kampus Depok</option>
+                            <option value="salemba">Kampus Salemba</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+        <div class="row">
+            <!--/span-->
+            <div class="col-md-12">
+                <div class="form-group has-success">
                     <label class="control-label">Departemen</label>
                     <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen_id" id="departemen_id" onchange="pilihdepartemen(this.value)">
                         @if (Auth::user()->kat_user==0)

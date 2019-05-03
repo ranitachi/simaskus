@@ -168,6 +168,21 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label">Lokasi Kuliah</label>
+                            <div id="prog_studi">
+                                <select class="bs-select form-control has-success" data-placeholder="Pilih Lokasi Kuliah" name="lokasi_kuliah" id="lokasi_kuliah">
+                                    <option value="0">-Pilih Lokasi Kuliah-</option>
+                                    @if ($profil->lokasi_kuliah!='')
+                                        <option value="depok" {{$profil->lokasi_kuliah=='depok' ? 'selected="selected"' : ''}}>Kampus Depok</option>
+                                        <option value="salemba" {{$profil->lokasi_kuliah=='salemba' ? 'selected="selected"' : ''}}>Kampus Salemba</option>
+                                    @else
+                                        <option value="depok">Kampus Depok</option>
+                                        <option value="salemba">Kampus Salemba</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Tahun Masuk</label>
                             <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Masuk" id="tahun_masuk" name="tahun_masuk">
                                 <option value="-1">-Pilih Tahun Masuk-</option>
