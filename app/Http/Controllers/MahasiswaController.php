@@ -64,6 +64,7 @@ class MahasiswaController extends Controller
         $mh->program_studi_id=$request->program_studi;
         $mh->tahun_masuk=$request->tahun_masuk;
         $mh->jenjang_id=$request->program_studi;
+        $mh->lokasi_kuliah=$request->lokasi_kuliah;
 
         if ($request->hasFile('siak_ng')) {
             $val_siak=$request->siak_ng;
@@ -123,6 +124,7 @@ class MahasiswaController extends Controller
         $mhs->email=$request->email_regis;
         $mhs->departemen_id=$request->departemen_id;
         $mhs->jenjang_id=$request->program_studi;
+        $mhs->lokasi_kuliah=$request->lokasi_kuliah;
         $mhs->bukti_siak_ng=$dir;
         $mhs->program_studi_id=$request->program_studi;
         $mhs->hp=$request->hp;

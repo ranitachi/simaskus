@@ -9,7 +9,7 @@ class MasterRuangan extends Model
 {
     use SoftDeletes;
     protected $table = 'master_ruangan';
-    protected $fillable = ['code_ruangan','nama_ruangan','deskripsi','departemen_id','lokasi','created_at','updated_at','deleted_at'];
+    protected $fillable = ['code_ruangan','nama_ruangan','deskripsi','lokasi_kuliah','departemen_id','lokasi','created_at','updated_at','deleted_at'];
 
     function departemen()
     {
