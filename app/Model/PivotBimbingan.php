@@ -19,6 +19,10 @@ class PivotBimbingan extends Model
     {
         return $this->belongsTo('App\Model\Mahasiswa','mahasiswa_id');
     }
+    function pengajuan()
+    {
+        return $this->belongsTo('App\Model\Pengajuan','judul_id');
+    }
     function judul()
     {
         return $this->belongsTo('App\Model\JudulTugasAkhir','judul_id');

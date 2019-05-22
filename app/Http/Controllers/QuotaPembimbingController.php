@@ -142,7 +142,7 @@ class QuotaPembimbingController extends Controller
             }
         }
 
-        $pivot=PivotBimbingan::with('dosen')->get();
+        $pivot=PivotBimbingan::where('status_fix',1)->with('dosen')->get();
         $piv=array();
         $promotor=$copromotor=array();
         foreach($pivot as $kp=>$vp)
@@ -174,6 +174,7 @@ class QuotaPembimbingController extends Controller
             $qb[$vq->level]=$vq;
         }
         // dd($qb);
+    // return $jenis;
         return view('pages.administrator.dosen.jumlah-pembimbing')
                 ->with('dosen',$dosen)
                 ->with('piv',$piv)
@@ -341,7 +342,7 @@ class QuotaPembimbingController extends Controller
             }
         }
 
-        $pivot=PivotBimbingan::with('dosen')->get();
+        $pivot=PivotBimbingan::where('status_fix',1)->with('dosen')->get();
         $piv=array();
         $promotor=$copromotor=array();
         foreach($pivot as $kp=>$vp)
