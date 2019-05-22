@@ -115,7 +115,7 @@
             <div class="form-group has-success">
             <label class="control-label">Pilihan Pengajuan Co-Promotor (*Optional Maksimal {{$qt['Co-Promotor']}} Orang)</label>
             
-                <select class="form-control select2" data-placeholder="Pilih Co Promotor" name="copromotor[]" id="dosen_co">
+                <select class="form-control select2" data-placeholder="Pilih Co Promotor" name="copromotor[]" id="dosen_co" multiple>
                     @foreach ($dosen as $idx => $v)
                         @php
                             $jabatan=str_slug($v->jabatan);

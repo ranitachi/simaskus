@@ -137,10 +137,12 @@ Route::get('data-pengajuan','Admin\PengajuanController@pengajuan')->middleware('
 Route::get('data-bimbingan','Admin\PengajuanController@data_bimbingan')->middleware('auth');
 Route::get('data-pengajuan-detail/{id}','Admin\PengajuanController@detail')->middleware('auth');
 Route::get('pengajuan-verifikasi/{id}/{jenis}','Admin\PengajuanController@verifikasi')->middleware('auth');
+Route::get('pengajuan-verifikasi-semua','Admin\PengajuanController@verifikasi_semua')->middleware('auth');
 Route::get('pengajuan-tolak/{id}/{jenis}','Admin\PengajuanController@tolak')->middleware('auth');
 Route::get('pengajuan-hapus/{id}/{jenis}','Admin\PengajuanController@destroy')->middleware('auth');
 Route::get('verifikasi-pengajuan/{id}','Admin\PengajuanController@verifikasi_pengajuan')->middleware('auth');
 Route::get('setujui-pengajuan-bimbingan/{pengajuan_id}/{mahasiswa_id}/{dosen_id}','Admin\PengajuanController@setujui_pengajuan_bimbingan')->middleware('auth');
+Route::get('setujui-pengajuan-bimbingan-semua/{pengajuan_id}','Admin\PengajuanController@setujui_pengajuan_bimbingan_semua')->middleware('auth');
 Route::get('hapus-pengajuan-bimbingan/{pengajuan_id}/{mahasiswa_id}/{dosen_id}','Admin\PengajuanController@hapus_pengajuan_bimbingan')->middleware('auth');
 Route::get('generate-pembimbing/{dept_id}','Admin\PengajuanController@generate_pembimbing')->middleware('auth');
 

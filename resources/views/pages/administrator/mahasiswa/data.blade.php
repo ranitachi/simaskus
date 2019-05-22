@@ -47,11 +47,11 @@
                                 <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
                             @endif
                         </td>
-                        <td class="text-center">
+                        {{-- <td class="text-center">
                             {!! $v->status_mahasiswa ==1 ? '<span class="badge badge-primary badge-roundless"> Aktif </span>' : ($v->status_mahasiswa==2 ? '<span class="badge badge-info badge-roundless"> Sudah Lulus </span>' : '<span class="badge badge-danger badge-roundless"> Belum Aktif </span>')!!}
 
                             
-                        </td>
+                        </td> --}}
                         <td>
                             <div style="width:100px;">
                                 <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>

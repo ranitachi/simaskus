@@ -259,7 +259,7 @@ class PengajuanSkripsiController extends Controller
 
                 if(isset($ds[$k]))
                 {
-                    $topik->dosen_id=$da[$k];
+                    $topik->dosen_id=$ds[$k];
                     $topik->topik=$v;
                     $topik->save();
                 }
