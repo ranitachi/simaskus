@@ -15,6 +15,7 @@ use App\Model\Mahasiswa;
 use App\Model\TahunAjaran;
 use App\Model\TopikPengajuan;
 use Auth;
+use Validator;
 class PengajuanS3Controller extends Controller
 {
     public function index()
@@ -189,7 +190,8 @@ class PengajuanS3Controller extends Controller
         $promotor->jenis_bimbingan=$jns_pengajuan;
         $promotor->judul_id=$pengajuan->id;
         $promotor->keterangan='promotor';
-        $promotor->status=0;
+        $promotor->status=1;
+        $promotor->status_fix=1;
         $promotor->created_at=date('Y-m-d H:i:s');
         $promotor->updated_at=date('Y-m-d H:i:s');
         $promotor->save();
@@ -204,7 +206,8 @@ class PengajuanS3Controller extends Controller
                 $pivot->jenis_bimbingan=$jns_pengajuan;
                 $pivot->judul_id=$pengajuan->id;
                 $pivot->keterangan='co-promotor';
-                $pivot->status=0;
+                $pivot->status=1;
+                $pivot->status_fix=1;
                 $pivot->created_at=date('Y-m-d H:i:s');
                 $pivot->updated_at=date('Y-m-d H:i:s');
                 $pivot->save();
@@ -307,7 +310,13 @@ class PengajuanS3Controller extends Controller
     function unggah_sk_rektor(Request $request)
     {
         // dd($request->all());
+        // $this->validate(request(), [
+        //     'sk_rektor' => 'Anda Belum Memasukan File SK Rektor'
+        // ]);
         $val=$request->sk_rektor;
+        if($val=='')
+            return redirect('data-pengajuan')->with('error','Anda Belum Mengunggah File SK Rektor');
+            
         $val->storeAs('sk-rektor',$val->getClientOriginalName());
         $dir='sk-rektor/'.$val->getClientOriginalName();
 
