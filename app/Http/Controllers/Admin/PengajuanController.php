@@ -324,10 +324,7 @@ class PengajuanController extends Controller
             $get=1;
             $cnt_bm=$cnt_p_d=0;
             $cnt_per_dosen=isset($count_bimbingan_perdosen[$jenjang]) ? $count_bimbingan_perdosen[$jenjang] : 0;
-            // if(!isset($count_bimbingan_perdosen[$jenjang]))
-            // {
-            //     $count_bimbingan_perdosen[$jenjang]=0;
-            // }
+            
             if(count($tot_count)!=0)
             {
             for($f=1;$f<=max($tot_count);$f++)
@@ -336,14 +333,6 @@ class PengajuanController extends Controller
                 {
                     $id_dos = $urutan[$vp->id][$f];
 
-                    // if(isset($max_total[$id_dos]))
-                    //     $mt=$max_total[$id_dos];
-                    // else
-                    // {
-                    //     $mt=0;
-                    //     $max_total[$id_dos]=0;
-                    // }
-                    
                     if(isset($count_bimbingan[$id_dos]))
                     {
                         if($count_bimbingan[$id_dos]<=$total_bimb)

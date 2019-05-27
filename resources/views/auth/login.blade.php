@@ -181,7 +181,7 @@
                                     <label class="control-label" style="color:black;font-style:italic;font-size:10px;">Upload Bukti SIAK-NG</label>
                                     <div class="input-icon">
                                         <i class="fa fa-file-o"></i>
-                                        <input class="form-control placeholder-no-fix" required type="file" placeholder="Upload Bukti SIAK-NG" name="file_upload" id="file_upload" accept=".png,.pdf"/> </div>
+                                        <input class="form-control placeholder-no-fix" required type="file" placeholder="Upload Bukti SIAK-NG" name="file_upload" id="file_upload" accept=".jpg,.png,.pdf"/> </div>
                                 </div>
                                 {{-- <div class="form-group" style="margin-bottom:5px;">
                                     <label class="control-label visible-ie8 visible-ie9">Re-Password</label>

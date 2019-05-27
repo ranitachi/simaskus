@@ -47,6 +47,7 @@
                     @foreach ($dosen as $idx => $v)
                         @php
                             $jabatan=str_slug($v->jabatan);
+                            
                         @endphp
                         @if (count($promotor)!=0)
                             @if (in_array($v->id,$promotor))

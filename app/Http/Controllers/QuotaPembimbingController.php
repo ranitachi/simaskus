@@ -145,11 +145,13 @@ class QuotaPembimbingController extends Controller
         $pivot=PivotBimbingan::where('status_fix',1)->with('dosen')->get();
         $piv=array();
         $promotor=$copromotor=array();
+        $piv_jenjang=array();
         foreach($pivot as $kp=>$vp)
         {
             if($vp->dosen->departemen_id==$dept_id)
             {
                 $piv[$vp->dosen_id][]=$vp;
+                $piv_jenjang[$vp->mahasiswa->programstudi->jenjang][]=$vp;
             }
             if($idpengajuan!=null)
             {
@@ -173,11 +175,22 @@ class QuotaPembimbingController extends Controller
         {
             $qb[$vq->level]=$vq;
         }
+        if(isset($qb['Total']))
+            $total=$qb['Total']->quota;
+        else
+            $total=14;
+        
+        $qut_s3=2;
+
+        if(isset($qb['S3']))
+            $qut_s3=$qb['S3'];
         // dd($qb);
     // return $jenis;
         return view('pages.administrator.dosen.jumlah-pembimbing')
                 ->with('dosen',$dosen)
                 ->with('piv',$piv)
+                ->with('qut_s3',$qut_s3)
+                ->with('qb',$qb)
                 ->with('pengajuan',$p_ajuan)
                 ->with('promotor',$promotor)
                 ->with('copromotor',$copromotor)
@@ -342,14 +355,15 @@ class QuotaPembimbingController extends Controller
             }
         }
 
-        $pivot=PivotBimbingan::where('status_fix',1)->with('dosen')->get();
-        $piv=array();
+        $pivot=PivotBimbingan::where('status_fix',1)->with('dosen')->with('mahasiswa')->get();
+        $piv=$piv_jenjang=array();
         $promotor=$copromotor=array();
         foreach($pivot as $kp=>$vp)
         {
             if($vp->dosen->departemen_id==$dept_id)
             {
                 $piv[$vp->dosen_id][]=$vp;
+                $piv_jenjang[$vp->mahasiswa->programstudi->jenjang][]=$vp;
             }
             if($idpengajuan!=null)
             {
@@ -367,16 +381,32 @@ class QuotaPembimbingController extends Controller
             }
         }
         // dd($p_ajuan);
-        $qut_bim=QuotaBimbingan::all();
+        $qut_bim=QuotaBimbingan::where('departemen_id',$dept_id)->get();
         $qb=array();
         foreach($qut_bim as $kq=>$vq)
         {
             $qb[$vq->level]=$vq;
         }
+        if(isset($qb['Total']))
+            $total=$qb['Total']->quota;
+        else
+            $total=14;
 
         $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
         $jenjang=isset($mhs->programstudi->jenjang) ? $mhs->programstudi->jenjang : 'S1';
+        $qut_s1=8;
+        $qut_s2=4;
+        $qut_s3=2;
 
+        if(isset($qb['S1']))
+            $qut_s1=$qb['S1'];
+        if(isset($qb['S2']))
+            $qut_s2=$qb['S2'];
+        if(isset($qb['S3']))
+            $qut_s3=$qb['S3'];
+        
+        // return ($piv_jenjang['S3']);
+        
         $sel='';
 
         $sel.='<div class="row" style="margin:2px 0px;padding:10px 0;height:116px">
@@ -384,6 +414,7 @@ class QuotaPembimbingController extends Controller
                         <div class="col-md-9" style="">';
         $sel.='<select class="form-control select2" data-placeholder="Pilih Dosen" id="dosen_pemb_'.$i.'" onchange="pilihdos(this.value,\''.$i.'\')">
                 <option value="">Pilih</option>';
+                
         foreach ($dosen as $idx => $v)
         {
             if(in_array($v->id,$dos_id))
@@ -391,8 +422,38 @@ class QuotaPembimbingController extends Controller
             else
                 $disable='';
 
+
             if (isset($piv[$v->id]))
             {
+                if(count($piv[$v->id])>=$total)
+                    $disable='disabled';
+                else
+                {
+                     if($jenjang=='S1')
+                     {
+                         if(isset($piv_jenjang['S1']))
+                         {
+                             if(count($piv_jenjang['S1'])>=$qut_s1->quota)
+                                $disable='disabled';
+                         }
+                     }
+                     if($jenjang=='S2')
+                     {
+                         if(isset($piv_jenjang['S2']))
+                         {
+                             if(count($piv_jenjang['S2'])>=$qut_s2->quota)
+                                $disable='disabled';
+                         }
+                     }
+                     if($jenjang=='S3')
+                     {
+                         if(isset($piv_jenjang['S3']))
+                         {
+                             if(count($piv_jenjang['S3'])>=$qut_s3->quota)
+                                $disable='disabled';
+                         }
+                     }
+                }
                 $sel.='<option value="'.$v->id.'__'.$v->nama.'" '.$disable.'>['.count($piv[$v->id]).'] - '.$v->nama.' </option>';
             }
             else

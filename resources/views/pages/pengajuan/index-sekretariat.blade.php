@@ -43,6 +43,17 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        &nbsp;
+                    </div>
+                </div>
+            @endif
+            @if ($jns=='pengajuan')
+                <div class="row" style="padding:5px 20px;">
+
+                    <div class="col-md-6">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-6">
                         <a href="javascript:verifikasisemua()" class="btn btn-primary btn-sm pull-right"><i class="fa fa-check"></i> Verifikasi Semua Pengajuan</a>
                     </div>
                 </div>
@@ -203,6 +214,12 @@
         if(ps!="")
         {
             swal("Berhasil", "{{Session::get('status')}}", "success")
+        }
+
+        var pse = "{{Session::has('error')}}";
+        if(pse!="")
+        {
+            swal("Gagal", "{{Session::get('error')}}", "error")
         }
         $('#tooltips').tooltip();
     });
