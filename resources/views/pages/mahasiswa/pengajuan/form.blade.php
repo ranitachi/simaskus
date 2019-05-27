@@ -25,7 +25,9 @@
         <!-- END PAGE BAR -->
         <!-- BEGIN PAGE TITLE-->
         <h1 class="page-title"> Pengajuan 
+            
             <small>{{$id==-1 ? 'Tambah Data' :'Edit Data'}}</small>
+            
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->

@@ -3,9 +3,14 @@
 
         <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
-            @if ($pengajuan->count()==0)
-                
-            @if (isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
+            @php
+                $cekpengajuan=\App\Model\Pengajuan::where('mahasiswa_id',Auth::user()->id_user)->where('status_pengajuan','!=',0)->get();
+                // dd($cekpengajuan);
+            @endphp
+
+            @if ($cekpengajuan->count()==0)
+            {{-- @if ($pengajuan->count()==0) --}}
+                @if (isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
                 <div class="btn-group pull-right">
                     <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
                         <i class="fa fa-plus"></i>

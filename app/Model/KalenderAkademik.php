@@ -9,7 +9,7 @@ class KalenderAkademik extends Model
 {
     use SoftDeletes;
     protected $table='kalender_akademik';
-    protected $fillable = ['start_dat','end_date','keterangan','kegiatan','status','tahunajaran_id','departemen_id','created_at','updated_at','deleted_at'];
+    protected $fillable = ['start_date','end_date','keterangan','kegiatan','status','tahunajaran_id','departemen_id','created_at','updated_at','deleted_at'];
 
     function departemen()
     {

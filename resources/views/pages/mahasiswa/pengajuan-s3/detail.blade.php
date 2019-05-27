@@ -169,6 +169,8 @@
                                     $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)
                                                 ->where('judul_id',$pengajuan->id)
                                                 ->with('dosen')->orderBy('keterangan','desc')->get();
+
+                                    // dd($pengajuan->id);
                                 @endphp
                                     @foreach ($pembinging as $key=>$item)
                                         <div class="form-group has-success">

@@ -156,11 +156,11 @@
                                             @endif
                                             <br>
                                             <br>
-                                            @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                            {{-- @if ($v->mahasiswa->programstudi->jenjang=='S3')
                                                 <a href="javascript:usulpenguji('{{$v->id}}','{{$v->mahasiswa_id}}')" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
-                                            @else
+                                            @else --}}
                                                 <a href="{{url('bimbingan-detail/'.$v->id.'/'.$v->mahasiswa->id.'#tab_5_4')}}" class="btn btn-xs btn-success"><i class="fa fa-plus-circle"></i> Usulkan Nama Penguji</a>
-                                            @endif
+                                            {{-- @endif --}}
                                                 
                                         @else
                                             @php

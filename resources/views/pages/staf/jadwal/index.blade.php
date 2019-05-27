@@ -51,6 +51,15 @@
             
         </div>
     </div>
+    @php
+        if(isset($kalamik['masa-pelaksanaan-sidang']))
+        {
+            $start_date=$kalamik['masa-pelaksanaan-sidang']->start_date;
+            $end_date=$kalamik['masa-pelaksanaan-sidang']->end_date;
+            $thn_ajaran_id=$kalamik['masa-pelaksanaan-sidang']->tahunajaran_id;
+        }
+        // dd($end_date);
+    @endphp
 @endsection
 
 @section('footscript')
@@ -62,6 +71,7 @@
         var start_date='{{$start_date}}';
         var end_date='{{$end_date}}';
         var ps = "{{Session::has('status')}}";
+        // alert(end_date);
         if(ps!="")
         {
             swal("Berhasil", "{{Session::get('status')}}", "success")
@@ -343,7 +353,15 @@
                                     <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Tahun Akademik" id="tahunajaran_id" name="tahunajaran_id" required>
                                         <option value="-1">-Pilih Tahun Akademik-</option>
                                         @foreach ($ta as $k=>$v)
-                                            <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                            @if (isset($thn_ajaran_id))
+                                                @if ($thn_ajaran_id==$v->id)
+                                                    <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                                @else
+                                                    <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
+                                                @endif
+                                            @else
+                                                <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <span class="font-red" id="pesan-ta" style="display:none"><small>*Tahun Akademik Harus Dipilih</small></span>

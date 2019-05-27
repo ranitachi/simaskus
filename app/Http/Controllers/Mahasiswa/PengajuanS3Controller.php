@@ -295,7 +295,7 @@ class PengajuanS3Controller extends Controller
             $mp[$v->id]=$v;
         }
         $jenis='';
-        $pengajuan=Pengajuan::find($id)
+        $pengajuan=Pengajuan::where('id',$id)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('dospem_1')

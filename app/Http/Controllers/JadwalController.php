@@ -167,12 +167,19 @@ class JadwalController extends Controller
             $end_date=$val->end_date;
         }
         // return $start_date;
-        return view('pages.staf.jadwal.index',compact('jenis','ta','dept_id','dosen','jadwal','uji','piv','kalender','start_date','end_date'));
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->orderBy('start_date')->get();
+        $kalamik=array();
+        foreach($kal as $k=>$v)
+        {
+            $kalamik[$v->kategori_khusus]=$v;
+        }
+        return view('pages.staf.jadwal.index',compact('kalamik','jenis','ta','dept_id','dosen','jadwal','uji','piv','kalender','start_date','end_date'));
     }
 
     
     public function pengajuan_sidang_staf_data($jenis,$old=null)
     {
+        
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==1)
@@ -183,7 +190,9 @@ class JadwalController extends Controller
         {
             $dept_id=$user->dosen->departemen_id;
         }
-        // dd( $dept_id);
+
+        
+        // dd( $kalamik);
         $pengajuan=Pengajuan::where('departemen_id',$dept_id)
                     ->where('status_pengajuan',$jenis)
                     ->with('jenispengajuan')
@@ -254,6 +263,20 @@ class JadwalController extends Controller
         }
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
         // return $jdwlold;
+        // return $jdwl;
+
+        $pij=PivotJadwal::all();
+        $piv_jad=array();
+        foreach($pij as $k=>$v)
+        {
+            $piv_jad[$v->judul_id]=$v;
+        }
+        $kal=KalenderAkademik::where('departemen_id',$dept_id)->orderBy('start_date')->get();
+        $kalamik=array();
+        foreach($kal as $k=>$v)
+        {
+            $kalamik[$v->kategori_khusus]=$v;
+        }
         if($jenis==2)
         {
             return view('pages.staf.jadwal.jadwal')
@@ -265,6 +288,8 @@ class JadwalController extends Controller
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
                     ->with('old',$old)
+                    ->with('piv_jad',$piv_jad)
+                    ->with('kalamik',$kalamik)
                     ->with('piv',$piv);
         }
         else
@@ -278,6 +303,8 @@ class JadwalController extends Controller
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
                     ->with('old',$old)
+                    ->with('piv_jad',$piv_jad)
+                    ->with('kalamik',$kalamik)
                     ->with('piv',$piv);
         }
     }
@@ -408,7 +435,7 @@ class JadwalController extends Controller
     }
     public function generate(Request $reqeuest, $dept_id)
     {
-        
+        // return $request->
         list($date1,$date2)=explode('-',$reqeuest->datetimes);
         $date1=trim($date1);
         $date2=trim($date2);
