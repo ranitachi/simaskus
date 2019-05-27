@@ -33,6 +33,7 @@ class BimbinganController extends Controller
         
         $bimbingan=Bimbingan::where($wh)->with('dospem')->with('mahasiswa')->orderBy('tanggal_bimbingan','asc')->orderBy('created_at','asc')->get();
           
+        // return $wh;
 
         return view('pages.mahasiswa.bimbingan.data',compact('bimbingan','idpengajuan'));
     }

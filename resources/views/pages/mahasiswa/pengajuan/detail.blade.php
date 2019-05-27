@@ -166,7 +166,9 @@
                             </div>
                             <div class="col-md-6"> 
                                 @php
+                                    // $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('judul_id',$pengajuan->id)->with('dosen')->get();
                                     $pembinging=\App\Model\PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('judul_id',$pengajuan->id)->with('dosen')->get();
+                                    // dd($pengajuan->mahasiswa_id);
                                 @endphp
                                     @foreach ($pembinging as $key=>$item)
                                         <div class="form-group has-success">

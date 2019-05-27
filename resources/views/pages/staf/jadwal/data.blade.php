@@ -44,9 +44,10 @@
                 @php
                     $idpengajuan=$v->id;
                     $no++;
-
+                    if(!isset($piv_jad[$idpengajuan]))
+                        continue;
                 @endphp
-                @if(isset($jadwal[$v->id]))
+                {{-- @if(isset($jadwal[$v->id])) --}}
                 <tr class="odd gradeX">
                     <td>{{($no)}}</td>
                     <td>
@@ -116,6 +117,7 @@
                             
 
                         </td>
+                        
                     @endif
                     <td>
                         <div style="width:110px;">
@@ -176,6 +178,9 @@
                                                 <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;">
                                                     <i class="fa fa-trash tooltips" data-container="body" data-placement="top" data-original-title="Hapus Data Penguji" onclick="hapusenguji({{$vv->penguji_id}},{{$vv->id}})" style="color:black"></i> | 
                                                     <i class="fa fa-user"></i> {{$vv->dosen->nama}}</a><br>
+                                        @php
+                                            $adapenguji=1;
+                                        @endphp
                                         {{-- @endif --}}
                                 @endforeach
                             {{-- @endif --}}
@@ -187,6 +192,9 @@
                             <center>
                                 <a href="javascript:tambahpenguji({{$v->id}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
                             </center>
+                            @php
+                                $adapenguji=0;
+                            @endphp
                         @endif
                     {{-- @endif --}}
                     </td>
@@ -230,13 +238,15 @@
                     </td>
                     <td>
                         @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                            <a class="btn btn-info btn-xs" href="javascript:aturjadwals3('{{$v->mahasiswa_id}}','{{$v->id}}')"><i class="fa fa-calendar"></i> Atur Jadwal</a>
+                            @if ($adapenguji==1)
+                                <a class="btn btn-info btn-xs" href="javascript:aturjadwals3('{{$v->mahasiswa_id}}','{{$v->id}}')"><i class="fa fa-calendar"></i> Atur Jadwal</a>
+                            @endif
                         @endif
                     </td>
                    
                 </tr>
                 
-                @endif
+                {{-- @endif --}}
             @endforeach                
             </tbody>
         </table>

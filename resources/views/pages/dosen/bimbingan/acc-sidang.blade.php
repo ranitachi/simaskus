@@ -103,7 +103,7 @@
                                 $jadwal=\App\Model\PivotJadwal::where('judul_id',$pengajuan->id)->first();                                
                                 
                             @endphp
-                                @if(!is_null($jadwal))
+                                @if(!$jadwal)
                                 <button type="submit" id="simpan-evaluasi" class="btn blue">
                                     <i class="fa fa-check"></i> Simpan</button>
                                 @endif
