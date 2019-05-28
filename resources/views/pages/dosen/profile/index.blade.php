@@ -190,7 +190,7 @@
         var repass=$('#repassword').val();
        if(newpass=='')
             pesan("Password Tidak Boleh Kosong",'error');    
-        else if(nrepass=='')
+        else if(repass=='')
             pesan("Re-Type Password Tidak Boleh Kosong",'error');    
         else
         {
