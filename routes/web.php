@@ -349,3 +349,6 @@ Route::get('updatemulaikp','DashboardController@updatemulaikp');
 
 Route::get('secret','HomeController@secret');
 Route::get('logout_sso','HomeController@logout');
+
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
