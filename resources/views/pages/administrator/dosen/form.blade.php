@@ -104,19 +104,6 @@
                                             <option value="2" {{$id!=-1 ? ($det->gender==2 ? 'selected="selected"' : '') : ''}}>Wanita</option>
                                         </select>
                                     </div>
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-6">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Email</label>
-                                        <input type="text" id="email" name="email" class="form-control input-circle" placeholder="Email" value="{{$id==-1 ? '' : $det->email}}">
-                                    </div>
-                                </div>
-                                <!--/span-->
-                            </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-5">
                                     <div class="form-group has-success">
                                         <label class="control-label">Departemen</label>
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
@@ -154,50 +141,75 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                        <div class="row">
+                                    <!--/span-->
+                                            <div class="col-md-4">
+                                                
+                                                <div class="form-group has-success">
+                                                    <label class="control-label">Status Dosen</label>
+                                                    <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_dosen" id="status_dosen">
+                                                        <option value="-1">-Pilih Status-</option>
+                                                        <option value="Dosen UI" {{$id!=-1 ? ($det->status_dosen=="Dosen UI" ? 'selected="selected"' : '') : ''}}>Dosen UI</option>
+                                                        <option value="Dosen Non UI" {{$id!=-1 ? ($det->status_dosen=="Dosen Non UI" ? 'selected="selected"' : '') : ''}}>Dosen Non UI</option>
+                                                        <option value="Lainnya" {{$id!=-1 ? ($det->status_dosen=="Lainnya" ? 'selected="selected"' : '') : ''}}>Lainnya</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <!--/span-->
+                                            <div class="col-md-4">
+                                                
+                                                <div class="form-group has-success">
+                                                    <label class="control-label">Pendidikan</label>
+                                                    <select class="bs-select form-control has-success" data-placeholder="Pilih" name="pendidikan" id="pendidikan">
+                                                        <option value="-1">-Pilih-</option>
+                                                        <option value="S1" {{$id!=-1 ? ($det->pendidikan=="S1" ? 'selected="selected"' : '') : ''}}>S1</option>
+                                                        <option value="S2" {{$id!=-1 ? ($det->pendidikan=="S2" ? 'selected="selected"' : '') : ''}}>S2</option>
+                                                        <option value="S3" {{$id!=-1 ? ($det->pendidikan=="S3" ? 'selected="selected"' : '') : ''}}>S3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                
+                                                <div class="form-group has-success">
+                                                    <label class="control-label">Jabatan</label>
+                                                    <select class="bs-select form-control has-success" data-placeholder="Pilih" name="jabatan" id="jabatan">
+                                                        <option value="-1">-Pilih-</option>
+                                                        <option value="Pengajar" {{$id!=-1 ? ($det->jabatan=="Pengajar" ? 'selected="selected"' : '') : ''}}>Pengajar</option>
+                                                        <option value="Lektor" {{$id!=-1 ? ($det->jabatan=="Lektor" ? 'selected="selected"' : '') : ''}}>Lektor</option>
+                                                        <option value="Lektor Kepala" {{$id!=-1 ? ($det->jabatan=="Lektor Kepala" ? 'selected="selected"' : '') : ''}}>Lektor Kepala</option>
+                                                        <option value="Guru Besar" {{$id!=-1 ? ($det->jabatan=="Guru Besar" ? 'selected="selected"' : '') : ''}}>Guru Besar</option>
+                                                        <option value="Asisten Ahli" {{$id!=-1 ? ($det->jabatan=="Asisten Ahli" ? 'selected="selected"' : '') : ''}}>Asisten Ahli</option>
+                                                    </select>
+                                                </div>
+                                            
+                                                <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
+                                        </div>
                                 </div>
                                 <!--/span-->
-                                <div class="col-md-2">
-                                    
+                                <div class="col-md-6">
                                     <div class="form-group has-success">
-                                        <label class="control-label">Status Dosen</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih Status" name="status_dosen" id="status_dosen">
-                                            <option value="-1">-Pilih Status-</option>
-                                            <option value="Dosen UI" {{$id!=-1 ? ($det->status_dosen=="Dosen UI" ? 'selected="selected"' : '') : ''}}>Dosen UI</option>
-                                            <option value="Dosen Non UI" {{$id!=-1 ? ($det->status_dosen=="Dosen Non UI" ? 'selected="selected"' : '') : ''}}>Dosen Non UI</option>
-                                            <option value="Lainnya" {{$id!=-1 ? ($det->status_dosen=="Lainnya" ? 'selected="selected"' : '') : ''}}>Lainnya</option>
-                                        </select>
+                                        <label class="control-label">Email</label>
+                                        <input type="text" id="email" name="email" class="form-control input-circle" placeholder="Email" value="{{$id==-1 ? '' : $det->email}}">
                                     </div>
+                                    @if ($id==-1)                                        
+                                        <div class="form-group has-success" id="div-pass" style="display: none">
+                                            <label class="control-label">Password</label>
+                                            <input type="text" id="password" name="password" class="form-control input-circle" placeholder="Password"><small>*Kosongkan Jika Tidak Diganti</small>
+                                        </div>
+                                    @else
+                                        @if ($det->status_dosen=='Dosen UI')
+                                            <div class="form-group has-success" id="div-pass">
+                                                <label class="control-label">Password</label>
+                                                <input type="text" id="password" name="password" class="form-control input-circle" placeholder="Password"><small>*Kosongkan Jika Tidak Diganti</small>
+                                            </div>
+                                        @endif
+                                    @endif
                                 </div>
-                                
                                 <!--/span-->
-                                <div class="col-md-2">
-                                    
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Pendidikan</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih" name="pendidikan" id="pendidikan">
-                                            <option value="-1">-Pilih-</option>
-                                            <option value="S1" {{$id!=-1 ? ($det->pendidikan=="S1" ? 'selected="selected"' : '') : ''}}>S1</option>
-                                            <option value="S2" {{$id!=-1 ? ($det->pendidikan=="S2" ? 'selected="selected"' : '') : ''}}>S2</option>
-                                            <option value="S3" {{$id!=-1 ? ($det->pendidikan=="S3" ? 'selected="selected"' : '') : ''}}>S3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Jabatan</label>
-                                        <select class="bs-select form-control has-success" data-placeholder="Pilih" name="jabatan" id="jabatan">
-                                            <option value="-1">-Pilih-</option>
-                                            <option value="Pengajar" {{$id!=-1 ? ($det->jabatan=="Pengajar" ? 'selected="selected"' : '') : ''}}>Pengajar</option>
-                                            <option value="Lektor" {{$id!=-1 ? ($det->jabatan=="Lektor" ? 'selected="selected"' : '') : ''}}>Lektor</option>
-                                            <option value="Lektor Kepala" {{$id!=-1 ? ($det->jabatan=="Lektor Kepala" ? 'selected="selected"' : '') : ''}}>Lektor Kepala</option>
-                                            <option value="Guru Besar" {{$id!=-1 ? ($det->jabatan=="Guru Besar" ? 'selected="selected"' : '') : ''}}>Guru Besar</option>
-                                            <option value="Asisten Ahli" {{$id!=-1 ? ($det->jabatan=="Asisten Ahli" ? 'selected="selected"' : '') : ''}}>Asisten Ahli</option>
-                                        </select>
-                                    </div>
-                                
-                                    <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
                             </div>
+                            <!--/row-->
+                            
                             <div class="row">
                                 <input type="hidden" name='status_ketua_kelompok'>
                                 {{-- <div class="col-md-3">
@@ -262,6 +274,16 @@
     $(document).ready(function(){
         
         // swal("Good job!", "You clicked the button!", "success")
+        $('#status_dosen').on('change',function(){
+            var jns=$(this).val();
+            if(jns=='Dosen UI')
+            {
+                // alert(jns);
+                $('#div-pass').css('display','block');
+            }
+            else
+                $('#div-pass').css('display','none');
+        });
         $('#simpan').on('click',function(){
             var nip=$('#nip').val();
             var nama=$('#nama').val();

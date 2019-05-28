@@ -57,24 +57,28 @@ class DosenAdminController extends Controller
         $m->penugasan=$request->penugasan;
         $m->pendidikan=$request->pendidikan;
         $m->status_ketua_kelompok=$request->status_ketua_kelompok;
-        $m->status_dosen=$request->status_dosen;
+        $m->status_dosen=$status_dosen=$request->status_dosen;
         $m->jabatan=$request->jabatan;
         $m->nidn=$request->nidn;
         $m->created_at=date('Y-m-d H:i:s');
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
 
-        $user_id=$m->id;
-        $user=new Users;
-        $user->name=$request->nama;
-        $user->email=$request->email;
-        $user->password=bcrypt($request->nip);
-        $user->flag=1;
-        $user->kat_user=2;
-        $user->id_user=$user_id;
-        $user->created_at=date('Y-m-d H:i:s');
-        $user->updated_at=date('Y-m-d H:i:s');
-        $user->save();
+        if($status_dosen=='Dosen UI')
+        {
+            $user_id=$m->id;
+            $user=new Users;
+            $user->name=$request->nama;
+            $user->email=$request->email;
+            // $user->password=bcrypt($request->nip);
+            $user->password=bcrypt($request->password);
+            $user->flag=1;
+            $user->kat_user=2;
+            $user->id_user=$user_id;
+            $user->created_at=date('Y-m-d H:i:s');
+            $user->updated_at=date('Y-m-d H:i:s');
+            $user->save();
+        }
 
         if($cr)
             $pesan="Data Dosen Berhasil Di Simpan";
@@ -110,8 +114,11 @@ class DosenAdminController extends Controller
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
 
-        $user=Users::find($id);
+        // $user=Users::find($id);
+        $user=Users::where('id_user',$id)->where('kat_user',2)->first();
         $user->email=$request->email;
+        if($request->password!='')
+            $user->password=bcrypt($request->password);
         $user->save();
 
         if($cr)
