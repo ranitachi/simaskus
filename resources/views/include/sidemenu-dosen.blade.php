@@ -108,13 +108,36 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{strpos(Request::path(),'penilaian-penguji')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='penilaian'  ? 'active' : ''}}">
             <a href="{{url('penilaian')}}" class="nav-link ">
                 <span class="title">Penguji</span>
             </a>
         </li>
         <li class="nav-item  {{Request::path()=='penilaian-pembimbing'  ? 'active' : ''}}">
             <a href="{{url('penilaian-pembimbing')}}" class="nav-link ">
+                <span class="title">Pembimbing</span>
+            </a>
+        </li>
+        
+    </ul>
+</li>
+<li class="heading">
+    <h3 class="uppercase">Laporan</h3>
+</li>
+<li class="nav-item  {{strpos(Request::path(),'laporan')!==false ? 'active' : ''}} ">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-list font-white"></i>
+        <span class="title">Laporan Rekapitulasi</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{strpos(Request::path(),'rekap-penguji')!==false  ? 'active' : ''}}">
+            <a href="{{url('rekap-penguji')}}" class="nav-link ">
+                <span class="title">Penguji</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='rekap-pembimbing'  ? 'active' : ''}}">
+            <a href="{{url('rekap-pembimbing')}}" class="nav-link ">
                 <span class="title">Pembimbing</span>
             </a>
         </li>

@@ -48,11 +48,13 @@
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-6 control-label" for="form_control_1">Upload Surat Pernyataan Selesai KP Dari Perusahaan</label>
                 <div class="col-md-4">
-                    @if ($det->surat_pernyataan_selesai!='')
-                        <a target="_blank" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
-                        <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
-                    @else
-                        <a target="" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
+                    @if ($det->balasan_surat!=null)
+                        @if ($det->surat_pernyataan_selesai!='')
+                            <a target="_blank" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
+                            <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        @else
+                            <a target="" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
+                        @endif
                     @endif
                 </div>
                 <div class="col-md-2">&nbsp;</div>

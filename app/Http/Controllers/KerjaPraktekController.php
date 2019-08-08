@@ -39,7 +39,9 @@ class KerjaPraktekController extends Controller
         {
             return view('pages.staf.kerja-praktek.index');
         }
-    }
+        else if($level==2)
+            return view('pages.staf.kerja-praktek.index');
+    }   
 
     public function data()
     {

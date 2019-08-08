@@ -101,5 +101,13 @@ class DosenController extends Controller
         return response()->json(['done']);
     }
 
+    public function rekap_penguji()
+    {
+        return view('pages.dosen.rekap.penguji');
+    }
+    public function rekap_pembimbing()
+    {
+        return view('pages.dosen.rekap.pembimbing');
+    }
     
 }
