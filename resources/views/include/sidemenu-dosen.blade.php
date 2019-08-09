@@ -124,7 +124,7 @@
 <li class="heading">
     <h3 class="uppercase">Laporan</h3>
 </li>
-<li class="nav-item  {{strpos(Request::path(),'laporan')!==false ? 'active' : ''}} ">
+<li class="nav-item  {{strpos(Request::path(),'rekap')!==false ? 'active' : ''}} ">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Laporan Rekapitulasi</span>

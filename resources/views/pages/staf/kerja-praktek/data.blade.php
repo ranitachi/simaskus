@@ -52,8 +52,8 @@
                     {
                         // $idgrup=$grupkp[$v->mahasiswa_id]->code;
                         $idgrup=key($grupkp[$v->mahasiswa_id]);
-                        if(isset($jadwal[$idgrup]))
-                            continue;
+                        // if(isset($jadwal[$idgrup]))
+                        //     continue;
                         // break;
                     }
                 @endphp
@@ -85,7 +85,7 @@
                             <br>
                             <br>
                             <small>Status KP</small><br>
-                            {!! $v->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($v->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($v->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>'))!!}
+                            {!! $v->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($v->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($v->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($v->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
                             <br><br>
                             <small>Jadwal KP</small><br>
                             <div class="text-left">

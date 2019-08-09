@@ -337,8 +337,8 @@ Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_a
 Route::get('add_pendidikan','HomeController@add_pendidikan')->middleware('auth');
 Route::get('kolom-topik/{id}','HomeController@kolom_topik')->middleware('auth');
 
-Route::get('rekap-penguji','DosenController@rekap_penguji')->middleware('auth');
-Route::get('rekap-pembimbing','DosenController@rekap_pembimbing')->middleware('auth');
+Route::get('rekap-penguji/{bulan?}/{tahun?}','DosenController@rekap_penguji')->middleware('auth');
+Route::get('rekap-pembimbing/{bulan?}/{tahun?}','DosenController@rekap_pembimbing')->middleware('auth');
 
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)

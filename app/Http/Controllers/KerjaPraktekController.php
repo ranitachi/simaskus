@@ -56,6 +56,10 @@ class KerjaPraktekController extends Controller
         {
             $dept_id=$user->staf->departemen_id;
         }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
 
        $jdwl=JadwalSidangKP::where('departemen_id',$dept_id)->get();
        $jadwal=array();
@@ -158,6 +162,53 @@ class KerjaPraktekController extends Controller
                     ->with('jadwal',$jadwal)
                     ->with('piv',$piv);
         }
+        else if($level==2)
+        {
+            $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->orderBy('created_at')
+                        ->get();
+                        
+                        
+            // $pivot=PivotBimbingan::all();
+            $pivot=PembimbingKP::all();
+            $piv=array();
+            foreach($pivot as $k =>$v)
+            {
+                $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+            }
+            // return $piv;
+            $grup=KelompokKP::where('departemen_id',$dept_id)->with('mahasiswa')->get();
+            $idgrup='-1';
+            $ketua=0;
+            foreach($grup as $k=>$v)
+            {
+                $idgrup=$v->code;
+            }
+            $grupkp=array();
+            foreach($grup as $kg=>$vg)
+            {          
+                $grupkp[$vg->mahasiswa_id][$vg->code]=$vg;
+            }
+
+            $info=InformasiKP::where('departemen_id',$dept_id)->get();
+            $infokp=array();
+            foreach($info as $kg=>$vg)
+            {          
+                $infokp[$vg->grup_id][str_slug($vg->judul)]=$vg;
+            }
+            // dd($infokp);
+            // return $pengajuan;
+            return view('pages.staf.kerja-praktek.data')
+                    ->with('pengajuan',$pengajuan)
+                    ->with('ketua',$ketua)
+                    ->with('infokp',$infokp)
+                    ->with('grupkp',$grupkp)
+                    ->with('jadwal',$jadwal)
+                    ->with('piv',$piv);
+        }
     }
 
     public function form($id,$kat_user)
@@ -194,6 +245,10 @@ class KerjaPraktekController extends Controller
         elseif($level==1)
         {
             $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
         }
 
         $det=array();
@@ -299,6 +354,27 @@ class KerjaPraktekController extends Controller
                 ->with('id',$id);
         }   
         else if($level==1)
+        {
+            return view('pages.staf.kerja-praktek.detail')
+                ->with('judul',$judul)
+                ->with('ketua',$ketua)
+                ->with('pemb',$pemb)
+                ->with('det',$det)
+                ->with('ruangan',$ruangan)
+                ->with('anggota',$anggota)
+                ->with('info',$info)
+                ->with('dosen',$dosen)
+                ->with('grupkp',$grupkp)
+                ->with('dept_id',$dept_id)
+                ->with('ta',$ta)
+                ->with('idgrup',$idgrup)
+                ->with('penguji_kp',$penguji_kp)
+                ->with('kat_user',$kat_user)
+                ->with('jadwal',$jadwal)
+                ->with('jenispengajuan',$jenispengajuan)
+                ->with('id',$id);
+        }        
+        else if($level==2)
         {
             return view('pages.staf.kerja-praktek.detail')
                 ->with('judul',$judul)

@@ -12,6 +12,7 @@ use App\Model\PivotPenguji;
 use App\Model\Pengajuan;
 use App\User;
 use App\Model\Notifikasi;
+use App\Model\Jadwal;
 use Auth;
 class DosenController extends Controller
 {
@@ -101,13 +102,52 @@ class DosenController extends Controller
         return response()->json(['done']);
     }
 
-    public function rekap_penguji()
+    public function rekap_penguji($bulan=null,$tahun=null)
     {
-        return view('pages.dosen.rekap.penguji');
+        if($bulan==null)
+            $bln=date('n');
+        else    
+            $bln=$bulan;
+
+        
+        if($tahun==null)
+            $thn=date('Y');
+        else    
+            $thn=$tahun;
+
+        $iddosen=Dosen::find(Auth::user()->id_user);
+        $penguji=PivotJadwal::join('pivot_penguji', 'pivot_jadwal.id', '=', 'pivot_penguji.pivot_jadwal_id')
+                    ->join('jadwals', 'jadwals.id', '=', 'pivot_jadwal.jadwal_id')
+                    ->with('ruangan')
+                    ->with('pengajuan')
+                    ->where('pivot_penguji.penguji_id',Auth::user()->id_user)
+                    ->whereMonth('jadwals.tanggal',$bln)
+                    ->whereYear('jadwals.tanggal',$thn)
+                    ->orderBy('jadwals.tanggal','asc')
+                    ->get();
+        // return $penguji;
+        return view('pages.dosen.rekap.penguji')
+                ->with('penguji',$penguji)
+                ->with('tahun',$thn)
+                ->with('bulan',$bln);
     }
-    public function rekap_pembimbing()
+    public function rekap_pembimbing($bulan=null,$tahun=null)
     {
-        return view('pages.dosen.rekap.pembimbing');
+        if($bulan==null)
+            $bln=date('n');
+        else    
+            $bln=$bulan;
+
+        
+        if($tahun==null)
+            $thn=date('Y');
+        else    
+            $thn=$tahun;
+
+        
+        return view('pages.dosen.rekap.pembimbing')
+                ->with('tahun',$thn)
+                ->with('bulan',$bln);
     }
     
 }
