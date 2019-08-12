@@ -176,7 +176,7 @@ class HomeController extends Controller
                     return redirect('profil')->with('status','Anda Sudah Berhasil Registrasi, Status Akun Anda Akan DI Verifikasi Oleh Sekretariat');    
                 }
             }
-            elseif($user->role=='tamu')
+            elseif($user->role=='staff')
             {
                 $cekdosen=Dosen::where('email',$user->username)->first();
                 if($cekdosen)
