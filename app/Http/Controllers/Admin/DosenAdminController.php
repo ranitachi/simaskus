@@ -34,8 +34,15 @@ class DosenAdminController extends Controller
         $mhs=Dosen::orderBy('departemen_id','nama')
                 ->with('departemen')
                 ->get();
+        $user=Users::where('kat_user',2)->get();
+        $us=array();
+        foreach($user as $k=>$v)
+        {
+            $us[$v->id_user]=$v;
+        }
         return view('pages.administrator.dosen.data')
             ->with('mhs',$mhs)
+            ->with('us',$us)
             ->with('departemen',$departemen);
     }
 

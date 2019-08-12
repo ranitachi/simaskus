@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use File;
 use App\Model\Dosen;
+use App\Model\Staf;
 use App\Model\Mahasiswa;
 use App\Model\Users;
 use App\User;
@@ -175,11 +176,101 @@ class HomeController extends Controller
                     return redirect('profil')->with('status','Anda Sudah Berhasil Registrasi, Status Akun Anda Akan DI Verifikasi Oleh Sekretariat');    
                 }
             }
+            elseif($user->role=='tamu')
+            {
+                $cekdosen=Dosen::where('email',$user->username)->first();
+                if($cekdosen)
+                {
+                    $users=User::where('kat_user',2)->where('id_user',$cekdosen->id)->first();
+                    Auth::login($users);
+                    // return redirect('profil-dosen')->with('status','Selamat Datang '.$user->name);
+                    return redirect('beranda');
+                }
+                else
+                {
+                    $cekstaf=Staf::where('nip',$user->nip)->orWhere('email',$user->username)->first();
+                    if($cekstaf)
+                    {
+                        $users=User::where('kat_user',1)->where('id_user',$cekstaf->id)->first();
+                        Auth::login($users);
+                        // return redirect('profil-staf')->with('status','Selamat Datang '.$user->name);
+                        return redirect('beranda');
+                    }
+                    else
+                    {
+                        return view('welcome',[
+                            'user'=>$user,
+                        ]);
+                    }
+                }
+            }
+            return view('welcome',[
+                    'user'=>$user,
+                ]);
         }
 
         return view('welcome',[
             'user'=>$user
         ]);
+    }
+
+    public function regis_dosen_staf(Request $request)
+    {
+        $regis_as = $request->regis_as;
+        $nip = $request->nip;
+        $nama = $request->nama;
+        $departemen_id = $request->departemen_id;
+        $email_regis = $request->email_regis;
+        $hp = $request->hp;
+        $password = $request->password;
+        if($regis_as==2)
+        {
+            $dos=new Dosen;
+            $dos->nip=$nip;
+            $dos->nama=$nama;
+            $dos->departemen_id=$departemen_id;
+            $dos->email=$email_regis;
+            $dos->hp=$hp;
+            $c=$dos->save();
+
+            $us=new Users;
+            $us->id_user=$dos->id;
+            $us->email=$email_regis;
+            $us->name=$nama;
+            $us->flag=0;
+            $us->kat_user=2;
+            $us->password=bcrypt($password);
+            $d=$us->save();
+
+            if($c && $d)
+                echo 1;
+            else
+                echo 0;
+        }
+        elseif($regis_as==1)
+        {
+            $staf=new Staf;
+            $staf->nip=$nip;
+            $staf->nama=$nama;
+            $staf->departemen_id=$departemen_id;
+            $staf->email=$email_regis;
+            $staf->hp=$hp;
+            $c=$staf->save();
+
+            $us=new Users;
+            $us->id_user=$staf->id;
+            $us->email=$email_regis;
+            $us->name=$nama;
+            $us->flag=0;
+            $us->kat_user=1;
+            $us->password=bcrypt($password);
+            $d=$us->save();
+
+            if($c && $d)
+                echo 1;
+            else
+                echo 0;
+        }
     }
 
     public function logout()

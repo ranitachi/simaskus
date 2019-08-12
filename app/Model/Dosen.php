@@ -18,6 +18,6 @@ class Dosen extends Model
 
     function dosen()
     {
-        return $this->hasOne('App\Users','foreign_key','user_id');
+        return $this->hasOne('App\Model\Users','foreign_key','id_user');
     }
 }

@@ -20,6 +20,7 @@
                     <th> Email </th>
                     <th> Telp/HP </th>
                     <th> Departemen </th>
+                    <th> Status Akun </th>
                     <th> # </th>
                 </tr>
             </thead>
@@ -38,6 +39,15 @@
                             <td>{{$v->email}}</td>
                             <td>{{$v->hp}}</td>
                             <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
+                            <td>
+                                @if (isset($us[$v->id]))
+                                    @if ($us[$v->id]->flag==0)
+                                        <span class="label label-danger">Belum Aktif</span>
+                                    @else
+                                        <span class="label label-success">Aktif</span>
+                                    @endif    
+                                @endif
+                            </td>
                             <td>
                                 <div style="width:80px;">
                                     <a href="{{url('dosen-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
