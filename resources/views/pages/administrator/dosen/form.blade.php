@@ -184,6 +184,7 @@
                                                 </div>
                                             
                                                 <input type="hidden"  name="penugasan" class="form-control input-circle" value="{{$id==-1 ? '' : $det->penugasan}}"> </div>
+                                            
                                         </div>
                                 </div>
                                 <!--/span-->

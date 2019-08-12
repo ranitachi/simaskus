@@ -356,3 +356,5 @@ Route::get('logout_sso','HomeController@logout');
 
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+Route::post('regis-dosen-staf','HomeController@regis_dosen_staf');

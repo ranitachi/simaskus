@@ -20,6 +20,13 @@
     <!-- BEGIN PAGE TITLE-->
     <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial</h1>
     <div class="row">
+        @php
+            if(Auth::user()->flag==0)
+            {
+                echo '<div class="col-md-12"><div class="alert alert-danger">
+                        <h1><strong>Informasi!</strong> Akun Anda Belum Diverifikasi Oleh Staf Sekretariat</h1></div></div>';
+            }
+        @endphp
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
                 <div class="visual">

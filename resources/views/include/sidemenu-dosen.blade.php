@@ -23,6 +23,7 @@
         <span class="title">Profil</span>
     </a>
 </li>
+@if (Auth::user()->flag==1)
 <li class="nav-item  {{Request::path()=='notifikasi' ? 'active' : ''}}">
     <a href="{{url('notifikasi')}}" class="nav-link nav-toggle">
         <i class="fa fa-bell font-white"></i>
@@ -153,4 +154,5 @@
         <span class="title">Izin Dosen</span>
     </a>
 </li>
+@endif
 </ul>

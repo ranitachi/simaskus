@@ -21,6 +21,11 @@
     <h1 class="page-title"> Sistem Informasi Mata Kuliah Spesial</h1>
     <div class="row">
         @php
+        if(Auth::user()->flag==0)
+        {
+            echo '<div class="col-md-12"><div class="alert alert-danger">
+                    <h1><strong>Informasi!</strong> Akun Anda Belum Diverifikasi Oleh Staf Sekretariat</h1></div></div>';
+        }
         $waktupengajuanmk=$waktupengajuansidang=$waktupendajwalan=$waktusidang='Belum Di Atur Jadwal';
         $warnawaktupengajuanmk=$warnawaktupendajwalan=$warnawaktupengajuansidang=$warnawaktusidang='grey';
         $checkwaktupengajuanmk=$checkwaktupendajwalan=$checkwaktupengajuansidang=$checkwaktusidang='';
