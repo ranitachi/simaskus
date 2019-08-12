@@ -560,6 +560,8 @@ class JadwalController extends Controller
                     
                         foreach($p_uji[$vp->id] as $ku=>$vu)
                         {
+                            PivotPenguji::where('id', $vu->id)->update(['pivot_jadwal_id' => $jadw->id]);
+
                             $user=Users::where('id_user',$ku)->first();
                             $notif=new Notifikasi;
                             $notif->title="Jadwal Menguji Sidang";

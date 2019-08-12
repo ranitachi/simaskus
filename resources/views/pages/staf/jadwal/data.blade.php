@@ -3,9 +3,26 @@
 
         <div class="col-md-6">
             <div class="btn-group pull-left">
-                <a href="javascript:generate(-1)" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Jadwal
-                    <i class="fa fa-calendar"></i>
-                </a>
+                @php
+                    $tahun=date('Y-m-d');
+                    $kal=App\Model\KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+                    $kalender=array();
+                    foreach($kal as $val)
+                    {
+                        $kalender[$val->kategori_khusus]=$val;
+                        // echo $val->kategori_khusus.'<br>';
+                    }
+                @endphp 
+
+                @if (isset($kalender['masa-pelaksanaan-sidang']))
+                    <a href="javascript:generate(-1)" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Jadwal
+                        <i class="fa fa-calendar"></i>
+                    </a>
+                @else
+                    <a href="{{url('kalender-akademik')}}" id="sample_editable_1_new" class="btn btn-sm sbold red tooltips" data-style="default" data-container="body" data-original-title="Jadwal Pelaksanaan Sidang Belum Di Atur Pada Kalender Akademik"> Generate Jadwal
+                        <i class="fa fa-calendar"></i>
+                    </a>
+                @endif
             </div>
         </div>
         <div class="col-md-6">

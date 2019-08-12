@@ -52,59 +52,64 @@
                     <tbody>
                     @php
                         $no=1;
+                        // echo '<pre>';
+                        // dd($pengajuan);
+                        // echo '</pre>';
                     @endphp
                     @foreach ($jadwal as $d=>$v)
-                        @if (isset($bimb[Auth::user()->id_user][$pengajuan[$v->judul_id]->mahasiswa_id]))
-                            <tr>
-                                <td>{{$no}}</td>
-                                <td class="text-left">
-                                    <i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($v->tanggal))}}<br>
-                                    <i class="fa fa-clock-o"></i> {{$v->waktu}}
-                                </td>
-                                <td>{{str_replace('Pembimbing','Sidang', $pengajuan[$v->judul_id]->jenispengajuan->jenis )}}</td>
-                                <td>
-                                    @php
-                                        foreach($piv[$pengajuan[$v->judul_id]->mahasiswa_id] as $kd=>$vd)
-                                        {
-                                            echo '<i class="fa fa-user"></i> <b>'.$vd->dosen->nama.'</b><br>';
-                                        }
-                                    @endphp
-                                </td>
-                                <td>{{$pengajuan[$v->judul_id]->mahasiswa->npm}}</td>
-                                <td>{{$pengajuan[$v->judul_id]->mahasiswa->nama}}</td>
-                                <td> 
-                                @if (isset($ruangan[$v->ruangan_id]))
-                                    Code : {{$ruangan[$v->ruangan_id]->code_ruangan}}<br>
-                                    Nama : {{$ruangan[$v->ruangan_id]->nama_ruangan}}<br>
-                                    Gedung : {{$ruangan[$v->ruangan_id]->lokasi}}
-                                @endif    
-                                </td>
-                                <td>
-                                    @if (isset($n[$v->id]))
-                                        <a href="javascript:formnilai({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn blue uppercase btn blue uppercase btn-xs" rel="nofollow" style="padding:0px !important;border-bottom:1px solid #aaa;">
-                                            <i class="fa fa-check"></i> Form Nilai</a>
-                                    @else
-                                        <a href="javascript:formnilai({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px !important;border-bottom:1px solid #aaa;">
-                                            <i class="fa fa-file-o"></i> Form Nilai</a>
+                        @if (isset($pengajuan[$v->judul_id]))
+                            @if (isset($bimb[Auth::user()->id_user][$pengajuan[$v->judul_id]->mahasiswa_id]))
+                                <tr>
+                                    <td>{{$no}}</td>
+                                    <td class="text-left">
+                                        <i class="fa fa-calendar"></i> {{date('d/m/Y', strtotime($v->tanggal))}}<br>
+                                        <i class="fa fa-clock-o"></i> {{$v->waktu}}
+                                    </td>
+                                    <td>{{str_replace('Pembimbing','Sidang', $pengajuan[$v->judul_id]->jenispengajuan->jenis )}}</td>
+                                    <td>
+                                        @php
+                                            foreach($piv[$pengajuan[$v->judul_id]->mahasiswa_id] as $kd=>$vd)
+                                            {
+                                                echo '<i class="fa fa-user"></i> <b>'.$vd->dosen->nama.'</b><br>';
+                                            }
+                                        @endphp
+                                    </td>
+                                    <td>{{$pengajuan[$v->judul_id]->mahasiswa->npm}}</td>
+                                    <td>{{$pengajuan[$v->judul_id]->mahasiswa->nama}}</td>
+                                    <td> 
+                                    @if (isset($ruangan[$v->ruangan_id]))
+                                        Code : {{$ruangan[$v->ruangan_id]->code_ruangan}}<br>
+                                        Nama : {{$ruangan[$v->ruangan_id]->nama_ruangan}}<br>
+                                        Gedung : {{$ruangan[$v->ruangan_id]->lokasi}}
+                                    @endif    
+                                    </td>
+                                    <td>
+                                        @if (isset($n[$v->id]))
+                                            <a href="javascript:formnilai({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn blue uppercase btn blue uppercase btn-xs" rel="nofollow" style="padding:0px !important;border-bottom:1px solid #aaa;">
+                                                <i class="fa fa-check"></i> Form Nilai</a>
+                                        @else
+                                            <a href="javascript:formnilai({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px !important;border-bottom:1px solid #aaa;">
+                                                <i class="fa fa-file-o"></i> Form Nilai</a>
 
-                                    @endif
-                                    <br>
-                                    @if (isset($perbaikan[$v->id]))
-                                        <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-check"></i> Daftar Perbaikan</a>
-                                    @else
-                                        <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Daftar Perbaikan</a>
-                                    @endif
-                                    <br> 
-                                    @if (isset($penetapan[$pengajuan[$v->judul_id]->id]))
-                                        <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn green uppercase btn green uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-check"></i> Penetapan Judul</a>
-                                    @else
-                                        <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-file-o"></i> Penetapan Judul</a>
-                                    @endif
-                                </td>
-                            </tr>
-                            @php
-                                $no++;
-                            @endphp
+                                        @endif
+                                        <br>
+                                        @if (isset($perbaikan[$v->id]))
+                                            <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn red uppercase btn red uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-check"></i> Daftar Perbaikan</a>
+                                        @else
+                                            <a href="javascript:daftarperbaikan({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;border-bottom:1px solid #aaa;"><i class="fa fa-file-o"></i> Daftar Perbaikan</a>
+                                        @endif
+                                        <br> 
+                                        @if (isset($penetapan[$pengajuan[$v->judul_id]->id]))
+                                            <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn green uppercase btn green uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-check"></i> Penetapan Judul</a>
+                                        @else
+                                            <a href="javascript:penetapanjudul({{$v->id}},{{$v->judul_id}})" class="cbp-singlePage cbp-l-caption-buttonLeft btn default uppercase btn default uppercase btn-xs" rel="nofollow" style="padding:0px 5px !important;"><i class="fa fa-file-o"></i> Penetapan Judul</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @php
+                                    $no++;
+                                @endphp
+                            @endif
                         @endif
                     @endforeach
                     </tbody>
