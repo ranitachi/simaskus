@@ -24,6 +24,10 @@ class Mahasiswa extends Model
     {
         return $this->hasOne('App\Model\Users','id_user');
     }
+    function mahasiswa2()
+    {
+        return $this->belongsTo('App\Model\Users','id_user');
+    }
     function mahasiswa_user()
     {
         return $this->hasOne('App\User','id_user');

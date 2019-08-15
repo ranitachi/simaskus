@@ -147,8 +147,6 @@
                                 @foreach ($dept as $i => $v)
                                     @if ($profil->departemen_id==$v->id)
                                         <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
-                                    @else
-                                        <option value="{{$v->id}}">{{$v->nama_departemen}}</option>
                                     @endif
                                 @endforeach
                             </select>
