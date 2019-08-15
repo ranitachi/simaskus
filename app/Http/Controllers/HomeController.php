@@ -179,6 +179,7 @@ class HomeController extends Controller
             elseif($user->role=='staff')
             {
                 $cekdosen=Dosen::where('nip',$user->nip)->orWhere('email',$user->username)->first();
+                // $cekdosen=Dosen::where('email',$user->username)->first();
                 if($cekdosen)
                 {
                     $users=User::where('kat_user',2)->where('id_user',$cekdosen->id)->first();
@@ -189,6 +190,7 @@ class HomeController extends Controller
                 else
                 {
                     $cekstaf=Staf::where('nip',$user->nip)->orWhere('email',$user->username)->first();
+                    // $cekstaf=Staf::where('email',$user->username)->first();
                     if($cekstaf)
                     {
                         $users=User::where('kat_user',1)->where('id_user',$cekstaf->id)->first();
