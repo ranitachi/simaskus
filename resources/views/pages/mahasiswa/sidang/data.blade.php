@@ -103,9 +103,12 @@
                                     <a href="#" class="btn btn-xs btn-primary" style="font-size:10px">Belum Ditentukan</a>
                                 @endif
                                 
+                                @if (Auth::user()->kat_user!=3)
+                                    
                                 <center>
                                     <a href="javascript:tambahpenguji({{$idpengajuan}},{{$v->mahasiswa_id}})" style="font-size:10px;"><i class="fa fa-plus-circle"></i> Tambah Penguji</a>
                                 </center>
+                                @endif
                             @endif
                         @endif
                     </td>

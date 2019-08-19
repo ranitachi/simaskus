@@ -96,25 +96,28 @@
                                     </div>
                                 </div>
                                 <!--/span-->
-                            {{-- </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                     <div class="form-group has-success">
-                                        <label class="control-label">Judul (Bahasa Indonesia)</label>
-                                        <input type="text" readonly  id="judul_ind" name="judul_ind" class="form-control input-circle" placeholder="Judul (Bahasa Indonesia)" value="{{$pengajuan->judul_ind}}">
-                                    </div>
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-6">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Judul (Bahasa Inggris)</label>
-                                        <input type="text" readonly  id="judul_eng" name="judul_eng" class="form-control input-circle" placeholder="Judul (Bahasa Inggris)" value="{{$pengajuan->judul_eng}}">
-                                    </div>
-                                </div>
-                                <!--/span-->
                             </div>
-                           
-                            <div class="row"> --}}
+                            @if ($pengajuan->status_pengajuan==1)
+                                
+                            
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Judul (Bahasa Indonesia)</label>
+                                            <input type="text" readonly  id="judul_ind" name="judul_ind" class="form-control input-circle" placeholder="Judul (Bahasa Indonesia)" value="{{$pengajuan->judul_ind}}">
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group has-success">
+                                            <label class="control-label">Judul (Bahasa Inggris)</label>
+                                            <input type="text" readonly  id="judul_eng" name="judul_eng" class="form-control input-circle" placeholder="Judul (Bahasa Inggris)" value="{{$pengajuan->judul_eng}}">
+                                        </div>
+                                    </div>
+                                    <!--/span-->
+                                </div>
+                           @endif
+                            <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi/Rencana</label>

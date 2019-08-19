@@ -98,8 +98,8 @@
                     <div class="row">
                         <div class="col-md-12">
                              <div class="form-group has-success">
-                                <label class="control-label">Pilih File</label>
-                                <input type="file" id="file" name="file" class="form-control input-circle" placeholder="" value="">
+                                <label class="control-label">Pilih File (.doc,.docx,.pdf)</label>
+                                <input type="file" id="file" name="file" class="form-control input-circle" placeholder="" value="" accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>
@@ -131,8 +131,8 @@
                     <div class="row">
                         <div class="col-md-12">
                              <div class="form-group has-success">
-                                <label class="control-label">Pilih File</label>
-                                <input type="file" id="file" name="file" class="form-control input-circle" placeholder="" value="">
+                                <label class="control-label">Pilih File (.doc,.docx,.pdf)</label>
+                                <input type="file" id="file" name="file" class="form-control input-circle" placeholder="" value="" accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>

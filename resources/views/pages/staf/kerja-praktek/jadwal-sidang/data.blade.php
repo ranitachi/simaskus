@@ -31,6 +31,7 @@
                     {{-- <th> Penguji </th> --}}
                     <th> Status Sidang </th>
                     @if (Auth::user()->kat_user==1)
+                        <th class="text-center">Berkas</th>
                         <th class="text-center">Aksi</th>
                     @endif
                 </tr>
@@ -48,6 +49,7 @@
                     <td>
                     @php
                         $st_sidang=0;
+                        $pengajuan_kp=0;
                     @endphp
                     @foreach ($klp[$v[0]->id_grup] as $item)
                         <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->npm}} - {{$item->mahasiswa->nama}}<br>
@@ -55,6 +57,15 @@
                         @php
                             if($v[0]->publish_date!='')
                                 $st_sidang=1;
+
+                            
+
+                            if(isset($pengajuan[$item->mahasiswa_id]))
+                            {
+                                $pengajuan_kp=$pengajuan[$item->mahasiswa_id]->id;
+                                if($pengajuan[$item->mahasiswa_id]->status_pengajuan==2)
+                                    $st_sidang=2;
+                            }
                         @endphp
                     @endforeach
                     </td>
@@ -105,21 +116,34 @@
                         @endif
                     </td>--}}
                     <td>
-                        <div style="width:145px;">
+                        <div style="width:145px;text-align:center">
                             @if ($st_sidang == 0)
                                 @if (Auth::user()->kat_user==1)
                                     <a href="javascript:publish({{$v[0]->id}})" class="btn btn-success btn-xs tooltips" data-style="default" data-container="body" data-original-title="Publish Jadwal" title="Publish Jadwal"><i class="fa fa-check"></i></a>
                                 @endif
                                 <a href="#" class="btn btn-info btn-xs">Belum Di Publish</a>
+                            @elseif($st_sidang==2)
+                                <a href="#" class="btn btn-info btn-sm">Sudah Telaksana <br>dan Selesai</a><br>
                             @else
-                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-check"></i>&nbsp;Sudah Di Publish</a>
+                                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-check"></i>&nbsp;Sudah Di Publish</a><br>
+                                <a href="javascript:konfirmselesaikp({{$pengajuan_kp}})" class="btn btn-info btn-sm tooltips" data-toggle="tooltip" title="Klik Jika Sudah Selesai Sidang"><i class="fa fa-check"></i>&nbsp;Klik Selesai Sidang</a>
+
                             @endif
                         </div>
                     </td>
                     @if (Auth::user()->kat_user==1)
                         <td class="text-center">
-                            <a class="btn btn-info btn-xs" href="{{url('data-jadwal-kp-form/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-edit"></i></a>
-                            <a class="btn btn-danger btn-xs" href="javascript:hapus({{$v[0]->id}})"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-success btn-xs" target="_blank" href="{{url('evaluasi-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Evaluasi</a>
+                            <a class="btn btn-danger btn-xs" target="_blank" href="{{url('penilaian-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Penilaian</a>
+                            <a class="btn btn-info btn-xs" target="_blank" href="{{url('berita-acara-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Berita Acara KP</a>
+                        </td>
+                        <td class="text-center">
+                            <div style="width:70px;">
+                                @if($st_sidang!=2)
+                                    <a class="btn btn-info btn-xs" href="{{url('data-jadwal-kp-form/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-danger btn-xs" href="javascript:hapus({{$v[0]->id}})"><i class="fa fa-trash"></i></a>
+                                @endif
+                            </div>
                         </td>
                     @endif
                 </tr>

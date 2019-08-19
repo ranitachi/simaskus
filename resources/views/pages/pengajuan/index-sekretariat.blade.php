@@ -105,13 +105,23 @@
                                     @php
                                         $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->where('judul_id',$v->id)->with('dosen')->orderBy('keterangan','desc')->get();
                                     @endphp
+                                    <div class="row">
+                                         <div class="col-md-7">&nbsp;</div>
+                                         <div class="col-md-5">
+                                            ACC Sidang
+                                        </div>
+                                    </div>
                                     @foreach ($p_bimbingan as $key=>$item)
                                         @if (isset($item->dosen->nama))
-                                            @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                                                <small><u>{{$item->keterangan}}</u></small><br>
-                                            @else
-                                                <small><u>Pembimbing {{$key+1}}</u></small><br>
-                                            @endif
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                                        <small><u>{{$item->keterangan}}</u></small>
+                                                    @else
+                                                        <small><u>Pembimbing {{$key+1}}</u></small>
+                                                    @endif
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     @if ($item->status==1)
@@ -130,7 +140,7 @@
                                                     
                                                     <strong>{{$item->dosen->nama}}<br></strong>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     @if($item->status==0)
                                                         <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
                                                     @endif
@@ -138,6 +148,14 @@
                                                     @if($item->status==0)
                                                         <a href="javascript:hapuspengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger tooltips" data-style="default" data-container="body" data-original-title="Hapus Pengajuan Bimbingan" id=""><i class="fa fa-trash font-white" title=""></i></a>
                                                     @endif
+                                                </div>
+                                                <div class="col-md-1">
+                                                    @if (isset($acc[$v->id][$item->dosen_id]))
+                                                        <a href="" class="btn btn-xs btn-info btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Telah ACC Sidang"><i class="fa fa-check"></i></a>    
+                                                    @else
+                                                        <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC Sidang"><i class="fa fa-check"></i></a>
+                                                    @endif
+                                                    
                                                 </div>
                                             </div>
                                         @endif
@@ -379,6 +397,25 @@
         function(isConfirm) {
             if (isConfirm) {
                 location.href='{{url("pengajuan-verifikasi-semua")}}';
+            } 
+        });
+    }
+    function accsidang(idpengajuan,iddosen)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Memverifikasi Persetujuan ACC Sidang Ini?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Verifikasi",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                location.href='{{url("acc-sidang")}}/'+idpengajuan+'/'+iddosen;
             } 
         });
     }

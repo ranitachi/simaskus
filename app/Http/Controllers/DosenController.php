@@ -149,5 +149,52 @@ class DosenController extends Controller
                 ->with('tahun',$thn)
                 ->with('bulan',$bln);
     }
+    public function rekap_penguji_staf($iddosesn=-1,$bulan=null,$tahun=null)
+    {
+        if($bulan==null)
+            $bln=date('n');
+        else    
+            $bln=$bulan;
+
+        
+        if($tahun==null)
+            $thn=date('Y');
+        else    
+            $thn=$tahun;
+
+        $iddosen=Dosen::find(Auth::user()->id_user);
+        $penguji=PivotJadwal::join('pivot_penguji', 'pivot_jadwal.id', '=', 'pivot_penguji.pivot_jadwal_id')
+                    ->join('jadwals', 'jadwals.id', '=', 'pivot_jadwal.jadwal_id')
+                    ->with('ruangan')
+                    ->with('pengajuan')
+                    ->where('pivot_penguji.penguji_id',Auth::user()->id_user)
+                    ->whereMonth('jadwals.tanggal',$bln)
+                    ->whereYear('jadwals.tanggal',$thn)
+                    ->orderBy('jadwals.tanggal','asc')
+                    ->get();
+        // return $penguji;
+        return view('pages.staf.rekap.penguji')
+                ->with('penguji',$penguji)
+                ->with('tahun',$thn)
+                ->with('bulan',$bln);
+    }
+    public function rekap_pembimbing_staf($iddosesn=-1,$bulan=null,$tahun=null)
+    {
+        if($bulan==null)
+            $bln=date('n');
+        else    
+            $bln=$bulan;
+
+        
+        if($tahun==null)
+            $thn=date('Y');
+        else    
+            $thn=$tahun;
+
+        
+        return view('pages.staf.rekap.pembimbing')
+                ->with('tahun',$thn)
+                ->with('bulan',$bln);
+    }
     
 }

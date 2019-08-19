@@ -52,7 +52,6 @@
                     @if ($mahasiswa->programstudi->jenjang=='S3')
                         <form action="{{$id==-1 ? url('pengajuan-s3') : url('pengajuan-s3/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
                     @else
-
                         <form action="{{$id==-1 ? url('pengajuan') : url('pengajuan/'.$id) }}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
                     @endif
                         {{ csrf_field() }}
@@ -170,7 +169,11 @@
                             @if ($mahasiswa->programstudi->jenjang=='S2' || $mahasiswa->programstudi->jenjang=='S3')
                                 <div class="row" style="">
                             @else
-                                <div class="row" style="display:none;">    
+                                @if ($det->status_pengajuan==1)
+                                    <div class="row" style="">    
+                                @else
+                                    <div class="row" style="display:none;">    
+                                @endif
                             @endif
                             
                                 <div class="col-md-6">

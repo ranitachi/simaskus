@@ -38,7 +38,8 @@
 
                     <div class="col-md-12">
                         <div class="btn-group pull-right">
-                            <a href="{{url('data-jadwal-kp')}}" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Kembali Ke Jadwal Sidang
+                            {{-- <a href="{{url('data-jadwal-kp')}}" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Kembali Ke Jadwal Sidang --}}
+                            <a href="{{ URL::previous() }}" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Kembali Ke Jadwal Sidang
                                 <i class="fa fa-chevron-left"></i>
                             </a>
                         </div>
@@ -57,6 +58,7 @@
                                     <th> Informasi KP </th>
                                     <th> Tanggal, Waktu</th>
                                     <th> Ruangan Sidang </th>
+                                    <th> Penguji </th>
                                     <th> Aksi</th>
                                 
                                 </tr>
@@ -75,8 +77,14 @@
                                                     <b>{{$i}}</b>
                                                     <br><br>
                                                     <small>Pembimbing</small><br>
-                                                    @foreach ($pemb[$i] as $item)
+                                                    @php
+                                                        $pem_kp=array();
+                                                    @endphp
+                                                    @foreach ($pemb[$i] as $iddos=>$item)
                                                         <i class="fa fa-user"></i> <b>{{$item->dosen->nama}}</b><br>
+                                                        @php
+                                                            $pem_kp[]=$iddos;
+                                                        @endphp
                                                     @endforeach
                                                 </td>
                                                 <td>
@@ -182,6 +190,27 @@
                                                         <input type="hidden" name="idkp[{{$i}}]" id="idkp_{{$i}}" value="{{$pengajuan[$v[0]->mahasiswa_id]->id}}">
                                                     
                                                 </td>
+                                                <td>
+                                                    <select class="select2 col-md-4 form-control has-success ruangan" multiple name="penguji[{{$i}}][]" id="penguji_{{$i}}">
+                                                        <option value="0">-Pilih Dosen-</option>
+                                                        @foreach ($dosen as $itemd)
+                                                            @if ($id!=-1)
+                                                                @if (isset($uji[$jadwalkp->id][$itemd->id]))
+                                                                    <option selected="selected" value="{{$itemd->id}}">{{$itemd->nama}}</option>     
+                                                                @else
+                                                                    <option value="{{$itemd->id}}">{{$itemd->nama}}</option>    
+                                                                @endif
+                                                            @else
+                                                                @if (in_array($item->id,$pem_kp))
+                                                                    <option value="{{$item->id}}" selected="selected">{{$item->nama}}</option>    
+                                                                @else
+                                                                    <option value="{{$item->id}}">{{$item->nama}}</option>    
+                                                                @endif
+                                                            @endif
+                                                            
+                                                        @endforeach
+                                                    </select>
+                                                </td>
                                                 <td class="text-center">
                                                     <button class="btn btn-sm btn-success btn-check" type="button" id="check_{{$i}}"><i class="fa fa-check"></i></button>
                                                     @if ($id!=-1)
@@ -230,7 +259,8 @@
         var startDate = new Date();
         startDate.setDate(startDate.getDate(new Date()));
         $('.tanggal').datepicker({
-            autoclose: true
+            autoclose: true,
+            format:'dd-mm-yyyy'
         });
         $('.tanggal').datepicker('setStartDate', startDate);
 
@@ -293,6 +323,7 @@
         var ruangan_id = $("#ruangan_id_"+grupid+" option:selected").val();
         var waktu = $("#waktu_"+grupid).val();
         var idkp = $("#idkp_"+grupid).val();
+        var penguji = $("#penguji_"+grupid).val();
         // alert(ruangan_id)
         if(tanggal_sidang=='')
         {
@@ -312,7 +343,7 @@
                 url : '{{url("/")}}/jadwal-sidang-kp-simpan/one/{{$id}}/'+idkp,
                 type : 'POST',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                data : {idgrup:grupid, ruangan:ruangan_id, tanggal:tanggal_sidang,waktu:waktu },
+                data : {idgrup:grupid, ruangan:ruangan_id, tanggal:tanggal_sidang,waktu:waktu,penguji:penguji },
                 dataType : 'JSON',
                 success:function(res){
                     if(res.status==1)

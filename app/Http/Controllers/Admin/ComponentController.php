@@ -32,7 +32,7 @@ class ComponentController extends Controller
         }
         
         $component=Component::with('module')->orderBy('code_component')->get();
-        
+        // return $component;
         return view('pages.administrator.component.data')
                 ->with('dept_id',$dept_id)
                 ->with('id',$id)
