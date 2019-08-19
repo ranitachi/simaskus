@@ -3,14 +3,14 @@
 	@page {size: auto; margin: 0;}
 	div.hidden {display: none}
     *{
-        font-size:14px;
+        font-size:13px;
     }
 </style>
 <div>&nbsp;</div>
 <table border="0" align="center" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" width="100%">
     <tr> 
         <td valign="top" class="main" style="font-family: arial">
-            <table border="0" align="center" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="head" width="95%">
+            <table border="0" align="center" cellpadding="3" cellspacing="0" bordercolor="#CCCCCC" class="head" width="95%">
                 <tr>
                     <td colspan="3" class="head">
                         <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
@@ -107,13 +107,12 @@
                         <td width="10%">&nbsp;</td>
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$penguji[0]->dosen->nama}}</u><br>NIP. {{$penguji[0]->dosen->nip}}</td>
+                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
                     </tr>
                 </table>	
                 <div>&nbsp;</div>
-                <div>&nbsp;</div>
                 <div align="justify">
-                    <div style="padding: 10px 15px 0px; width: 100%">
+                    <div style="padding: 5px 15px 0px; width: 100%">
                         Mengetahui Tim Penguji :
                         <table border="1" align="left" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
                         <tr align='center'>
@@ -122,13 +121,30 @@
                             <th align="center" style="padding:5px 10px;height:35px;">Nilai</th>
                             <th align="center" style="padding:5px 10px;height:35px;">Tanda Tangan</th>
                         </tr>
-                        @foreach ($penguji as $idx=>$item)
+                        @php
+                            $no=1;
+                        @endphp
+                        @foreach ($pembimbing as $idx=>$item)
                             <tr>
-                                <td align="center" style="padding:5px 10px;height:35px;">{{++$idx}}</td>
+                                <td align="center" style="padding:5px 10px;height:35px;">{{$no}}</td>
                                 <td align="left" style="padding:5px 10px;height:35px;">{{$item->dosen->nama}}</td>
                                 <td align="left" style="padding:5px 10px;height:35px;"></td>
                                 <td align="left" style="padding:5px 10px;height:35px;"></td>
                             </tr>
+                            @php
+                                $no++;
+                            @endphp
+                        @endforeach     
+                        @foreach ($penguji as $idx=>$item)
+                            <tr>
+                                <td align="center" style="padding:5px 10px;height:35px;">{{$no}}</td>
+                                <td align="left" style="padding:5px 10px;height:35px;">{{$item->dosen->nama}}</td>
+                                <td align="left" style="padding:5px 10px;height:35px;"></td>
+                                <td align="left" style="padding:5px 10px;height:35px;"></td>
+                            </tr>
+                            @php
+                                $no++;
+                            @endphp
                         @endforeach     
                         <tr>
                             <td colspan="2">&nbsp;&nbsp;&nbsp;Nilai Total</td>  

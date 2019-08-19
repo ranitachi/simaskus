@@ -169,11 +169,15 @@
                             @if ($mahasiswa->programstudi->jenjang=='S2' || $mahasiswa->programstudi->jenjang=='S3')
                                 <div class="row" style="">
                             @else
-                                @if ($det->status_pengajuan==1)
-                                    <div class="row" style="">    
-                                @else
-                                    <div class="row" style="display:none;">    
-                                @endif
+                                    @if (isset($det->status_pengajuan))
+                                        @if ($det->status_pengajuan==1)
+                                            <div class="row" style="">    
+                                        @else
+                                            <div class="row" style="display:none;">    
+                                        @endif
+                                     @else
+                                        <div class="row" style="display:none;">    
+                                    @endif
                             @endif
                             
                                 <div class="col-md-6">
