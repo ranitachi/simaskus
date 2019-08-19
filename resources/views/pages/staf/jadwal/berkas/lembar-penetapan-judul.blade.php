@@ -3,85 +3,118 @@
 	@page {size: auto; margin: 0;}
 	div.hidden {display: none}
     *{
-        font-size:14px;
+        font-size:13px;
     }
-    .pisah {page-break-before: always;border:0px !important;}
 </style>
 <div>&nbsp;</div>
-
-    <table border="0" align="center" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" width="100%">
-        <tr> 
-            <td valign="top" class="main" style="font-family: arial">
-                <table border="0" align="center" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="head" width="95%">
+<table border="0" align="center" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" width="100%">
+    <tr> 
+        <td valign="top" class="main" style="font-family: arial">
+            <table border="0" align="center" cellpadding="3" cellspacing="0" bordercolor="#CCCCCC" class="head" width="95%">
+                <tr>
+                    <td colspan="3" class="head">
+                        <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
+                            <tr>
+                                <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
+                                <td align="right">
+                                    <font size="1">Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id</font>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div>&nbsp;</div>
+            <div style="padding: 0px 50px 0px;">
+                <table width="100%">
                     <tr>
-                        <td colspan="3" class="head">
-                            <table border="0" align="left" cellpadding="5" cellspacing="0" bordercolor="#CCCCCC" class="main" width='100%'>
-                                <tr>
-                                    <td width="50%" rowspan="2" align="left"><img src="{{asset('img/logoUIFakultasTeknik.jpg')}}"></td>
-                                    <td align="right">
-                                        <font size="1">Gedung Dekanat Fakultas Teknik<br />Kampus UI Depok 16424<br />T. 62.21.7863504, 7863505, 78888430<br />F. 62.21.7270050<br />E. humas@eng.ui.ac.id<br />www.eng.ui.ac.id</font>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
+                        <td style="text-align:center"><h2>LEMBAR PENETAPAN JUDUL {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}}</h2></td>
                     </tr>
                 </table>
+                <hr>
                 <div>&nbsp;</div>
-                <div style="padding: 0px 50px 0px;">
-
-                    <table width="100%">
-                        <tr>
-                            <td style="text-align:center"><h2>NILAI DOSEN PEMBIMBING</h2></td>
-                        </tr> 
-                    </table>
-                    <hr>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                
-                    
-                    <div align="justify">
-                        Setelah melalui proses sidang SKRIPSI pada tanggal {{tgl_indo($jadwal->tanggal)}}, Maka kepada saudara :
-                        <div style="padding: 10px 15px 0px; width: 94%">
-                            <table>
-                                <tr>
-                                    
-                                    <td style="width:200px;">Nama Mahasiswa</td>
-                                    <td>:</td>
-                                    <td>{{strtoupper($pengajuan->mahasiswa->nama)}}</td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td style="width:200px;">Nomor Mahasiswa</td>
-                                    <td>:</td>
-                                    <td>{{strtoupper($pengajuan->mahasiswa->npm)}}</td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td style="width:200px;">Jenjang</td>
-                                    <td>:</td>
-                                    <td>{{strtoupper($pengajuan->mahasiswa->programstudi->nama_program_studi)}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div>&nbsp;</div>
-                        <div>&nbsp;</div>
-                        Diwajibkan mengubah dan memasukan judul ke SIAK NG dalam bahasa Indonesia dan Inggris dengan benar dan tepat sesuai aran dari pembimbing dalam waktu 1 (satu) hari sejak tanggal penetapan sidang dilaksanakan.
-                    </div>
-                    
+                <div>&nbsp;</div>
+                <div align="justify">
+                    Setelah melalui proses sidang {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}} pada Tanggal {{tgl_indo($jadwal->tanggal)}}. Maka kepada Saudara:
+                   
                 </div>
                 
-            </td>
-        </tr>
-    </table>
-                    <table border="0" width="100%">
-                        <tr>
-                            
-                            <td width="60%">&nbsp;</td>
-                            <td align="left">
-                                Depok, __________________<br>
-                                Dosen Penguji,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
-                        </tr>
-                    </table>
-                    <div class="pisah">&nbsp;</div>
+                <div align="justify">
+                    <div style="padding: 10px 15px 0px; width: 94%">
+                        <table>
+                            <tr>
+                                
+                                <td style="width:200px;">Nama</td>
+                                <td>:</td>
+                                <td>{{strtoupper($pengajuan->mahasiswa->nama)}}</td>
+                            </tr>
+                            <tr>
+                                
+                                <td style="width:200px;">NPM</td>
+                                <td>:</td>
+                                <td>{{strtoupper($pengajuan->mahasiswa->npm)}}</td>
+                            </tr>
+                            <tr>
+                                
+                                <td style="width:200px;">Jenjang</td>
+                                <td>:</td>
+                                <td>{{$mahasiswa->programstudi->nama_program_studi}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>&nbsp;</div>
+                    <div style="width:100%;float:left">
+                        Diwajibkan mengubah dan memasukan judul ke SIAK NG dalam Bahasa Indonesia dan Bahasa Inggris dengan benar dan tepat sesuai saran dari pembimbing dalam waktu 1 (satu) hari sejak tanggal penetapan sidang dilaksanakan.
+                    </div>
+                    <div>&nbsp;</div>
+                    <div style="width:100%;float:left">
+                        Adapun judul perbaikin adalah sebagai berikut :
+                    </div>
+                    
+                    <div style="width:100%;float:left;line-height:35px;">
+                        1. Bahasa Indonesia<br>
+                        @if ($judul)
+                            <u><h3>{{$judul->judul_ind}}</h3></u>
+                        @else
+                            ______________________________________________________________________________________________<br>
+                            ______________________________________________________________________________________________<br>
+                            ______________________________________________________________________________________________<br>
+                        @endif
+                        <br>
+                        2. Bahasa Inggris<br>
+                        @if ($judul)
+                            <u><h3>{{$judul->judul_ing}}</h3></u>
+                        @else
+                            ______________________________________________________________________________________________<br>
+                            ______________________________________________________________________________________________<br>
+                            ______________________________________________________________________________________________<br>
+                        @endif
+                    </div>
+                </div>
+               
+                <div>&nbsp;</div>
+                
+                
+                
+                <table border="0" width="100%">
+                    <tr>
+                        
+                        <td align="left">
+                            Depok, {{tgl_indo(date('Y-m-d'))}}<br>
+                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                    </tr>
+                </table>	
+                <div>&nbsp;</div>
+                <div>
 
-    </body>
+                    Keterangan:<br>
+                    1. Ditanda tangani setelah mahasiswa menunjukan buku/revisi final<br>
+                    2. Diserahkan ke departemen bersama berkas kelengkapan dokumen lainnya
+                </div>
+               
+            </div>
+            
+        </td>
+    </tr>
+</table>
+</body>

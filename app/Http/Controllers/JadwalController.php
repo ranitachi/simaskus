@@ -29,6 +29,8 @@ use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
 use App\Model\Component;
 use App\Model\IzinDosen;
+use App\Model\PerbaikanSkripsi;
+use App\Model\PerubahanJudul;
 use Auth;
 use DB;
 class JadwalController extends Controller
@@ -825,7 +827,7 @@ class JadwalController extends Controller
         $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('jenispengajuan')->with('mahasiswa')->with('departemen')->first();
 
         $penguji=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
-        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('mahasiswa')->get();
+        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('mahasiswa')->with('dosen')->orderBy('id')->get();
         $pimp=MasterPimpinan::where('departemen_id',$pengajuan->departemen_id)->with(['dosen','departemen'])->get();
         $pimpinan=array();
         $departemen=MasterDepartemen::find($pengajuan->departemen_id);
@@ -840,7 +842,10 @@ class JadwalController extends Controller
                     ->where('module.departemen_id',$pengajuan->departemen_id)
                     ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
 
-        return view('pages.staf.jadwal.berkas.'.$jenis,compact('jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
+        $judul=PerubahanJudul::where('pengajuan_id',$pengajuan_id)->first();
+        $perbaikan=PerbaikanSkripsi::where('mahasiswa_id',$mahasiswa->id)->with('dosen')->get();
+
+        return view('pages.staf.jadwal.berkas.'.$jenis,compact('judul','perbaikan','jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
     }
 
     public function simpan_jadwal_sidang_kp(Request $request,$all_one,$id,$idkp=null)

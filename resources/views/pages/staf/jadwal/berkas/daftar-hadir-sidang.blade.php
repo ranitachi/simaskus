@@ -79,12 +79,28 @@
                             <th align="center" style="padding:15px;height:35px;">Nama Penguji</th>
                             <th align="center" style="padding:15px;height:35px;">Tanda Tangan</th>
                         </tr>
-                        @foreach ($penguji as $idx=>$item)
+                        @php
+                            $no=1;
+                        @endphp
+                        @foreach ($pembimbing as $idx=>$item)
                             <tr>
-                                <td align="center" style="padding:15px;height:35px;">{{++$idx}}</td>
+                                <td align="center" style="padding:15px;height:35px;">{{$no}}</td>
                                 <td align="left" style="padding:15px;height:35px;">{{$item->dosen->nama}}</td>
                                 <td align="left" style="padding:15px;height:35px;"></td>
                             </tr>
+                            @php
+                                $no++;
+                            @endphp
+                        @endforeach                                             
+                        @foreach ($penguji as $idx=>$item)
+                            <tr>
+                                <td align="center" style="padding:15px;height:35px;">{{$no}}</td>
+                                <td align="left" style="padding:15px;height:35px;">{{$item->dosen->nama}}</td>
+                                <td align="left" style="padding:15px;height:35px;"></td>
+                            </tr>
+                            @php
+                                $no++;
+                            @endphp
                         @endforeach                                             
                     </table>
                 </div>
