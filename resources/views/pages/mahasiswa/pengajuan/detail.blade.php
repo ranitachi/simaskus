@@ -78,15 +78,21 @@
                                         <label class="control-label">Jumlah SKS Lulus</label>
                                         <input type="text" readonly  id="jumlah_sks_lulus" name="jumlah_sks_lulus" class="form-control input-circle" placeholder="Jumlah SKS Lulus"  style="width:50%;" value="{{$pengajuan->jumlah_sks_lulus}}">
                                     </div>
-                                </div> --}}
+                                </div> 
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Topik Yang Diajukan</label>
                                         <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->topik_diajukan}}">
                                     </div>
-                                </div>
+                                </div>--}}
                                 <!--/span-->
+                                <div class="col-md-6">
+                                     <div class="form-group has-success">
+                                        <label class="control-label">Skema Penelitian</label>
+                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->skema}}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 {{-- <div class="col-md-6">
@@ -96,14 +102,9 @@
                                     </div>
                                 </div> --}}
                                 <!--/span-->
-                                <div class="col-md-6">
-                                     <div class="form-group has-success">
-                                        <label class="control-label">Skema Penelitian</label>
-                                        <input type="text" readonly  id="topik_diajukan" name="topik_diajukan" class="form-control input-circle" placeholder="Topik Yang Diajukan" value="{{$pengajuan->skema}}">
-                                    </div>
-                                </div>
+                                
                                 <!--/span-->
-                            {{-- </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
@@ -121,7 +122,7 @@
                                 <!--/span-->
                             </div>
                            
-                            <div class="row"> --}}
+                            <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group has-success">
                                         <label class="control-label">Deskripsi/Rencana</label>

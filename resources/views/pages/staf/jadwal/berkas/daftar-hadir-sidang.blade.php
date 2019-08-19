@@ -55,11 +55,11 @@
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                <td>Nama Mahasiswa</td>
-                                <td>:</td>
+                                <td>Nama Mahasiswa<br>NPM</td>
+                                <td>:<br>:</td>
                                 <td>
-                                    {{$pengajuan->mahasiswa->nama}}&nbsp;&nbsp;&nbsp;&nbsp;
-                                    NPM : {{$pengajuan->mahasiswa->npm}}
+                                    {{$pengajuan->mahasiswa->nama}}&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                    {{$pengajuan->mahasiswa->npm}}
                                 </td>
                             </tr>
                         </table>

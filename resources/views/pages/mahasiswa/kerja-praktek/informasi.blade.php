@@ -1,12 +1,13 @@
 <div class="row" style="padding:0px 20px;">
     <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
+            @if ($det->status_kp!=10)
             <div class="btn-group pull-right">
                 <a href="javascript:edit({{$idgrup}})" id="edit" class="btn sbold green"> Edit
                     <i class="fa fa-edit"></i>
                 </a>                
             </div>
-        
+         @endif
             <div class="btn-group pull-right">
                 <a href="javascript:simpaninfo({{$idgrup}})" id="save" class="btn sbold blue" style="display:none"> Simpan
                     <i class="fa fa-save"></i>

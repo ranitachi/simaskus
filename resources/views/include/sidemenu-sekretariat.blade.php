@@ -72,7 +72,7 @@
                 <span class="title">Pengajuan Kerja Praktek</span>
             </a>
         </li>
-        <li class="nav-item  {{strpos(Request::url(),'data-jadwal-kp')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{Request::url()=='data-jadwal-kp'  ? 'active' : ''}}">
             <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang</span>
             </a>
@@ -102,6 +102,29 @@
         <span class="title">Sidang Kerja Praktek</span>
     </a>
 </li> --}}
+<li class="heading">
+    <h3 class="uppercase">Laporan</h3>
+</li>
+<li class="nav-item  {{strpos(Request::path(),'rekap')!==false ? 'active' : ''}} ">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-th-list font-white"></i>
+        <span class="title">Laporan Rekapitulasi</span>
+        <span class="arrow"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item  {{strpos(Request::path(),'rekap-penguji-staf')!==false  ? 'active' : ''}}">
+            <a href="{{url('rekap-penguji-staf')}}" class="nav-link ">
+                <span class="title">Penguji</span>
+            </a>
+        </li>
+        <li class="nav-item  {{Request::path()=='rekap-pembimbing-staf'  ? 'active' : ''}}">
+            <a href="{{url('rekap-pembimbing-staf')}}" class="nav-link ">
+                <span class="title">Pembimbing</span>
+            </a>
+        </li>
+        
+    </ul>
+</li>
 <li class="heading">
     <h3 class="uppercase">Data</h3>
 </li>

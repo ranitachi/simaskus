@@ -5,7 +5,7 @@
             <div class="btn-group pull-left">
                 @php
                     $tahun=date('Y-m-d');
-                    $kal=App\Model\KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','<=',$tahun)->whereDate('end_date','>=',$tahun)->get();
+                    $kal=App\Model\KalenderAkademik::where('departemen_id',$dept_id)->whereDate('start_date','>=',$tahun)->get();
                     $kalender=array();
                     foreach($kal as $val)
                     {

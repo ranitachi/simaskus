@@ -102,6 +102,36 @@
             } 
         });
     }
+    function konfirmselesaikp(id)
+    {
+        swal({
+            title: "Apakah Anda Yakin ",
+            text: "Ingin Menyelesaikan Jadwal Kerja Praktek Ini Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Verifikasi",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                // location.href='{{url("pengajuan-sidang-verifikasi")}}/'+id+'/'+jns;
+                $.ajax({
+                    url : '{{url("selesai-kp")}}/'+id,
+                    success:function(res){
+                    loaddata();
+                    if(res==1)
+                        pesan('Status Kerja Praktek Berubah Menjadi Selesai','success');
+                    else
+                        pesan('Ubah Status Kerja Praktek Gagal','error');
+                }
+                });
+               
+            } 
+        });
+    }
     function setujuidokumen(id,jns)
     {
         swal({

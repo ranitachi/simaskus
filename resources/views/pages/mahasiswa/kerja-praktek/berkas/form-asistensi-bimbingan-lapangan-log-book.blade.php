@@ -104,7 +104,7 @@
         </table>
         <p style="width:100%;text-align:center;margin:150px auto 50px auto;height:400px;">
             {{-- <img src="{{public_path('img/logoft.jpg')}}" style="height:200px;width:auto;margin:50px auto 0 auto"/> --}}
-            <img src="{{storage_path('app/logoft.jpg')}}" style="height:200px;width:auto;margin-bottom:100px;"/>
+            <img src="{{asset('img/logoft.jpg')}}" style="height:200px;width:auto;margin-bottom:100px;"/>
         </p>
         <h2 style="width:100%;text-align:center;padding-top:400px;font-family:Arial, Helvetica, sans-serif">{{strtoupper($departemen->nama_departemen)}}<br>FAKULTAS TEKNIK UNIVERSITAS INDONESIA<BR>{{date('Y')}}</h2>
         
@@ -120,7 +120,7 @@
                     @if (isset(Auth::user()->foto))
                         @if (Auth::user()->foto!='')   
                             
-                            <img src="{{storage_path('app/'.Auth::user()->foto)}}" style="height:150px;width:auto">
+                            <img src="{{asset('storage/'.Auth::user()->foto)}}" style="height:150px;width:auto">
                         @endif
                     @endif
                 </td>

@@ -563,4 +563,13 @@ function getFormFields($data)
 		$d=['Masa Pengajuan Mata Kuliah Khusus','Masa Pengajuan Sidang Mata Kuliah Khusus','Masa Penjadwalan','Masa Pelaksanaan Sidang'];
 		return $d;
 	}
+
+	function materipenilaiainKP()
+	{
+		$data=[
+			'perusahaan' => ['Kemampuan Kerja','Penguasaan Materi','Disiplin & Tanggung Jawab','Inisiatif & Minat','Kerjasama','Kepemimpinan','Sikap/Tingkah Laku','Kehadiran','Potensi Untuk Berkembang'],
+			'departemen' => ['Penulisan Laporan','Presentasi / Seminar Laporan','Penguasaan Materi'],
+		];
+		return $data;
+	}
 ?>

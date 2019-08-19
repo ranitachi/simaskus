@@ -296,7 +296,7 @@ class PengajuanSkripsiController extends Controller
         $pengajuan->dosen_ketua='-1';
         $pengajuan->pembimbing_sebelumnya=$request->pembimbing_sebelumnya;
         $pengajuan->alasan_mengulang=$request->alasan_mengulang;
-        $pengajuan->status_pengajuan=0;
+        // $pengajuan->status_pengajuan=0;
         $pengajuan->departemen_id=$dept_id;
         $pengajuan->mahasiswa_id=Auth::user()->id_user;
         $pengajuan->updated_at=date('Y-m-d H:i:s');
@@ -334,7 +334,10 @@ class PengajuanSkripsiController extends Controller
                 }
             }
         }
-        return redirect('pengajuan')->with('status','Data Pengajuan Berhasil Di Edit, dan Akan Segera Di Verifikasi Oleh Sekretariat');
+        if($pengajuan->status_pengajuan==0)
+            return redirect('pengajuan')->with('status','Data Pengajuan Berhasil Di Edit, dan Akan Segera Di Verifikasi Oleh Sekretariat');
+        else
+            return redirect('data-bimbingan-mhs')->with('status','Data Pengajuan Berhasil Di Edit, dan Akan Segera Di Verifikasi Oleh Sekretariat');
     }
 
     public function destroy($id)

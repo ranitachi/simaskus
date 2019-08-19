@@ -2,12 +2,13 @@
     <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             @if ($ketua==1)
+                @if ($det->status_kp!=10)
                 <div class="btn-group pull-right">
                     <a href="javascript:editpembimbing({{$idgrup}})" id="edit-pembimbing" class="btn sbold green"> Edit
                         <i class="fa fa-edit"></i>
                     </a>                
                 </div>
-            
+                @endif
                 <div class="btn-group pull-right">
                     <a href="javascript:simpanpembimbing({{$idgrup}})" id="save-pembimbing" class="btn sbold blue" style="display:none"> Simpan
                         <i class="fa fa-save"></i>
@@ -26,7 +27,9 @@
                         @foreach ($pemb['dosen'] as $item)
                                 <i class="fa fa-user"></i>&nbsp;{{$item->dosen->nama}}
                                 @if ($ketua==1)
-                                    &nbsp;&nbsp;<a href="javascript:hapuspembimbing({{$item->id}},'tab_1_1_4')" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                                    @if ($det->status_kp!=10)
+                                     &nbsp;&nbsp;<a href="javascript:hapuspembimbing({{$item->id}},'tab_1_1_4')" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                                    @endif
                                 @endif   
                                 <br>
                         @endforeach
@@ -40,7 +43,9 @@
                         @foreach ($pemb['lapangan'] as $item)
                         <i class="fa fa-user"></i>&nbsp;{{$item->nama}} 
                         @if ($ketua==1)
-                                 &nbsp;&nbsp;<a href="javascript:hapuspembimbing({{$item->id}},'tab_1_1_4')" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                            @if ($det->status_kp!=10)
+                                &nbsp;&nbsp;<a href="javascript:hapuspembimbing({{$item->id}},'tab_1_1_4')" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                            @endif
                         @endif   
                         <br>
                         @endforeach

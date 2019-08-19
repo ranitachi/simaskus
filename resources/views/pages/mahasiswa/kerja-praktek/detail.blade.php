@@ -141,12 +141,21 @@
                                                                     <i class="fa fa-exclamation-circle"></i>&nbsp;<strong>Belum Dimulai</strong>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">&nbsp;</div>
-                                                            <div class="col-md-6">
-                                                                <a href="{{url('mulai-kp/'.$det->id)}}"><div class="alert alert-success" style="font-size:20px;">
-                                                                    <i class="fa fa-check"></i>&nbsp;<strong>Klik Mulai</strong>
-                                                                </div></a>
-                                                            </div>
+                                                            
+                                                                @if ($det->balasan_surat!=null)    
+                                                                    <div class="col-md-6">&nbsp;</div>
+                                                                    <div class="col-md-6">
+                                                                        <a href="{{url('mulai-kp/'.$det->id)}}"><div class="alert alert-success" style="font-size:20px;">
+                                                                            <i class="fa fa-check"></i>&nbsp;<strong>Klik Mulai</strong>
+                                                                        </div></a>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="col-md-12">
+                                                                        <div class="alert alert-danger" style="font-size:20px;">
+                                                                            <i class="fa fa-exclamation-circle"></i>&nbsp;<strong>Silahkan Upload Surat Balasan Perusahaan Terlebih Dahulu</strong>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
                                                             
                                                         </div>
                                                     </div>

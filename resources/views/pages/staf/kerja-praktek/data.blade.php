@@ -1,7 +1,17 @@
 <div class="portlet light portlet-fit portlet-datatable bordered">
     <div class="row" style="padding:5px 20px;">
 
-        <div class="col-md-6">&nbsp;</div>
+        <div class="col-md-6">
+            @if (Auth::user()->kat_user==1)
+                
+            
+            <div class="btn-group pull-left">
+                <a href="{{url('data-jadwal-kp-form/-1')}}" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Jadwal Sidang KP
+                    <i class="fa fa-calendar"></i>
+                </a>
+            </div>
+            @endif
+        </div>
         <div class="col-md-6">
             <div class="btn-group pull-right">
                 @php
@@ -52,8 +62,11 @@
                     {
                         // $idgrup=$grupkp[$v->mahasiswa_id]->code;
                         $idgrup=key($grupkp[$v->mahasiswa_id]);
-                        // if(isset($jadwal[$idgrup]))
-                        //     continue;
+                        if(Auth::user()->kat_user==1)
+                        {
+                            if(isset($jadwal[$idgrup]))
+                            continue;
+                        }
                         // break;
                     }
                 @endphp
@@ -86,7 +99,9 @@
                             <br>
                             <small>Status KP</small><br>
                             {!! $v->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($v->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($v->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($v->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
-                            <br><br>
+                            <br>
+                            
+                            <br>
                             <small>Jadwal KP</small><br>
                             <div class="text-left">
                                 @if (isset($grupkp[$v->mahasiswa_id]))
@@ -100,11 +115,28 @@
                             </div>
                         </td>
                     @endif
-                    <td>{!! $v->status_pengajuan == 0 ? '<a class="btn btn-info btn-xs">Belum Di Verifikasi</a>' : ($v->status_pengajuan == 1 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Di Setujui</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')!!}</td>
+                    <td>
+                        @if($v->status_pengajuan == 0)
+                            <a class="btn btn-info btn-xs">Belum Di Verifikasi</a>
+                    @elseif($v->status_pengajuan == 1)
+                        <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Di Setujui</a>
+                    @elseif($v->status_pengajuan == 2)
+                        <a class="btn btn-info btn-sm">Telah Selesai</a>
+                    @else
+                        <a class="btn btn-danger btn-xs">Tidak Disetujui</a>
+                    @endif
+                        @if ($v->status_pengajuan == 0)
+                            <a href="javascript:verifikasi({{$v->id}})" id="sample_editable_1_new" class="btn btn-xs blue" style="margin-left:10px;"> Verifikasi
+                                <i class="fa fa-check"></i>
+                            </a>
+                        @endif
+                    </td>
 
                     <td style="text-center">
                             <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-                            <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                            @if (Auth::user()->kat_user!=2)     
+                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                            @endif
                             @if($v->status_kp==0)
                                 <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                             @endif

@@ -33,7 +33,7 @@
                 <div class="profile-userpic" >
                     @if (Auth::user()->foto!='')
                         {{-- <img src="{{url('showgambar/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;"> --}}
-                        <img src="{{asset('storage/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
+                        <img src="{{asset('storage/'.Auth::user()->foto)}}" class="img-responsive" alt="" style="border-radius:5% !important;">
                     @else
                         <img src="{{asset('img/mhs.png')}}" class="img-responsive" alt=""> 
                     @endif
@@ -182,7 +182,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tahun Masuk</label>
-                            <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Masuk" id="tahun_masuk" name="tahun_masuk">
+                            <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Masuk" id="tahun_masuk" name="tahun_masuk" style="width:100px !important;">
                                 <option value="-1">-Pilih Tahun Masuk-</option>
                                 @for ($i=(date('Y')-10) ; $i<=date('Y') ; $i++)
                                         @if ($i==$profil->tahun_masuk)

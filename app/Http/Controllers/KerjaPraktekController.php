@@ -22,9 +22,11 @@ use App\Model\JadwalSidangKP;
 use App\Model\InformasiKP;
 use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
+use App\Model\Component;
 use App\Model\MasterDepartemen;
 use Auth;
 use PDF;
+use DB;
 class KerjaPraktekController extends Controller
 {
     //
@@ -107,7 +109,7 @@ class KerjaPraktekController extends Controller
                 }
             }
 
-            // return $grupkp;
+            // return $pengajuan;
             // dd($grupkp);
             return view('pages.mahasiswa.kerja-praktek.data')
                     ->with('pengajuan',$pengajuan)
@@ -982,6 +984,18 @@ class KerjaPraktekController extends Controller
             $kp=KerjaPraktek::where('mahasiswa_id',$vg->mahasiswa_id)->first();
             $kp->status_kp=1;
             $kp->save();
+
+            $umhs=Users::where('id_user',$vg->mahasiswa_id)->where('kat_user',3)->first();
+
+            $notif=new Notifikasi;
+            $notif->title="Perubahan Status Kerja Praktek";
+            $notif->from=Auth::user()->id_user;
+            $notif->to=$vg->mahasiswa_id;
+            $notif->to=$umhs->id;
+            $notif->flag_active=1;
+            $notif->pesan="Staf Sekretariat Telah Merubah Status Kerja Praktek Anda, Anda Sudah Dapat Memulai Melakukan Kerja Praktek Pada Lokasi yang telah ditentukan<br> 
+            <a href='".url('data-kp-detail/'.$kp->id.'/3/#tab_1_1_3')."'>Klik Disini</a>";
+            $notif->save();
         }
         return redirect('data-kp')->with('status','Data Kerja Praktek Mahasiswa Sudah Berhasil Di Update');
     }
@@ -993,6 +1007,16 @@ class KerjaPraktekController extends Controller
             $kp=KerjaPraktek::where('mahasiswa_id',$vg->mahasiswa_id)->first();
             $kp->status_kp=2;
             $kp->save();
+            $umhs=Users::where('id_user',$vg->mahasiswa_id)->where('kat_user',3)->first();
+            
+            $notif=new Notifikasi;
+            $notif->title="Perubahan Status Kerja Praktek";
+            $notif->from=Auth::user()->id_user;
+            $notif->to=$umhs->id;
+            $notif->flag_active=1;
+            $notif->pesan="Staf Sekretariat Telah Merubah Status Kerja Praktek Anda, Anda Telah Menyelesaikan Tahap Kerja Praktek dan Akan segera di jadwalkan Sidang Oleh Sekretariat<br> 
+            <a href='".url('data-kp-detail/'.$kp->id.'/3/#tab_1_1_3')."'>Klik Disini</a>";
+            $notif->save();
         }
         return redirect('data-kp')->with('status','Data Kerja Praktek Mahasiswa Sudah Selesai Di Laksanakan');
     }
@@ -1082,5 +1106,174 @@ class KerjaPraktekController extends Controller
         $kp->status_kp=1;
         $kp->save();
         return redirect('data-kp-detail/'.$id.'/'.(Auth::user()->kat_user))->with('status','Status Kerja Prakter Sudah Dimulai');
+    }
+
+    public function berita_acara($id)
+    {
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        
+
+        list($idjadwal,$codegrup)=explode('__',$id);
+        $jadwal=JadwalSidangKP::where('id_grup',$codegrup)->first();
+        $grup=KelompokKP::where('code',$codegrup)->with('mahasiswa')->get();
+        $pimp=MasterPimpinan::where('departemen_id',$dept_id)->with(['dosen','departemen'])->get();
+        $pimpinan=array();
+        $departemen=MasterDepartemen::find($dept_id);
+        foreach($pimp as $k =>$v)
+        {
+            $pimpinan[str_slug($v->jabatan)]=$v;
+        }
+       
+        $penilaian=Component::select('*',DB::raw('component.id as c_id'))
+                    ->join('module','module.id','=','component.module_id')
+                    ->where('module.departemen_id',$dept_id)
+                    ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
+
+        $penguji=PengujiKP::where('pivot_jadwal_id',$idjadwal)->with('dosen')->get();
+
+        $infokp=InformasiKP::where('grup_id',$codegrup)->get();
+        $info=array();
+        foreach($infokp as $k=>$v)
+        {
+            $info[str_slug($v->judul)]=$v;
+        }
+
+        return view('pages.staf.kerja-praktek.berkas.beritaacara')
+                ->with('penguji',$penguji)
+                ->with('jadwal',$jadwal)
+                ->with('info',$info)
+                ->with('dept_id',$dept_id)
+                ->with('pimpinan',$pimpinan)
+                ->with('departemen',$departemen)
+                ->with('penilaian',$penilaian)
+                ->with('grup',$grup);
+    }
+
+    public function penilaian_kp($id)
+    {
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        list($idjadwal,$codegrup)=explode('__',$id);
+        
+        $jadwal=JadwalSidangKP::where('id_grup',$codegrup)->first();
+        $grup=KelompokKP::where('code',$codegrup)->with('mahasiswa')->get();
+
+        $infokp=InformasiKP::where('grup_id',$codegrup)->get();
+        $info=array();
+        foreach($infokp as $k=>$v)
+        {
+            $info[str_slug($v->judul)]=$v;
+        }
+        return view('pages.staf.kerja-praktek.jadwal-sidang.penilaian')
+            ->with('idjadwal',$idjadwal)
+            ->with('id',$id)
+            ->with('info',$info)
+            ->with('grup',$grup);
+    }
+
+    public function cetak_evaluasi_kp($id)
+    {
+        
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        
+
+        list($idjadwal,$codegrup)=explode('__',$id);
+        $jadwal=JadwalSidangKP::where('id_grup',$codegrup)->first();
+        $grup=KelompokKP::where('code',$codegrup)->with('mahasiswa')->get();
+        $pimp=MasterPimpinan::where('departemen_id',$dept_id)->with(['dosen','departemen'])->get();
+        $pimpinan=array();
+        $departemen=MasterDepartemen::find($dept_id);
+        foreach($pimp as $k =>$v)
+        {
+            $pimpinan[str_slug($v->jabatan)]=$v;
+        }
+       
+        $penilaian=Component::select('*',DB::raw('component.id as c_id'))
+                    ->join('module','module.id','=','component.module_id')
+                    ->where('module.departemen_id',$dept_id)
+                    ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
+
+        $penguji=PengujiKP::where('pivot_jadwal_id',$idjadwal)->with('dosen')->get();
+
+        $infokp=InformasiKP::where('grup_id',$codegrup)->get();
+        $info=array();
+        foreach($infokp as $k=>$v)
+        {
+            $info[str_slug($v->judul)]=$v;
+        }
+        $pembimbing=PembimbingKP::where('grup_id',$codegrup)->with('dosen')->get();
+        $pbb=array();
+        foreach($pembimbing as $k=>$v)
+        {
+            $pbb[$v->kategori][]=$v;
+        }
+        return view('pages.staf.kerja-praktek.berkas.evaluasi')
+                ->with('penguji',$penguji)
+                ->with('jadwal',$jadwal)
+                ->with('inf',$info)
+                ->with('dept_id',$dept_id)
+                ->with('pimpinan',$pimpinan)
+                ->with('departemen',$departemen)
+                ->with('pembimbing',$pbb)
+                ->with('penilaian',$penilaian)
+                ->with('idjadwal',$idjadwal)
+                ->with('id',$id)
+                ->with('grup',$grup);
+    }
+
+    public function selesai_kp($idkp)
+    {
+        $kp=KerjaPraktek::find($idkp);
+        $kp->status_pengajuan=2;
+        $c=$kp->save();
+        if($c)
+            echo 1;
+        else
+            echo 0;
+        // return response()->json([$c]);
     }
 }

@@ -38,7 +38,7 @@
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic" >
                     @if ($user->foto!='')
-                        <img src="{{url('showgambar/'.$user->foto)}}" class="img-responsive" alt="" style="border-radius:20% !important;">
+                        <img src="{{url('showgambar/'.$user->foto)}}" class="img-responsive" alt="" style="border-radius:5% !important;">
                     @else
                         <img src="{{asset('img/mhs.png')}}" class="img-responsive" alt=""> 
                     @endif

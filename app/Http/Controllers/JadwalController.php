@@ -660,7 +660,7 @@ class JadwalController extends Controller
 
        
 
-        $penguji=PivotPenguji::with('dosen')->get();
+        $penguji=PengujiKP::with('dosen')->get();
         $uji=array();
         foreach($penguji as $k => $v)
         {
@@ -673,7 +673,7 @@ class JadwalController extends Controller
         {
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
-
+        // return $uji;
         $info=InformasiKP::where('departemen_id',$dept_id)->get();
         $infokp=array();
         foreach($info as $kg=>$vg)
@@ -692,6 +692,7 @@ class JadwalController extends Controller
         // dd($infokp);
         // return $klp;
         $waktu=waktu();
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
         return view('pages.staf.kerja-praktek.jadwal-sidang.form')
                     ->with('pengajuan',$kpp)
                     ->with('uji',$uji)
@@ -699,6 +700,7 @@ class JadwalController extends Controller
                     ->with('infokp',$infokp)
                     ->with('jadwalkp',$jadwalkp)
                     ->with('ruangan',$ruangan)
+                    ->with('dosen',$dosen)
                     ->with('waktu',$waktu)
                     ->with('id',$id)
                     ->with('pemb',$pemb)
@@ -858,6 +860,7 @@ class JadwalController extends Controller
             $tanggal=$request->tanggal;
             $waktu=$request->waktu;
             
+            $nruangan=MasterRuangan::find($request->ruangan);
             list($tgl,$bln,$thn)=explode('-',$tanggal);
             $date=$thn.'-'.$bln.'-'.$tgl;
             $hari=hari(date('D',strtotime($date)));
@@ -873,6 +876,7 @@ class JadwalController extends Controller
                 $insert->waktu=$waktu;
                 $insert->hari=$hari;
                 $c=$insert->save();
+                $jadwalId=$insert->id;
             }
             else
             {
@@ -884,6 +888,7 @@ class JadwalController extends Controller
                 $insert->waktu=$waktu;
                 $insert->hari=$hari;
                 $c=$insert->save();
+                $jadwalId=$insert->id;
             }
 
             if($idkp!=null)
@@ -892,6 +897,37 @@ class JadwalController extends Controller
                 $kp->status_kp=10;
                 $kp->save();
 
+            }
+            $rpenguji=$request->penguji;
+            if(isset($rpenguji))
+            {
+                foreach($rpenguji as $k => $v)
+                {
+                    if($v!=-1)
+                    {
+                        $dosen=Users::where('id_user',$v)->where('kat_user',2)->with('dosen')->first();
+                        $penguji=new PengujiKP;
+                        $penguji->pivot_jadwal_id=$jadwalId;
+                        $penguji->grup_id=$idgrup;
+                        $penguji->penguji_id=$v;
+                        $penguji->status=1;
+                        $penguji->departemen_id=$dept_id;
+                        $penguji->save();
+
+                        $notif=new Notifikasi;
+                        $notif->title="Jadwal Menguji Sidang Kerja Praktek";
+                        $notif->from=Auth::user()->id_user;
+                        $notif->to=$dosen->id;
+                        $notif->flag_active=1;
+                        $notif->pesan="Anda Telah Dijadwal untuk Menguji Kerja Praktek Pada <br>
+                        Tanggal : ".$tanggal."<br>
+                        Waktu : ".$waktu."<br>
+                        Ruangan : ".$nruangan->nama_ruangan."<br>
+                        <a href='".url('jadwal-sidang-kp')."'>Klik Disini</a>";
+                        $notif->save();
+
+                    }
+                }
             }
 
             if($c)
@@ -914,6 +950,7 @@ class JadwalController extends Controller
                 $hari=hari(date('D',strtotime($date)));
 
                 $ruangan_id=$ruangan[$idgrup];
+                $nruangan=MasterRuangan::find($ruangan_id);
                 $wkt=$waktu[$idgrup];
                 $insert=new JadwalSidangKP;
                 $insert->id_grup=$idgrup;
@@ -923,12 +960,45 @@ class JadwalController extends Controller
                 $insert->waktu=$wkt;
                 $insert->hari=$hari;
                 $insert->save();
+                $jadwalId=$insert->id;
                 $idk=$idkp[$idgrup];
                 if($idk!='')
                 {
                     $kp=KerjaPraktek::find($idk);
                     $kp->status_kp=10;
                     $kp->save();
+                }
+
+                $rpenguji=$request->penguji;
+                if(isset($rpenguji[$idgrup]))
+                {
+                    foreach($rpenguji[$idgrup] as $k => $vv)
+                    {
+                        if($vv!=-1)
+                        {
+                            $dosen=Users::where('id_user',$vv)->where('kat_user',2)->with('dosen')->first();
+                            $penguji=new PengujiKP;
+                            $penguji->pivot_jadwal_id=$jadwalId;
+                            $penguji->grup_id=$idgrup;
+                            $penguji->penguji_id=$vv;
+                            $penguji->status=1;
+                            $penguji->departemen_id=$dept_id;
+                            $penguji->save();
+
+                            $notif=new Notifikasi;
+                            $notif->title="Jadwal Menguji Sidang Kerja Praktek";
+                            $notif->from=Auth::user()->id_user;
+                            $notif->to=$dosen->id;
+                            $notif->flag_active=1;
+                            $notif->pesan="Anda Telah Dijadwal untuk Menguji Kerja Praktek Pada <br>
+                            Tanggal : ".$v."<br>
+                            Waktu : ".$wkt."<br>
+                            Ruangan : ".$nruangan->nama_ruangan."<br>
+                            <a href='".url('jadwal-sidang-kp')."'>Klik Disini</a>";
+                            $notif->save();
+
+                        }
+                    }
                 }
             }
             return redirect('data-jadwal-kp')->with('pesan','Generate Jadwal Berhasil Di Lakukan');
@@ -938,11 +1008,36 @@ class JadwalController extends Controller
     {
         if($idjadwal==-1)
         {
-            $jadwal=JadwalSidangKP::whereNull('publish_date')->get();
+            $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+            $dept_id=0;
+            if(Auth::user()->kat_user==1)
+            {
+                $dept_id=$user->staf->departemen_id;
+            } 
+            $jadwal=JadwalSidangKP::where('departemen_id',$dept_id)->whereNull('publish_date')->get();
             foreach($jadwal as $k)
             {
-                $k->publish_date=date('Y-m-d H:i:s');
+                $k->publish_date=$publishdate=date('Y-m-d H:i:s');
                 $k->save();
+
+                $idgrup=$k->id_grup;
+                $grupkp=KelompokKP::where('code',$idgrup)->get();
+                foreach($grupkp as $kk=>$v)
+                {
+                    $mhs_id=$v->mahasiswa_id;
+                    $usermhs=Users::where('id_user',$mhs_id)->where('kat_user',3)->first();
+                    $notif=new Notifikasi;
+                    $notif->title="Jadwal Sidang Kerja Praktek";
+                    $notif->from=Auth::user()->id;
+                    $notif->to=$usermhs->id;
+                    $notif->flag_active=1;
+                    $notif->pesan="Sekretariat Telah Mempublish Jadwal Sidang Kerja Praktik Anda<br><a href='".url('data-jadwal-kp')."'>Klik Disini</a>";
+                    $notif->save();
+
+                    $kerpak=KerjaPraktek::where('mahasiswa_id',$mhs_id)->where('status_kp',10)->first();
+                    $kerpak->publish_date=$publishdate;
+                    $kerpak->save();
+                }
             }
             return redirect('data-jadwal-kp')
                     ->with('status','Jadwal Sidang KP Sudah Di Publish')
@@ -951,12 +1046,31 @@ class JadwalController extends Controller
         else
         {
             $jadwal=JadwalSidangKP::find($idjadwal);
-            $jadwal->publish_date=date('Y-m-d H:i:s');
+            $jadwal->publish_date=$publishdate=date('Y-m-d H:i:s');
             $c=$jadwal->save();
             if($c)
                 echo 1;
             else
                 echo 0;
+
+            $idgrup=$jadwal->id_grup;
+            $grupkp=KelompokKP::where('code',$idgrup)->get();
+            foreach($grupkp as $k=>$v)
+            {
+                $mhs_id=$v->mahasiswa_id;
+                $usermhs=Users::where('id_user',$mhs_id)->where('kat_user',3)->first();
+                $notif=new Notifikasi;
+                $notif->title="Jadwal Sidang Kerja Praktek";
+                $notif->from=Auth::user()->id;
+                $notif->to=$usermhs->id;
+                $notif->flag_active=1;
+                $notif->pesan="Sekretariat Telah Mempublish Jadwal Sidang Kerja Praktik Anda<br><a href='".url('data-jadwal-kp')."'>Klik Disini</a>";
+                $notif->save();
+
+                 $kerpak=KerjaPraktek::where('mahasiswa_id',$mhs_id)->where('status_kp',10)->first();
+                $kerpak->publish_date=$publishdate;
+                $kerpak->save();
+            }
         }
     }
 

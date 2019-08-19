@@ -33,7 +33,9 @@
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
         <link href="{{asset('assets/global/plugins/bootstrap-sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css" />
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <link rel="shortcut icon" href="favicon.ico" /> 
+        <meta name="csrf_token" content="{{ csrf_token() }}">
+    </head>
     <!-- END HEAD -->
 
     <body class="login" id="radial-center">
@@ -359,6 +361,20 @@
                     $('#program_studi').select2();
                 });
             }
+        </script>
+        <script type="text/javascript">
+            var csrfToken = $('[name="csrf_token"]').attr('content');
+
+            setInterval(refreshToken, 3600000); // 1 hour 
+
+            function refreshToken(){
+                $.get('refresh-csrf').done(function(data){
+                    csrfToken = data; // the new token
+                });
+            }
+
+            setInterval(refreshToken, 3600000); // 1 hour 
+
         </script>
     </body>
 

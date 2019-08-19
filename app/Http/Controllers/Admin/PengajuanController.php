@@ -11,6 +11,7 @@ use App\Model\PivotBimbingan;
 use App\Model\Notifikasi;
 use App\Model\QuotaPembimbing;
 use App\Model\QuotaBimbingan;
+use App\Model\PivotSetujuSidang;
 use App\Model\Users;
 use App\Model\Staf;
 use App\Model\Jadwal;
@@ -55,8 +56,14 @@ class PengajuanController extends Controller
             $kalender[$val->kategori_khusus]=$val;
         }
         $jns='pengajuan';
-        // return $kalender;
-        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','kalender','jns'));
+        $setujusidang=PivotSetujuSidang::all();
+        $acc=array();
+        foreach($setujusidang as $ks=>$vs)
+        {
+            $acc[$vs->pengajuan_id][$vs->dosen_id]=$vs;
+        }
+        // return $acc;
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','kalender','jns','acc'));
     }
     public function setujui_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
     {
@@ -137,7 +144,13 @@ class PengajuanController extends Controller
             $kalender[$val->kategori_khusus]=$val;
         }
         $jns='bimbingan';
-        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','jdwl','kalender','jns'));
+        $setujusidang=PivotSetujuSidang::all();
+        $acc=array();
+        foreach($setujusidang as $ks=>$vs)
+        {
+            $acc[$vs->pengajuan_id][$vs->dosen_id]=$vs;
+        }
+        return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','jdwl','kalender','jns','acc'));
     }
     public function detail($id)
     {
@@ -445,5 +458,24 @@ class PengajuanController extends Controller
             // $insert->save();
         // }
         
+    }
+
+    public function acc_sidang($idpengajuan,$iddosen)
+    {
+        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('jenispengajuan')->first();
+        $acc=new PivotSetujuSidang;
+        $acc->dosen_id=$iddosen;
+        $acc->mahasiswa_id=$pengajuan->mahasiswa_id;
+        $acc->pengajuan_id=$idpengajuan;
+        $acc->status=1;
+        if($pengajuan->jenispengajuan->keterangan=='S1')
+            $acc->jenis_bimbingan='Skripsi';
+        elseif($pengajuan->jenispengajuan->keterangan=='S2')
+            $acc->jenis_bimbingan='Tesis';
+        elseif($pengajuan->jenispengajuan->keterangan=='S3')
+            $acc->jenis_bimbingan='Disertasi';
+
+        $acc->save();
+        return redirect('data-bimbingan')->with('status','Persetujuan ACC SIdang Dosen Telah Berhasil');
     }
 }

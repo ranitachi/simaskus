@@ -87,5 +87,34 @@
             } 
         });
     }
+    function verifikasi(id)
+    {
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin Memverifikasi Data Kerja Praktek Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya, Setuju",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    url : '{{url("data-kp-verifikasi")}}/'+id+'/1',
+                    dataType : 'JSON'
+                }).done(function(){
+                    //loaddata();
+                    swal("Success!", "Data Berhasil Di Verifikasi", "success");
+                    loaddata();
+                // location.href='{{url("data-kp-detail")}}/'+id+'/{{Auth::user()->kat_user}}';
+                }).fail(function(){
+                    swal("Fail!", "Verifikasi Data Gagal", "danger");
+                });
+            } 
+        });
+    }
 </script>
 @endsection

@@ -315,6 +315,10 @@ Route::post('upload-balasan-kp','KerjaPraktekController@upload_balasan_kp')->mid
 Route::post('upload-selesai-kp','KerjaPraktekController@upload_selesai_kp')->middleware('auth');
 Route::get('data-kp-mulai/{code}','KerjaPraktekController@data_kp_mulai')->middleware('auth');
 Route::get('data-kp-selesai/{code}','KerjaPraktekController@data_kp_selesai')->middleware('auth');
+Route::get('berita-acara-kp/{id}','KerjaPraktekController@berita_acara')->middleware('auth');
+Route::get('penilaian-kp/{id}','KerjaPraktekController@penilaian_kp')->middleware('auth');
+Route::get('cetak-evaluasi-kp/{id}','KerjaPraktekController@cetak_evaluasi_kp')->middleware('auth');
+Route::get('selesai-kp/{id}','KerjaPraktekController@selesai_kp')->middleware('auth');
 
 // data-pengajuan-sidang-kp
 //Pengajuan Sidang
@@ -327,6 +331,8 @@ Route::get('publish-kp/{idjadwal}','JadwalController@publish_kp')->middleware('a
 Route::get('hapusjadwalkp/{idjadwal}','JadwalController@hapusjadwalkp')->middleware('auth');
 Route::post('jadwal-sidang-kp-simpan/{all_one}/{id}/{idkp?}','JadwalController@simpan_jadwal_sidang_kp')->middleware('auth');
 
+
+
 //Acc Sidang
 Route::post('simpan-form-evaluasi-skripsi','Dosen\PengajuanBimbinganController@simpan_form_evaluasi_skipsi')->middleware('auth');
 Route::post('pengajuan-penguji/{id}/{mahasiswa_id}','Dosen\PengajuanBimbinganController@simpan_data_penguji')->middleware('auth');
@@ -336,9 +342,13 @@ Route::get('pengajuan-acc-dosen','Dosen\PengajuanBimbinganController@pengajuan_a
 
 Route::get('add_pendidikan','HomeController@add_pendidikan')->middleware('auth');
 Route::get('kolom-topik/{id}','HomeController@kolom_topik')->middleware('auth');
+Route::get('acc-sidang/{idpengajuan?}/{iddosen}','Admin\PengajuanController@acc_sidang')->middleware('auth');
 
 Route::get('rekap-penguji/{bulan?}/{tahun?}','DosenController@rekap_penguji')->middleware('auth');
 Route::get('rekap-pembimbing/{bulan?}/{tahun?}','DosenController@rekap_pembimbing')->middleware('auth');
+Route::get('rekap-penguji-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_penguji_staf')->middleware('auth');
+Route::get('rekap-pembimbing-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_pembimbing_staf')->middleware('auth');
+
 
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
@@ -346,7 +356,7 @@ Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
     
     $file=$folder.'/'.$filename;
     //return Image::make(storage_path($file))->response();
-    return response()->file(storage_path('app').'/'.$file);
+    return response()->file(storage_path('app').'/public/'.$file);
 });
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
@@ -358,3 +368,6 @@ Route::get('logout_sso','HomeController@logout');
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::post('regis-dosen-staf','HomeController@regis_dosen_staf');
+Route::get('refresh-csrf', function(){
+    return csrf_token();
+});

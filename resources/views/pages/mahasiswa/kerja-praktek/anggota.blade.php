@@ -2,12 +2,13 @@
     <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             @if ($ketua==1)
-                <div class="btn-group pull-right">
-                    <a href="javascript:editkelompok({{$idgrup}})" id="edit-kelompok" class="btn sbold green"> Edit
-                        <i class="fa fa-edit"></i>
-                    </a>                
-                </div>
-            
+                @if ($det->status_kp!=10)
+                    <div class="btn-group pull-right">
+                        <a href="javascript:editkelompok({{$idgrup}})" id="edit-kelompok" class="btn sbold green"> Edit
+                            <i class="fa fa-edit"></i>
+                        </a>                
+                    </div>
+                @endif
                 <div class="btn-group pull-right">
                     <a href="javascript:simpankelompok({{$idgrup}})" id="save-kelompok" class="btn sbold blue" style="display:none"> Simpan
                         <i class="fa fa-save"></i>

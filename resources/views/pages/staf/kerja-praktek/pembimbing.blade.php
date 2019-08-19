@@ -1,7 +1,7 @@
 <div class="row" style="padding:0px 20px;">
     <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
-            @if ($ketua==1)
+            {{-- @if ($ketua==1) --}}
                 <div class="btn-group pull-right">
                     <a href="javascript:editpembimbing({{$idgrup}})" id="edit-pembimbing" class="btn sbold green"> Edit
                         <i class="fa fa-edit"></i>
@@ -13,7 +13,7 @@
                         <i class="fa fa-save"></i>
                     </a>                
                 </div>
-            @endif
+            {{-- @endif --}}
         </div>  
 </div>
 <div id="data-pembimbing">    
