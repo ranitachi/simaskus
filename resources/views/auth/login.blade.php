@@ -56,7 +56,7 @@
                     <label class="control-label visible-ie8 visible-ie9">Username</label>
                     <div class="input-icon">
                         <i class="fa fa-user"></i>
-                        <input id="email" type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus style="color:darkblue">
+                        <input id="email" type="text" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus style="color:darkblue">
 
                             @if ($errors->has('email'))
                                 <span class="help-block">
