@@ -14,6 +14,7 @@ use App\Model\Notifikasi;
 use App\Model\Jadwal;
 use App\Model\JadwalSidangKP;
 use App\Model\PivotBimbingan;
+use App\Model\TahunAjaran;
 use Auth;
 class DosenController extends Controller
 {
@@ -132,18 +133,15 @@ class DosenController extends Controller
                 ->with('tahun',$thn)
                 ->with('bulan',$bln);
     }
-    public function rekap_pembimbing($bulan=null,$tahun=null)
+    public function rekap_pembimbing($tahunajaran=null)
     {
-        if($bulan==null)
-            $bln=date('n');
-        else    
-            $bln=$bulan;
-
-        
-        if($tahun==null)
-            $thn=date('Y');
-        else    
-            $thn=$tahun;
+        $ta=TahunAjaran::orderBy('id','desc')->get();
+        if($tahunajaran==null)
+        {
+            $thnajaran=$ta[0]->id;
+        }
+        else
+            $thnajaran=$tahunajaran;
 
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $iduser=$user->id_user;
@@ -165,6 +163,7 @@ class DosenController extends Controller
                         ->join('tahun_ajaran','tahun_ajaran.id','=','pengajuan.tahunajaran_id')
                         ->join('mahasiswa','mahasiswa.id','=','pengajuan.mahasiswa_id')
                         ->join('progam_studis','progam_studis.id','=','mahasiswa.program_studi_id')
+                        ->where('tahun_ajaran.id',$thnajaran)
                         ->where('dosen_id',$iduser)->get();
         $jlh=array();
         foreach($jlhpembimbing as $k=>$v)
@@ -173,10 +172,10 @@ class DosenController extends Controller
         }
         // return $jlh;
         return view('pages.dosen.rekap.pembimbing')
-                ->with('tahun',$thn)
+                ->with('tahunajaran',$ta)
+                ->with('thnajaran',$thnajaran)
                 ->with('jlh',$jlh)
-                ->with('data',$jlhpembimbing)
-                ->with('bulan',$bln);
+                ->with('data',$jlhpembimbing);
     }
     public function rekap_penguji_staf($iddosesn=-1,$bulan=null,$tahun=null)
     {

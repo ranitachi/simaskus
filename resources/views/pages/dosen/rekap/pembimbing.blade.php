@@ -27,23 +27,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="tools pull-right"> 
-                                <select class="bs-select has-success" data-placeholder="Bulan" id="bulan" name="bulan" onchange="getdata()">
-                                    @for($x=1;$x<=12;$x++)
-                                        @if ($bulan==$x)
-                                            <option value="{{$x}}" selected="selected">{{getBulan($x)}}</option>
+                                Tahun Ajaran
+                                <select class="bs-select has-success" data-placeholder="Tahun Ajaran" id="tahunajaran" name="tahunajaran" onchange="getdata()">
+                                    @foreach ($tahunajaran as $item)
+                                        @if ($thnajaran==$item->id)
+                                            <option value="{{$thnajaran}}" selected="selected">{{$item->tahun_ajaran}} {{$item->jenis}}</option>
                                         @else
-                                            <option value="{{$x}}">{{getBulan($x)}}</option>
+                                            <option value="{{$item->id}}">{{$item->tahun_ajaran}} {{$item->jenis}}</option>
                                         @endif
-                                    @endfor
-                                </select>
-                                <select class="bs-select has-success" data-placeholder="Tahun" id="tahun" name="tahun" onchange="getdata()">
-                                    @for($x=date('Y');$x>=(date('Y')-5);$x--)
-                                        @if ($tahun==$x)
-                                            <option value="{{$x}}" selected="selected">{{($x)}}</option>
-                                        @else
-                                            <option value="{{$x}}">{{($x)}}</option>
-                                        @endif
-                                    @endfor
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -132,9 +124,8 @@
 
     function getdata()
     {
-        var thn=$('#tahun').val();
-        var bln=$('#bulan').val();
-        location.href='{{url("/")}}/rekap-pembimbing/'+bln+'/'+thn;
+        var bln=$('#tahunajaran').val();
+        location.href='{{url("/")}}/rekap-pembimbing/'+bln;
     }
 </script>
 <style>
