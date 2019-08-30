@@ -16,11 +16,9 @@
                 <tr>
                     <th>No</th>
                     <th> # </th>
-                    <th> NPM </th>
-                    <th> Nama </th>
+                    <th> NPM <br>Nama</th>
                     <th> Email </th>
-                    <th> Departemen </th>
-                    <th> Program Studi </th>
+                    <th> Departemen <br> Program Studi </th>
                     <th> Status Akun</th>
                     {{-- <th> Status Mahasiswa</th> --}}
                     <th> # </th>
@@ -37,17 +35,17 @@
                     <tr class="odd gradeX">
                         <td>{{($no++)}}</td>
                         <td>
-                            @if ($v->foto!='')
-                                <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
+                            @if ($user[3][$v->id]->foto!='')
+                                <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;">
                             @else
                                 <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
                             @endif
                         </td>
-                        <td>{{$v->npm}}</td>
-                        <td>{{$v->nama}}</td>
+                        <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
                         <td>{{$v->email}}</td>
-                        <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
-                        <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
+                        <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
+                            
+                            PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                         <td>
                             {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
 
@@ -74,17 +72,17 @@
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
                     <td>
-                        @if ($v->foto!='')
-                            <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
+                        @if ($user[3][$v->id]->foto!='')
+                            <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;">
                         @else
                             <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
                         @endif
                     </td>
-                    <td>{{$v->npm}}</td>
-                    <td>{{$v->nama}}</td>
+                    <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
                     <td>{{$v->email}}</td>
-                    <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
-                    <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
+                    <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
+                            
+                            PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                     <td>
                             {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
 
