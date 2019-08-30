@@ -345,7 +345,7 @@ Route::get('kolom-topik/{id}','HomeController@kolom_topik')->middleware('auth');
 Route::get('acc-sidang/{idpengajuan?}/{iddosen}','Admin\PengajuanController@acc_sidang')->middleware('auth');
 
 Route::get('rekap-penguji/{bulan?}/{tahun?}','DosenController@rekap_penguji')->middleware('auth');
-Route::get('rekap-pembimbing/{bulan?}/{tahun?}','DosenController@rekap_pembimbing')->middleware('auth');
+Route::get('rekap-pembimbing/{tahunajaran?}','DosenController@rekap_pembimbing')->middleware('auth');
 Route::get('rekap-penguji-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_penguji_staf')->middleware('auth');
 Route::get('rekap-pembimbing-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_pembimbing_staf')->middleware('auth');
 
@@ -356,7 +356,8 @@ Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
     
     $file=$folder.'/'.$filename;
     //return Image::make(storage_path($file))->response();
-    return response()->file(storage_path('app').'/public/'.$file);
+    return storage_path('app').'/public/'.$file;
+    // return response()->file(storage_path('app').'/public/'.$file);
 });
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
