@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th> # </th>
                     <th> NPM </th>
                     <th> Nama </th>
                     <th> Email </th>
@@ -35,6 +36,13 @@
                 @if (Auth::user()->staf_user->departemen_id==$v->departemen_id)
                     <tr class="odd gradeX">
                         <td>{{($no++)}}</td>
+                        <td>
+                            @if ($v->foto)
+                                <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
+                            @else
+                                <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
+                            @endif
+                        </td>
                         <td>{{$v->npm}}</td>
                         <td>{{$v->nama}}</td>
                         <td>{{$v->email}}</td>
@@ -65,6 +73,13 @@
 
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
+                    <td>
+                        @if ($v->foto)
+                            <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
+                        @else
+                            <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
+                        @endif
+                    </td>
                     <td>{{$v->npm}}</td>
                     <td>{{$v->nama}}</td>
                     <td>{{$v->email}}</td>
