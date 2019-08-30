@@ -16,9 +16,9 @@
                 <tr>
                     <th>No</th>
                     <th> # </th>
-                    <th> NPM <br>Nama</th>
+                    <th> NPM /<br>Nama</th>
                     <th> Email </th>
-                    <th> Departemen <br> Program Studi </th>
+                    <th> Departemen /<br> Program Studi </th>
                     <th> Status Akun</th>
                     {{-- <th> Status Mahasiswa</th> --}}
                     <th> # </th>
@@ -36,14 +36,14 @@
                         <td>{{($no++)}}</td>
                         <td>
                             @if ($user[3][$v->id]->foto!='')
-                                <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;">
+                                <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;width:30px;">
                             @else
-                                <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
+                                <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;width:30px;">
                             @endif
                         </td>
                         <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
                         <td>{{$v->email}}</td>
-                        <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
+                        <td>Dept : {{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
                             
                             PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                         <td>
@@ -73,15 +73,15 @@
                     <td>{{(++$i)}}</td>
                     <td>
                         @if ($user[3][$v->id]->foto!='')
-                            <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;">
+                            <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;width:30px;">
                         @else
-                            <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
+                            <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;width:30px;">
                         @endif
                     </td>
                     <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
                     <td>{{$v->email}}</td>
-                    <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
-                            
+                    
+                    <td>Dept : {{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>        
                             PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                     <td>
                             {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
