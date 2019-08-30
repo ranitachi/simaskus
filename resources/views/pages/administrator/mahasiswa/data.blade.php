@@ -37,7 +37,7 @@
                     <tr class="odd gradeX">
                         <td>{{($no++)}}</td>
                         <td>
-                            @if ($v->foto)
+                            @if ($v->foto!='')
                                 <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
                             @else
                                 <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
@@ -74,7 +74,7 @@
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
                     <td>
-                        @if ($v->foto)
+                        @if ($v->foto!='')
                             <img alt="" class="img-circle" src="{{asset('storage/'.$v->foto)}}" style="height:30px;">
                         @else
                             <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;">
@@ -86,8 +86,12 @@
                     <td>{{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}</td>
                     <td>{{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
                     <td>
-                        {!!$v->mahasiswa_user->flag==1 ? '<span class="badge badge-primary badge-roundless"> Sudah Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
-                    </td>
+                            {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+
+                            @if ($user[3][$v->id]->flag==0 )
+                                <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
+                            @endif
+                        </td>
                     <td>
                         <div style="width:100px;">
                             <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
