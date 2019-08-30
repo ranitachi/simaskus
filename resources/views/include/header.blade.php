@@ -67,7 +67,11 @@
                                     @if (Auth::user()->foto!='')
                                         <img alt="" class="img-circle" src="{{asset('storage/'.Auth::user()->foto)}}" />    
                                     @else
-                                        <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}" />
+                                        @if (Auth::user()->kat_user==3)
+                                            <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}">
+                                        @else
+                                            <img alt="" class="img-circle" src="{{asset('img/dosen.png')}}" />
+                                        @endif
                                     @endif
                                     
                                     <span class="username username-hide-on-mobile"> {{Auth::user()->name}} </span>
