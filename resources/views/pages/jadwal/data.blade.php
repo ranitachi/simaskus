@@ -43,13 +43,22 @@
                         <strong>{{$v->judul_eng}}</strong>
                     </td>
                     @php
-                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                        $pem_bimbingan=\App\Model\PivotBimbingan::where('status',1)->where('status_fix',1)->where('mahasiswa_id',$v->mahasiswa_id)->with('dosen')->get();
+                        $p_bimbingan=array();
+                        foreach($pem_bimbingan as $k=>$v)
+                        {
+                            $p_bimbingan[$v->dosen_id]=$v;
+                        }
+                        $no=1;
                     @endphp
                     <td>
                         @foreach ($p_bimbingan as $key=>$item)
                             @if (isset($item->dosen->nama))
-                                <small><u>Pembimbing {{$key+1}}</u></small><br>
+                                <small><u>Pembimbing {{$no}}</u></small><br>
                                 <strong>{{$item->dosen->nama}}<br></strong>
+                                @php
+                                    $no++;
+                                @endphp
                             @endif
                         @endforeach
                     </td>

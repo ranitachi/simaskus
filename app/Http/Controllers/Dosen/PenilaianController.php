@@ -11,6 +11,7 @@ use App\Model\MasterRuangan;
 use App\Model\Pengajuan;
 use App\Model\Users;
 use App\Model\Jadwal;
+use App\Model\JadwalSidangKP;
 use App\Model\Notifikasi;
 use App\Model\PivotBimbingan;
 use App\Model\PivotAccSidang;
@@ -29,7 +30,38 @@ class PenilaianController extends Controller
 {
     public function index()
     {
-        return view('pages.dosen.penilaian.view');
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $iduser=$user->id_user;
+        $dept_id=$katuser=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $katuser=Auth::user()->kat_user;
+            $dept_id=$user->staf->departemen_id;
+            
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $katuser=Auth::user()->kat_user;
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        $jadwal=Jadwal::selectRaw('*,jadwals.id as idjadwal')
+                        ->join('pivot_jadwal','pivot_jadwal.jadwal_id','=','jadwals.id')
+                        ->join('pivot_penguji','pivot_penguji.pivot_jadwal_id','=','pivot_jadwal.id')
+                        ->where('pivot_penguji.penguji_id',$iduser)
+                        ->where('jadwals.departemen_id',$dept_id)->get();
+
+        $jadwalkp=JadwalSidangKP::selectRaw('*,jadwal_sidang_k_p.id as idkp')
+                    ->join('pembimbing_k_p','pembimbing_k_p.grup_id','=','jadwal_sidang_k_p.id_grup')
+                    ->where('pembimbing_k_p.dosen_id',$iduser)
+                    ->where('pembimbing_k_p.departemen_id',$dept_id)->get();
+
+        // return $jadwal;
+        return view('pages.dosen.penilaian.view')
+                ->with('dept_id',$dept_id)
+                ->with('jadwal',$jadwal)
+                ->with('jadwalkp',$jadwalkp)
+                ->with('katuser',$katuser);
     }
 
     public function pengujikp()
@@ -234,7 +266,7 @@ class PenilaianController extends Controller
             $jad[$vj->pj_id]=$vj;
         }
         // dd($jad);
-        $pivot=PivotBimbingan::with('dosen')->get();
+        $pivot=PivotBimbingan::where('status',1)->where('status_fix',1)->with('dosen')->get();
         $piv=$bimb=array();
         foreach($pivot as $k =>$v)
         {

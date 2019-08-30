@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Model\Dosen;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
-
 use App\Model\PivotJadwal;
 use App\Model\PivotPenguji;
 use App\Model\Pengajuan;
 use App\User;
 use App\Model\Notifikasi;
 use App\Model\Jadwal;
+use App\Model\JadwalSidangKP;
+use App\Model\PivotBimbingan;
 use Auth;
 class DosenController extends Controller
 {
@@ -144,9 +145,37 @@ class DosenController extends Controller
         else    
             $thn=$tahun;
 
-        
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $iduser=$user->id_user;
+        $dept_id=$katuser=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $katuser=Auth::user()->kat_user;
+            $dept_id=$user->staf->departemen_id;
+            
+        }
+        elseif(Auth::user()->kat_user==2)
+        {
+            $katuser=Auth::user()->kat_user;
+            $dept_id=$user->dosen->departemen_id;
+        }
+
+        $jlhpembimbing=PivotBimbingan::selectRaw('*,master_jenis_pengajuan.jenis as jenispengajuan')->join('pengajuan','pengajuan.id','=','pivot_bimbingan.judul_id')
+                        ->join('master_jenis_pengajuan','master_jenis_pengajuan.id','=','pengajuan.jenis_id')
+                        ->join('tahun_ajaran','tahun_ajaran.id','=','pengajuan.tahunajaran_id')
+                        ->join('mahasiswa','mahasiswa.id','=','pengajuan.mahasiswa_id')
+                        ->join('progam_studis','progam_studis.id','=','mahasiswa.program_studi_id')
+                        ->where('dosen_id',$iduser)->get();
+        $jlh=array();
+        foreach($jlhpembimbing as $k=>$v)
+        {
+            $jlh[$v->jenjang][]=$v;
+        }
+        // return $jlh;
         return view('pages.dosen.rekap.pembimbing')
                 ->with('tahun',$thn)
+                ->with('jlh',$jlh)
+                ->with('data',$jlhpembimbing)
                 ->with('bulan',$bln);
     }
     public function rekap_penguji_staf($iddosesn=-1,$bulan=null,$tahun=null)
@@ -192,6 +221,7 @@ class DosenController extends Controller
             $thn=$tahun;
 
         
+
         return view('pages.staf.rekap.pembimbing')
                 ->with('tahun',$thn)
                 ->with('bulan',$bln);

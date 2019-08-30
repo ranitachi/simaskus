@@ -32,7 +32,7 @@
                 <div class="details">
                     <div class="number" style="padding-top:10px;">
                         <div class="desc">Sidang Kerja Praktek</div>
-                        <span data-counter="counterup" data-value="4">4</span>
+                        <span data-counter="counterup" data-value="{{$jadwalkp->count()}}">{{$jadwalkp->count()}}</span>
                     </div>
                     <div class="desc"> Jadwal </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="details">
                     <div class="number" style="padding-top:10px;">
                         <div class="desc">Sidang S1, S2, S3</div>
-                        <span data-counter="counterup" data-value="0">0</span>
+                        <span data-counter="counterup" data-value="{{$jadwal->count()}}">{{$jadwal->count()}}</span>
                     </div>
                     <div class="desc"> Jadwal </div>
                 </div>
