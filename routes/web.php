@@ -353,11 +353,10 @@ Route::get('rekap-pembimbing-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
 {
-    
-    $file=$folder.'/'.$filename;
+$file=$folder.'/'.$filename;
     //return Image::make(storage_path($file))->response();
-    //return storage_path('app').'/public/'.$file;
-     return response()->file(storage_path('app').'/public/'.$file);
+    // return storage_path('app').'/public/'.$file;
+    return response()->file(storage_path('app').'/public/'.$file);    
 });
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
