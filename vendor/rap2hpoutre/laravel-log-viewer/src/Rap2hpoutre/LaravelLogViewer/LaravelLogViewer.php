@@ -57,10 +57,20 @@ class LaravelLogViewer
         if (app('files')->exists($folder)) {
             $this->folder = $folder;
         }
-        if ($this->storage_path) {
-            $logsPath = $this->storage_path . '/' . $folder;
-            if (app('files')->exists($logsPath)) {
-                $this->folder = $folder;
+        if(is_array($this->storage_path)) {
+            foreach ($this->storage_path as $value) {
+                $logsPath = $value . '/' . $folder;
+                if (app('files')->exists($logsPath)) {
+                    $this->folder = $folder;
+                    break;
+                }
+            }
+        } else {
+            if ($this->storage_path) {
+                $logsPath = $this->storage_path . '/' . $folder;
+                if (app('files')->exists($logsPath)) {
+                    $this->folder = $folder;
+                }
             }
         }
     }
@@ -140,7 +150,8 @@ class LaravelLogViewer
             $this->file = $log_file[0];
         }
 
-        if (app('files')->size($this->file) > self::MAX_FILE_SIZE) {
+        $max_file_size = function_exists('config') ? config('logviewer.max_file_size', self::MAX_FILE_SIZE) : self::MAX_FILE_SIZE;
+        if (app('files')->size($this->file) > $max_file_size) {
             return null;
         }
 
