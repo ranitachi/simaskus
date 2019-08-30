@@ -59,11 +59,25 @@
                                         <th> Tahun Akademik </th>
                                         <th> Jenis Bimbingan </th>
                                         <th> Nama Mahasiswa </th>
-                                        <th> Tombol Aksi </th>
+                                        {{-- <th> Tombol Aksi </th> --}}
                                     </tr>
                                 </thead>
                                 
                                 <tbody>
+                                    @php
+                                        $no=1;
+                                    @endphp
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <td class="text-center">{{$no}}</td>
+                                            <td class="text-left">{{$item->tahun_ajaran}} {{$item->jenis}}</td>
+                                            <td class="text-left">{{$item->jenispengajuan}}</td>
+                                            <td class="text-left"><b>NPM : {{$item->npm}}</b><br>{{$item->nama}}</td>
+                                        </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -77,7 +91,7 @@
                                     </div>
                                     <div class="details text-center">
                                         <div class="desc" style="padding-top:20px;">Jumlah Bimbingan</div>
-                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S3 : 10x</div>
+                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S1 : <b>{{isset($jlh['S1']) ? count($jlh['S1']) : 0}}x</b></div>
                                     </div>
                                 </a>
                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
@@ -86,7 +100,7 @@
                                     </div>
                                     <div class="details text-center">
                                         <div class="desc" style="padding-top:20px;">Jumlah Bimbingan</div>
-                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S2 : 10x</div>
+                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S2 : <b>{{isset($jlh['S2']) ? count($jlh['S2']) : 0}}x</b></div>
                                     </div>
                                 </a>
                                 <a class="dashboard-stat dashboard-stat-v2 red" href="#">
@@ -95,7 +109,7 @@
                                     </div>
                                     <div class="details text-center">
                                         <div class="desc" style="padding-top:20px;">Jumlah Bimbingan</div>
-                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S1 : 10x</div>
+                                        <div class="number text-center" style="font-size:23px;padding-top:0px;">S3 : <b>{{isset($jlh['S3']) ? count($jlh['S3']) : 0}}x</b></div>
                                     </div>
                                 </a>
                                 
@@ -123,4 +137,11 @@
         location.href='{{url("/")}}/rekap-pembimbing/'+bln+'/'+thn;
     }
 </script>
+<style>
+    .table td,
+    .table th
+    {
+        font-size: 11px !important;
+    }
+</style>
 @endsection

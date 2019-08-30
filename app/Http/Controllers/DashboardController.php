@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Model\Staf;
 use App\Model\IzinDosen;
 use App\Model\Jadwal;
+use App\Model\PivotJadwal;
 use App\Model\KerjaPraktek;
 use App\Model\InformasiKP;
 use App\Model\KelompokKP;
 use App\Model\KalenderAkademik;
 use App\Model\Mahasiswa;
 use App\Model\Dosen;
+use App\Model\EventModel as Event;
 use Carbon\Carbon;
+use Calendar;
 use Auth;
 use Storage;
 class DashboardController extends Controller
@@ -20,6 +23,8 @@ class DashboardController extends Controller
     
     public function index()
     {
+        
+
         $tahun=date('Y-m-d');
         $kalender=$kal_lain=array();
         if(Auth::check())
@@ -80,7 +85,52 @@ class DashboardController extends Controller
                     else
                         $kal_lain[$v->kategori_khusus]=$v;
                 }
-                return view('pages.dashboard.index-dosen')->with('kalender',$kalender)->with('kal_lain',$kal_lain);
+                $events = [];
+        // $data = Event::all();
+                $data=PivotJadwal::selectRaw('*,pivot_jadwal.id as idpivot')
+                            ->join('jadwals','jadwals.id','=','pivot_jadwal.jadwal_id')
+                            ->join('mahasiswa','mahasiswa.id','=','pivot_jadwal.mahasiswa_id')
+                            ->join('progam_studis','progam_studis.id','=','mahasiswa.program_studi_id')
+                            ->join('pengajuan','pivot_jadwal.judul_id','=','pengajuan.id')
+                            ->where('jadwals.departemen_id',$dept_id)->get();
+                // return $data;
+                if($data->count()) {
+                    foreach ($data as $key => $value) {
+                        $events[] = Calendar::event(
+                            $value->jenjang."-".$value->nama,
+                            false,
+                            new \DateTime($value->tanggal.' '.$value->waktu),
+                            new \DateTime($value->tanggal.' '.$value->waktu),
+                            null,
+                            // Add color and link on event
+                            [
+                                'color' => '#f05050',
+                                'tanggal' => $value->tanggal,
+                                'waktu' => $value->waktu,
+                                'id' => $value->idpivot,
+                                'jadwal_id' => $value->jadwal_id,
+                                'jenis_jadwal' => $value->jenis_jadwal,
+                            ]
+                        );
+                    }
+                }
+                $calendar = Calendar::addEvents($events)->setOptions([
+                    'lang'=> 'id',
+                    'height'=> 500,
+                    'buttonText'=> [
+                        'today'=>    'Hari Ini',
+                        'month'=>    'Bulanan',
+                        'week'=>     'Mingguan',
+                        'day'=>      'Harian',
+                    ]
+                ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
+                    'eventRender' => 'function(event, element) {
+                    element.children().last().append(event.description);
+                    }',
+                    'eventClick' => 'function(event, jsEvent, view) {
+                        lihatdetail(event.id)
+                    }']);
+                return view('pages.dashboard.index-dosen',compact('calendar'))->with('kalender',$kalender)->with('kal_lain',$kal_lain);
             }
             // dd(Auth::user());
         }

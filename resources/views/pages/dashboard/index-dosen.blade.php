@@ -166,11 +166,47 @@
             </a>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-title" style="margin:0 0 10px !important"> Jadwal Menguji </h1>
+            {!! $calendar->calendar() !!}
+        </div>
+    </div>
 </div>
 @endsection
 
 @section('footscript')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/lang-all.js"></script>
+{!! $calendar->script() !!}
+
 <script>
-    
+function lihatdetail(id)
+{
+    $('.modal-body').html(id);
+    $('#ajax').modal('show');
+}
 </script>
+
+<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Detail Jadwal Sidang Dosen</h4>
+            </div>
+            <div class="modal-body">
+                <img src="{{asset('assets/global/img/loading-spinner-grey.gif')}}" alt="" class="loading">
+                <span> &nbsp;&nbsp;Loading... </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" data-dismiss="modal" id="ok">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
