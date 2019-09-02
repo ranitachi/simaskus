@@ -36,7 +36,14 @@ class KalenderAkademikController extends Controller
         $dept=MasterDepartemen::all();
         $det=array();
 
-        $kal=KalenderAkademik::where('tahunajaran_id',$idta)->get();
+        $user=Users::where('id',Auth::user()->id)->with('staf')->first();
+        $dept_id=0;
+        if(Auth::user()->kat_user==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+
+        $kal=KalenderAkademik::where('tahunajaran_id',$idta)->where('departemen_id',$dept_id)->get();
         $kalamik=$kalm=array();
         foreach($kal as $k=>$v)
         {   
