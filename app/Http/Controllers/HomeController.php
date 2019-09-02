@@ -8,6 +8,8 @@ use File;
 use App\Model\Dosen;
 use App\Model\Staf;
 use App\Model\Mahasiswa;
+use App\Model\MasterDepartemen;
+use App\Model\ProgamStudi;
 use App\Model\Users;
 use App\User;
 use SSO\SSO;
@@ -126,6 +128,37 @@ class HomeController extends Controller
 
             if($user->role=='mahasiswa')
             {
+                // return $user;
+                $dept_id=$program_id=0;
+                foreach($user as $k=>$v)
+                {
+                    if($k=='study_program')
+                    {
+                        $d=trim(strtok($v,'('));
+                        $dept=MasterDepartemen::where('nama_departemen','like',"%$d%")->first();
+                        
+                        if($dept)
+                            $dept_id=$dept->id;
+                        
+                    }
+
+                    if($k=='educational_program')
+                    {
+                        $d=trim(strtok($v,'('));
+                        if($dept_id!=0)
+                        {
+
+                            $prog=ProgamStudi::where('departemen_id',$dept_id)->where('nama_program_studi','like',"%$d%")->first();
+                            
+                            if($prog)
+                                $program_id=$prog->id;
+                        }
+                        
+                    }
+                    // echo $program_id;
+                    // echo $k.'-'.$v.'<br>';
+                }
+                // return 1;
                 $username=$user->username;
                 $npm=$user->npm;
                 $mahasiswa=Mahasiswa::where('npm',$npm)->first();
@@ -133,8 +166,31 @@ class HomeController extends Controller
                 {
                     $users=User::where('kat_user',3)->where('id_user',$mahasiswa->id)->first();
                     // return $users;
+
+                    if($mahasiswa->departemen_id==0)
+                    {
+                        $mahasiswa->departemen_id=$dept_id;
+
+                        if($mahasiswa->program_studi_id==0)
+                            $mahasiswa->program_studi_id=$program_id;
+
+                        $mahasiswa->save();
+                    }
+
                     Auth::login($users);
-                    return redirect('profil')->with('status','Selamat Datang '.$user->name);
+                    if($mahasiswa->departemen_id==0)
+                    {
+                        return redirect('profil/#tab_1_2')->with('status','Selamat Datang '.$user->name.'. Silahkan Lengkapi Data Anda Pada Informasi Kampus');
+                    }
+                    else
+                    {
+                        if($mahasiswa->program_studi_id==0)
+                        {
+                            return redirect('profil/#tab_1_2')->with('status','Selamat Datang '.$user->name.'. Silahkan Lengkapi Data Anda Pada Informasi Kampus');
+                        }
+                        else
+                            return redirect('profil')->with('status','Selamat Datang '.$user->name);
+                    }
                 }
                 else
                 {
