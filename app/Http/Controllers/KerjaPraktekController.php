@@ -44,7 +44,86 @@ class KerjaPraktekController extends Controller
         else if($level==2)
             return view('pages.staf.kerja-praktek.index');
     }   
+    public function data_grup_kp()
+    {
+        $level=Auth::user()->kat_user;
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
+        $dept_id=0;
+        if($level==3)
+        {
+            $dept_id=$user->mahasiswa->departemen_id;
+        }
+        elseif($level==1)
+        {
+            $dept_id=$user->staf->departemen_id;
+        }
+        elseif($level==2)
+        {
+            $dept_id=$user->dosen->departemen_id;
+        }
+            $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        ->where('status_pengajuan','!=',0)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->orderBy('created_at')
+                        ->get();
+            $peng=array();
+            foreach($pengajuan as $k=>$v)
+            {
+                $peng[$v->mahasiswa_id]=$v;
+            }        
+            $jdwl=JadwalSidangKP::where('departemen_id',$dept_id)->get();
+            $jadwal=array();
+            foreach($jdwl as $kj=>$vj)
+            {
+                $jadwal[$vj->id_grup][]=$vj;
+            }       
+            $pivot=PivotBimbingan::with('mahasiswa')->with('dosen')->get();
+            $piv=array();
+            foreach($pivot as $k =>$v)
+            {
+                $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+            }
 
+            $grup=KelompokKP::where('departemen_id',$dept_id)->with('mahasiswa')->get();
+            $idgrup='-1';
+            $ketua=0;
+            foreach($grup as $k=>$v)
+            {
+                $idgrup=$v->code;
+            }
+            $grupkp=$d_grup=array();
+            foreach($grup as $kg=>$vg)
+            {          
+                $grupkp[$vg->mahasiswa_id][$vg->code]=$vg;
+                $d_grup[$vg->code][]=$vg;
+            }
+
+            $info=InformasiKP::where('departemen_id',$dept_id)->get();
+            $infokp=array();
+            foreach($info as $kg=>$vg)
+            {          
+                $infokp[$vg->grup_id][str_slug($vg->judul)]=$vg;
+            }
+            // dd($infokp);
+            // return $jadwal;
+            $pemb_kp=PembimbingKP::with('dosen')->where('departemen_id',$dept_id)->get();
+            $p_kp=array();
+            foreach($pemb_kp as $k=>$v)
+            {
+                $p_kp[$v->grup_id][]=$v;
+            }
+            return view('pages.staf.kerja-praktek.data-grupkp')
+                    ->with('pengajuan',$peng)
+                    ->with('ketua',$ketua)
+                    ->with('infokp',$infokp)
+                    ->with('d_grup',$d_grup)
+                    ->with('grupkp',$grupkp)
+                    ->with('jadwal',$jadwal)
+                    ->with('pembimbing_kp',$p_kp)
+                    ->with('piv',$piv);
+    }
     public function data()
     {
         $level=Auth::user()->kat_user;
@@ -121,6 +200,7 @@ class KerjaPraktekController extends Controller
         else if($level==1)
         {
             $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        ->where('status_pengajuan',0)
                         ->with('jenispengajuan')
                         ->with('tahunajaran')
                         ->with('mahasiswa')
@@ -142,10 +222,11 @@ class KerjaPraktekController extends Controller
             {
                 $idgrup=$v->code;
             }
-            $grupkp=array();
+            $grupkp=$d_grup=array();
             foreach($grup as $kg=>$vg)
             {          
                 $grupkp[$vg->mahasiswa_id][$vg->code]=$vg;
+                $d_grup[$vg->code][]=$vg->mahasiswa_id;
             }
 
             $info=InformasiKP::where('departemen_id',$dept_id)->get();
@@ -160,6 +241,7 @@ class KerjaPraktekController extends Controller
                     ->with('pengajuan',$pengajuan)
                     ->with('ketua',$ketua)
                     ->with('infokp',$infokp)
+                    ->with('d_grup',$d_grup)
                     ->with('grupkp',$grupkp)
                     ->with('jadwal',$jadwal)
                     ->with('piv',$piv);
@@ -220,7 +302,7 @@ class KerjaPraktekController extends Controller
         $mhs=Mahasiswa::find(Auth::user()->id_user);
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
-        $jenispengajuan=MasterJenisPengajuan::all();
+        $jenispengajuan=MasterJenisPengajuan::where('departemen_id',$mhs->departemen_id)->get();
         if($id!=-1)
             $det=KerjaPraktek::where('id',$id)
                     ->with('jenispengajuan')
@@ -497,9 +579,9 @@ class KerjaPraktekController extends Controller
 
         $kp=KerjaPraktek::where('id',$idkp)->with('mahasiswa')->first();
         $mhs=Users::where('kat_user',3)->where('id_user',$idmhs)->with('mahasiswa')->first();
-        $dosen=Dosen::where('departemen_id',$mhs->mahasiswa->departemen_id)->get();
+        $dosen=Dosen::where('departemen_id',$dept_id)->get();
         $anggota=KerjaPraktek::where([
-            'status_pengajuan'=>1,
+            // 'status_pengajuan'=>1,
             'departemen_id'=>$dept_id
             ])->with('mahasiswa')->get();
         // dd($dosen);
@@ -590,7 +672,7 @@ class KerjaPraktekController extends Controller
                 $pembimbing->grup_id=$code;
                 $pembimbing->status=1;
                 $pembimbing->departemen_id=$dept_id;
-                $pembimbing->keterangan='dosen';
+                $pembimbing->kategori='dosen';
                 $pembimbing->save();
             }
         }   
@@ -607,10 +689,10 @@ class KerjaPraktekController extends Controller
         }
 
         $anggota=KerjaPraktek::where([
-            'status_pengajuan'=>1,
+            // 'status_pengajuan'=>1,
             'departemen_id'=>$dept_id
             ])->with('mahasiswa')->get();
-
+        
         return view('pages.mahasiswa.kerja-praktek.form-anggota')
             ->with(['code'=>$code,'anggota'=>$anggota,'id'=>$id]); 
     }

@@ -64,7 +64,7 @@
                                 <div class="col-md-6">&nbsp;</div>
                                 <div class="col-md-6">
                                     <div class="btn-group pull-right">
-                                        <a href="{{url('data-kp')}}" id="sample_editable_1_new" class="btn sbold green"> Kembali
+                                        <a href="{{ URL::previous() }}" id="sample_editable_1_new" class="btn sbold green"> Kembali
                                             <i class="fa fa-chevron-left"></i>
                                         </a>
                                         @if ($det->status_pengajuan==0)
@@ -188,7 +188,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-actions pull-right">
-                                                <a href="{{url('data-kp')}}" id="sample_editable_1_new" class="btn sbold green"> Kembali
+                                                <a href="{{ URL::previous() }}" id="sample_editable_1_new" class="btn sbold green"> Kembali
                                                     <i class="fa fa-chevron-left"></i>
                                                 </a>
                                                 @if ($det->status_pengajuan==0)

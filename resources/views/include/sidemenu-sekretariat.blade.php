@@ -37,7 +37,7 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{Request::url()=='data-pengajuan'  ? 'active' : ''}}">
+        <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false  ? 'active' : ''}}">
             <a href="{{url('data-pengajuan')}}" class="nav-link ">
                 <span class="title">Pengajuan Bimbingan</span>
             </a>
@@ -60,7 +60,7 @@
         </li> --}}
     </ul>
 </li>
-<li class="nav-item  {{strpos(Request::url(),'data-kp')!==false || strpos(Request::url(),'data-jadwal-kp')!==false ? 'active' : ''}}">
+<li class="nav-item  {{strpos(Request::url(),'data-kp')!==false || strpos(Request::url(),'data-jadwal-kp')!==false || strpos(Request::url(),'data-grup-kp')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
         <span class="title">Kerja Praktek</span>
@@ -70,6 +70,11 @@
         <li class="nav-item  {{strpos(Request::url(),'data-kp')!==false  ? 'active' : ''}}">
             <a href="{{url('data-kp')}}" class="nav-link ">
                 <span class="title">Pengajuan Kerja Praktek</span>
+            </a>
+        </li>
+        <li class="nav-item  {{strpos(Request::url(),'data-grup-kp')!==false  ? 'active' : ''}}">
+            <a href="{{url('data-grup-kp')}}" class="nav-link ">
+                <span class="title">Data Grup Kerja Praktek</span>
             </a>
         </li>
         <li class="nav-item  {{Request::url()=='data-jadwal-kp'  ? 'active' : ''}}">

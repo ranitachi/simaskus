@@ -20,15 +20,20 @@
 <div id="data-kelompok">    
     <form role="form" class="form-horizontal">
         <div class="form-body">
-            @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)                
-                <div class="form-padding form-group form-md-line-input has-success">
-                    <label class="col-md-3 control-label" for="form_control_1">Nama Grup</label>
-                    <div class="col-md-9" style="padding-top:6px;">
-                    
-                        {{$grupkp[0]->nama_kelompok}}
-                    
+            @if (isset($grupkp[0]->nama_kelompok))
+                @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)                
+                    <div class="form-padding form-group form-md-line-input has-success">
+                        <label class="col-md-3 control-label" for="form_control_1">Nama Grup</label>
+                        <div class="col-md-9" style="padding-top:6px;">
+                        
+                            {{$grupkp[0]->nama_kelompok}}
+                        
+                        </div>
                     </div>
-                </div>
+                @endif
+            @else
+                Belum Menentukan Grup. - <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Untuk Menambah Grup" href="{{url('data-kp-grup/'.$det->id.'/'.$det->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs tooltips"><i class="fa fa-plus-circle"></i> Tambah Grup</a> -
+                <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Jika Tidak Memiliki Grup" href="{{url('no-grup/'.$det->id.'/'.$det->mahasiswa_id.'/-1')}}" class="btn btn-primary btn-xs tooltips"><i class="fa fa-hand-pointer-o"></i> Klik Jika Tidak Ada Grup</a>
             @endif
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-3 control-label" for="form_control_1">Ketua Kelompok</label>
@@ -70,6 +75,7 @@
             <input type="hidden" name="url" value="tab_1_1_5">
             <input type="hidden" name="dept_id" value="{{$dept_id}}">
             <div class="form-group form-md-line-input has-success" id="title_1">
+                @if (isset($grupkp[0]->nama_kelompok))
                   @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)
                         <label class="col-md-2 control-label" for="form_control_1">Nama Grup</label>
                         <div class="col-md-5">
@@ -77,6 +83,9 @@
                         </div>
                         <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
                   @endif
+                @else
+                    
+                @endif
                 @foreach ($grupkp as $index=>$item)
                     @if ($item->kategori=='ketua')
                        <label class="col-md-2 control-label" for="form_control_1">Ketua</label>

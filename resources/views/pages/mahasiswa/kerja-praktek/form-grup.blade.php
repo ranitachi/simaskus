@@ -92,7 +92,7 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Ketua Kelompok" id="ketua_kelompok" name="ketua_kelompok">
                                             <option value="-1">Pilih</option>
                                             @foreach ($anggota as $item)
-                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->npm}} - {{$item->mahasiswa->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -128,7 +128,7 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                                             <option value="-1">Pilih</option>
                                             @foreach ($anggota as $item)
-                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->npm}} - {{$item->mahasiswa->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -141,7 +141,7 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Anggota Kelompok" id="anggota_kelompok" name="anggota[]">
                                             <option value="-1">Pilih</option>
                                             @foreach ($anggota as $item)
-                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->npm}} - {{$item->mahasiswa->nama}}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="portlet-body">
-        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_4">
+        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="">
             <thead>
                 <tr>
                     <th>No</th>
@@ -61,6 +61,7 @@
                     {{-- @if ($v->status_pengajuan!=0) --}}
                         
                         <td class="text-left">
+                            
                             @if (count($grupkp)!=0)
                                 @foreach ($grupkp as $item)
                                     @if($item->kategori=='ketua')
@@ -73,8 +74,8 @@
                                     &nbsp;&nbsp;
                                     @if($item->kategori!='ketua')
                                         <a href="javascript:hapusanggota({{$item->id}})" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                                        @endif
                                         <br>
-                                    @endif
                                 @endforeach
 
                                 @if($v->status_kp!=2)
@@ -88,13 +89,15 @@
                                     @endif
                                 @endif
                             @else
-                                <a href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Grup</a><br><br>
+                                <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Untuk Menambah Grup" href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs tooltips"><i class="fa fa-plus-circle"></i> Tambah Grup</a><br><br>
                                 <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Jika Tidak Memiliki Grup" href="{{url('no-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-primary btn-xs tooltips"><i class="fa fa-hand-pointer-o"></i> Tidak Ada Grup</a>
                             @endif
                         </td>
                         <td class="text-left">
                             @if($v->status_pengajuan == 2)
                                 <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Telah Selesai</a>
+                            @elseif($v->status_pengajuan == 0)
+                                <a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Verifikasi Sekretariat</a>
                             @else
                                 <small>Status KP</small><br>
                                 @php
@@ -133,15 +136,38 @@
                     </td>
 
                     <td style="text-center">
+                        <div style="width:100px;">
+                            
+                            <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
+                                        </li>
+                                        @if($v->status_kp!=10)
+                                            <li>
+                                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                            </li>
+                                        @endif
+                                         @if($v->status_kp==0)
+                                            <li>
+                                                <a href="javascript:hapus({{$v->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
                             {{-- @if ($v->status_pengajuan == 1 || $v->status_pengajuan==2) --}}
-                                <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a>
+                                {{-- <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a> --}}
                             {{-- @endif --}}
-                            @if($v->status_kp!=10)
+                            {{-- @if($v->status_kp!=10)
                                 <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                             @endif
                             @if($v->status_kp==0)
                                 <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            @endif
+                            @endif --}}
+                        </div>
                     </td>
                 </tr>
 
