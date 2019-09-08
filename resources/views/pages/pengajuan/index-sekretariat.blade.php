@@ -54,7 +54,7 @@
                         &nbsp;
                     </div>
                     <div class="col-md-6">
-                        <a href="javascript:verifikasisemua()" class="btn btn-primary btn-sm pull-right"><i class="fa fa-check"></i> Verifikasi Semua Pengajuan</a>
+                        <a href="javascript:verifikasisemua()" class="btn btn-primary btn-sm pull-right tooltips" data-style="default" ata-container="body" data-original-title="Verifikasi Semua Pengajuan Bimbingan"><i class="fa fa-check"></i> Verifikasi Semua Pengajuan</a>
                     </div>
                 </div>
             @endif
@@ -70,7 +70,7 @@
                             <th> Judul</th>
                             <th> Pembimbing</th>
                             <th> Status </th>
-                            <th> Tombol Aksi </th>
+                            <th><div style="width:80px;">Tombol Aksi</div></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,7 +99,7 @@
                                 </td>
                                 <td> 
                                     @if ($jns=='pengajuan')
-                                        <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
+                                        <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary tooltips" data-style="default" ata-container="body" data-original-title="Setujui Seluruh Pengajuan Pembimbing"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
                                     @endif
                                     <div style="margin-top:10px;">
                                     @php
@@ -108,7 +108,9 @@
                                     <div class="row">
                                          <div class="col-md-7">&nbsp;</div>
                                          <div class="col-md-5">
-                                            ACC Sidang
+                                           @if ($v->status_pengajuan==1) 
+                                                ACC Sidang
+                                            @endif
                                         </div>
                                     </div>
                                     @foreach ($p_bimbingan as $key=>$item)
@@ -153,7 +155,9 @@
                                                     @if (isset($acc[$v->id][$item->dosen_id]))
                                                         <a href="" class="btn btn-xs btn-info btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Telah ACC Sidang"><i class="fa fa-check"></i></a>    
                                                     @else
-                                                        <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC Sidang"><i class="fa fa-check"></i></a>
+                                                        @if ($v->status_pengajuan==1)
+                                                            <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC   Sidang"><i class="fa fa-check"></i></a>
+                                                        @endif
                                                     @endif
                                                     
                                                 </div>
@@ -193,24 +197,48 @@
                                 @endphp
                                 <td>
                                     
-                                    
-                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i></a>
-                                        @if ($v->status_pengajuan==0)    
-                                            <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
-                                        @endif
-                                    @else
-                                        @if ($st_pbb==1)
-                                            <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="btn btn-success btn-xs tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i></a>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                            
+                                        
                                             @if ($v->status_pengajuan==0)    
-                                                <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a>
+                                                {{-- <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a> --}}
+                                            
+                                                    <li>
+                                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                                    </li>
+                                                
+                                                @endif
+                                                @if ($jns=='pengajuan')
+                                                    <li>
+                                                        <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a>
+                                                    </li>
+                                                @endif
+                                                
+                                        @else
+                                            @if ($st_pbb==1)
+                                            <li>
+                                                <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
+                                            </li>
+                                                @if ($v->status_pengajuan==0)  
+                                                    <li>  
+                                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp;Verifikasi Pengajuan</a>
+                                                    </li>
+                                                @endif
                                             @endif
                                         @endif
-                                    @endif
-                                    @if ($jns=='pengajuan')
-                                        <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-danger btn-xs tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i></a>
-                                    @endif
-                                    <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips btn btn-danger btn-xs" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i></a>
+                                        @if ($jns=='pengajuan')
+                                            <li><a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a></li>
+                                        @endif
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

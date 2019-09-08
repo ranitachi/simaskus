@@ -5,11 +5,11 @@
             @if (Auth::user()->kat_user==1)
                 
             
-            <div class="btn-group pull-left">
+            {{-- <div class="btn-group pull-left">
                 <a href="{{url('data-jadwal-kp-form/-1')}}" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Jadwal Sidang KP
                     <i class="fa fa-calendar"></i>
                 </a>
-            </div>
+            </div> --}}
             @endif
         </div>
         <div class="col-md-6">
@@ -50,7 +50,7 @@
                         @endif
                     @endif
                     <th> Status <br>Pengajuan</th>
-                    <th> # </th>
+                    <th><div style="width:60px;"> #</div></th>
                 </tr>
             </thead>
             
@@ -65,21 +65,29 @@
                         if(Auth::user()->kat_user==1)
                         {
                             if(isset($jadwal[$idgrup]))
-                            continue;
+                                continue;
                         }
                         // break;
                     }
+                    
+                    // if (in_array($v->mahasiswa_id,$d_grup))
+                    //     continue;                            
+                        
                 @endphp
                 <tr class="odd gradeX">
                     <td>{{(++$i)}}</td>
                     <td>{{tgl_indo($v->created_at)}}</td>
                     <td>{{$v->mahasiswa->nama}}<br><span class="font-blue-madison">NPM : {{$v->mahasiswa->npm}}</span></td>
                     
-                    @if ($v->status_pengajuan!=0)  
+                    @if ($v->status_pengajuan!=0) 
+                        
                         <td>
                             @if (isset($grupkp[$v->mahasiswa_id]))
                                 @foreach ($grupkp[$v->mahasiswa_id] as $grup_id=> $grp)
                                     <a class="btn btn-success btn-xs"><i class="fa fa-users"></i> {{$grp->nama_kelompok}}</a>
+                                    @php
+                                        break;
+                                    @endphp
                                 @endforeach
                             @else
                                 <span class="label label-warning label-sm">Belum Memiliki Grup</span>
@@ -133,14 +141,27 @@
                     </td>
 
                     <td style="text-center">
-                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-                            @if (Auth::user()->kat_user!=2)     
-                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            @endif
-                            @if($v->status_kp==0)
-                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            @endif
-                      
+     
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                    </li>
+                                    @if (Auth::user()->kat_user!=2) 
+                                        <li>
+                                            <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                        </li>
+                                    @endif
+                                    @if($v->status_kp==0)
+                                        <li>
+                                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
                     </td>
                 </tr>
 
