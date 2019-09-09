@@ -621,7 +621,7 @@ class JadwalController extends Controller
             $dept_id=$user->dosen->departemen_id;
         }
         // dd( $dept_id);
-        $kelompok_kp=KelompokKP::where('departemen_id',$dept_id)->get();
+        $kelompok_kp=KelompokKP::with('mahasiswa')->where('departemen_id',$dept_id)->get();
         $klp=$mhs_id=array();
         foreach($kelompok_kp as $kkp=>$vkp)
         {
@@ -695,7 +695,7 @@ class JadwalController extends Controller
         // return $klp;
         $waktu=waktu();
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
-        
+
         return view('pages.staf.kerja-praktek.jadwal-sidang.form')
                     ->with('pengajuan',$kpp)
                     ->with('uji',$uji)
