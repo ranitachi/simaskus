@@ -23,7 +23,9 @@
                 <div class="col-md-8" style="padding-top:6px;">
                     <ul style="margin:0px;padding:0px 0px 0px 20px;">
                     @foreach ($grupkp as $item)
-                        <li>{{$item->mahasiswa->nama}}</li>
+                        @if (isset($item->mahasiswa->nama))
+                            <li>{{$item->mahasiswa->nama}}</li>
+                        @endif
                     @endforeach
                     </ul>
                 </div>
@@ -100,7 +102,9 @@
                 <div class="col-md-8" style="padding-top:6px;">
                     <ul style="margin:0px;padding:0px 0px 0px 20px;">
                     @foreach ($grupkp as $item)
-                        <li>{{$item->mahasiswa->nama}}</li>
+                        @if (isset($item->mahasiswa->nama))
+                            <li>{{$item->mahasiswa->nama}}</li>
+                        @endif
                     @endforeach
                     </ul>
                 </div>
