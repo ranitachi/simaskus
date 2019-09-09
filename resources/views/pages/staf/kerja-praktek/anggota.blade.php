@@ -24,11 +24,13 @@
                 <div class="col-md-9" style="padding-top:6px;">
                     
                     @foreach ($grupkp as $item)
-                        
-                        @if ($item->kategori=='ketua')
-                            <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->nama}}
-                                <a href="javascript:hapusanggota({{$item->id}},'tab_1_1_5')" class="font-red-thunderbird">    
-                                <i class="fa fa-trash"></i></a>
+                        @if (isset($item->mahasiswa->nama))
+                            
+                            @if ($item->kategori=='ketua')
+                                <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->nama}}
+                                    <a href="javascript:hapusanggota({{$item->id}},'tab_1_1_5')" class="font-red-thunderbird">    
+                                    <i class="fa fa-trash"></i></a>
+                            @endif
                         @endif
                     @endforeach
                    
@@ -39,11 +41,14 @@
                 <div class="col-md-9" style="padding-top:6px;">
                     
                     @foreach ($grupkp as $item)
-                        @if ($item->kategori=='anggota')
-                            <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->nama}}
-                                 <a href="javascript:hapusanggota({{$item->id}},'tab_1_1_5')" class="font-red-thunderbird">    
-                                <i class="fa fa-trash"></i></a>
-                           
+                        @if (isset($item->mahasiswa->nama))
+                            
+                            @if ($item->kategori=='anggota')
+                                <i class="fa fa-user"></i>&nbsp;{{$item->mahasiswa->nama}}
+                                    <a href="javascript:hapusanggota({{$item->id}},'tab_1_1_5')" class="font-red-thunderbird">    
+                                    <i class="fa fa-trash"></i></a>
+                            
+                            @endif
                         @endif
                     @endforeach
                     
