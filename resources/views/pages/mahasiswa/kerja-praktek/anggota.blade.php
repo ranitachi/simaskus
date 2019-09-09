@@ -120,7 +120,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
+                            @if (isset($mhs->mahasiswa->nama))
                                 <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -130,7 +132,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
+                            @if (isset($mhs->mahasiswa->nama))
                                 <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -140,7 +144,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
-                            <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @if (isset($mhs->mahasiswa->nama))
+                                <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
