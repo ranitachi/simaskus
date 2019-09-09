@@ -74,7 +74,7 @@
                                                 <td>{{($no)}}</td>   
                                                 <td>
                                                     <small>Grup</small><br>
-                                                    <b>{{$i}}</b>
+                                                    <b>{{$klp[$i][0]->nama_kelompok}}</b>
                                                     <br><br>
                                                     <small>Pembimbing</small><br>
                                                     @php
