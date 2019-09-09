@@ -95,9 +95,11 @@
                     </td>
                     <td>
                         <ul>
-                        @foreach ($pembimbing_kp[$i] as $item)
-                            <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
-                        @endforeach
+                        @if (isset($pembimbing_kp[$i]))
+                            @foreach ($pembimbing_kp[$i] as $item)
+                                <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
+                            @endforeach
+                        @endif
                         </ul>
                     </td>
                     @php
