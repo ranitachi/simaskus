@@ -38,7 +38,7 @@
                 <div align="center"><b><u>SURAT KETERANGAN MAHASISWA</u></b><br><i>TO WHOM IT MAY CONCERN</i></div>
                 <p style="text-align:justify;">
                         {{-- Departemen Teknik Sipil--}}{{$departemen->nama_departemen}} Universitas Indonesia, dengan ini menerangkan bahwa mahasiswa tersebut dibawah ini:<br>
-                        <i>Civil Engineering Department, Faculty of Engineering, Universitas Indonesia, hereby certified that:</i>
+                        <i>{{departemeninggris(str_slug($departemen->nama_departemen))}}, Faculty of Engineering, Universitas Indonesia, hereby certified that:</i>
                 </p>
                 <table border="1" align="left" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
                     <tr align='center'>
