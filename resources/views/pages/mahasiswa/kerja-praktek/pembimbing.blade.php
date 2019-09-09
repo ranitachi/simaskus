@@ -71,7 +71,7 @@
                     
                         <label class="col-md-3 control-label" for="form_control_1">Pembimbing </label>
                         <div class="col-md-5">
-                            <select class="bs-select form-control has-success"  data-placeholder="Pilih Pembimbing" id="anggota_1" name="pembimbing[]">
+                            <select class="bs-select form-control has-success"  data-size="10" data-placeholder="Pilih Pembimbing" id="anggota_1" name="pembimbing[]">
                                 <option value="-1">- Pilih -</option>
                                 @foreach ($dosen as $dsn)
                                     @if ($dsn->id==$idx)
@@ -93,7 +93,7 @@
                     
                     <label class="col-md-3 control-label" for="form_control_1">Pembimbing </label>
                     <div class="col-md-5">
-                        <select class="bs-select form-control has-success"  data-placeholder="Pilih Pembimbing" id="anggota_1" name="pembimbing[]">
+                        <select class="bs-select form-control has-success"  data-size="10" data-placeholder="Pilih Pembimbing" id="anggota_1" name="pembimbing[]">
                             <option value="-1">- Pilih -</option>
                             @foreach ($dosen as $dsn)
                                     <option value="{{$dsn->id}}">{{$dsn->nama}}</option>
