@@ -112,9 +112,11 @@
                                     else
                                         echo '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>';
                                 @endphp
-                                @if ($v->publish_date==null)
-                                    <br>
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-info-circle"></i> Sekretariat Belum Mempublish Jadwal Sidang</a>
+                                @if($v->status_kp == 10 )
+                                    @if ($v->publish_date==null)
+                                        <br>
+                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-info-circle"></i> Sekretariat Belum Mempublish Jadwal Sidang</a>
+                                    @endif
                                 @endif
                                 <br>
                                 <br>
