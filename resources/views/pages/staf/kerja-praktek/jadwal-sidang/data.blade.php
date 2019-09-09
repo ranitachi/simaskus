@@ -126,7 +126,9 @@
                                 <a href="#" class="btn btn-info btn-sm">Sudah Telaksana <br>dan Selesai</a><br>
                             @else
                                 <a href="#" class="btn btn-success btn-xs"><i class="fa fa-check"></i>&nbsp;Sudah Di Publish</a><br>
-                                <a href="javascript:konfirmselesaikp({{$pengajuan_kp}})" class="btn btn-info btn-sm tooltips" data-toggle="tooltip" title="Klik Jika Sudah Selesai Sidang"><i class="fa fa-check"></i>&nbsp;Klik Selesai Sidang</a>
+                                @if (Auth::user()->kat_user!=3)
+                                    <a href="javascript:konfirmselesaikp({{$pengajuan_kp}})" class="btn btn-info btn-sm tooltips" data-toggle="tooltip" title="Klik Jika Sudah Selesai Sidang"><i class="fa fa-check"></i>&nbsp;Klik Selesai Sidang</a>
+                                @endif
 
                             @endif
                         </div>
