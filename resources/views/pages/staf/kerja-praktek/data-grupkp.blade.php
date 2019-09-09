@@ -87,7 +87,9 @@
                     <td>
                         <ul>
                         @foreach ($v as $item)
-                            <li>{{ucwords($item->kategori)}}<br>Nama : <b>{{$item->mahasiswa->nama}}</b><br><span class="font-blue-madison">NPM : <b>{{$item->mahasiswa->npm}}</b></span></li>
+                            @if (isset($item->mahasiswa->nama))
+                                <li>{{ucwords($item->kategori)}}<br>Nama : <b>{{$item->mahasiswa->nama}}</b><br><span class="font-blue-madison">NPM : <b>{{$item->mahasiswa->npm}}</b></span></li>
+                            @endif
                         @endforeach
                         </ul>
                     </td>
