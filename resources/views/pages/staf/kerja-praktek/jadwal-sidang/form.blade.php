@@ -92,10 +92,17 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <small>Ketua</small><br>
-                                                    <b>{{$i}}</b><br>
-                                                    <small>Anggota</small><br>
-                                                    <b>{{$i}}</b>
+                                                    @foreach ($klp[$i] as $itm)
+                                                        @if ($itm->kategori=='ketua')
+                                                            <small>Ketua</small><br>
+                                                            <b>{{$itm->mahasiswa->nama}}</b><br>
+                                                        @endif
+                                                        @if ($itm->kategori=='anggota')
+                                                            
+                                                            <small>Anggota</small><br>
+                                                            <b>{{$itm->mahasiswa->nama}}</b>
+                                                        @endif
+                                                    @endforeach
                                                 </td>
                                                 <td>
                                                 <small>Lokasi KP</small><br>
