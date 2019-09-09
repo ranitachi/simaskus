@@ -695,6 +695,7 @@ class JadwalController extends Controller
         // return $klp;
         $waktu=waktu();
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
+        
         return view('pages.staf.kerja-praktek.jadwal-sidang.form')
                     ->with('pengajuan',$kpp)
                     ->with('uji',$uji)
