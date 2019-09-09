@@ -94,7 +94,7 @@
                 <table border="0" width="100%">
                     <tr>
                         <td width="60%">&nbsp;</td>
-                        <td align="left">Ketua Departemen Teknik Sipil,<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</u><br>NIP. 196205281991031009</td>
+                        <td align="left">Ketua {{--Departemen Teknik Sipil--}}{{$departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</u><br>NIP. 196205281991031009</td>
                     </tr>
                 </table>	
             </div>

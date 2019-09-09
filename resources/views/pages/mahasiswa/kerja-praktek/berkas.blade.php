@@ -2,7 +2,7 @@
     <form role="form" class="form-horizontal">
         <div class="form-body">
             <div class="form-padding form-group form-md-line-input has-success">
-                <label class="col-md-6 control-label" for="form_control_1">Surat Keterangan / Penghantar KP</label>
+                <label class="col-md-6 control-label" for="form_control_1">Surat Keterangan / Pengantar KP</label>
                 <div class="col-md-4">
                     <a target="_blank" href="{{url('cetak-berkas/'.$idgrup.'/'.$kat_user.'/'.str_slug('Surat Keterangan / Penghantar KP'))}}"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-print"></i> Print</a>
                 </div>
