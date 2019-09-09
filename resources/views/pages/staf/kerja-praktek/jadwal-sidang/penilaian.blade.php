@@ -36,11 +36,11 @@
             <div id="data">
                 <div class="tabbable-custom nav-justified">
                     <ul class="nav nav-tabs nav-justified">
-                        <li class="active">
+                        {{-- <li class="active">
                             <a href="#tab_1_1_1" data-toggle="tab" aria-expanded="true"> Evaluasi Kerja Praktek </a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="#tab_1_1_2" data-toggle="tab"> Form Penilaian Kerja Praktek </a>
+                            <a href="#tab_1_1_1" data-toggle="tab"> Form Penilaian Kerja Praktek </a>
                         </li>
                         
                     </ul>
@@ -114,7 +114,7 @@
                                                             @endphp
                                                         @endforeach
                                                         <tr>
-                                                            <th colspan="8"><i>B. Diisi Oleh Pihak Departemen Elektro FTUI</i></th>
+                                                            <th colspan="8"><i>B. Diisi Oleh Pihak Departemen FTUI</i></th>
                                                         </tr>
                                                         @php
                                                             $no=1;
