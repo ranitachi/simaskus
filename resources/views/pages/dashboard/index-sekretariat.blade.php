@@ -239,7 +239,7 @@
                 </div>
                 <div class="details text-center">
                     <div class="desc" style="padding-top:20px;">{{$waktupendajwalan}}</div>
-                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktupendajwalan!!} Pendjadwalan</div>
+                    <div class="number text-center" style="font-size:23px;padding-top:0px;">{!!$checkwaktupendajwalan!!} Penjadwalan</div>
                 </div>
             </a>
         </div>
