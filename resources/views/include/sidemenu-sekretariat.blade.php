@@ -37,12 +37,12 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  {{strpos(Request::url(),'data-pengajuan')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{Request::path()=='data-pengajuan'  ? 'active' : ''}}">
             <a href="{{url('data-pengajuan')}}" class="nav-link ">
                 <span class="title">Pengajuan Bimbingan</span>
             </a>
         </li>
-        <li class="nav-item  {{strpos(Request::url(),'data-bimbingan')!==false  ? 'active' : ''}}">
+        <li class="nav-item  {{strpos(Request::url(),'data-bimbingan')!==false || strpos(Request::url(),'data-pengajuan-detail')!==false ? 'active' : ''}}">
             <a href="{{url('data-bimbingan')}}" class="nav-link ">
                 <span class="title">Data Bimbingan</span>
             </a>

@@ -144,11 +144,17 @@
                             <label class="control-label">Nama Departemen</label>
                             <select class="bs-select form-control has-success" data-placeholder="Pilih Departemen" name="departemen" id="departemen">
                                 <option value="-1">-Pilih Departemen-</option>
-                                @foreach ($dept as $i => $v)
-                                    @if ($profil->departemen_id==$v->id)
-                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option>    
-                                    @endif
-                                @endforeach
+                                @if ($profil)    
+                                    @foreach ($dept as $i => $v)
+                                        @if ($profil->departemen_id==$v->id)
+                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option> 
+                                        @endif
+                                    @endforeach
+                                @else
+                                    @foreach ($dept as $i => $v)
+                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option> 
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="form-group">
