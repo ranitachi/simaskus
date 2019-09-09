@@ -142,21 +142,23 @@
                                                     
                                                     <strong>{{$item->dosen->nama}}<br></strong>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    @if($item->status==0)
+                                                @if($item->status==0)
+                                                    <div class="col-md-3">
                                                         <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
                                                     @endif
                                                 
                                                     @if($item->status==0)
                                                         <a href="javascript:hapuspengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger tooltips" data-style="default" data-container="body" data-original-title="Hapus Pengajuan Bimbingan" id=""><i class="fa fa-trash font-white" title=""></i></a>
-                                                    @endif
-                                                </div>
+                                                    </div>
+                                                @endif
                                                 <div class="col-md-1">
                                                     @if (isset($acc[$v->id][$item->dosen_id]))
                                                         <a href="" class="btn btn-xs btn-info btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Telah ACC Sidang"><i class="fa fa-check"></i></a>    
                                                     @else
                                                         @if ($v->status_pengajuan==1)
-                                                            <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC   Sidang"><i class="fa fa-check"></i></a>
+                                                            @if ($item->status_fix==1)
+                                                             <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC   Sidang"><i class="fa fa-check"></i></a>
+                                                            @endif
                                                         @endif
                                                     @endif
                                                     
