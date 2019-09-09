@@ -205,10 +205,10 @@
                                                                     <option value="{{$itemd->id}}">{{$itemd->nama}}</option>    
                                                                 @endif
                                                             @else
-                                                                @if (in_array($item->id,$pem_kp))
-                                                                    <option value="{{$item->id}}" selected="selected">{{$item->nama}}</option>    
+                                                                @if (in_array($itemd->id,$pem_kp))
+                                                                    <option value="{{$itemd->id}}" selected="selected">{{$itemd->nama}}</option>    
                                                                 @else
-                                                                    <option value="{{$item->id}}">{{$item->nama}}</option>    
+                                                                    <option value="{{$itemd->id}}">{{$itemd->nama}}</option>    
                                                                 @endif
                                                             @endif
                                                             
