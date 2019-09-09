@@ -67,32 +67,35 @@
             <input type="hidden" name="dept_id" value="{{$dept_id}}">
             <div class="form-group form-md-line-input has-success" id="title_1">
                 @foreach ($grupkp as $index=>$item)
-                    @if ($item->kategori=='ketua')
-                       <label class="col-md-2 control-label" for="form_control_1">Ketua</label>
-                        <div class="col-md-5">
-                            <select class="bs-select form-control has-success"  data-placeholder="Pilih Ketua Kelompok" id="anggota_1" name="ketua">
-                                <option value="-1">- Pilih -</option>
-                                @foreach ($anggota as $mhs)
-                                    @if ($item->mahasiswa_id==$mhs->mahasiswa_id)
-                                        <option value="{{$mhs->mahasiswa_id}}" selected>{{$mhs->mahasiswa->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
-                    @elseif ($item->kategori=='anggota')
-                       <label class="col-md-2 control-label" for="form_control_1">Anggota</label>
-                        <div class="col-md-5">
-                            <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
-                                <option value="-1">- Pilih -</option>
-                                @foreach ($anggota as $mhs)
-                                    @if ($item->mahasiswa_id==$mhs->mahasiswa_id)
-                                        <option value="{{$mhs->mahasiswa_id}}" selected>{{$mhs->mahasiswa->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
+                    @if (isset($item->mahasiswa->nama))
+                        
+                        @if ($item->kategori=='ketua')
+                        <label class="col-md-2 control-label" for="form_control_1">Ketua</label>
+                            <div class="col-md-5">
+                                <select class="bs-select form-control has-success"  data-placeholder="Pilih Ketua Kelompok" id="anggota_1" name="ketua">
+                                    <option value="-1">- Pilih -</option>
+                                    @foreach ($anggota as $mhs)
+                                        @if ($item->mahasiswa_id==$mhs->mahasiswa_id)
+                                            <option value="{{$mhs->mahasiswa_id}}" selected>{{$mhs->mahasiswa->nama}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
+                        @elseif ($item->kategori=='anggota')
+                        <label class="col-md-2 control-label" for="form_control_1">Anggota</label>
+                            <div class="col-md-5">
+                                <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
+                                    <option value="-1">- Pilih -</option>
+                                    @foreach ($anggota as $mhs)
+                                        @if ($item->mahasiswa_id==$mhs->mahasiswa_id)
+                                            <option value="{{$mhs->mahasiswa_id}}" selected>{{$mhs->mahasiswa->nama}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            <hr class="col-md-12" style="border-bottom:1px solid #ddd;">
+                        @endif
                     @endif
                 @endforeach
                 <label class="col-md-2 control-label" for="form_control_1">Anggota</label>
@@ -100,7 +103,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
+                            @if (isset($mhs->mahasiswa->nama))     
                                 <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -110,7 +115,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
+                            @if (isset($mhs->mahasiswa->nama))
                                 <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -120,7 +127,9 @@
                     <select class="bs-select form-control has-success"  data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $mhs)
-                            <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @if (isset($mhs->mahasiswa->nama))
+                                <option value="{{$mhs->mahasiswa_id}}">{{$mhs->mahasiswa->nama}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
