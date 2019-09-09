@@ -135,7 +135,7 @@
                     </td>
                     @if (Auth::user()->kat_user==1)
                         <td class="text-center">
-                            <a class="btn btn-success btn-xs" target="_blank" href="{{url('evaluasi-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Evaluasi</a>
+                            {{-- <a class="btn btn-success btn-xs" target="_blank" href="{{url('evaluasi-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Evaluasi</a> --}}
                             <a class="btn btn-danger btn-xs" target="_blank" href="{{url('penilaian-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Penilaian</a>
                             <a class="btn btn-info btn-xs" target="_blank" href="{{url('berita-acara-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Berita Acara KP</a>
                         </td>
