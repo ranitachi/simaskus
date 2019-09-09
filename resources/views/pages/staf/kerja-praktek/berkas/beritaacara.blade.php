@@ -63,7 +63,7 @@
                         </table>
                     </div>
                     <div>&nbsp;</div>
-                    Telah berlangsung Sidang Ujian Skripsi dengan peserta :
+                    Telah berlangsung Sidang Kerja Praktek dengan peserta :
                 </div>
                 
                 <div align="justify">
