@@ -80,14 +80,16 @@
                                                     @php
                                                         $pem_kp=array();
                                                     @endphp
-                                                    @foreach ($pemb[$i] as $iddos=>$item)
-                                                        @if (isset($item->dosen->nama))
-                                                            <i class="fa fa-user"></i> <b>{{$item->dosen->nama}}</b><br>
-                                                            @php
-                                                                $pem_kp[]=$iddos;
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
+                                                    @if (isset($pemb[$i]))    
+                                                        @foreach ($pemb[$i] as $iddos=>$item)
+                                                            @if (isset($item->dosen->nama))
+                                                                <i class="fa fa-user"></i> <b>{{$item->dosen->nama}}</b><br>
+                                                                @php
+                                                                    $pem_kp[]=$iddos;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <small>Ketua</small><br>
