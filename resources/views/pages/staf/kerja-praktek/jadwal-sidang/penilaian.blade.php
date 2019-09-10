@@ -36,11 +36,11 @@
             <div id="data">
                 <div class="tabbable-custom nav-justified">
                     <ul class="nav nav-tabs nav-justified">
-                        {{-- <li class="active">
-                            <a href="#tab_1_1_1" data-toggle="tab" aria-expanded="true"> Evaluasi Kerja Praktek </a>
-                        </li> --}}
-                        <li>
+                        <li class="active">
                             <a href="#tab_1_1_1" data-toggle="tab"> Form Penilaian Kerja Praktek </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_1_1_1" data-toggle="tab" aria-expanded="true"> &nbsp;</a>
                         </li>
                         
                     </ul>

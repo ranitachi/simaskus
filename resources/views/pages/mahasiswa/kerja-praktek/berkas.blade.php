@@ -41,6 +41,11 @@
                             <a target="_blank" href="javascript:uploadbalasan({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
                         @endif
                         <a target="_blank" href="{{asset('../storage/app/'.$det->balasan_surat)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                        @if ($det->status_pengajuan==2)
+                            <a target="" href="#"  class="btn btn-sm btn-info btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Sidang</a>
+                        @elseif ($det->status_pengajuan==1)
+                            <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+                        @endif
                     @else
                         <a target="" href="javascript:uploadbalasan({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
                     @endif
@@ -56,6 +61,11 @@
                             <a target="_blank" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload Ulang</a> &nbsp;&nbsp;
                             @endif
                             <a target="_blank" href="{{asset('../storage/app/'.$det->surat_pernyataan_selesai)}}" class="btn btn-sm btn-primary btn-circle"><i class="fa fa-file-pdf-o"></i> Lihat File</a> 
+                            @if ($det->status_pengajuan==2)
+                                <a target="" href="#"  class="btn btn-sm btn-info btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Sidang</a>
+                            @elseif ($det->status_pengajuan==1)
+                                <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+                            @endif
                         @else
                             <a target="" href="javascript:uploadselesai({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-upload"></i> Upload</a>
                         @endif

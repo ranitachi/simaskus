@@ -369,7 +369,7 @@ class KerjaPraktekController extends Controller
                     $ketua=0;
             }
 
-            if(Auth::user()->kat_user==1)
+            if(Auth::user()->kat_user!=3)
                 $idgrup=$v->code;
         }
         // return $idgrup;
@@ -460,6 +460,7 @@ class KerjaPraktekController extends Controller
         }        
         else if($level==2)
         {
+            // return $det;
             return view('pages.staf.kerja-praktek.detail')
                 ->with('judul',$judul)
                 ->with('ketua',$ketua)

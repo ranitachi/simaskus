@@ -72,9 +72,11 @@
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         @else
-                                            <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
-                                                <i class="fa fa-trash"></i>
-                                            </a>
+                                            @if ($det->publish_date==null)
+                                                <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            @endif
                                         @endif
                                         
                                     </div>
@@ -196,9 +198,11 @@
                                                         <i class="fa fa-check"></i>
                                                     </a>
                                                 @else
-                                                    <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
+                                                    @if ($det->publish_date==null)
+                                                        <a href="javascript:hapusverifikasi({{$id}})" id="sample_editable_1_new" class="btn sbold red" style="margin-left:10px;"> Hapus Verifikasi
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </div>

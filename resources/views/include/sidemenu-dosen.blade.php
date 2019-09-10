@@ -75,14 +75,14 @@
         </li>
     </ul>
 </li> --}}
-<li class="nav-item  ">
+<li class="nav-item  {{strpos(Request::url(),'data-kp')!==false ? 'active' : (Request::path()=='data-jadwal-kp' ? 'active' : '')}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-list-ul font-white"></i>
         <span class="title">Kerja Praktek</span>
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
-        <li class="nav-item  ">
+        <li class="nav-item  {{Request::path()=='data-kp' ? 'active' : ''}}">
             <a href="{{url('data-kp')}}" class="nav-link ">
                 <span class="title">Data Kerja Praktek</span>
             </a>
@@ -92,11 +92,11 @@
                 <span class="title">Tambah KP Baru</span>
             </a>
         </li> --}}
-        {{-- <li class="nav-item  ">
+        <li class="nav-item {{Request::path()=='data-jadwal-kp' ? 'active' : ''}}">
             <a href="{{url('data-jadwal-kp')}}" class="nav-link ">
                 <span class="title">Jadwal Sidang Kerja Praktek</span>
             </a>
-        </li> --}}
+        </li>
     </ul>
 </li>
 <li class="heading">

@@ -156,8 +156,13 @@
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
                                         <li>
-                                            <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
                                         </li>
+                                        @if ($v->status_kp!=10)
+                                            <li>
+                                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                            </li>
+                                        @endif
                                         @if (Auth::user()->kat_user!=2) 
                                             <li>
                                                 <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
