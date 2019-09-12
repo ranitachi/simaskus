@@ -199,6 +199,17 @@
                                 </div>
             </form>
         </div>
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-2">
+                <a class="btn btn-primary btn-xl" style="width:100%" href="{{asset('guide-book-dosen.pdf')}}" target="_blank"><i class="fa fa-book"></i>&nbsp;&nbsp;Buku Panduan Dosen</a>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-danger btn-xl" style="width:100%" href="{{asset('guide-book-mahasiswa.pdf')}}" target="_blank"><i class="fa fa-book"></i>&nbsp;&nbsp;Buku Panduan Mahasiswa</a>
+            </div>
+            <div class="col-md-4">&nbsp;</div>
+            
+        </div>
         <!-- BEGIN : LOGIN PAGE 5-2 -->
         
         <!-- END : LOGIN PAGE 5-2 -->
