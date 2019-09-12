@@ -33,7 +33,7 @@
                     @if ($status_pengajuan!=0)
                         <th> Bimbingan</th>
                     @endif
-                    <th> # </th>
+                    <th> <div style="width:60px;">#</div> </th>
                 </tr>
             </thead>
             
@@ -96,13 +96,30 @@
                         </td>
                     @endif
                     <td>
-                        <div style="width:110px;">
-                            @if ($v->status_pengajuan == 1)
-                                <a href="{{url('pengajuan-detail/'.$v->id)}}" class="btn btn-xs btn-success" title="Lihat Detail"><i class="fa fa-eye"></i></a>
-                            @endif
-                            <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary" title=""><i class="fa fa-edit"></i></a>
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger" title="Hapus"><i class="fa fa-trash"></i></a>
-                        </div>
+                        
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            @if ($v->status_pengajuan == 1)
+                                                <a href="{{url('pengajuan-detail/'.$v->id)}}" title="Lihat Detail"><i class="fa fa-eye"></i> Detail Pengajuan</a>
+                                            @endif
+                                        </li>
+                                        <li>
+                                            <a href="{{url('pengajuan/'.$v->id)}}" title=""><i class="fa fa-edit"></i> Edit</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:hapus({{$v->id}})" title="Hapus"><i class="fa fa-trash"></i> Hapus</a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            
+                            
+                            
+                        
                     </td>
                 </tr>
 

@@ -209,7 +209,10 @@
                                         
                                             @if ($v->status_pengajuan==0)    
                                                 {{-- <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a> --}}
-                                            
+                                                    <li>
+                                                        <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp; Verifikasi Pengajuan</a>
+                                                    </li>
+                                            @endif
                                                     <li>
                                                         <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
                                                     </li>
@@ -217,11 +220,11 @@
                                                         <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
                                                     </li>
                                                 
-                                                @endif
+                                                {{-- @endif --}}
                                                 @if ($jns=='pengajuan')
-                                                    <li>
+                                                    {{-- <li>
                                                         <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a>
-                                                    </li>
+                                                    </li> --}}
                                                 @endif
                                                 
                                         @else

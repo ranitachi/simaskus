@@ -46,7 +46,12 @@
                         @elseif ($det->status_kp==2)
                             <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Selesai</a>
                         @elseif ($det->status_kp==10)
-                            <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+
+                            @if ($det->status_pengajuan==2)
+                                <a target="" href="#"  class="btn btn-sm btn-info btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Selesai Sidang</a>
+                            @elseif ($det->status_pengajuan==1)
+                                <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+                            @endif
                         @else
                             <a target="" href="javascript:mulaikp({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-check"></i> Mulai KP</a> &nbsp;&nbsp;
                         @endif
@@ -67,7 +72,11 @@
                         @if ($det->status_kp==2)
                             <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Selesai</a>
                         @elseif ($det->status_kp==10)
-                            <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+                            @if ($det->status_pengajuan==2)
+                                <a target="" href="#"  class="btn btn-sm btn-info btn-circle"><i class="fa fa-check-circle"></i> KP Sudah Selesai Sidang</a>
+                            @elseif ($det->status_pengajuan==1)
+                                <a target="" href="#"  class="btn btn-sm btn-primary btn-circle"><i class="fa fa-check-circle"></i> Sudah Dijadwalkan Sidang</a>
+                            @endif
                         @else
                             <a target="" href="javascript:selesaikp({{$idgrup}})"  class="btn btn-sm btn-success btn-circle"><i class="fa fa-check"></i> Verifikasi Selesai KP</a> &nbsp;&nbsp;
                         @endif

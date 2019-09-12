@@ -112,7 +112,7 @@ class PengajuanSkripsiController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         }
-        $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
+        $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->limit(1)->get();
         $mhs=Mahasiswa::find(Auth::user()->id_user);
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
@@ -237,13 +237,16 @@ class PengajuanSkripsiController extends Controller
                 $pivot->save();
 
                 $u_id=Users::where('id_user',$v)->where('kat_user',2)->first();
-                $notif=new Notifikasi;
-                $notif->title="Pengajuan Dosen Pembimbing";
-                $notif->from=Auth::user()->id;
-                $notif->to=$u_id->id;
-                $notif->flag_active=1;
-                $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan)."<br><a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
-                $notif->save();
+                if($u_id)
+                {
+                    $notif=new Notifikasi;
+                    $notif->title="Pengajuan Dosen Pembimbing";
+                    $notif->from=Auth::user()->id;
+                    $notif->to=$u_id->id;
+                    $notif->flag_active=1;
+                    $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan)."<br><a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
+                    $notif->save();
+                }
 
                 $ds[$k]=$v;
             }

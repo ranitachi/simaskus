@@ -19,6 +19,20 @@
 <div id="data-kelompok">    
     <form role="form" class="form-horizontal">
         <div class="form-body">
+            @if (isset($grupkp[0]->nama_kelompok))
+                @if (strpos($grupkp[0]->nama_kelompok,'no-grup')!==true)                
+                    <div class="form-padding form-group form-md-line-input has-success">
+                        <label class="col-md-3 control-label" for="form_control_1">Nama Grup</label>
+                        <div class="col-md-9" style="padding-top:6px;">
+                        
+                            {{$grupkp[0]->nama_kelompok}}
+                        
+                        </div>
+                    </div>
+                @endif
+            @else
+                Belum Menentukan Grup.
+            @endif
             <div class="form-padding form-group form-md-line-input has-success">
                 <label class="col-md-3 control-label" for="form_control_1">Ketua Kelompok</label>
                 <div class="col-md-9" style="padding-top:6px;">

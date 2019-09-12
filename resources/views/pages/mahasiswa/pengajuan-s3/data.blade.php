@@ -23,8 +23,8 @@
                     <th> Judul </th>
                     <th> Pembimbing </th>
                     <th> Status </th>
-                    <th> Bimbingan </th>
-                    <th> # </th>
+                    {{-- <th> Bimbingan </th> --}}
+                    <th> <div style="width:70px;">#</div> </th>
                 </tr>
             </thead>
             
@@ -65,20 +65,35 @@
                     <td>
                         {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm">Di Setujui</span>' : '<span class="label label-danger label-sm">Tidak Disetujui</span>')!!}
                     </td>
-                    <td class="text-center">
+                    {{-- <td class="text-center"> --}}
                             {{-- @if ($st_pbb==1) --}}
-                                <a href="{{url('pengajuan-detail-disertasi/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Input Bimbingan"><i class="fa fa-eye"></i></a>
+                                {{-- <a href="{{url('pengajuan-detail-disertasi/'.$v->id.'#tab_5_2')}}" class="btn btn-xs btn-primary" title="Input Bimbingan"><i class="fa fa-eye"></i></a> --}}
                             {{-- @endif --}}
                         
-                    </td>
+                    {{-- </td> --}}
                     <td>
-                        <div style="width:110px;">
+                        <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="{{url('pengajuan-detail-disertasi/'.$v->id)}}" title="Lihat Detail"><i class="fa fa-eye"></i> Detail</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{url('pengajuan-detail-disertasi/'.$v->id.'#tab_5_2')}}" title="Input Bimbingan"><i class="fa fa-eye"></i> Data Bimbingan</a>
+                                            {{-- <a href="javascript:hapus({{$v->id}})" title="Hapus"><i class="fa fa-trash"></i> Hapus</a> --}}
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                        
                             
-                                <a href="{{url('pengajuan-detail-disertasi/'.$v->id)}}" class="btn btn-xs btn-success" title="Lihat Detail"><i class="fa fa-eye"></i></a>
+                                
                             
                             {{-- <a href="{{url('pengajuan/'.$v->id)}}" class="btn btn-xs btn-primary" title=""><i class="fa fa-edit"></i></a> --}}
-                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger" title="Hapus"><i class="fa fa-trash"></i></a>
-                        </div>
+                            
+                        
                     </td>
                 </tr>
 

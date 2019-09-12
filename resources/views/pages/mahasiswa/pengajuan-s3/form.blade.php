@@ -97,12 +97,12 @@
                                                     @if ($mahasiswa->programstudi->jenjang==$v->keterangan)
                                                         @if ($id!=-1)
                                                             @if ($det->jenis_id==$v->id)
-                                                                <option value="{{$v->id}}" selected="selected">{{$v->judul}}</option>    
+                                                                <option value="{{$v->id}}" selected="selected">{{$v->urutan}} - {{$v->judul}}</option>    
                                                             @else
-                                                                <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                                                <option value="{{$v->id}}">{{$v->urutan}} - {{$v->jenis}}</option>
                                                             @endif
                                                         @else
-                                                            <option value="{{$v->id}}">{{$v->jenis}}</option>
+                                                            <option value="{{$v->id}}">{{$v->urutan}} - {{$v->jenis}}</option>
                                                         @endif
                                                     @endif
                                                 @endif

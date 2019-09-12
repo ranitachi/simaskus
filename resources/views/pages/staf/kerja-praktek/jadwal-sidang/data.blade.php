@@ -30,7 +30,7 @@
                     <th> Hari/Tanggal/<br>Ruangan Sidang </th>
                     {{-- <th> Penguji </th> --}}
                     <th> Status Sidang </th>
-                    @if (Auth::user()->kat_user==1)
+                    @if (Auth::user()->kat_user!=3)
                         <th class="text-center">Berkas</th>
                         <th class="text-center">Aksi</th>
                     @endif
@@ -80,7 +80,7 @@
                         @endif
                     </td>
                     <td style="width:200px;">
-                        @if (Auth::user()->kat_user==1)
+                        @if (Auth::user()->kat_user!=3)
                             <div class="row">
                                 <div class="col-sm-4">Hari</div>
                                 <div class="col-sm-8">: {{$v[0]->hari}}</div>
@@ -133,7 +133,7 @@
                             @endif
                         </div>
                     </td>
-                    @if (Auth::user()->kat_user==1)
+                    @if (Auth::user()->kat_user!=3)
                         <td class="text-center">
                             {{-- <a class="btn btn-success btn-xs" target="_blank" href="{{url('evaluasi-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Evaluasi</a> --}}
                             <a class="btn btn-danger btn-xs" target="_blank" href="{{url('penilaian-kp/'.$v[0]->id.'__'.$v[0]->id_grup)}}"><i class="fa fa-file"></i> Form Penilaian</a>
