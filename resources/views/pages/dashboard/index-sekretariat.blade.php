@@ -28,7 +28,7 @@
             }
         @endphp
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+            <a class="dashboard-stat dashboard-stat-v2 blue" href="{{url('mahasiswa-admin')}}">
                 <div class="visual">
                     <i class="fa fa-comments"></i>
                 </div>
@@ -47,12 +47,12 @@
                         @endphp
                         <span data-counter="counterup" data-value="{{$mhs->count()}}">{{$mhs->count()}} Orang</span>
                     </div>
-                    <div class="desc"> Jumlah Mahasiswa Aktif </div>
+                    <div class="desc"> Jumlah Mahasiswa </div>
                 </div>
             </a>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+            <a class="dashboard-stat dashboard-stat-v2 red" href="{{url('dosen-admin')}}">
                 <div class="visual">
                     <i class="fa fa-bar-chart-o"></i>
                 </div>
@@ -73,7 +73,7 @@
             </a>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+            <a class="dashboard-stat dashboard-stat-v2 green" href="{{url('programstudi-admin')}}">
                 <div class="visual">
                     <i class="fa fa-shopping-cart"></i>
                 </div>
@@ -100,6 +100,7 @@
                             ->where('jadwals.departemen_id',$dept_id)
                             ->where('pivot_jadwal.status',0)
                             ->where('pivot_jadwal.ruangan_id','!=',0)
+                            ->whereMonth('jadwals.tanggal',date('n'))
                             ->orderBy('jadwals.tanggal')
                             ->with('ruangan')
                             ->get();
@@ -300,37 +301,39 @@
                                 }
                             @endphp
                             @foreach ($jadwal as $no=> $item)
-                                {{-- @if ($item->tanggal>=date('Y-m-d')) --}}
-                                    
-                                
-                                <tr>
-                                    <td class="text-center">{{$no+1}}</td>
-                                    <td class="text-center">
-                                    Tanggal : {{tgl_indo($item->tanggal)}}    <br>
-                                    Waktu : {{($item->waktu)}}    <br>
-                                    </td>
-                                    <td>
-                                        NPM : {{$mahasiswa[$item->mahasiswa_id]->npm}}
-                                        <br>
-                                        {{$mahasiswa[$item->mahasiswa_id]->nama}}
-                                        <br>
-                                        {{$mahasiswa[$item->mahasiswa_id]->programstudi->nama_program_studi}}
-                                    </td>
-                                    <td>
-                                        @foreach ($pmb[$item->judul_id] as $dsn_id => $itm)
-                                            <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$dsn_id]->nama}}</div>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @foreach ($pnj[$item->judul_id] as $penguji_id=> $itm)
-                                            <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$penguji_id]->nama}}</div>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{$item->ruangan->nama_ruangan}}
-                                    </td>
-                                </tr>
-                                {{-- @endif --}}
+                                @if ($item->tanggal>=date('Y-m-d'))
+                                    <tr>
+                                        <td class="text-center">{{$no+1}}</td>
+                                        <td class="text-center">
+                                        Tanggal : {{tgl_indo($item->tanggal)}}    <br>
+                                        Waktu : {{($item->waktu)}}    <br>
+                                        </td>
+                                        <td>
+                                            NPM : {{$mahasiswa[$item->mahasiswa_id]->npm}}
+                                            <br>
+                                            {{$mahasiswa[$item->mahasiswa_id]->nama}}
+                                            <br>
+                                            {{$mahasiswa[$item->mahasiswa_id]->programstudi->nama_program_studi}}
+                                        </td>
+                                        <td>
+                                            @foreach ($pmb[$item->judul_id] as $dsn_id => $itm)
+                                                <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$dsn_id]->nama}}</div>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($pnj[$item->judul_id] as $penguji_id=> $itm)
+                                                <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$penguji_id]->nama}}</div>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{$item->ruangan->nama_ruangan}}
+                                        </td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td colspan="6" class="text-center">Belum Ada Jadwal Terdekat</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

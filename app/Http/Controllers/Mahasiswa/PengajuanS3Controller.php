@@ -86,12 +86,20 @@ class PengajuanS3Controller extends Controller
     }
     public function show($id)
     {
+        // $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('staf')-->first();
+        // $dept_id=0;
+        // if(Auth::user()->kat_user==3)
+        // {
+        //     $dept_id=$user->mahasiswa->departemen_id;
+        // } 
+
         $det=array();
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
         $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+        $dept_id=$mhs->departemen_id;
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
-        $jenispengajuan=MasterJenisPengajuan::all();
+        $jenispengajuan=MasterJenisPengajuan::where('departemen_id',$dept_id)->orderBy('urutan')->get();
         if($id!=-1)
             $det=Pengajuan::where('id',$id)->with('mahasiswa')
                     ->with('dospem_1')
