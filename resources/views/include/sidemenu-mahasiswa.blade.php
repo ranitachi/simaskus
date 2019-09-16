@@ -187,7 +187,7 @@
     </li>
     @endif
 @else
-    <li>Anda Belum Melengkapi Informasi Kampus Pada Halaman Profil
+    <li><a href="#">Anda Belum Melengkapi Informasi Kampus Pada Halaman Profil</a>
         <br>
         <a href="{{url('/profil')}}">Klik Disini</a>
 
