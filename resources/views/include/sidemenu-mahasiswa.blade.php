@@ -36,7 +36,7 @@
     
     // dd($mhs);
 @endphp
-@if($mhs)
+@if(isset($mhs->programstudi->nama_program_studi))
     @if (strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
     <li class="nav-item {{strpos(Request::url(),'data-kp')!==false ? 'active' : (strpos(Request::url(),'data-jadwal-kp')!==false ? 'active' : '')}}">
         <a href="javascript:;" class="nav-link nav-toggle">
