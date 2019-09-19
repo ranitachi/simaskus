@@ -37,7 +37,7 @@
     // dd($mhs);
 @endphp
 @if(isset($mhs->programstudi->nama_program_studi))
-    @if (strpos($mhs->programstudi->nama_program_studi,'S1')!==false)
+    @if (strpos($mhs->programstudi->jenjang,'S1')!==false)
     <li class="nav-item {{strpos(Request::url(),'data-kp')!==false ? 'active' : (strpos(Request::url(),'data-jadwal-kp')!==false ? 'active' : '')}}">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="fa fa-list-ul font-white"></i>
@@ -93,7 +93,7 @@
     </li>
 
     @endif
-    @if (strpos($mhs->programstudi->nama_program_studi,'S2')!==false)
+    @if (strpos($mhs->programstudi->jenjang,'S2')!==false)
     <li class="nav-item {{strpos(Request::url(),'pengajuan')!==false || strpos(Request::url(),'data-bimbingan-mhs')!==false || strpos(Request::url(),'jadwal-sidang')!==false || strpos(Request::url(),'daftar-sidang')!==false  ? 'active' : ''}}">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="fa fa-th-large font-white"></i>
@@ -154,7 +154,7 @@
         </ul>
     </li> --}}
     @endif
-    @if (strpos($mhs->programstudi->nama_program_studi,'S3')!==false)
+    @if (strpos($mhs->programstudi->jenjang,'S3')!==false)
     <li class="nav-item {{strpos(Request::url(),'pengajuan-disertasi')!==false || strpos(Request::url(),'jadwal-sidang-disertasi')!==false || strpos(Request::url(),'daftar-sidang-tesis')!==false  ? 'active' : ''}}">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="fa fa-th-large font-white"></i>
