@@ -330,7 +330,7 @@ Route::get('data-pengajuan-sidang-kp-data','JadwalController@pengajuan_sidang_st
 Route::get('pengajuan-sidang-kp-verifikasi/{id}','JadwalController@pengajuan_sidang_verifikasi_kp')->middleware('auth');
 Route::get('publish-kp/{idjadwal}','JadwalController@publish_kp')->middleware('auth');
 Route::get('hapusjadwalkp/{idjadwal}','JadwalController@hapusjadwalkp')->middleware('auth');
-Route::post('jadwal-sidang-kp-simpan/{all_one}/{id}/{idkp?}','JadwalController@simpan_jadwal_sidang_kp')->middleware('auth');
+Route::post('jadwal-sidang-kp-simpan/{all_one}/{id}/{idkp?}/{submit?}','JadwalController@simpan_jadwal_sidang_kp')->middleware('auth');
 
 
 

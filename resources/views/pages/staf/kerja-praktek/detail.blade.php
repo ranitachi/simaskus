@@ -46,7 +46,7 @@
                 <li>
                     <a href="#tab_1_1_4" data-toggle="tab"> Penetapan Pembimbing </a>
                 </li>
-                @if ($det->status_kp==2)
+                @if ($det->status_kp!=1)
                     <li>
                         <a href="#tab_1_1_6" data-toggle="tab"> Penetapan Sidang </a>
                     </li>
@@ -230,7 +230,7 @@
                 <div class="tab-pane" id="tab_1_1_4">
                     @include('pages.staf.kerja-praktek.pembimbing')
                 </div>
-            @if ($det->status_kp==2)
+            @if ($det->status_kp!=1)
                 <div class="tab-pane" id="tab_1_1_6">
                     @include('pages.staf.kerja-praktek.penetapan-sidang')
                 </div>

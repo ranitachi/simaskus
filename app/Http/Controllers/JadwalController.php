@@ -849,8 +849,9 @@ class JadwalController extends Controller
         return view('pages.staf.jadwal.berkas.'.$jenis,compact('judul','perbaikan','jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
     }
 
-    public function simpan_jadwal_sidang_kp(Request $request,$all_one,$id,$idkp=null)
+    public function simpan_jadwal_sidang_kp(Request $request,$all_one,$id,$idkp=null,$submit=null)
     {
+        // return $request->all();
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==1)
@@ -936,12 +937,20 @@ class JadwalController extends Controller
                 }
             }
 
-            if($c)
-                $data['status']=1;
+            if($submit!=null)
+            {
+                // $klp=KelompokKP::where('code',$)->first();
+                return redirect('data-kp-detail/'.$request->id.'/'.$request->kat_user.'#tab_1_1_6')->with('Penetapan Jadwal Sidang Berhasil Disimpan');
+            }
             else
-                $data['status']=0;
-
-            return $data;
+            {
+                if($c)
+                    $data['status']=1;
+                else
+                    $data['status']=0;
+    
+                return $data;
+            }
         }
         elseif($all_one=='all')
         {
