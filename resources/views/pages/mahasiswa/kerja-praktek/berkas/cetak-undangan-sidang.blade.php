@@ -27,9 +27,9 @@
                     <tr>
                         <td width="70px">Nomor</td>
                         <td width="4px">:</td>
-                        <td width="90px">&nbsp;</td>
-                        <td>/UN2.F4.DTS/PDP.04.00/2018</td>
-                        <td align="right">03 September, 2018</td>
+                        <td width="90px">_____________________________</td>
+                        <td>&nbsp;</td>
+                        <td align="right">{{tgl_indo(date('Y-m-d'))}}</td>
                     </tr>
                     <tr>
                         <td>Lampiran</td>
@@ -46,7 +46,12 @@
                 <div>&nbsp;</div>
                 <div>
                     Yth,<br />
-                                        Prof. Dr. Ir. Irwan Katili, DEA<br />                                        Dr. Ir. Damrizal Damoerin, M.Sc<br />                    Ir. Essy Arijoeni, Ph.D<br />                    di tempat
+                    @foreach ($penguji as $item)
+                        @if (isset($item->dosen->nama))
+                            <b>{{$item->dosen->nama}}</b><br>
+                        @endif
+                    @endforeach                   
+                    di tempat
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
@@ -60,9 +65,22 @@
                             <th align="center">NPM</th>
                             <th align="center">Program Studi</th>
                         </tr>
-                        <tr><td align='center'>sendok</td><td align='center'>86987870707</td><td align='center'>S1 Reguler Teknik Lingkungan</td>                        <tr><td align='center'>garpu</td><td align='center'>7645745756756</td><td align='center'>S1 Reguler Teknik Sipil</td>                                            </table>
+                        @foreach ($grup as $item)
+                            @if (isset($item->mahasiswa->nama))
+                                <tr>
+                                    <td align='center'>{{ucwords($item->mahasiswa->nama)}}</td>
+                                    <td align='center'>{{$item->mahasiswa->npm}}</td>
+                                    @if (isset($item->mahasiswa->programstudi->nama_program_studi))
+                                        
+                                    <td align='center'>{{$item->mahasiswa->programstudi->nama_program_studi}}</td>
+                                    @endif
+                                </tr>
+                            @endif
+                        @endforeach
+                        </table>
+                        {{-- <tr><td align='center'>sendok</td><td align='center'>86987870707</td><td align='center'>S1 Reguler Teknik Lingkungan</td>                        <tr><td align='center'>garpu</td><td align='center'>7645745756756</td><td align='center'>S1 Reguler Teknik Sipil</td>                                             --}}
                 </div>
-                <div>&nbsp;</div>
+                <div>&nbsp;<br></div>
                 <div align="justify">
                     Ujian akan dilaksanakan pada:
                     <div style="padding: 10px 15px 0px; width: 94%">
@@ -71,19 +89,19 @@
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Hari/Tanggal</td>
                                 <td>:</font></td>
-                                <td>, 05 September 2014</td>
+                                <td>{{$jadwalsidang->hari}}, {{tgl_indo($jadwalsidang->tanggal)}}</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Jam</td>
                                 <td>:</td>
-                                <td>08:00:00</td>
+                                <td>{{$jadwalsidang->waktu}}</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td>Tempat</td>
                                 <td>:</td>
-                                <td>Gedung Engineering Center - EC. 101</td>
+                                <td>{{$jadwalsidang->ruangan->nama_ruangan}}</td>
                             </tr>
                         </table>
                     </div>
@@ -93,8 +111,9 @@
                 </div>
                 <table border="0" width="100%">
                     <tr>
-                        <td width="60%">&nbsp;</td>
-                        <td align="left">Ketua Departemen Teknik Sipil,<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</u><br>NIP. 196205281991031009</td>
+                        <td width="45%">&nbsp;</td>
+                        <td align="left">Ketua {{$departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>{{$pimpinan['ketua-departemen']->dosen->nama}}</u><br>NIP. {{$pimpinan['ketua-departemen']->dosen->nip}}</td>
+                        {{-- <td align="left">Ketua Departemen Teknik Sipil,<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>Ir. R. Jachrizal Sumabrata, M.Sc., Ph.D</u><br>NIP. 196205281991031009</td> --}}
                     </tr>
                 </table>	
             </div>

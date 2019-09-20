@@ -879,6 +879,7 @@ class KerjaPraktekController extends Controller
         }
 
         $grup=KelompokKP::where('code',$code_grup)->with('mahasiswa')->get();
+        // return $grup;
         $det=array();
         if($idkp!=null)
         {
@@ -888,7 +889,8 @@ class KerjaPraktekController extends Controller
                     ->with('mahasiswa')->get();
         }
         // return $det;
-
+        $penguji=PengujiKP::where('grup_id',$code_grup)->with('dosen')->get();
+        $jadwalsidang=JadwalSidangKP::where('id_grup',$code_grup)->with('ruangan')->first();
         $info=InformasiKP::where('grup_id',$code_grup)->get();
         $prod=ProgamStudi::where('departemen_id',$dept_id)->get();
         $prodi=$inf=array();
@@ -966,11 +968,13 @@ class KerjaPraktekController extends Controller
                 ->with('pembimbing',$pbb)
                 ->with('periode',$periode)
                 ->with('det',$det)
+                ->with('penguji',$penguji)
                 ->with('mhs',$mhs)
                 ->with('dosen',$dosen)
                 ->with('code_grup',$code_grup)
                 ->with('inf',$inf)
                 ->with('pimpinan',$pimpinan)
+                ->with('jadwalsidang',$jadwalsidang)
                 ->with('prodi',$prodi);
         }
         // dd($brks);

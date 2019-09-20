@@ -66,8 +66,9 @@
                 <label class="col-md-4 control-label" for="form_control_1">Penguji <i class="fa fa-users"></i></label>
                 <div class="col-md-8" style="padding-top:6px;">
                     <ul style="padding-left:8px !important;margin-left:8px !important;">
+                        
                         @php
-                            $dos_uji=array();
+                            
                             $x=0;
                         @endphp
                         @foreach ($penguji_kp as $item)
@@ -93,15 +94,24 @@
 </div>
 @php
     // dd($dos_uji);
+    // if(count($jadwal)==0)
+    if(isset($jadwal[$idgrup]))
+    {
+        $d=$jadwal[$idgrup][0];
+        $idjadwal=$d->jadwal_id.'__'.$idgrup;
+    }
+    else
+        $idjadwal=-1;
 @endphp
 <div id="form-sidang" style="{{(count($jadwal)==0 ? 'display:inline' : 'display:none')}}">
  
-    <form role="form" class="form-horizontal" action="{{url('jadwal-sidang-kp-simpan/'.$idgrup)}}" method="post" id="sidang-simpan">
+    <form role="form" class="form-horizontal" action="{{url('jadwal-sidang-kp-simpan/one/'.$idjadwal.'/'.$id.'/submit')}}" method="post" id="sidang-simpan">
         {{csrf_field()}}
         <input type="hidden" name="id" value="{{$id}}">
         <input type="hidden" name="kat_user" value="{{$kat_user}}">
         <input type="hidden" name="url" value="tab_1_1_2">
         <input type="hidden" name="dept_id" value="{{$dept_id}}">
+        <input type="hidden" name="idgrup" value="{{$idgrup}}">
         <div class="form-body">
             
          
@@ -153,6 +163,20 @@
                         </select>
                     </div>
                 </div> 
+            @php
+                $dospem=array();
+                if (isset($pemb['dosen']))  
+                {
+                    if(count($pemb['dosen'])!=0)
+                    {
+                        foreach ($pemb['dosen'] as $idx=>$item)
+                        {
+                            $dospem[$idx]=$idx;
+                        }
+                    }
+                }
+                $dos_uji=array();
+            @endphp
             @for ($x=0;$x<3;$x++)
                 <div class="form-group form-md-line-input has-success" id="title_1">
                 
@@ -161,8 +185,14 @@
                         <select class="bs-select form-control has-success"  data-placeholder="Pilih Penguji" id="anggota_1" name="penguji[]">
                             <option value="-1">- Pilih -</option>
                             @foreach ($dosen as $idx=>$dsn)
-                                
-                                    <option value="{{$dsn->id}}">{{$dsn->nama}}</option>
+                                    @if (in_array($dsn->id,$dospem))
+                                        <option value="{{$dsn->id}}" selected="selected">{{$dsn->nama}}</option>
+                                        @php
+                                            unset($dospem[$dsn->id]);
+                                        @endphp
+                                    @else
+                                        <option value="{{$dsn->id}}">{{$dsn->nama}}</option>
+                                    @endif
                                 
                             @endforeach
                         </select>

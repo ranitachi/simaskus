@@ -85,7 +85,7 @@
                                 
                                 <td style="width:200px;">Judul Kerja Praktek</td>
                                 <td>:</td>
-                                <td>{{isset($info['judul-kerja-praktek']) ? strtoupper($info['judul-kerja-praktek']->judul) : ''}}</td>
+                                <td>{{isset($info['judul-kerja-praktek']) ? strtoupper($info['judul-kerja-praktek']->isi) : ''}}</td>
                             </tr>
                         </table>
                     </div>
