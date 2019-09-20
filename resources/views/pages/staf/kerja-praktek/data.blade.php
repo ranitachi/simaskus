@@ -165,7 +165,7 @@
                                         @endif
                                         @if (Auth::user()->kat_user!=2) 
                                             <li>
-                                                <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
                                             </li>
                                         @endif
                                         @if($v->status_kp==0)
