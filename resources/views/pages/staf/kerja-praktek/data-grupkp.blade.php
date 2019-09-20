@@ -105,7 +105,10 @@
                         </ul>
                     </td>
                     @php
-                        $pjuan=$pengajuan[$v[0]->mahasiswa_id];
+                        if(isset($pengajuan[$v[0]->mahasiswa_id]))
+                            $pjuan=$pengajuan[$v[0]->mahasiswa_id];
+                        else
+                            $pjuan=array();
                     @endphp
                     <td>
                         <small>Lokasi KP</small><br>
@@ -122,7 +125,9 @@
                         <br>
                         <br>
                         <small>Status KP</small><br>
-                            {!! $pjuan->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($pjuan->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($pjuan->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($pjuan->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
+                            @if (count($pjuan)!=0)
+                                {!! $pjuan->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($pjuan->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($pjuan->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($pjuan->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
+                            @endif
                     </td>
                     <td>
                         
@@ -131,19 +136,22 @@
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="{{url('data-kp-detail/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
-                                    </li>
-                                    @if (Auth::user()->kat_user!=2) 
+                                    @if (count($pjuan)!=0)
                                         <li>
-                                            <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                            <a href="{{url('data-kp-detail/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
                                         </li>
+                                        @if (Auth::user()->kat_user!=2) 
+                                            <li>
+                                                <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                            </li>
+                                        @endif
+                                        @if($pjuan->status_kp==0)
+                                            <li>
+                                                <a href="javascript:hapus({{$pjuan->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                            </li>
+                                        @endif
                                     @endif
-                                    @if($pjuan->status_kp==0)
-                                        <li>
-                                            <a href="javascript:hapus({{$pjuan->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
-                                        </li>
-                                    @endif
+                                            
                                 </ul>
                             </div>
                         
