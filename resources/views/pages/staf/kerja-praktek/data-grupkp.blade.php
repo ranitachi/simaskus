@@ -108,7 +108,7 @@
                         if(isset($pengajuan[$v[0]->mahasiswa_id]))
                             $pjuan=$pengajuan[$v[0]->mahasiswa_id];
                         else
-                            $pjuan=array();
+                            $pjuan=false;
                     @endphp
                     <td>
                         <small>Lokasi KP</small><br>
@@ -125,7 +125,7 @@
                         <br>
                         <br>
                         <small>Status KP</small><br>
-                            @if (count($pjuan)!=0)
+                            @if ($pjuan!=false)
                                 {!! $pjuan->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($pjuan->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($pjuan->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($pjuan->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
                             @endif
                     </td>
@@ -136,7 +136,7 @@
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    @if (count($pjuan)!=0)
+                                    @if ($pjuan!=false)
                                         <li>
                                             <a href="{{url('data-kp-detail/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
                                         </li>
