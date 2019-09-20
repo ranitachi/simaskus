@@ -97,7 +97,9 @@
                         <ul>
                         @if (isset($pembimbing_kp[$i]))
                             @foreach ($pembimbing_kp[$i] as $item)
-                                <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
+                                @if (isset($item->dosen->nama))
+                                    <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
+                                @endif
                             @endforeach
                         @endif
                         </ul>
