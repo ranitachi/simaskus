@@ -288,6 +288,7 @@
         $('#simpan').on('click',function(){
             var nip=$('#nip').val();
             var nama=$('#nama').val();
+            var email=$('#email').val();
             var departemen=$('#departemen').val();
             
             if(nip=='')
@@ -298,6 +299,11 @@
             else if(nama=='')
             {
                 pesan("Nama Dosen Harus Diisi",'error');
+                $('#nama').focus();
+            }    
+            else if(email=='')
+            {
+                pesan("Email Dosen Wajib Diisi",'error');
                 $('#nama').focus();
             }    
             else if(departemen=='')
