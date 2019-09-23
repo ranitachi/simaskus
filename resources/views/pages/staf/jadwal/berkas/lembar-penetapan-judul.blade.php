@@ -28,14 +28,19 @@
             <div style="padding: 0px 50px 0px;">
                 <table width="100%">
                     <tr>
-                        <td style="text-align:center"><h2>LEMBAR PENETAPAN JUDUL {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}}</h2></td>
+                        <td style="text-align:center"><h2>
+                            LEMBAR PENETAPAN JUDUL
+                            {{-- {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}} --}}
+                        </h2></td>
                     </tr>
                 </table>
                 <hr>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 <div align="justify">
-                    Setelah melalui proses sidang {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}} pada Tanggal {{tgl_indo($jadwal->tanggal)}}. Maka kepada Saudara:
+                    Setelah melalui proses sidang {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}}
+                    {{-- {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}}  --}}
+                    pada Tanggal {{tgl_indo($jadwal->tanggal)}}. Maka kepada Saudara:
                    
                 </div>
                 
@@ -101,7 +106,7 @@
                         
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                            Ketua Sidang Ujian,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
                     </tr>
                 </table>	
                 <div>&nbsp;</div>

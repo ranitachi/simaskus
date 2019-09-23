@@ -28,7 +28,7 @@
             <div style="padding: 0px 50px 0px;">
                 <table width="100%">
                     <tr>
-                        <td style="text-align:center"><h3>BERITA ACARA SIDANG UJIAN SKRIPSI</h3></td>
+                        <td style="text-align:center"><h3>BERITA ACARA SIDANG UJIAN {{strtoupper(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}}</h3></td>
                     </tr>
                 </table>
                 <hr>
@@ -59,7 +59,7 @@
                         </table>
                     </div>
                     <div>&nbsp;</div>
-                    Telah berlangsung Sidang Ujian Skripsi dengan peserta :
+                    Telah berlangsung Sidang Ujian {{str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis)}} dengan peserta :
                 </div>
                 
                 <div align="justify">

@@ -28,6 +28,7 @@ use App\Model\InformasiKP;
 use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
 use App\Model\Component;
+use App\Model\ComponentScore;
 use App\Model\IzinDosen;
 use App\Model\PerbaikanSkripsi;
 use App\Model\PerubahanJudul;
@@ -828,7 +829,7 @@ class JadwalController extends Controller
         $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('jenispengajuan')->with('mahasiswa')->with('departemen')->first();
 
         $penguji=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
-        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->with('mahasiswa')->with('dosen')->orderBy('id')->get();
+        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('status_fix',1)->where('judul_id',$pengajuan_id)->with('mahasiswa')->with('dosen')->orderBy('id')->get();
         $pimp=MasterPimpinan::where('departemen_id',$pengajuan->departemen_id)->with(['dosen','departemen'])->get();
         $pimpinan=array();
         $departemen=MasterDepartemen::find($pengajuan->departemen_id);
@@ -841,12 +842,21 @@ class JadwalController extends Controller
         $penilaian=Component::select('*',DB::raw('component.id as c_id'))
                     ->join('module','module.id','=','component.module_id')
                     ->where('module.departemen_id',$pengajuan->departemen_id)
-                    ->where('module.nama_module','like',"%Penilaian Skripsi%")->get();
+                    // ->where('module.nama_module','like',"%Penilaian Skripsi%")
+                    ->where('module.jenis_id',$pengajuan->jenis_id)
+                    ->get();
 
         $judul=PerubahanJudul::where('pengajuan_id',$pengajuan_id)->first();
         $perbaikan=PerbaikanSkripsi::where('mahasiswa_id',$mahasiswa->id)->with('dosen')->get();
 
-        return view('pages.staf.jadwal.berkas.'.$jenis,compact('judul','perbaikan','jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
+        $sc=ComponentScore::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('jadwal_id',$jadwal_id)->get();
+        $score=array();
+        foreach($sc as $k=>$v)
+        {
+            $score[$v->dosen_id][$v->component_id]=$v->score;
+        }
+
+        return view('pages.staf.jadwal.berkas.'.$jenis,compact('score','judul','perbaikan','jadwal','pengajuan','penguji','pimpinan','penilaian','pembimbing','mahasiswa','departemen'));
     }
 
     public function simpan_jadwal_sidang_kp(Request $request,$all_one,$id,$idkp=null,$submit=null)

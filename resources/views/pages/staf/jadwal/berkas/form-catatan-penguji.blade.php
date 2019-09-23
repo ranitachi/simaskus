@@ -28,7 +28,7 @@
             <div style="padding: 0px 50px 0px;">
                 <table width="100%">
                     <tr>
-                        <td style="text-align:center"><h3>BERITA ACARA SIDANG UJIAN SKRIPSI</h3></td>
+                        <td style="text-align:center"><h3>DAFTAR PERBAIKAN</h3></td>
                     </tr>
                 </table>
                 <hr>
@@ -59,7 +59,7 @@
                         </table>
                     </div>
                     <div>&nbsp;</div>
-                    Telah berlangsung Sidang Ujian Skripsi dengan peserta :
+                    Telah berlangsung Sidang dengan peserta :
                 </div>
                 
                 <div align="justify">
@@ -79,24 +79,28 @@
                             </tr>
                             <tr>
                                 
-                                <td style="width:200px;">Judul Skripsi</td>
+                                <td style="width:200px;">Judul</td>
                                 <td>:</td>
                                 <td>{{strtoupper($pengajuan->judul_ind)}}</td>
                             </tr>
                         </table>
                     </div>
                     <div>&nbsp;</div>
-                    <div style="width:100%;float:left">
-                        <div style="width:150px;float:left;">dinyatakan</div><div style="width:5px;float:left;">: </div><div style="float:left;">____________________ dengan nilai _____________________</div>
-                    </div>
+                    
                     <div style="width:100%;float:left;padding-top:20px;">
-                        <div style="width:150px;float:left;">dengan catatan</div><div style="width:5;float:left;">: </div><div style="float:left;">____________________________________________________</div>
-                        <div>&nbsp;</div>
+                        <div style="width:100%;float:left;">dinyatakan HARUS menyelesaikan Perbaikan, yaitu :</div>
+                        <div style="width:100%;float:left;height:100px;border:1px solid #ccc;">
+                        
+                        </div>
+                        
+                        <div style="width:100%;float:left;"><br>Perbaikan tersebut harus sudah selesai paling lambat : [ ____________________________ ]</div>
+                        <div style="width:100%;float:left;">
+                        <br>
+                        </div>
+                        
                     </div>
                 </div>
                
-                <div>&nbsp;</div>
-                
                 
                 
                 <table border="0" width="100%">
@@ -107,11 +111,11 @@
                         <td width="10%">&nbsp;</td>
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                            Ketua Sidang,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
                     </tr>
                 </table>	
                 <div>&nbsp;</div>
-                <div align="justify">
+                {{-- <div align="justify">
                     <div style="padding: 5px 15px 0px; width: 100%">
                         Mengetahui Tim Penguji :
                         <table border="1" align="left" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
@@ -166,7 +170,7 @@
                     <div>&nbsp;</div>
                     
                     <div>&nbsp;</div>
-                </div>
+                </div> --}}
             </div>
             
         </td>

@@ -160,7 +160,9 @@
                                 @if(count($jadwal)!=0)
                                         @if (isset($jadwal[$idpengajuan]->jadwal_id))
 
-                                            <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-danger" style="font-size:10px;"><i class="fa fa-list"></i> Form Penilaian</a>
+                                            <a href="javascript:selesai({{$jadwal[$idpengajuan]->jadwal_id}},{{$idpengajuan}})" target="_blank" class="btn btn-xs btn-success tooltips" data-title="Klik Untuk Verifikasi Selesai Sidang" style="font-size:10px;"><i class="fa fa-check"></i> Verifikasi Selesai</a>
+                                            <br>
+                                            <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-danger" style="font-size:10px;margin-top:5px"><i class="fa fa-list"></i> Form Penilaian</a>
                                             <br>
                                             <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
                                             <br>

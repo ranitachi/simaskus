@@ -28,7 +28,8 @@
             <div style="padding: 0px 50px 0px;">
                 <table width="100%">
                     <tr>
-                        <td style="text-align:center"><h2>DAFTAR {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}}</h2></td>
+                        {{-- <td style="text-align:center"><h2>DAFTAR {{$mahasiswa->programstudi->jenjang=='S1' ? 'SKRIPSI' : ($mahasiswa->programstudi->jenjang=='S2' ? 'TESIS': ($mahasiswa->programstudi->jenjang=='S3' ? 'DISERTASI': ''))}}</h2></td> --}}
+                        <td style="text-align:center"><h2>DAFTAR PERBAIKAN</h2></td>
                     </tr>
                 </table>
                 <hr>
@@ -57,7 +58,7 @@
                         </table>
                     </div>
                     <div>&nbsp;</div>
-                    Telah berlangsung Sidang Ujian Skripsi dengan peserta :
+                    Telah berlangsung Sidang Ujian {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}} dengan peserta :
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
@@ -77,7 +78,7 @@
                             </tr>
                             <tr>
                                 
-                                <td style="width:200px;">Judul Skripsi</td>
+                                <td style="width:200px;">Judul {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}}</td>
                                 <td>:</td>
                                 <td>{{strtoupper($pengajuan->judul_ind)}}</td>
                             </tr>
@@ -107,7 +108,7 @@
                     </div>
                     <div style="width:100%;float:left;">
                         <br>
-                        Perbaikan Tersebut harus selesai paling lambat tanggal : {{tgl_indo($perbaikan[0]->batas_waktu)}}
+                        Perbaikan Tersebut harus selesai paling lambat tanggal : {{isset($perbaikan[0]->batas_waktu) ? tgl_indo($perbaikan[0]->batas_waktu) :'__________________'}}
                         
                     </div>
                 </div>
@@ -123,7 +124,9 @@
                         <td width="10%">&nbsp;</td>
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                            {{-- Ketua Sidang Ujian {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}},<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}} --}}
+                            Ketua Sidang Ujian ,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}
+                            </u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
                     </tr>
                 </table>	
                 <div style="border-bottom:2px solid #ddd;">&nbsp;</div>
@@ -133,7 +136,9 @@
                         <div style="width:100%;float:left;">
                             <br>
                             
-                            {{$mahasiswa->programstudi->jenjang=='S1' ? 'Skripsi' : ($mahasiswa->programstudi->jenjang=='S2' ? 'Tesis': ($mahasiswa->programstudi->jenjang=='S3' ? 'Disertasi': ''))}} ini telah selesai diperbaiki dengan tugas yang ditetapkan dalam Sidang Ujian {{$mahasiswa->programstudi->jenjang=='S1' ? 'Skripsi' : ($mahasiswa->programstudi->jenjang=='S2' ? 'Tesis': ($mahasiswa->programstudi->jenjang=='S3' ? 'Disertasi': ''))}}.
+                            {{-- {{$mahasiswa->programstudi->jenjang=='S1' ? 'Skripsi' : ($mahasiswa->programstudi->jenjang=='S2' ? 'Tesis': ($mahasiswa->programstudi->jenjang=='S3' ? 'Disertasi': ''))}} ini telah selesai diperbaiki dengan tugas yang ditetapkan dalam Sidang Ujian {{$mahasiswa->programstudi->jenjang=='S1' ? 'Skripsi' : ($mahasiswa->programstudi->jenjang=='S2' ? 'Tesis': ($mahasiswa->programstudi->jenjang=='S3' ? 'Disertasi': ''))}}. --}}
+                            {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}}
+                            ini telah selesai diperbaiki dengan tugas yang ditetapkan dalam Sidang Ujian {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}}
                         </div>
                          <table border="0" width="100%">
                             <tr>
