@@ -149,12 +149,12 @@
                                         @if ($profil->departemen_id==$v->id)
                                             <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option> 
                                         @else
-                                            <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option> 
+                                            <option value="{{$v->id}}" >{{$v->nama_departemen}}</option> 
                                         @endif
                                     @endforeach
                                 @else
                                     @foreach ($dept as $i => $v)
-                                        <option value="{{$v->id}}" selected="selected">{{$v->nama_departemen}}</option> 
+                                        <option value="{{$v->id}}" >{{$v->nama_departemen}}</option> 
                                     @endforeach
                                 @endif
                             </select>
@@ -167,7 +167,6 @@
                                     @if ($profil->program_studi_id!=0)
                                         @if (isset($profil->programstudi->nama_program_studi)) 
                                             <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
-                        
                                         @endif
                                     @endif
                                 </select>
