@@ -24,7 +24,7 @@
             </table>
             <div>&nbsp;</div>
             <div style="padding: 0px 50px 0px;">
-                <h3 style="text-align:center">DAFTAR HADIR PENGUJI<br>UJIAN SIDANG SKRIPSI<br>{{strtoupper($pengajuan->departemen->nama_departemen)}}</h3>
+                <h3 style="text-align:center">DAFTAR HADIR PENGUJI<br>UJIAN SIDANG<br>{{strtoupper($pengajuan->departemen->nama_departemen)}}</h3>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 

@@ -228,10 +228,11 @@
                                                 @endif
                                                 
                                         @else
-                                            @if ($st_pbb==1)
+                                            
                                             <li>
                                                 <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
                                             </li>
+                                            @if ($st_pbb==1)
                                                 @if ($v->status_pengajuan==0)  
                                                     <li>  
                                                         <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp;Verifikasi Pengajuan</a>

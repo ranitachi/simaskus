@@ -572,4 +572,30 @@ function getFormFields($data)
 		];
 		return $data;
 	}
+
+	function hurufmutu($nilai)
+	{
+		if($nilai>=85)
+            $huruf='A';
+        else if($nilai<85 && $nilai>=80)
+            $huruf='A-';
+        else if($nilai<80 && $nilai>=75)
+            $huruf='B+';
+        else if($nilai<75 && $nilai>=70)
+            $huruf='B';
+        else if($nilai<70 && $nilai>=65)
+            $huruf='B-';
+        else if($nilai<65 && $nilai>=60)
+            $huruf='C+';
+        else if($nilai<60 && $nilai>=55)
+            $huruf='C';
+        else if($nilai<55 && $nilai>=50)
+            $huruf='C-';
+        else if($nilai<50 && $nilai>=40)
+            $huruf='D';
+        else if($nilai<40)
+			$huruf='E';
+			
+		return $nilai;
+	}
 ?>

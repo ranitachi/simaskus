@@ -81,29 +81,44 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $total=0;
+                                        @endphp
                                         @foreach ($penilaian as $k => $v)
                                             <tr>
                                                 <th class="text-left" style=";padding:3px;text-align:left !important;padding-left:20px;width:40%">
                                                     {{$v->nama_component}}
                                                 </th>
                                                 <th class="text-center" style="width:20%;padding:3px;;text-align:center"> 
-                                                    : _______________
+                                                    : {{isset($score[$item->dosen_id][$v->id]) ? $score[$item->dosen_id][$v->id] : '___________'}}
                                                 </th>
                                                 <th class="text-center" style="width:100px;;padding:3px;text-align:center;">
                                                     x {{ $v->bobot_penguji }} %
                                                     
                                                 </th>
                                                 <th class="text-center"style="width:20%;padding:3px;;text-align:center"> 
-                                                    = ______________
+                                                    = {{isset($score[$item->dosen_id][$v->id]) ? ($score[$item->dosen_id][$v->id] * $v->bobot_penguji / 100) : '___________'}}
                                                 </th>
+                                                @php
+                                                    if(isset($score[$item->dosen_id][$v->id]))
+                                                    {
+                                                        $total+=$score[$item->dosen_id][$v->id];
+                                                    }
+                                                    else
+                                                        $total+=0;
+                                                @endphp
                                             </tr>
                                         @endforeach
                                         <tr>
-                                        <th class="text-left" style=";padding:3px;text-align:left !important;padding-left:20px;width:40%">
-                                                NILAI TOTAL
+                                                <th class="text-right" style=";padding:3px;text-align:right !important;padding-left:20px;width:40%" colspan=3>
+                                                <br>NILAI TOTAL
+                                                <br>
+                                                <br>
+                                                HURUF MUTU
                                                 </th>
-                                                <th class="text-center" style="padding:3px;;text-align:center" colspan="3"> 
-                                                    : _________________________________________________
+                                                <th class="text-center" style="padding:3px;text-align:center;width:20%;" colspan="3"> 
+                                                    <br>: {{$total!=0 ? $total : '___________'}}<BR><br>
+                                                    : {{$total!=0 ? hurufmutu($total) : '___________'}}
                                                 </th>
                                                 
                                         </tr>

@@ -46,6 +46,11 @@
                 <div>&nbsp;</div>
                 <div>
                     Yth,<br />
+                        @foreach ($pembimbing as $item)
+                            @if ($item->status_fix==1)    
+                                {{$item->dosen->nama}}<br>
+                            @endif
+                        @endforeach                   
                         @foreach ($penguji as $item)
                             {{$item->dosen->nama}}<br>
                         @endforeach                   
@@ -53,7 +58,7 @@
                 </div>
                 <div>&nbsp;</div>
                 <div align="justify">
-                    Sehubungan dengan adanya ujian kerja praktek, dengan ini kami mengharapkan kehadiran Bapak/Ibu sebagai dewan penguji. Adapun mahasiswa tersebut adalah sebagai berikut:
+                    Sehubungan dengan adanya ujian {{str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis)}}, dengan ini kami mengharapkan kehadiran Bapak/Ibu sebagai dewan penguji. Adapun mahasiswa tersebut adalah sebagai berikut:
                 </div>
                 <div>&nbsp;</div>
                 <div align="center">
