@@ -29,6 +29,7 @@ class MahasiswaController extends Controller
 
         $dept=MasterDepartemen::all();
         $profil=Mahasiswa::find(Auth::user()->id_user);
+        // return $profil;
         $jenjang=Jenjang::all();
         return view('pages.mahasiswa.profile.index')
             ->with('dept',$dept)
