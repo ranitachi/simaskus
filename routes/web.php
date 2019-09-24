@@ -383,11 +383,10 @@ Route::get('staf-publikasi-ilmiah-verifikasi/{id}/{status}/{pimpinan?}','Admin\P
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
 {
-    
-    $file=$folder.'/'.$filename;
+$file=$folder.'/'.$filename;
     //return Image::make(storage_path($file))->response();
     // return storage_path('app').'/public/'.$file;
-    return response()->file(storage_path('app').'/public/'.$file);
+    return response()->file(storage_path('app').'/public/'.$file);    
 });
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
