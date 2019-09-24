@@ -29,6 +29,13 @@
 <li class="heading">
     <h3 class="uppercase">Menu</h3>
 </li>
+<li class="nav-item start ">
+    <a href="{{url('pimpinan-fakultas')}}" class="nav-link">
+        <i class="icon-user font-white"></i>
+        <span class="title">Pimpinan Fakultas</span>
+    </a>
+   
+</li>
 <li class="nav-item  {{(strpos(Request::path(),'departemen')!==false || strpos(Request::path(),'bidangkhusus')!==false || strpos(Request::path(),'programstudi') !==false) ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-home font-white"></i>

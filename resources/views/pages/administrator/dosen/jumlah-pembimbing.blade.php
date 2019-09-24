@@ -17,7 +17,11 @@
     }
     // dd($jenis);
     // echo $quota_p;
-    $mhs=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+    if(Auth::user()->kat_user==3)
+        $mhs=\App\Model\Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
+    else
+        $mhs=\App\Model\Mahasiswa::where('id',$pengajuan[$idpengajuan]->mahasiswa_id)->with('programstudi')->first();
+
     $jenjang=isset($mhs->programstudi->jenjang) ? $mhs->programstudi->jenjang : 'S1';
 @endphp
 
@@ -25,8 +29,9 @@
     
 @if ($jenjang=='S3')
     @php
-        $dt['departemen_id']=$quota->departemen_id;
-        $dt['level']=$quota->level;
+        // $dt['departemen_id']=$quota->departemen_id;
+        $dt['departemen_id']=(isset($mhs->departemen_id) ? $mhs->departemen_id : 0);
+        $dt['level']=isset($quota->level) ? $quota->level : (isset($pengajuan[$idpengajuan]) ? $pengajuan[$idpengajuan]->jenis_id : 0);
         $qq=\App\Model\QuotaPembimbing::where($dt)->get();
         $qt=array();
         foreach($qq as $k=>$v)
@@ -114,7 +119,7 @@
         </div>
         <div class="col-md-12">
             <div class="form-group has-success">
-            <label class="control-label">Pilihan Pengajuan Co-Promotor (*Optional Maksimal {{$qt['Co-Promotor']}} Orang)</label>
+            <label class="control-label">Pilihan Pengajuan Co-Promotor (*Optional Maksimal {{isset($qt['Co-Promotor']) ? $qt['Co-Promotor'] : 5}} Orang)</label>
             
                 <select class="form-control select2" data-placeholder="Pilih Co Promotor" name="copromotor[]" id="dosen_co" multiple>
                     @foreach ($dosen as $idx => $v)
@@ -294,7 +299,7 @@ function choosedosen(i)
     var kat_dosen='{{$kat_dosen}}';
     var idpengajuan='{{$idpengajuan}}';
     $('.modal-title').html('Pilih Dosen Pembimbing '+i);
-    if(kat_dosen!='')
+    if(kat_dosen!='' && kat_dosen!=1)
     {
         $('.modal-body').load('{{url("get-pembimbing")}}/{{$idjenis}}/'+i+'/'+idpm+'/'+kat_dosen,function(){
             $('.select2').select2();
@@ -302,9 +307,18 @@ function choosedosen(i)
     }
     else if(idpengajuan!='')
     {
-        $('.modal-body').load('{{url("get-pembimbing")}}/{{$idjenis}}/'+i+'/'+idpm+'/'+kat_dosen+'/'+idpengajuan,function(){
-            $('.select2').select2();
-        });
+        if(idpm=='')
+        {
+            $('.modal-body').load('{{url("get-pembimbing")}}/{{$idjenis}}/'+i+'/-1/'+kat_dosen+'/'+idpengajuan,function(){
+                $('.select2').select2();
+            });
+        }
+        else
+        {
+            $('.modal-body').load('{{url("get-pembimbing")}}/{{$idjenis}}/'+i+'/'+idpm+'/'+kat_dosen+'/'+idpengajuan,function(){
+                $('.select2').select2();
+            });
+        }
     }
     else if(idpm!='')
     {

@@ -185,6 +185,13 @@
             
         </ul>
     </li>
+    <li class="nav-item  {{Request::path()=='publikasi' ? 'active' : ''}}">
+        <a href="{{url('publikasi')}}" class="nav-link nav-toggle">
+            <i class="fa fa-bell font-white"></i>
+            <span class="title">Publikasi Ilmiah</span>
+        </a>
+        
+    </li>
     @endif
 @else
     <li><a href="#">Anda Belum Melengkapi Informasi Kampus Pada Halaman Profil</a>

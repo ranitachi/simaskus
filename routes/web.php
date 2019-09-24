@@ -65,10 +65,17 @@ Route::resource('dosen-admin','Admin\DosenAdminController')->middleware('auth');
 Route::get('dosen-admin-data', 'Admin\DosenAdminController@data')->middleware('auth');
 Route::get('dosen-admin-hapus/{id}', 'Admin\DosenAdminController@destroy')->middleware('auth');
 
+//Pimpinan Fakultas
+Route::get('pimpinan-fakultas','Admin\PimpinanController@index')->middleware('auth');
+Route::get('pimpinan-fakultas-form/{id}','Admin\PimpinanController@show')->middleware('auth');
+Route::post('pimpinan-fakultas-simpan/{id}','Admin\PimpinanController@simpan')->middleware('auth');
+
 //staf Admin
 Route::resource('staf-admin','Admin\StafAdminController')->middleware('auth');
 Route::get('staf-admin-data', 'Admin\StafAdminController@data')->middleware('auth');
 Route::get('staf-admin-hapus/{id}', 'Admin\StafAdminController@destroy')->middleware('auth');
+
+
 //user Admin
 Route::resource('user-admin','Admin\UserAdminController')->middleware('auth');
 Route::get('user-admin-data', 'Admin\UserAdminController@data')->middleware('auth');
@@ -131,6 +138,9 @@ Route::get('data-bimbingan-disertasi-mhs/{id?}','Mahasiswa\PengajuanS3Controller
 Route::post('unggah-sk-rektor','Mahasiswa\PengajuanS3Controller@unggah_sk_rektor');
 
 Route::get('cek-pengajuan/{id}','Mahasiswa\PengajuanS3Controller@cek_pengajuan');
+
+Route::get('edit-pembimbing/{id}','Admin\PengajuanController@edit_pembimbing');
+Route::post('edit-pembimbing-simpan/{id}','Admin\PengajuanController@edit_pembimbing_simpan');
 ///-----------------------
 
 Route::get('data-pengajuan','Admin\PengajuanController@pengajuan')->middleware('auth');
@@ -277,6 +287,8 @@ Route::get('penetapan-judul/{idjadwal}/{idpengajuan}','Dosen\PenilaianController
 Route::post('simpan-nilai','Dosen\PenilaianController@simpan_nilai');
 Route::post('daftar-perbaikan','Dosen\PenilaianController@daftar_perbaikan');
 Route::post('penetapan-judul','Dosen\PenilaianController@penetapan_judul');
+
+
 //--STAF PENILAIAN
 Route::resource('penilaian-staf','Admin\PenilaianControllerStaf')->middleware('auth');
 Route::get('form-penilaian/{jadwal_id}/{pengajuan_id}','Admin\PenilaianControllerStaf@form_pembimbing')->middleware('auth');
@@ -286,6 +298,8 @@ Route::get('penetapan-judul-staf/{idjadwal}/{idpengajuan}/{iddosen}','Admin\Peni
 Route::post('simpan-nilai-staf','Admin\PenilaianControllerStaf@simpan_nilai');
 Route::post('daftar-perbaikan-staf','Admin\PenilaianControllerStaf@daftar_perbaikan');
 Route::post('penetapan-judul-staf','Admin\PenilaianControllerStaf@penetapan_judul');
+
+Route::post('simpan-nilai-akhir/{idpengajuan}/{idmahasiswa}/{idjadwal}','Admin\PenilaianControllerStaf@nilaiakhir')->middleware('auth');
 //----------
 
 //Kerja Praktek//
@@ -350,7 +364,22 @@ Route::get('rekap-pembimbing/{tahunajaran?}','DosenController@rekap_pembimbing')
 Route::get('rekap-penguji-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_penguji_staf')->middleware('auth');
 Route::get('rekap-pembimbing-staf/{iddosen?}/{bulan?}/{tahun?}','DosenController@rekap_pembimbing_staf')->middleware('auth');
 
+//Publikasi
+Route::get('publikasi','Mahasiswa\PublikasiController@index')->middleware('auth');
+Route::get('publikasi/{id?}','Mahasiswa\PublikasiController@form')->middleware('auth');
+Route::get('publikasi-detail/{id?}','Mahasiswa\PublikasiController@detail')->middleware('auth');
+Route::post('publikasi-simpan/{id?}','Mahasiswa\PublikasiController@simpan')->middleware('auth');
+Route::get('publikasi-hapus/{id}','Mahasiswa\PublikasiController@destroy')->middleware('auth');
 
+Route::get('dosen-publikasi-ilmiah','Dosen\PublikasiController@index')->middleware('auth');
+Route::get('dosen-publikasi-ilmiah-detail/{id?}','Dosen\PublikasiController@detail')->middleware('auth');
+Route::get('dosen-publikasi-ilmiah-hapus/{id}','Dosen\PublikasiController@destroy')->middleware('auth');
+Route::get('dosen-publikasi-ilmiah-verifikasi/{id}/{status}/{pimpinan?}','Dosen\PublikasiController@verifikasi')->middleware('auth');
+
+Route::get('staf-publikasi-ilmiah','Admin\PublikasiController@index')->middleware('auth');
+Route::get('staf-publikasi-ilmiah-detail/{id?}','Admin\PublikasiController@detail')->middleware('auth');
+Route::get('staf-publikasi-ilmiah-hapus/{id}','Admin\PublikasiController@destroy')->middleware('auth');
+Route::get('staf-publikasi-ilmiah-verifikasi/{id}/{status}/{pimpinan?}','Admin\PublikasiController@verifikasi')->middleware('auth');
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
 {

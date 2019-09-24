@@ -1,3 +1,8 @@
+@php
+    $ds=\App\Model\Dosen::find(Auth::user()->id_user);
+    $pimpinan=\App\Model\MasterPimpinan::where('dosen_id',Auth::user()->id_user)->where('status',1)->where('departemen_id',$ds->departemen_id)->first();
+    $pimpinanfakultas=\App\Model\MasterPimpinan::where('dosen_id',Auth::user()->id_user)->where('status',1)->where('jabatan','like','%Manajer Pendidikan & Kepala PAF%')->first();
+@endphp
 <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
 <li class="sidebar-toggler-wrapper hide">
     <div class="sidebar-toggler">
@@ -31,6 +36,22 @@
     </a>
     
 </li>
+@if ($pimpinan)
+    <li class="nav-item  {{Request::path()=='dosen-publikasi-ilmiah' ? 'active' : ''}}">
+        <a href="{{url('dosen-publikasi-ilmiah')}}" class="nav-link nav-toggle">
+            <i class="fa fa-book font-white"></i>
+            <span class="title">Publikasi Ilmiah</span>
+        </a>    
+    </li>
+@endif
+@if ($pimpinanfakultas)
+    <li class="nav-item  {{Request::path()=='dosen-publikasi-ilmiah' ? 'active' : ''}}">
+        <a href="{{url('dosen-publikasi-ilmiah')}}" class="nav-link nav-toggle">
+            <i class="fa fa-book font-white"></i>
+            <span class="title">Publikasi Ilmiah</span>
+        </a>    
+    </li>
+@endif
 <li class="nav-item  {{strpos(Request::url(),'bimbingan')!==false ? 'active' : ''}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-large font-white"></i>

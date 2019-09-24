@@ -16,7 +16,12 @@
         @php
             $st=trim(strtok($item->pesan,':'));
             $pesan = str_replace($st.' :','',$item->pesan);
-            $us=\App\Model\Users::find($item->from);
+            if(strtolower($st)=='mahasiswa')
+                $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',3)->first();
+            elseif(strtolower($st)=='dosen')
+                $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',2)->first();
+            else
+                $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',1)->first();
             // echo $us->id;
         @endphp
         @if ($us)
@@ -24,15 +29,19 @@
             <td class="text-center">{{++$idx}}</td>
             <td>{{tgl_indo($item->created_at)}}</td>
             <td>
-                <div style="width:150px;">
+                <div style="width:150px;font-weight:bold">
                     @if ($us->kat_user==0)
-                    Administrator
+                        Administrator
                     @elseif($us->kat_user==1)
-                    {{$us->staf->nama}}<br> (Sekretariat)
+                        {{$us->staf->nama}}<br> (Sekretariat)
                     @elseif($us->kat_user==2)
-                    {{$us->dosen->nama}}<br> (Dosen)
+                        @if (isset($us->dosen->nama))
+                            {{$us->dosen->nama}}<br> (Dosen)
+                        @endif
                     @elseif($us->kat_user==3)
-                    {{$us->mahasiswa->nama}}<br> (Mahasiswa)
+                        @if (isset($us->mahasiswa->nama))
+                            {{$us->mahasiswa->nama}}<br> (Mahasiswa)
+                        @endif
                     @endif    
                 </div>
             </td>

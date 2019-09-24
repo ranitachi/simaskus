@@ -23,8 +23,6 @@ class DashboardController extends Controller
     
     public function index()
     {
-        
-
         $tahun=date('Y-m-d');
         $kalender=$kal_lain=array();
         if(Auth::check())
@@ -176,7 +174,7 @@ class DashboardController extends Controller
                     'eventClick' => 'function(event, jsEvent, view) {
                         lihatdetail(event.id)
                     }']);
-                return view('pages.dashboard.index-dosen',compact('calendar'))->with('kalender',$kalender)->with('kal_lain',$kal_lain);
+                return view('pages.dashboard.index-dosen',compact('calendar'))->with('kalender',$kalender)->with('dept_id',$dept_id)->with('kal_lain',$kal_lain);
             }
             // dd(Auth::user());
         }

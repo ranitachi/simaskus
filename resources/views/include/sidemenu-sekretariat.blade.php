@@ -27,6 +27,12 @@
     </a>
     
 </li>
+<li class="nav-item  {{Request::path()=='staf-publikasi-ilmiah' ? 'active' : ''}}">
+        <a href="{{url('staf-publikasi-ilmiah')}}" class="nav-link nav-toggle">
+            <i class="fa fa-book font-white"></i>
+            <span class="title">Publikasi Ilmiah</span>
+        </a>    
+    </li>
 <li class="heading">
     <h3 class="uppercase">Pengajuan</h3>
 </li>

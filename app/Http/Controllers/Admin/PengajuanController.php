@@ -15,6 +15,8 @@ use App\Model\PivotSetujuSidang;
 use App\Model\Users;
 use App\Model\Staf;
 use App\Model\Jadwal;
+use App\Model\Dosen;
+use App\Model\TopikPengajuan;
 use App\User;
 use App\Model\KalenderAkademik;
 use Auth;
@@ -477,5 +479,87 @@ class PengajuanController extends Controller
 
         $acc->save();
         return redirect('data-bimbingan')->with('status','Persetujuan ACC SIdang Dosen Telah Berhasil');
+    }
+
+    public function edit_pembimbing($idpengajuan)
+    {
+        $pengajuan=Pengajuan::where('id',$idpengajuan)->with('jenispengajuan')->first();
+        $dosen=Dosen::with('departemen')->orderBy('nama')->get();
+        $pivot=PivotBimbingan::where('judul_id',$idpengajuan)->with('dosen')->get();
+        return view('pages.pengajuan.editpembimbing')
+                ->with('pembimbing',$pivot)
+                ->with('dosen',$dosen)
+                ->with('idpengajuan',$idpengajuan)
+                ->with('jenis_id',$pengajuan->jenis_id)
+                ->with('idjenis',$pengajuan->jenis_id)
+                ->with('pengajuan',$pengajuan);
+    }
+    public function edit_pembimbing_simpan(Request $request,$idpengajuan)
+    {
+        // return $request->all();
+        $pengajuan=Pengajuan::find($idpengajuan);
+        $jenis_pn=MasterJenisPengajuan::find($pengajuan->jenis_id);
+        $pivot=PivotBimbingan::where('judul_id',$idpengajuan)->get();
+        $topik=TopikPengajuan::where('pengajuan_id',$idpengajuan)->get();
+        foreach($pivot as $k=>$v)
+        {
+            $v->deleted_at=date('Y-m-d H:i:s');
+            $v->save();
+        }
+        foreach($topik as $k=>$v)
+        {
+            $v->deleted_at=date('Y-m-d H:i:s');
+            $v->save();
+        }
+
+        foreach($request->dospem as $k=>$v)
+        {
+            if($v!='' && $v!=0)
+            {
+                $pivot=new PivotBimbingan;
+                $pivot->dosen_id=$v;
+                $pivot->mahasiswa_id=$pengajuan->mahasiswa_id;
+                $pivot->jenis_bimbingan=$jenis_pn->jenis;
+                $pivot->judul_id=$pengajuan->id;
+                $pivot->status=1;
+                $pivot->created_at=date('Y-m-d H:i:s');
+                $pivot->updated_at=date('Y-m-d H:i:s');
+                $pivot->save();
+
+                // $u_id=Users::where('id_user',$v)->where('kat_user',2)->first();
+                // if($u_id)
+                // {
+                //     $notif=new Notifikasi;
+                //     $notif->title="Pengajuan Dosen Pembimbing";
+                //     $notif->from=Auth::user()->id;
+                //     $notif->to=$u_id->id;
+                //     $notif->flag_active=1;
+                //     $notif->pesan="Mahasiswa : ".$user->name." Mengajukan untuk menjadi Dosen Pembimbing ".ucwords($jns_pengajuan)."<br><a href='".url('pengajuan-detail/'.$pengajuan->id)."'>Klik Disini</a>";
+                //     $notif->save();
+                // }
+
+                $ds[$k]=$v;
+            }
+        }
+        foreach($request->kolom_topik as $k=>$v)
+        {
+            if($v!='')
+            {
+                $desc=$request->deskripsi_topik[$k];
+                $topik=new TopikPengajuan;
+                $topik->pengajuan_id=$idpengajuan;
+                $topik->deskripsi=$desc;
+
+                if(isset($ds[$k]))
+                {
+                    $topik->dosen_id=$ds[$k];
+                    $topik->topik=$v;
+                    $topik->save();
+                }
+
+            }
+        }
+
+        return redirect()->back()->with('status','Data Pembimbing Berhasil Di Rubah');
     }
 }

@@ -185,7 +185,7 @@ class QuotaPembimbingController extends Controller
         if(isset($qb['S3']))
             $qut_s3=$qb['S3'];
         // dd($qb);
-    // return $jenis;
+        // return $p_ajuan;
         return view('pages.administrator.dosen.jumlah-pembimbing')
                 ->with('dosen',$dosen)
                 ->with('piv',$piv)
@@ -326,18 +326,21 @@ class QuotaPembimbingController extends Controller
     public function get_pembimbing($idjenis,$i,$idpm=null,$kat_dosen=null,$idpengajuan=null)
     {
         $dos_id=array();
-        if($idpm!=null)
+        if($idpm!=null && $idpm!=-1)
             $dos_id=explode('_',$idpm);
 
         $jenis=MasterJenisPengajuan::find($idjenis);                     
         $quota=QuotaPembimbing::where('level',$idjenis)->first();
 
-        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
+        $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('staf')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==3)
         {
             $dept_id=$user->mahasiswa->departemen_id;
         } 
+        elseif(Auth::user()->kat_user==1)
+            $dept_id=$user->staf->departemen_id;
+
         if($kat_dosen==null || $kat_dosen==1)
             $dosen=Dosen::where('departemen_id',$dept_id)->get();
         else

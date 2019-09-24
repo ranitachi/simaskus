@@ -232,6 +232,10 @@
                                             <li>
                                                 <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
                                             </li>
+                                            <li>
+                                                {{-- <a href="javascript:editpembimbing({{$v->id}})" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a> --}}
+                                                <a href="{{url('edit-pembimbing/'.$v->id)}}" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a>
+                                            </li>
                                             @if ($st_pbb==1)
                                                 @if ($v->status_pengajuan==0)  
                                                     <li>  
@@ -275,6 +279,13 @@
         }
         $('#tooltips').tooltip();
     });
+    
+    function editpembimbing(id)
+    {
+        $('#konten-editpembimbing').load('{{url("/")}}/edit-pembimbing/'+id,function(){ 
+        });
+        $('#editpembimbing').modal('show');
+    }
     function generate(id)
     {
         swal({
@@ -317,7 +328,7 @@
     function verifikasis3(id,jns)
     {
         $('#id_pengajuan').val(id);
-        $('#ajax').modal('show');
+        $('#pengajuans3').modal('show');
     }
     function setujuipengajuan(pengajuan_id,mahasiswa_id,dosen_id)
     {
@@ -461,7 +472,27 @@
         font-size: 11px !important;
     }
 </style>
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+<div class="modal fade" id="editpembimbing" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Edit Pembimbing</h4>
+            </div>
+            <form action="{{url('edit-pembimbing')}}" class="horizontal-form" id="form-pengajuan" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div id="konten-editpembimbing"></div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="submit" class="btn green" id="okeditpembimbing">OK</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="pengajuans3" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
