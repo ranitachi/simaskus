@@ -261,7 +261,8 @@ class KerjaPraktekController extends Controller
             $piv=array();
             foreach($pivot as $k =>$v)
             {
-                $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
+                if(Auth::user()->id_user==$v->dosen_id)
+                    $piv[$v->grup_id][$v->dosen_id]=$v;
             }
             // return $piv;
             $grup=KelompokKP::where('departemen_id',$dept_id)->with('mahasiswa')->get();
@@ -274,6 +275,7 @@ class KerjaPraktekController extends Controller
             $grupkp=array();
             foreach($grup as $kg=>$vg)
             {          
+                
                 $grupkp[$vg->mahasiswa_id][$vg->code]=$vg;
             }
 
@@ -284,7 +286,7 @@ class KerjaPraktekController extends Controller
                 $infokp[$vg->grup_id][str_slug($vg->judul)]=$vg;
             }
             // dd($infokp);
-            // return $pengajuan;
+            // return $piv;
             return view('pages.staf.kerja-praktek.data')
                     ->with('pengajuan',$pengajuan)
                     ->with('ketua',$ketua)

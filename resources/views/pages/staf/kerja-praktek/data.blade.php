@@ -61,6 +61,7 @@
             @foreach ($pengajuan as $i => $v)
                 @php
                     $idpengajuan=$v->id;
+                    $idgrup=0;
                     if(isset($grupkp[$v->mahasiswa_id]))
                     {
                         // $idgrup=$grupkp[$v->mahasiswa_id]->code;
@@ -73,11 +74,14 @@
                         // break;
                     }
                     
-                    // if (in_array($v->mahasiswa_id,$d_grup))
-                    //     continue;                            
+                    
                         
                 @endphp
                 @if (isset($v->mahasiswa->nama))
+                    @php
+                        if(!isset($piv[$idgrup][Auth::user()->id_user]))
+                            continue;
+                    @endphp
                     <tr class="odd gradeX">
                             
                         <td>{{($no)}}</td>

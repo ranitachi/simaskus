@@ -79,14 +79,17 @@
                             @if ($v->status_pengajuan == 1)
                                 @php
                                     $st_pbb=0;
-                                    foreach ($piv[Auth::user()->id_user] as $item)
+                                    if(isset($piv[Auth::user()->id_user]))
                                     {
-                                        if($item->status==1)
+                                        foreach ($piv[Auth::user()->id_user] as $item)
                                         {
-                                            $st_pbb=1;
+                                            if($item->status==1)
+                                            {
+                                                $st_pbb=1;
+                                            }
+                                            else
+                                                $st_pbb=0;
                                         }
-                                        else
-                                            $st_pbb=0;
                                     }
                                 @endphp
                                 @if ($st_pbb==1)
