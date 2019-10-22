@@ -79,178 +79,182 @@
                                 if(isset($jdwl[$v->id]))
                                     continue;
                             @endphp
-                            <tr>
-                                <td>{{++$k}}</td>
-                                <td class="text-left">{{ tgl_indo2($v->created_at)}}
-                                <br><br>
-                                <u>Jenis : </u><br>
-                                <b>{{ ($v->jenispengajuan->jenis)}}</b>
-                                </td>
-                                <td>
-                                    <b>{{$v->mahasiswa->nama}}</b><br>
-                                    NPM : {{ ($v->mahasiswa->npm)}}<br>
-                                    {{$v->mahasiswa->programstudi->nama_program_studi}}<br>
-                                    T.A : {{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}
-                                </td>
-                                <td> 
-                                    <u>B. Indonesia:</u><br><b>{{$v->judul_ind}}</b><br><br>
-                                    <u>B. Inggris:</u><br><b>{{$v->judul_eng}}</b>
-                                
-                                </td>
-                                <td> 
-                                    @if ($jns=='pengajuan')
-                                        <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary tooltips" data-style="default" ata-container="body" data-original-title="Setujui Seluruh Pengajuan Pembimbing"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
-                                    @endif
-                                    <div style="margin-top:10px;">
-                                    @php
-                                        $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->where('judul_id',$v->id)->with('dosen')->orderBy('keterangan','desc')->get();
-                                    @endphp
-                                    <div class="row">
-                                         <div class="col-md-7">&nbsp;</div>
-                                         <div class="col-md-5">
-                                           @if ($v->status_pengajuan==1) 
-                                                ACC Sidang
-                                            @endif
-                                        </div>
-                                    </div>
-                                    @foreach ($p_bimbingan as $key=>$item)
-                                        @if (isset($item->dosen->nama))
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                                                        <small><u>{{$item->keterangan}}</u></small>
-                                                    @else
-                                                        <small><u>Pembimbing {{$key+1}}</u></small>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    @if ($item->status==1)
-                                                        @if ($item->status_fix==1)
-                                                            <i class="fa fa-check font-blue-steel tooltips" data-style="default" ata-container="body" data-original-title="Pembimbing Telah Setuju"></i>
-                                                        @else
-                                                            <i class="fa fa-check font-blue-steel tooltips" data-style="default" ata-container="body" data-original-title="Telah Di Approve oleh Pembimbing"></i>
-                                                        @endif
-                                                    @elseif($item->status==0)
-                                                        <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu Approve Dari Pembimbing"></i>
-                                                    @endif
-                                                   
-                                                    @if ($item->status_fix==0)
-                                                        <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu DI Generate Pembimbing"></i>
-                                                    @endif
-                                                    
-                                                    <strong>{{$item->dosen->nama}}<br></strong>
-                                                </div>
-                                                @if($item->status==0)
-                                                    <div class="col-md-3">
-                                                        <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
-                                                    @endif
-                                                
-                                                    @if($item->status==0)
-                                                        <a href="javascript:hapuspengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger tooltips" data-style="default" data-container="body" data-original-title="Hapus Pengajuan Bimbingan" id=""><i class="fa fa-trash font-white" title=""></i></a>
-                                                    </div>
+
+                            @if (isset($v->mahasiswa->nama))
+                            
+                                <tr>
+                                    <td>{{++$k}}</td>
+                                    <td class="text-left">{{ tgl_indo2($v->created_at)}}
+                                    <br><br>
+                                    <u>Jenis : </u><br>
+                                    <b>{{ ($v->jenispengajuan->jenis)}}</b>
+                                    </td>
+                                    <td>
+                                        <b>{{$v->mahasiswa->nama}}</b><br>
+                                        NPM : {{ ($v->mahasiswa->npm)}}<br>
+                                        {{$v->mahasiswa->programstudi->nama_program_studi}}<br>
+                                        T.A : {{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}
+                                    </td>
+                                    <td> 
+                                        <u>B. Indonesia:</u><br><b>{{$v->judul_ind}}</b><br><br>
+                                        <u>B. Inggris:</u><br><b>{{$v->judul_eng}}</b>
+                                    
+                                    </td>
+                                    <td> 
+                                        @if ($jns=='pengajuan')
+                                            <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary tooltips" data-style="default" ata-container="body" data-original-title="Setujui Seluruh Pengajuan Pembimbing"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
+                                        @endif
+                                        <div style="margin-top:10px;">
+                                        @php
+                                            $p_bimbingan=\App\Model\PivotBimbingan::where('mahasiswa_id',$v->mahasiswa_id)->where('judul_id',$v->id)->with('dosen')->orderBy('keterangan','desc')->get();
+                                        @endphp
+                                        <div class="row">
+                                            <div class="col-md-7">&nbsp;</div>
+                                            <div class="col-md-5">
+                                            @if ($v->status_pengajuan==1) 
+                                                    ACC Sidang
                                                 @endif
-                                                <div class="col-md-1">
-                                                    @if (isset($acc[$v->id][$item->dosen_id]))
-                                                        <a href="" class="btn btn-xs btn-info btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Telah ACC Sidang"><i class="fa fa-check"></i></a>    
-                                                    @else
-                                                        @if ($v->status_pengajuan==1)
+                                            </div>
+                                        </div>
+                                        @foreach ($p_bimbingan as $key=>$item)
+                                            @if (isset($item->dosen->nama))
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                                            <small><u>{{$item->keterangan}}</u></small>
+                                                        @else
+                                                            <small><u>Pembimbing {{$key+1}}</u></small>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @if ($item->status==1)
                                                             @if ($item->status_fix==1)
-                                                             <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC   Sidang"><i class="fa fa-check"></i></a>
+                                                                <i class="fa fa-check font-blue-steel tooltips" data-style="default" ata-container="body" data-original-title="Pembimbing Telah Setuju"></i>
+                                                            @else
+                                                                <i class="fa fa-check font-blue-steel tooltips" data-style="default" ata-container="body" data-original-title="Telah Di Approve oleh Pembimbing"></i>
+                                                            @endif
+                                                        @elseif($item->status==0)
+                                                            <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu Approve Dari Pembimbing"></i>
+                                                        @endif
+                                                    
+                                                        @if ($item->status_fix==0)
+                                                            <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu DI Generate Pembimbing"></i>
+                                                        @endif
+                                                        
+                                                        <strong>{{$item->dosen->nama}}<br></strong>
+                                                    </div>
+                                                    @if($item->status==0)
+                                                        <div class="col-md-3">
+                                                            <a href="javascript:setujuipengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="Setujui Bimbingan" id=""><i class="fa fa-check-circle font-white" title=""></i></a>
+                                                        @endif
+                                                    
+                                                        @if($item->status==0)
+                                                            <a href="javascript:hapuspengajuan({{$v->id}},{{$v->mahasiswa_id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger tooltips" data-style="default" data-container="body" data-original-title="Hapus Pengajuan Bimbingan" id=""><i class="fa fa-trash font-white" title=""></i></a>
+                                                        </div>
+                                                    @endif
+                                                    <div class="col-md-1">
+                                                        @if (isset($acc[$v->id][$item->dosen_id]))
+                                                            <a href="" class="btn btn-xs btn-info btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Telah ACC Sidang"><i class="fa fa-check"></i></a>    
+                                                        @else
+                                                            @if ($v->status_pengajuan==1)
+                                                                @if ($item->status_fix==1)
+                                                                <a href="javascript:accsidang({{$v->id}},{{$item->dosen_id}})" class="btn btn-xs btn-danger btn-circle tooltips" data-style="default" data-container="body" data-original-title="Pembimbing Belum ACC   Sidang"><i class="fa fa-check"></i></a>
+                                                                @endif
                                                             @endif
                                                         @endif
+                                                        
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}
+                                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                            @if ($v->sk_rektor_promotor!=null)
+                                                <br>
+                                                <br>
+                                                SK Rektor Promotor<br>
+                                                <a href="{{url('unduh-file/'.$v->sk_rektor_promotor)}}" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="File SK Rektor" id=""><i class="fa fa-file-o font-white" title=""></i> Lihat File</a>
+                                            @endif
+                                        @endif
+                                    </td>
+
+                                    @php
+                                        $st_pbb=0;
+                                        if(isset($piv[$v->mahasiswa_id]))
+                                        {
+
+                                            foreach ($piv[$v->mahasiswa_id] as $item)
+                                            {
+                                                if($item->status==1)
+                                                {
+                                                    $st_pbb=1;
+                                                    break;
+                                                }
+                                                else
+                                                    $st_pbb=0;
+                                            }
+                                        }
+                                    @endphp
+                                    <td>
+                                        
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                            @if ($v->mahasiswa->programstudi->jenjang=='S3')
+                                                
+                                            
+                                                @if ($v->status_pengajuan==0)    
+                                                    {{-- <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a> --}}
+                                                        <li>
+                                                            <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp; Verifikasi Pengajuan</a>
+                                                        </li>
+                                                @endif
+                                                        <li>
+                                                            <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                                        </li>
+                                                    
+                                                    {{-- @endif --}}
+                                                    @if ($jns=='pengajuan')
+                                                        {{-- <li>
+                                                            <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a>
+                                                        </li> --}}
                                                     @endif
                                                     
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                    </div>
-                                </td>
-                                <td>
-                                    {!! $v->status_pengajuan == 0 ? '<span class="label label-info label-sm">Belum Di Verifikasi</span>' : ($v->status_pengajuan == 1 ? '<span class="label label-success label-sm"><i class="fa fa-check"></i> Di Setujui</span>' : '<span class="label label-danger label-sm"><i class="fa fa-ban"></i> Tidak Disetujui</span>')!!}
-                                    @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                                        @if ($v->sk_rektor_promotor!=null)
-                                            <br>
-                                            <br>
-                                            SK Rektor Promotor<br>
-                                            <a href="{{url('unduh-file/'.$v->sk_rektor_promotor)}}" class="btn btn-xs btn-info tooltips" data-style="default" data-container="body" data-original-title="File SK Rektor" id=""><i class="fa fa-file-o font-white" title=""></i> Lihat File</a>
-                                        @endif
-                                    @endif
-                                </td>
-
-                                @php
-                                    $st_pbb=0;
-                                    if(isset($piv[$v->mahasiswa_id]))
-                                    {
-
-                                        foreach ($piv[$v->mahasiswa_id] as $item)
-                                        {
-                                            if($item->status==1)
-                                            {
-                                                $st_pbb=1;
-                                                break;
-                                            }
-                                            else
-                                                $st_pbb=0;
-                                        }
-                                    }
-                                @endphp
-                                <td>
-                                    
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                        @if ($v->mahasiswa->programstudi->jenjang=='S3')
-                                            
-                                        
-                                            @if ($v->status_pengajuan==0)    
-                                                {{-- <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" class="btn btn-info btn-xs tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i></a> --}}
-                                                    <li>
-                                                        <a href="javascript:verifikasis3({{$v->id}},'{{$v->jenis_id}}');" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp; Verifikasi Pengajuan</a>
-                                                    </li>
-                                            @endif
-                                                    <li>
-                                                        <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:hapus({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Hapus Pengajuan" data-style="default" data-container="body" data-original-title="Hapus Pengajuan"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
-                                                    </li>
+                                            @else
                                                 
-                                                {{-- @endif --}}
-                                                @if ($jns=='pengajuan')
-                                                    {{-- <li>
-                                                        <a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a>
-                                                    </li> --}}
-                                                @endif
-                                                
-                                        @else
-                                            
-                                            <li>
-                                                <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
-                                            </li>
-                                            <li>
-                                                {{-- <a href="javascript:editpembimbing({{$v->id}})" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a> --}}
-                                                <a href="{{url('edit-pembimbing/'.$v->id)}}" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a>
-                                            </li>
-                                            @if ($st_pbb==1)
-                                                @if ($v->status_pengajuan==0)  
-                                                    <li>  
-                                                        <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp;Verifikasi Pengajuan</a>
-                                                    </li>
+                                                <li>
+                                                    <a href="{{url('data-pengajuan-detail/'.$v->id)}}" class="tooltips" title="Lihat Detail" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a>
+                                                </li>
+                                                <li>
+                                                    {{-- <a href="javascript:editpembimbing({{$v->id}})" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a> --}}
+                                                    <a href="{{url('edit-pembimbing/'.$v->id)}}" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a>
+                                                </li>
+                                                @if ($st_pbb==1)
+                                                    @if ($v->status_pengajuan==0)  
+                                                        <li>  
+                                                            <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp;Verifikasi Pengajuan</a>
+                                                        </li>
+                                                    @endif
                                                 @endif
                                             @endif
-                                        @endif
-                                        @if ($jns=='pengajuan')
-                                            <li><a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a></li>
-                                        @endif
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                                            @if ($jns=='pengajuan')
+                                                <li><a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a></li>
+                                            @endif
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
