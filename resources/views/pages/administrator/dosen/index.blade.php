@@ -87,5 +87,20 @@
             } 
         });
     }
+    function verifikasi(id)
+    {
+        $.ajax({
+            url : '{{url("verifikasi-dosen")}}/'+id,
+            success:function(a){
+                if(a==1)
+                {
+                    swal("Berhasil", "Data Dosen Sudah Di Verifikasi", "success");
+                    loaddata();
+                }
+                else
+                    swal("Gagal", "Data Dosen Gagal Di Verifikasi", "danger");
+            }
+        });
+    }
 </script>
 @endsection

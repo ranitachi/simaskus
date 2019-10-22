@@ -20,7 +20,7 @@
                     <th> Email </th>
                     <th> Telp/HP </th>
                     <th> Departemen </th>
-                    <th> Status Akun </th>
+                    <th style="width:100px;"> Status Akun </th>
                     <th> # </th>
                 </tr>
             </thead>
@@ -42,9 +42,10 @@
                             <td>
                                 @if (isset($us[$v->id]))
                                     @if ($us[$v->id]->flag==0)
-                                        <span class="label label-danger">Belum Aktif</span>
+                                        <a class="btn btn-xs btn-danger">Belum Aktif</a>
+                                        <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
                                     @else
-                                        <span class="label label-success">Aktif</span>
+                                        <a class="btn btn-xs btn-success">Aktif</a>
                                     @endif    
                                 @endif
                             </td>

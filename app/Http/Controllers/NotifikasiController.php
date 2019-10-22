@@ -33,8 +33,11 @@ class NotifikasiController extends Controller
     public function show($id)
     {
         $notif=Notifikasi::where('id',$id)->with('user')->first();
-        $notif->flag_active=0;
-        $notif->save();
+        if($notif)
+        {
+            $notif->flag_active=0;
+            $notif->save();
+        }
         
         return view('pages.staf.notifikasi.detail')
                 ->with('notif',$notif)

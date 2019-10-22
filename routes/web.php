@@ -64,6 +64,7 @@ Route::post('mahasiswa-verifikasi', 'Admin\MahasiswaAdminController@verifikasi')
 Route::resource('dosen-admin','Admin\DosenAdminController')->middleware('auth');
 Route::get('dosen-admin-data', 'Admin\DosenAdminController@data')->middleware('auth');
 Route::get('dosen-admin-hapus/{id}', 'Admin\DosenAdminController@destroy')->middleware('auth');
+Route::get('verifikasi-dosen/{id}', 'Admin\DosenAdminController@verifikasi_dosen')->middleware('auth');
 
 //Pimpinan Fakultas
 Route::get('pimpinan-fakultas','Admin\PimpinanController@index')->middleware('auth');
