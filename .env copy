@@ -1,7 +1,7 @@
-#APP_ENV=local
-#APP_DEBUG=true
-APP_ENV=production
-APP_DEBUG=false
+APP_ENV=local
+APP_DEBUG=true
+#APP_ENV=production
+#APP_DEBUG=false
 APP_KEY=base64:e03dH0Io3XqSzVCfWydvurdcIVsFgf4ePaWDB+j+EhU=
 APP_URL=http://localhost
 

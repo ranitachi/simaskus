@@ -163,4 +163,12 @@ class DosenAdminController extends Controller
         $c=Dosen::find($id)->delete();
         return response()->json([$c]);
     }
+
+    public function verifikasi_dosen($iddosen)
+    {
+        $user=Users::where('kat_user',2)->where('id_user',$iddosen)->first();
+        $user->flag=1;
+        $user->save();
+        return redirect('dosen-admin')->with('status',"Dosen : ".$user->name." Berhasil Di Verifikasi");
+    }
 }
