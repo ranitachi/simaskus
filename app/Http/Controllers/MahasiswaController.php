@@ -7,6 +7,7 @@ use App\Model\Mahasiswa;
 use App\Model\Users;
 use App\Model\MasterDepartemen;
 use App\Model\Jenjang;
+use App\Model\ProgamStudi;
 use App\User;
 use App\Model\Notifikasi;
 use Auth;
@@ -31,9 +32,14 @@ class MahasiswaController extends Controller
         $profil=Mahasiswa::find(Auth::user()->id_user);
         // return $profil;
         $jenjang=Jenjang::all();
+        $ps=array();
+        if($profil)
+            $ps=ProgamStudi::where('departemen_id',$profil->departemen_id)->get();
+
         return view('pages.mahasiswa.profile.index')
             ->with('dept',$dept)
             ->with('jenjang',$jenjang)
+            ->with('ps',$ps)
             ->with('profil',$profil);
     }
 

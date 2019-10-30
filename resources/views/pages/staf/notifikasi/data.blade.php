@@ -17,7 +17,7 @@
             $st=trim(strtok($item->pesan,':'));
             $pesan = str_replace($st.' :','',$item->pesan);
             if(strtolower($st)=='mahasiswa')
-                $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',3)->first();
+                $us=\App\Model\Users::where('id',$item->from)->where('kat_user',3)->first();
             elseif(strtolower($st)=='dosen')
                 $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',2)->first();
             else
@@ -39,9 +39,9 @@
                             {{$us->dosen->nama}}<br> (Dosen)
                         @endif
                     @elseif($us->kat_user==3)
-                        @if (isset($us->mahasiswa->nama))
-                            {{$us->mahasiswa->nama}}<br> (Mahasiswa)
-                        @endif
+                        {{-- @if (isset($us->mahasiswa->nama)) --}}
+                            {{$us->name}}<br> (Mahasiswa)
+                        {{-- @endif --}}
                     @endif    
                 </div>
             </td>

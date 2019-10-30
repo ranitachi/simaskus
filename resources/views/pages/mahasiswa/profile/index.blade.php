@@ -165,9 +165,18 @@
                                 <select class="bs-select form-control has-success" data-placeholder="Pilih Program Studi" name="program_studi" id="program_studi">
                                     <option value="-1">-Pilih Program Studi-</option>
                                     @if ($profil->program_studi_id!=0)
-                                        @if (isset($profil->programstudi->nama_program_studi)) 
-                                            <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
-                                        @endif
+                                        @foreach ($ps as $item)
+                                            @if (isset($profil->programstudi->nama_program_studi)) 
+                                                @if ($profil->program_studi_id==$item->id)
+                                                    <option value="{{$profil->program_studi_id}}" selected="selected">{{$profil->programstudi->nama_program_studi}}</option>    
+                                                @else
+                                                    <option value="{{$item->id}}">{{$item->nama_program_studi}}</option>    
+                                                @endif
+                                            @else
+                                                
+                                                <option value="{{$item->id}}">{{$item->nama_program_studi}}</option>
+                                            @endif
+                                        @endforeach
                                     @endif
                                 </select>
                             </div>

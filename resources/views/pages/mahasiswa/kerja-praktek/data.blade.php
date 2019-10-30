@@ -43,137 +43,145 @@
             </thead>
             
             <tbody>
-            @foreach ($pengajuan as $i => $v)
-                @php
-                    $idpengajuan=$v->id;
-                    if (count($grupkp)!=0)
-                    {
-                        // $idgrup=$grupkp[$v->mahasiswa_id]->code;
-                        // $idgrup=key($grupkp[0]);
-                        // if(isset($jadwal[$grupkp[0]->code]))
-                        //     continue;
-                        // break;
-                    }
-                @endphp
-                <tr class="odd gradeX">
-                    <td>{{(++$i)}}</td>
-                    <td>{{tgl_indo($v->created_at)}}</td>
-                    {{-- @if ($v->status_pengajuan!=0) --}}
-                        
-                        <td class="text-left">
-                            
-                            @if (count($grupkp)!=0)
-                                @foreach ($grupkp as $item)
-                                    @if($item->kategori=='ketua')
-                                        Ketua : 
-                                    @else
-                                        Anggota : 
-                                    @endif
-                                    <br>
-                                    <a href="#" data-toggle="tooltip" title="{{$item->mahasiswa->nama}}" style="font-size:11px;padding-left:20px;"><i class="fa fa-user"></i> {{$item->mahasiswa->nama}}</a> 
-                                    &nbsp;&nbsp;
-                                    @if($item->kategori!='ketua')
-                                        <a href="javascript:hapusanggota({{$item->id}})" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
-                                        @endif
-                                        <br>
-                                @endforeach
+                @if ($pengajuan->count()!=0)
+                    
+                
+                        @foreach ($pengajuan as $i => $v)
+                            @php
+                                $idpengajuan=$v->id;
+                                if (count($grupkp)!=0)
+                                {
+                                    // $idgrup=$grupkp[$v->mahasiswa_id]->code;
+                                    // $idgrup=key($grupkp[0]);
+                                    // if(isset($jadwal[$grupkp[0]->code]))
+                                    //     continue;
+                                    // break;
+                                }
+                            @endphp
+                            <tr class="odd gradeX">
+                                <td>{{(++$i)}}</td>
+                                <td>{{tgl_indo($v->created_at)}}</td>
+                                {{-- @if ($v->status_pengajuan!=0) --}}
+                                    
+                                    <td class="text-left">
+                                        
+                                        @if (count($grupkp)!=0)
+                                            @foreach ($grupkp as $item)
+                                                @if($item->kategori=='ketua')
+                                                    Ketua : 
+                                                @else
+                                                    Anggota : 
+                                                @endif
+                                                <br>
+                                                <a href="#" data-toggle="tooltip" title="{{$item->mahasiswa->nama}}" style="font-size:11px;padding-left:20px;"><i class="fa fa-user"></i> {{$item->mahasiswa->nama}}</a> 
+                                                &nbsp;&nbsp;
+                                                @if($item->kategori!='ketua')
+                                                    <a href="javascript:hapusanggota({{$item->id}})" class="font-red-thunderbird"><i class="fa fa-trash"></i></a>
+                                                    @endif
+                                                    <br>
+                                            @endforeach
 
-                                @if($v->status_kp!=2)
-                                    @if ($ketua==1)
-                                        <br>
-                                        @if ($v->status_kp!=10)
-                                            <div class="text-center">
-                                                <a href="javascript:addanggota({{$grupkp[0]->code}},'-1')" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Anggota</a>
+                                            @if($v->status_kp!=2)
+                                                @if ($ketua==1)
+                                                    <br>
+                                                    @if ($v->status_kp!=10)
+                                                        <div class="text-center">
+                                                            <a href="javascript:addanggota({{$grupkp[0]->code}},'-1')" class="btn btn-info btn-xs"><i class="fa fa-plus-circle"></i> Tambah Anggota</a>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            @endif
+                                        @else
+                                            <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Untuk Menambah Grup" href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs tooltips"><i class="fa fa-plus-circle"></i> Tambah Grup</a><br><br>
+                                            <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Jika Tidak Memiliki Grup" href="{{url('no-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-primary btn-xs tooltips"><i class="fa fa-hand-pointer-o"></i> Tidak Ada Grup</a>
+                                        @endif
+                                    </td>
+                                    <td class="text-left">
+                                        @if($v->status_pengajuan == 2)
+                                            <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Telah Selesai</a>
+                                        @elseif($v->status_pengajuan == 0)
+                                            <a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Verifikasi Sekretariat</a>
+                                        @else
+                                            <small>Status KP</small><br>
+                                            @php
+                                                if($v->status_kp == 0) 
+                                                    echo '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>';
+                                                elseif($v->status_kp == 1 )
+                                                    echo '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' ; 
+                                                elseif($v->status_kp == 2 ) 
+                                                    echo '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>';
+                                                elseif($v->status_kp == 10 ) 
+                                                    echo '<a class="btn btn-primary btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan'.($v->publish_date!=null ? ' & Sudah Di Publish' :'').'</a>';
+                                                else
+                                                    echo '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>';
+                                            @endphp
+                                            @if($v->status_kp == 10 )
+                                                @if ($v->publish_date==null)
+                                                    <br>
+                                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-info-circle"></i> Sekretariat Belum Mempublish Jadwal Sidang</a>
+                                                @endif
+                                            @endif
+                                            <br>
+                                            <br>
+                                            <small>Info KP</small><br>
+                                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}#tab_1_1_2" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Detail Info KP</a>
+                                        @endif
+                                    </td>
+                                {{-- @endif --}}
+                                <td>
+                                    @if($v->status_pengajuan == 0) 
+                                        <a class="btn btn-info btn-xs">Belum Di Verifikasi</a>
+                                    @elseif($v->status_pengajuan == 1)
+                                        <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Di Setujui</a>
+                                    @elseif($v->status_pengajuan == 2)
+                                        <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Telah Selesai</a>
+                                    @else 
+                                        <span class="label label-danger label-sm">Tidak Disetujui</span>
+                                    @endif
+                                </td>
+
+                                <td style="text-center">
+                                    <div style="width:100px;">
+                                        
+                                        <div class="btn-group pull-right">
+                                                <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu pull-right" role="menu">
+                                                    <li>
+                                                        <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
+                                                    </li>
+                                                    @if($v->status_kp!=10)
+                                                        <li>
+                                                            <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                        </li>
+                                                    @endif
+                                                    @if($v->status_kp==0)
+                                                        <li>
+                                                            <a href="javascript:hapus({{$v->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
                                             </div>
+                                        {{-- @if ($v->status_pengajuan == 1 || $v->status_pengajuan==2) --}}
+                                            {{-- <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a> --}}
+                                        {{-- @endif --}}
+                                        {{-- @if($v->status_kp!=10)
+                                            <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
                                         @endif
-                                    @endif
-                                @endif
-                            @else
-                                <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Untuk Menambah Grup" href="{{url('data-kp-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-info btn-xs tooltips"><i class="fa fa-plus-circle"></i> Tambah Grup</a><br><br>
-                                <a data-style="default" data-container="body" data-original-title="Klik Jika Tidak Memiliki Grup" title="Klik Jika Tidak Memiliki Grup" href="{{url('no-grup/'.$v->id.'/'.$v->mahasiswa_id.'/-1')}}" class="btn btn-primary btn-xs tooltips"><i class="fa fa-hand-pointer-o"></i> Tidak Ada Grup</a>
-                            @endif
-                        </td>
-                        <td class="text-left">
-                            @if($v->status_pengajuan == 2)
-                                <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Telah Selesai</a>
-                            @elseif($v->status_pengajuan == 0)
-                                <a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Verifikasi Sekretariat</a>
-                            @else
-                                <small>Status KP</small><br>
-                                @php
-                                    if($v->status_kp == 0) 
-                                        echo '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>';
-                                    elseif($v->status_kp == 1 )
-                                        echo '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' ; 
-                                    elseif($v->status_kp == 2 ) 
-                                        echo '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>';
-                                    elseif($v->status_kp == 10 ) 
-                                        echo '<a class="btn btn-primary btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan'.($v->publish_date!=null ? ' & Sudah Di Publish' :'').'</a>';
-                                    else
-                                        echo '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>';
-                                @endphp
-                                @if($v->status_kp == 10 )
-                                    @if ($v->publish_date==null)
-                                        <br>
-                                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-info-circle"></i> Sekretariat Belum Mempublish Jadwal Sidang</a>
-                                    @endif
-                                @endif
-                                <br>
-                                <br>
-                                <small>Info KP</small><br>
-                                <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}#tab_1_1_2" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> Detail Info KP</a>
-                            @endif
-                        </td>
-                    {{-- @endif --}}
-                    <td>
-                        @if($v->status_pengajuan == 0) 
-                            <a class="btn btn-info btn-xs">Belum Di Verifikasi</a>
-                        @elseif($v->status_pengajuan == 1)
-                            <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Di Setujui</a>
-                        @elseif($v->status_pengajuan == 2)
-                            <a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Telah Selesai</a>
-                        @else 
-                            <span class="label label-danger label-sm">Tidak Disetujui</span>
-                        @endif
-                    </td>
+                                        @if($v->status_kp==0)
+                                            <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                        @endif --}}
+                                    </div>
+                                </td>
+                            </tr>
 
-                    <td style="text-center">
-                        <div style="width:100px;">
-                            
-                            <div class="btn-group pull-right">
-                                    <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li>
-                                            <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
-                                        </li>
-                                        @if($v->status_kp!=10)
-                                            <li>
-                                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                                            </li>
-                                        @endif
-                                         @if($v->status_kp==0)
-                                            <li>
-                                                <a href="javascript:hapus({{$v->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            {{-- @if ($v->status_pengajuan == 1 || $v->status_pengajuan==2) --}}
-                                {{-- <a href="{{url('data-kp-detail/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a> --}}
-                            {{-- @endif --}}
-                            {{-- @if($v->status_kp!=10)
-                                <a href="{{url('data-kp/'.$v->id.'/'.Auth::user()->kat_user)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                            @endif
-                            @if($v->status_kp==0)
-                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            @endif --}}
-                        </div>
-                    </td>
-                </tr>
-
-            @endforeach                
+                        @endforeach 
+                    @else
+                    <tr>
+                        <td colspan="4" class="text-center">Data Pengajuan Belum Tersedia</td>
+                    </tr>
+                    @endif               
             </tbody>
         </table>
     </div>
