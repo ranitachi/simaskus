@@ -32,40 +32,42 @@
             @foreach ($mhs as $i => $v)
             @if (Auth::user()->kat_user!=0)
                 @if (Auth::user()->staf_user->departemen_id==$v->departemen_id)
-                    <tr class="odd gradeX">
-                        <td>{{($no++)}}</td>
-                        <td>
-                            @if ($user[3][$v->id]->foto!='')
-                                <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;width:30px;">
-                            @else
-                                <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;width:30px;">
-                            @endif
-                        </td>
-                        <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
-                        <td>{{$v->email}}</td>
-                        <td>Dept : {{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
-                            
-                            PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
-                        <td>
-                            {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
+                    @if(isset($user[3][$v->id]))
+                        <tr class="odd gradeX">
+                            <td>{{($no++)}}</td>
+                            <td>
+                                @if ($user[3][$v->id]->foto!='')
+                                    <img alt="" class="img-circle" src="{{asset('storage/'.$user[3][$v->id]->foto)}}" style="height:30px;width:30px;">
+                                @else
+                                    <img alt="" class="img-circle" src="{{asset('img/mhs.png')}}" style="height:30px;width:30px;">
+                                @endif
+                            </td>
+                            <td>NPM : <b>{{$v->npm}}</b><br>Nama : <b>{{$v->nama}}</b></td>
+                            <td>{{$v->email}}</td>
+                            <td>Dept : {{isset($v->departemen->nama_departemen) ? $v->departemen->nama_departemen : ''}}<br>
+                                
+                                PS : {{isset($v->programstudi->nama_program_studi) ? $v->programstudi->nama_program_studi : ''}}</td>
+                            <td>
+                                {!! $user[3][$v->id]->flag ==1 ? '<span class="badge badge-primary badge-roundless"> Akun Diverifikasi </span>' : '<span class="badge badge-danger badge-roundless"> Belum Diverifikasi </span>'!!}
 
-                            @if ($user[3][$v->id]->flag==0 )
-                                <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
-                            @endif
-                        </td>
-                        {{-- <td class="text-center">
-                            {!! $v->status_mahasiswa ==1 ? '<span class="badge badge-primary badge-roundless"> Aktif </span>' : ($v->status_mahasiswa==2 ? '<span class="badge badge-info badge-roundless"> Sudah Lulus </span>' : '<span class="badge badge-danger badge-roundless"> Belum Aktif </span>')!!}
+                                @if ($user[3][$v->id]->flag==0 )
+                                    <a href="javascript:verifikasi({{$v->id}})" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Verifikasi"><i class="fa fa-check"></i></a>
+                                @endif
+                            </td>
+                            {{-- <td class="text-center">
+                                {!! $v->status_mahasiswa ==1 ? '<span class="badge badge-primary badge-roundless"> Aktif </span>' : ($v->status_mahasiswa==2 ? '<span class="badge badge-info badge-roundless"> Sudah Lulus </span>' : '<span class="badge badge-danger badge-roundless"> Belum Aktif </span>')!!}
 
-                            
-                        </td> --}}
-                        <td>
-                            <div style="width:100px;">
-                                <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
-                                <a href="{{url('mahasiswa-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
-                                <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                                
+                            </td> --}}
+                            <td>
+                                <div style="width:100px;">
+                                    <a href="{{url('mahasiswa-detail/'.$v->id)}}" class="btn btn-xs btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{url('mahasiswa-admin/'.$v->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="javascript:hapus({{$v->id}})" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endif
             @else
 
