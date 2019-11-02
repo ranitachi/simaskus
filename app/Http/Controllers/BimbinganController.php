@@ -114,11 +114,16 @@ class BimbinganController extends Controller
         $det=array();
         $mhs=Mahasiswa::where('id',Auth::user()->id_user)->with('programstudi')->first();
 
-        if($mhs->programstudi->jenjang=='S3')
-            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->with('dosen')->with('mahasiswa')->get();
+        if(isset($mhs->programstudi->jenjang))
+        {
+            if($mhs->programstudi->jenjang=='S3')
+                $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->with('dosen')->with('mahasiswa')->get();
+            else
+                $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->where('status',1)->with('dosen')->with('mahasiswa')->get();
+        }
         else
-            $dos=PivotBimbingan::where('mahasiswa_id',Auth::user()->id_user)->where('judul_id',$idpengajuan)->where('status',1)->with('dosen')->with('mahasiswa')->get();
-
+            $dos=array();
+            
         $dospem=array();
         foreach($dos as $k=>$v)
         {

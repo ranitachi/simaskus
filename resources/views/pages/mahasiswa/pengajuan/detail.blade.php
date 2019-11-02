@@ -36,7 +36,7 @@
             <div class="tabbable-custom ">
                 <ul class="nav nav-tabs ">
                     <li class="active">
-                        <a href="#tab_5_1" data-toggle="tab"> Informasi {{$pengajuan->jenispengajuan->jenis}} </a>
+                        <a href="#tab_5_1" data-toggle="tab"> Informasi {{isset($pengajuan->jenispengajuan->jenis) ? $pengajuan->jenispengajuan->jenis : ''}} </a>
                     </li>
                     @if (Auth::user()->kat_user==3)
                     <li>
@@ -58,7 +58,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Mata Kuliah Spesial</label>
-                                        <input type="text" readonly  id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir"  style="" value="{{$pengajuan->jenispengajuan->jenis}}">
+                                        <input type="text" readonly  id="ipk_terakhir" name="ipk_terakhir" class="form-control input-circle" placeholder="IPK Terakhir"  style="" value="{{isset($pengajuan->jenispengajuan->jenis) ? $pengajuan->jenispengajuan->jenis : ''}}">
                                     </div>
                                 </div>
                                 <!--/span-->

@@ -13,8 +13,10 @@
                     <select class="bs-select form-control has-success" multiple="multiple" data-placeholder="Pilih Anggota Kelompok" id="anggota_1" name="anggota[]">
                         <option value="-1">- Pilih -</option>
                         @foreach ($anggota as $item)
-                            @if (Auth::user()->id_user!=$item->mahasiswa_id)
-                                <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                        @if (isset($item->mahasiswa->nama))
+                                @if (Auth::user()->id_user!=$item->mahasiswa_id)
+                                    <option value="{{$item->mahasiswa_id}}">{{$item->mahasiswa->nama}}</option>
+                                @endif
                             @endif
                         @endforeach
                     </select>
