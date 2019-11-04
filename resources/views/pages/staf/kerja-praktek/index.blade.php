@@ -25,15 +25,34 @@
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
-        <div class="">
-            <div class="row" id="loader">
-                <div class="col-md-10 text-center" style="position:fixed;">
-                    <center>
-                        <img src="{{asset('img/loading-bl-blue.gif')}}">
-                    </center>
+        <div class="tabbable-custom nav-justified">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#home">Belum Diverifikasi</a></li>
+                <li><a data-toggle="tab" href="#menu1">Telah Di Verifikasi</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <div class="row" id="loader_belum">
+                        <div class="col-md-10 text-center" style="position:fixed;">
+                            <center>
+                                <img src="{{asset('img/loading-bl-blue.gif')}}">
+                            </center>
+                        </div>
+                    </div>
+                    <div id="data_belum"></div>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <div class="row" id="loader_sudah">
+                        <div class="col-md-10 text-center" style="position:fixed;">
+                            <center>
+                                <img src="{{asset('img/loading-bl-blue.gif')}}">
+                            </center>
+                        </div>
+                    </div>
+                    <div id="data_sudah"></div>
                 </div>
             </div>
-            <div id="data"></div>
+            
             
         </div>
     </div>
@@ -55,9 +74,13 @@
     function loaddata()
     {
         $('#loader').show();
-        $('#data').load('{{url("data-kp-data")}}',function(){
-            $('#sample_4').dataTable();
-            $('#loader').hide();
+        $('#data_belum').load('{{url("data-kp-data")}}/0',function(){
+            $('#sample_0').dataTable();
+            $('#loader_belum').hide();
+        });
+        $('#data_sudah').load('{{url("data-kp-data")}}/1',function(){
+            $('#sample_1').dataTable();
+            $('#loader_sudah').hide();
         });
     }
     function hapus(id)

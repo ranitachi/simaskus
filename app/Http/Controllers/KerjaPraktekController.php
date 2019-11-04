@@ -124,7 +124,7 @@ class KerjaPraktekController extends Controller
                     ->with('pembimbing_kp',$p_kp)
                     ->with('piv',$piv);
     }
-    public function data()
+    public function data($status=null)
     {
         $level=Auth::user()->kat_user;
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
@@ -199,13 +199,28 @@ class KerjaPraktekController extends Controller
         }
         else if($level==1)
         {
-            $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
-                        ->where('status_pengajuan',0)
+            if($status==null)
+            {
+                $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        // ->where('status_pengajuan',0)
                         ->with('jenispengajuan')
                         ->with('tahunajaran')
                         ->with('mahasiswa')
                         ->orderBy('created_at')
                         ->get();
+            
+            }
+            else
+            {
+                $pengajuan=KerjaPraktek::where('departemen_id',$dept_id)
+                        ->where('status_pengajuan',$status)
+                        ->with('jenispengajuan')
+                        ->with('tahunajaran')
+                        ->with('mahasiswa')
+                        ->orderBy('created_at')
+                        ->get();
+            
+            }
                         
                         
             $pivot=PivotBimbingan::all();
@@ -243,6 +258,7 @@ class KerjaPraktekController extends Controller
                     ->with('infokp',$infokp)
                     ->with('d_grup',$d_grup)
                     ->with('grupkp',$grupkp)
+                    ->with('status',$status)
                     ->with('jadwal',$jadwal)
                     ->with('piv',$piv);
         }

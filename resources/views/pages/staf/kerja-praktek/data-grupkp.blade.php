@@ -81,85 +81,120 @@
                     $no=1;
                 @endphp
             @foreach ($d_grup as $i => $v)
-                <tr class="odd gradeX">
-                    <td>{{$no}}</td>
-                    <td>{{$v[0]->nama_kelompok}}</td>
-                    <td>
-                        <ul>
-                        @foreach ($v as $item)
-                            @if (isset($item->mahasiswa->nama))
-                                <li>{{ucwords($item->kategori)}}<br>Nama : <b>{{$item->mahasiswa->nama}}</b><br><span class="font-blue-madison">NPM : <b>{{$item->mahasiswa->npm}}</b></span></li>
-                            @endif
-                        @endforeach
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                        @if (isset($pembimbing_kp[$i]))
-                            @foreach ($pembimbing_kp[$i] as $item)
-                                @if (isset($item->dosen->nama))
-                                    <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
-                                @endif
-                            @endforeach
-                        @endif
-                        </ul>
-                    </td>
-                    @php
-                        if(isset($pengajuan[$v[0]->mahasiswa_id]))
-                            $pjuan=$pengajuan[$v[0]->mahasiswa_id];
-                        else
-                            $pjuan=false;
-                    @endphp
-                    <td>
-                        <small>Lokasi KP</small><br>
-                            @if (isset($grupkp[$v[0]->mahasiswa_id]))
-                                @foreach ($grupkp[$v[0]->mahasiswa_id] as $grup_id=> $grp)
-                                    @if (isset($infokp[$grp->code]))
-                                        <a class="btn btn-primary btn-xs"><i class="fa fa-building"></i> {{$infokp[$grp->code]['instansiperusahaan']->isi}}</a>
-                                    @else
-                                        <a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Data Lokasi KP Masih Kosong</a>
+                @php
+                    $stmhs=1;
+                    foreach ($v as $item){
+                        if($item->mahasiswa_id==-1)
+                        {
+                            $stmhs=0;
+                        }
+                    }
+                @endphp
+                @if ($stmhs==1)
+                
+                    <tr class="odd gradeX">
+                            <td>{{$no}}</td>
+                            <td>{{$v[0]->nama_kelompok}}</td>
+                            <td>
+                                <ul>
+                                @foreach ($v as $item)
+                                    @if (isset($item->mahasiswa->nama))
+                                        <li>{{ucwords($item->kategori)}}<br>Nama : <b>{{$item->mahasiswa->nama}}</b><br><span class="font-blue-madison">NPM : <b>{{$item->mahasiswa->npm}}</b></span></li>
                                     @endif
                                 @endforeach
-                            @endif
-                            
-                        <br>
-                        <br>
-                        <small>Status KP</small><br>
-                            @if ($pjuan!=false)
-                                {!! $pjuan->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($pjuan->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($pjuan->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($pjuan->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
-                            @endif
-                    </td>
-                    <td>
-                        
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    @if ($pjuan!=false)
-                                        <li>
-                                            <a href="{{url('data-kp-detail/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
-                                        </li>
-                                        @if (Auth::user()->kat_user!=2) 
-                                            <li>
-                                                <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                                            </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                @if (isset($pembimbing_kp[$i]))
+                                    @foreach ($pembimbing_kp[$i] as $item)
+                                        @if (isset($item->dosen->nama))
+                                            <li>{{ucwords($item->kategori)}}<br><b>{{$item->dosen->nama}}</b></li>
                                         @endif
-                                        @if($pjuan->status_kp==0)
-                                            <li>
-                                                <a href="javascript:hapus({{$pjuan->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
-                                            </li>
+                                    @endforeach
+                                @endif
+                                </ul>
+                            </td>
+                            @php
+                                if(isset($pengajuan[$v[0]->mahasiswa_id]))
+                                    $pjuan=$pengajuan[$v[0]->mahasiswa_id];
+                                else
+                                    $pjuan=false;
+                            @endphp
+                            <td>
+                                <small>Lokasi KP</small><br>
+                                    @if (isset($grupkp[$v[0]->mahasiswa_id]))
+                                        @php            
+                                            $adainfo=0;
+                                            $dt_info='';
+                                        @endphp
+                                        @foreach ($grupkp[$v[0]->mahasiswa_id] as $grup_id=> $grp)
+                                            @php
+                                                // echo $grp->mahasiswa_id.'-';
+                                                // if(in_array($dgrup,$grp->mahasiswa_id,FALSE))
+                                                if($adainfo==1)
+                                                    continue;
+                                            @endphp
+                                            
+                                            @if (isset($infokp[$grp->code]))
+                                                @php
+                                                    $dt_info.='<a class="btn btn-primary btn-xs"><i class="fa fa-building"></i>'.$infokp[$grp->code]['instansiperusahaan']->isi.'</a>';
+                                                    $adainfo=1;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $adainfo=0;
+                                                    $dt_info.='';
+                                                @endphp    
+                                            @endif
+                                            
+                                        @endforeach
+                                        @if ($adainfo==1)
+                                            {!!$dt_info!!}
+                                        @else
+                                            <a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Data Lokasi KP Masih Kosong</a>
                                         @endif
                                     @endif
-                                            
-                                </ul>
-                            </div>
-                        
-                    </td>
-                </tr>
-                @php
-                    $no++;
-                @endphp
+                                    
+                                <br>
+                                <br>
+                                <small>Status KP</small><br>
+                                    @if ($pjuan!=false)
+                                        {!! $pjuan->status_kp == 0 ? '<a class="btn btn-warning btn-xs"><i class="fa fa-exclamation-circle"></i> Belum Di Mulai</a>' : ($pjuan->status_kp == 1 ? '<a class="btn btn-info btn-xs"><i class="fa fa-check"></i> Sedang Berjalan</a>' : ($pjuan->status_kp == 2 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Selesai</a>' : ($pjuan->status_kp == 10 ? '<a class="btn btn-success btn-xs"><i class="fa fa-check"></i> Sudah Dijadwalkan</a>' : '<a class="btn btn-danger btn-xs">Tidak Disetujui</a>')))!!}
+                                    @endif
+                            </td>
+                            <td>
+                                
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            @if ($pjuan!=false)
+                                                <li>
+                                                    <a href="{{url('data-kp-detail/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-eye"></i>&nbsp;Detail KP</a>
+                                                </li>
+                                                @if (Auth::user()->kat_user!=2) 
+                                                    <li>
+                                                        <a href="{{url('data-kp/'.$pjuan->id.'/'.Auth::user()->kat_user)}}"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                    </li>
+                                                @endif
+                                                @if($pjuan->status_kp==0)
+                                                    <li>
+                                                        <a href="javascript:hapus({{$pjuan->id}})"><i class="fa fa-trash"></i>&nbsp;Hapus</a>
+                                                    </li>
+                                                @endif
+                                            @endif
+                                                    
+                                        </ul>
+                                    </div>
+                                
+                            </td>
+                        </tr>
+                        @php
+                            $no++;
+                        @endphp
+                    @endif
             @endforeach                
             </tbody>
         </table>

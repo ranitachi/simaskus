@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "264630c899773f863a46b8ac66ff29b2",
+    "content-hash": "23eb37265f606c2c59e83f5b1f36d435",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2541,20 +2541,20 @@
         },
         {
             "name": "rap2hpoutre/laravel-log-viewer",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
-                "reference": "1271590443cc173d0f9316f78ca81a9acf5b630c"
+                "reference": "5957eb05d86058dfbbe9a0782e4dd7cee550a376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/1271590443cc173d0f9316f78ca81a9acf5b630c",
-                "reference": "1271590443cc173d0f9316f78ca81a9acf5b630c",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/5957eb05d86058dfbbe9a0782e4dd7cee550a376",
+                "reference": "5957eb05d86058dfbbe9a0782e4dd7cee550a376",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "4.2.*|5.*",
+                "illuminate/support": "4.2.*|5.*|^6.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -2596,7 +2596,7 @@
                 "logging",
                 "lumen"
             ],
-            "time": "2019-08-19T13:05:27+00:00"
+            "time": "2019-09-04T14:54:37+00:00"
         },
         {
             "name": "ristek/sso",
@@ -5949,4 +5949,3 @@
     },
     "platform-dev": []
 }
-

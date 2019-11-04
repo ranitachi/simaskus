@@ -306,7 +306,7 @@ Route::post('simpan-nilai-akhir/{idpengajuan}/{idmahasiswa}/{idjadwal}','Admin\P
 //Kerja Praktek//
 Route::get('data-kp','KerjaPraktekController@index')->middleware('auth');
 Route::get('data-kp/{id}/{kat_user}','KerjaPraktekController@form')->middleware('auth');
-Route::get('data-kp-data','KerjaPraktekController@data')->middleware('auth');
+Route::get('data-kp-data/{status?}','KerjaPraktekController@data')->middleware('auth');
 Route::get('data-grup-kp','KerjaPraktekController@data_grup_kp')->middleware('auth');
 Route::get('data-kp-hapus/{id}','KerjaPraktekController@destroy')->middleware('auth');
 Route::get('data-kp-detail/{id}/{kat_user}','KerjaPraktekController@detail')->middleware('auth');
