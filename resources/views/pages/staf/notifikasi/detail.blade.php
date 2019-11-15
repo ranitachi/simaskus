@@ -32,6 +32,45 @@
                     @php
                         $st=trim(strtok($notif->pesan,':'));
                         $pesan = str_replace($st.' :','',$notif->pesan);
+                        
+                        if(strtolower($st)=='mahasiswa')
+                        {
+                            $us=\App\Model\Users::where('id',$notif->from)->where('kat_user',3)->first();
+                            // return $us;
+                            if($us)
+                            {
+                                if(strpos($notif->pesan,$us->name)===false)
+                                {
+                                    $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',3)->first();
+                                }
+                            }
+                        }
+                        elseif(strtolower($st)=='dosen')
+                            $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',2)->first();
+                        else
+                            $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',1)->first();
+                        $nama='';
+                        if ($us->kat_user==0)
+                        {
+                            $nama='Administrator';
+                        }
+                        elseif($us->kat_user==1)
+                        {
+                            $nama=$us->staf->nama;
+                        }
+                        elseif($us->kat_user==2)
+                        {
+                            if (isset($us->dosen->nama))
+                                $nama=$us->dosen->nama;
+                        }
+                        elseif($us->kat_user==3)
+                        {
+                            $nama=$us->name;
+                        }
+                        else
+                        {
+                            $nama='';
+                        }
                     @endphp
                     <div class="portlet-body">
                         <div class="row">
@@ -51,7 +90,8 @@
                                 <div class="form-group form-md-line-input">
                                     <label class="col-md-2 control-label" for="form_control_1">Notifikasi Dari <i class="fa fa-user"></i></label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" readonly placeholder="Enter your email" value="{{ $st=='Mahasiswa' ? (isset($notif->mahasiswa->nama) ? $notif->mahasiswa->nama : $notif->user->mahasiswa->nama) : ($st=='Dosen' ? (isset($notif->dosen->nama) ? $notif->dosen->nama : $notif->user->dosen->nama) : ($st=='Staf' ? (isset($notif->staf->nama) ? $notif->staf->nama : $notif->user->staf->nama) : '')) }}">
+                                        <input type="text" class="form-control" id="form_control_1" readonly placeholder="Enter your email" style="font-wight:600" value="{{$nama}}
+                                        ">
                                     </div>
                                 </div>
                                 <div class="form-group form-md-line-input">

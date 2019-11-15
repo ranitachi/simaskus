@@ -17,7 +17,17 @@
             $st=trim(strtok($item->pesan,':'));
             $pesan = str_replace($st.' :','',$item->pesan);
             if(strtolower($st)=='mahasiswa')
+            {
                 $us=\App\Model\Users::where('id',$item->from)->where('kat_user',3)->first();
+                // return $us;
+                if($us)
+                {
+                    if(strpos($item->pesan,$us->name)===false)
+                    {
+                        $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',3)->first();
+                    }
+                }
+            }
             elseif(strtolower($st)=='dosen')
                 $us=\App\Model\Users::where('id_user',$item->from)->where('kat_user',2)->first();
             else

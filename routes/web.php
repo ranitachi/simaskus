@@ -42,7 +42,7 @@ Route::get('/', function () {
 });
 Route::get('/getcontent','DashboardController@getcontent');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::post('/logout','UsersController@performLogout');
 Route::get('/logout','UsersController@logout');
 Route::get('/logout_akun','UsersController@logout_akun');
