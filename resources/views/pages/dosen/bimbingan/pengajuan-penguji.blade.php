@@ -35,9 +35,9 @@
                                     @if (in_array($v->id,$peng))
                                         <option value="{{$v->id}}" selected="selected">{{$v->nama}}</option>   
                                     @else
-                                        @if (!in_array($v->id,$pemb))
+                                        {{-- @if (!in_array($v->id,$pemb)) --}}
                                             <option value="{{$v->id}}">{{$v->nama}}</option>   
-                                        @endif
+                                        {{-- @endif --}}
                                     @endif
                                 {{-- @endif --}}
                             @endforeach

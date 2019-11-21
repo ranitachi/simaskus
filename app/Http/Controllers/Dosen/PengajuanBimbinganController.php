@@ -167,6 +167,8 @@ class PengajuanBimbinganController extends Controller
                     ->join('master_jenis_pengajuan','master_jenis_pengajuan.id','=','module.jenis_id')
                     ->where('module.departemen_id',$dept_id)
                     ->where('master_jenis_pengajuan.jenis','like',"%Tugas Skripsi%")
+                    ->whereNull('component.deleted_at')
+                    ->whereNull('module.deleted_at')
                     ->get();
         // dd($penilaian);
         $eval=EvaluasiACCSidang::where('dept_id',$dept_id)->where('mahasiswa_id',$mahasiswa_id)->where('pengajuan_id',$id)->where('dosen_id',Auth::user()->id_user)->get();

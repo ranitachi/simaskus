@@ -87,6 +87,9 @@
                     @else
                         @if ($v->status_pengajuan>=1)
                             @if ($piv[$v->mahasiswa_id]->status==1)
+                                @if (isset($v->mahasiswa->npm))
+                                
+                            
                                 <tr>
                                     <td>{{$no}}</td>
                                     <td> {{isset($v->jenispengajuan->jenis) ? $v->jenispengajuan->jenis : 'n/a'}}</td>
@@ -190,7 +193,7 @@
                                        
                                     </td>
                                 </tr>
-                            
+                                @endif
                             @endif  
                         @endif  
                         @php

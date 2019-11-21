@@ -69,6 +69,7 @@
                                 }
                                 else
                                     $nilai=$ket='';
+                                    
                             @endphp
                                 <tr>
                                     <td class="text-left" style="text-align:left !important;padding-left:20px;">{{$v->nama_component}}</td>
@@ -99,14 +100,14 @@
                     <center>
                         <div class="form-actions right">
                             @if ($pengajuan->status_pengajuan!=0)
-                            @php
-                                $jadwal=\App\Model\PivotJadwal::where('judul_id',$pengajuan->id)->first();                                
-                                
-                            @endphp
-                                @if(!$jadwal)
-                                <button type="submit" id="simpan-evaluasi" class="btn blue">
-                                    <i class="fa fa-check"></i> Simpan</button>
-                                @endif
+                                @php
+                                    $jadwal=\App\Model\PivotJadwal::where('judul_id',$pengajuan->id)->first(); 
+                                    // echo $jadwal->id.';;s';                               
+                                @endphp
+                                {{-- @if(!$jadwal) --}}
+                                    <button type="submit" id="simpan-evaluasi" class="btn blue">
+                                        <i class="fa fa-check"></i> Simpan</button>
+                                {{-- @endif --}}
                             @endif
                         </div>
                     </center>
