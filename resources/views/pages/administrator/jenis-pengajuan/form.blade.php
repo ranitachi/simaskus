@@ -70,7 +70,7 @@
                     {{-- <textarea name="keterangan" id="keterangan" class="form-control input-circle">{{$id==-1 ? '' : $det->keterangan}}</textarea> --}}
                     <select class="bs-select form-control has-success col-md-12" syule="width:100% !important" data-placeholder="Pilih Level" name="keterangan" id="level">
                         @php
-                            $level=array('S1','S2','S3');
+                            $level=array('S1','S2','S3','Tugas Syarat Mengajukan Sidang');
                         @endphp
                             @foreach ($level as $item)
                                 @if ($id!=-1)
