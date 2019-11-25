@@ -296,7 +296,23 @@ class PengajuanBimbinganController extends Controller
         }
         else
         {
-            return redirect('bimbingan-detail/'.$pengajuan_id.'/'.$mahasiswa_id.'#tab_5_3')->with('fail','Evaluasi Bimbingan Gagal di Simpan');
+            $insert=new EvaluasiACCSidang;
+            $insert->catatan=$catatan;
+            $insert->save();
+
+            $acc=new PivotSetujuSidang;
+            $acc->dosen_id	=$dosen_id;
+            $acc->mahasiswa_id	=$mahasiswa_id;
+            $acc->jenis_bimbingan	='Skripsi';
+            $acc->pengajuan_id	=$pengajuan_id;
+            $acc->status=1;
+            $ac=$acc->save();
+            if($ac)
+            {
+                return redirect('bimbingan-detail/'.$pengajuan_id.'/'.$mahasiswa_id.'#tab_5_4')->with('status','Evaluasi Bimbingan Telah di Simpan, dan Mahasiswa '.$mhs->nama.' Telah Di Setujui untuk Mengajukan Sidang. Silahkan Mengusulkan Nama Dosen Penguji');
+            }
+            else
+                return redirect('bimbingan-detail/'.$pengajuan_id.'/'.$mahasiswa_id.'#tab_5_3')->with('fail','Evaluasi Bimbingan Gagal di Simpan');
         }
 
 
