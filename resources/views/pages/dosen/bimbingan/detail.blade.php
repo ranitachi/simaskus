@@ -22,10 +22,17 @@
         <!-- BEGIN PAGE TITLE-->
         <h1 class="page-title"> Pengajuan Mata Kuliah Spesial
             <small>Detail</small>
+            
         </h1>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
+        
         <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn btn-info btn-md pull-right" href="{{URL::previous()}}"><i class="fa fa-chevron-left"></i> Kembali</a>
+                </div>
+            </div>
             <div class="tabbable-custom ">
                 <ul class="nav nav-tabs ">
                     <li class="active">
@@ -50,6 +57,18 @@
                         
                         <form role="form" class="horizontal-form" >
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Nama Mahasiswa</label>
+                                        <input type="text" readonly  id="nama" name="nama" class="form-control input-circle" placeholder="Nama"  style="" value="{{$pengajuan->mahasiswa->nama}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">NPM</label>
+                                        <input type="text" readonly  id="npm" name="npm" class="form-control input-circle" placeholder="NPM"  style="" value="{{$pengajuan->mahasiswa->npm}}">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Mata Kuliah Spesial</label>

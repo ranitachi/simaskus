@@ -83,8 +83,19 @@ class PengajuanBimbinganController extends Controller
         //$data=Pengajuan::find($id);
 
         // $pivot=PivotBimbingan::where('mahasiswa_id',$data->mahasiswa_id)->where('dosen_id',Auth::user()->id_user)->first();
+        $dept_id=0;
+        $dos=Dosen::find(Auth::user()->id_user);
+        if($dos)
+        {
+            $dept_id=$dos->departemen_id;
+        }
+
         $pivot=PivotBimbingan::find($id);
         $pivot->status=$st;
+        
+        if($dept_id==8)
+            $pivot->status_fix=1;
+
         $pivot->save();
         $id_user_mhs=Users::where('id_user',$pivot->mahasiswa_id)->first();
         

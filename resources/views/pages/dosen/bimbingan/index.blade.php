@@ -86,7 +86,7 @@
                     dataType : 'JSON'
                 }).done(function(){
                     loaddata();
-                    swal("Sukses!", "Data Pengajuan Bimbingan DI Setujui", "success");
+                    swal("Sukses!", "Data Pengajuan Bimbingan Di Setujui", "success");
                 }).fail(function(){
                     swal("Fail!", "Pengajuan Bimbingan Ditolak", "danger");
                 });

@@ -66,11 +66,11 @@
                             <th>No</th>
                             <th> Tanggal Pengajuan / <br>Jenis</th>
                             {{-- <th> Jenis</th> --}}
-                            <th> Mahasiswa</th>
-                            <th> Judul</th>
-                            <th> Pembimbing</th>
+                            <th style="width:200px;"> Mahasiswa</th>
+                            {{-- <th> Judul</th> --}}
+                            <th style="width:280px;"> Pembimbing</th>
                             <th> Status </th>
-                            <th><div style="width:80px;">Tombol Aksi</div></th>
+                            <th><div style="width:20px;">Aksi</div></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,6 +88,10 @@
                                     <br><br>
                                     <u>Jenis : </u><br>
                                     <b>{{ ($v->jenispengajuan->jenis)}}</b>
+                                    <br><br>
+                                        <u>B. Indonesia:</u><br><b>{{$v->judul_ind}}</b><br><br>
+                                        <u>B. Inggris:</u><br><b>{{$v->judul_eng}}</b>
+                                    
                                     </td>
                                     <td>
                                         <b>{{$v->mahasiswa->nama}}</b><br>
@@ -95,14 +99,12 @@
                                         {{$v->mahasiswa->programstudi->nama_program_studi}}<br>
                                         T.A : {{$v->tahunajaran->tahun_ajaran}} - {{$v->tahunajaran->jenis}}
                                     </td>
-                                    <td> 
-                                        <u>B. Indonesia:</u><br><b>{{$v->judul_ind}}</b><br><br>
-                                        <u>B. Inggris:</u><br><b>{{$v->judul_eng}}</b>
                                     
-                                    </td>
                                     <td> 
                                         @if ($jns=='pengajuan')
-                                            <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary tooltips" data-style="default" ata-container="body" data-original-title="Setujui Seluruh Pengajuan Pembimbing"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
+                                            @if ($v->mahasiswa->programstudi->jenjang!='S3')
+                                                <a href="javascript:checkall({{$v->id}})" class="pull-right btn-xs btn-primary tooltips" data-style="default" ata-container="body" data-original-title="Setujui Seluruh Pengajuan Pembimbing"><i class="fa fa-check-circle-o"></i> Approve Semua</a>
+                                            @endif
                                         @endif
                                         <div style="margin-top:10px;">
                                         @php
@@ -111,7 +113,7 @@
                                         <div class="row">
                                             <div class="col-md-7">&nbsp;</div>
                                             <div class="col-md-5">
-                                            @if ($v->status_pengajuan==1) 
+                                                @if ($v->status_pengajuan==1) 
                                                     ACC Sidang
                                                 @endif
                                             </div>
@@ -140,7 +142,7 @@
                                                         @endif
                                                     
                                                         @if ($item->status_fix==0)
-                                                            <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu DI Generate Pembimbing"></i>
+                                                            <i class="fa fa-exclamation-circle font-red-thunderbird tooltips" data-style="default" data-container="body" data-original-title="Menunggu Di Generate Pembimbing"></i>
                                                         @endif
                                                         
                                                         <strong>{{$item->dosen->nama}}<br></strong>
@@ -203,7 +205,7 @@
                                     <td>
                                         
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Tombol Aksi
+                                        <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown"> Aksi
                                             <i class="fa fa-angle-down"></i>
                                         </button>
                                             <ul class="dropdown-menu pull-right" role="menu">

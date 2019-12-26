@@ -12,6 +12,9 @@
     </thead>
 
     <tbody>
+    @php
+        $no=1;
+    @endphp
     @foreach ($notif as $idx=>$item)      
         @php
             $st=trim(strtok($item->pesan,':'));
@@ -36,7 +39,7 @@
         @endphp
         @if ($us)
         <tr>
-            <td class="text-center">{{++$idx}}</td>
+            <td class="text-center">{{$no}}</td>
             <td>{{tgl_indo($item->created_at)}}</td>
             <td>
                 <div style="width:150px;font-weight:bold">
@@ -68,6 +71,9 @@
                 </div>
             </td>
         </tr>
+        @php
+            $no++;
+        @endphp
         @endif
     @endforeach
 

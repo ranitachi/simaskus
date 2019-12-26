@@ -36,20 +36,25 @@
                         if(strtolower($st)=='mahasiswa')
                         {
                             $us=\App\Model\Users::where('id',$notif->from)->where('kat_user',3)->first();
-                            // return $us;
+                            // dd($notif);
                             if($us)
                             {
+                                // dd('a');
                                 if(strpos($notif->pesan,$us->name)===false)
                                 {
                                     $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',3)->first();
                                 }
                             }
+                            else
+                                $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',3)->first();
                         }
                         elseif(strtolower($st)=='dosen')
                             $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',2)->first();
                         else
                             $us=\App\Model\Users::where('id_user',$notif->from)->where('kat_user',1)->first();
+                            
                         $nama='';
+
                         if ($us->kat_user==0)
                         {
                             $nama='Administrator';

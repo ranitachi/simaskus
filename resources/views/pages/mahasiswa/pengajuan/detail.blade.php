@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-12">
                 @if (Auth::user()->kat_user==1)
-                    <a class="btn btn-info btn-md pull-right" href="{{url('data-pengajuan')}}">Data Pengajuan</a>
+                    <a class="btn btn-info btn-md pull-right" href="{{url('data-pengajuan')}}"><i class="fa fa-chevron-left"></i> Data Pengajuan</a>
                 @endif
             </div>
         </div>
@@ -55,6 +55,18 @@
                         @endif
                         <form role="form" class="horizontal-form" >
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Nama Mahasiswa</label>
+                                        <input type="text" readonly  id="nama" name="nama" class="form-control input-circle" placeholder="Nama Mahasiswa"  style="" value="{{isset($pengajuan->mahasiswa->nama) ? $pengajuan->mahasiswa->nama : ''}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">NPM</label>
+                                        <input type="text" readonly  id="npm" name="npm" class="form-control input-circle" placeholder="NPM"  style="" value="{{isset($pengajuan->mahasiswa->npm) ? $pengajuan->mahasiswa->npm : ''}}">
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Mata Kuliah Spesial</label>

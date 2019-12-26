@@ -69,20 +69,36 @@ class PengajuanController extends Controller
     }
     public function setujui_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
     {
+        $staf=Staf::where('id',Auth::user()->id_user)->first();
+        $dept_id=$staf->departemen_id;
+
         $pivot=PivotBimbingan::where('judul_id',$pengajuan_id)->where('mahasiswa_id',$mahasiswa_id)->where('dosen_id',$dosen_id)->first();
         $pivot->status=1;
+
+        if($dept_id==8)
+            $pivot->status_fix=1;
+
         $pivot->save();
-        return redirect('data-pengajuan')->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
+        return redirect()->back()->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
+        // return redirect('data-pengajuan')->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
     }
     public function setujui_pengajuan_bimbingan_semua($pengajuan_id)
     {
+        $staf=Staf::where('id',Auth::user()->id_user)->first();
+        $dept_id=$staf->departemen_id;
+
         $pivot=PivotBimbingan::where('judul_id',$pengajuan_id)->get();
         foreach($pivot as $k=>$v)
         {
             $v->status=1;
+            
+            if($dept_id==8)
+                $v->status_fix=1;
+
             $v->save();
         }
-        return redirect('data-pengajuan')->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
+        return redirect()->back()->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
+        // return redirect('data-pengajuan')->with('status','Pengajuan Dosen Bimbingan Telah Disetujui');
     }
     public function hapus_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
     {

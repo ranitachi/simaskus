@@ -83,6 +83,9 @@
                                     </td>
                                 </tr>
                             @endif 
+                            @php
+                                $no++;
+                            @endphp
                         @endif                        
                     @else
                         @if ($v->status_pengajuan>=1)
@@ -193,12 +196,13 @@
                                        
                                     </td>
                                 </tr>
+                                @php
+                                    $no++;
+                                @endphp
                                 @endif
                             @endif  
                         @endif  
-                        @php
-                            $no++;
-                        @endphp
+                        
                     @endif
                 @endforeach     
             </tbody>
