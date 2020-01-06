@@ -1,7 +1,7 @@
 <div class="portlet light portlet-fit portlet-datatable bordered">
 
     <div class="portlet-body">
-        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_4">
+        <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_{{$st_old}}">
             <thead>
                 <tr>
                     <th>No</th>
@@ -75,6 +75,9 @@
                                 </td>
                                 
                                 <td class="text-left">
+                                    @php
+                                        $stjadwal=0;
+                                    @endphp
                                     <small><u>Jadwal : </u></small><br>
                                     @if (count($jadwal) != 0)
                                         @if (isset($jadwal[$idpengajuan]->tanggal))
@@ -85,6 +88,9 @@
                                                     {{date('d-m-Y',strtotime($jadwal[$idpengajuan]->tanggal))}}
                                                     <br>Pukul : {{$jadwal[$idpengajuan]->waktu}}
                                                 </a>
+                                                @php
+                                                    $stjadwal=1;
+                                                @endphp
                                             @else
                                                 <a href="#" class="btn btn-xs btn-info">Belum Ditentukan</a>
                                             @endif
@@ -106,7 +112,10 @@
                                     @else
                                             <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                                     @endif
-
+                                    <br><br>
+                                    @if ($stjadwal==1)
+                                        <a href="javascript:ubahjadwalsidang({{$idpengajuan}},{{$v->mahasiswa_id}},{{$jadwal[$idpengajuan]->id}})" class="btn btn-danger btn-xs pull-right" style="font-size:10px;"><i class="fa fa-edit"></i> Ubah Jadwal</a>
+                                    @endif
                                 </td>
                                 
                                 <td class="text-left">
@@ -159,12 +168,49 @@
                             <td class="text-left">
                                 @if(count($jadwal)!=0)
                                         @if (isset($jadwal[$idpengajuan]->jadwal_id))
-
-                                            <a href="javascript:selesai({{$jadwal[$idpengajuan]->jadwal_id}},{{$idpengajuan}})" class="btn btn-xs btn-success tooltips" data-title="Klik Untuk Verifikasi Selesai Sidang" style="font-size:10px;"><i class="fa fa-check"></i> Verifikasi Selesai</a>
-                                            <br>
-                                            <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-danger" style="font-size:10px;margin-top:5px"><i class="fa fa-list"></i> Form Penilaian</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
+                                            <div class="btn-group open">
+                                                <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> <i class="fa fa-list"></i> Aksi
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu pull-right" role="menu" style="border: #999 1px solid;">                                        
+                                                    <li>
+                                                        {{-- <a href="#" class="tooltips" title="" data-style="default" data-container="body" data-original-title="Lihat Detail"><i class="fa fa-eye"></i>&nbsp;Detail</a> --}}
+                                                         <a href="javascript:selesai({{$jadwal[$idpengajuan]->jadwal_id}},{{$idpengajuan}})" class="tooltips" data-title="Klik Untuk Verifikasi Selesai Sidang" style="font-size:11px;"><i class="fa fa-check"></i> Verifikasi Selesai</a>
+                                                    </li>
+                                                    <li>
+                                                         <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;"><i class="fa fa-list"></i> Form Penilaian</a>
+                                                    </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;"><i class="fa fa-download"></i> Undangan Sidang</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/berita-acara-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/form-nilai-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/form-nilai-pembimbing/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Form Nilai Pembimbing</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/form-catatan-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="" style="font-size:11px;;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
+                                                </li>                                                                                                                                                              
+                                                </ul>
+                                            </div>
+                                            {{-- <a href="javascript:selesai({{$jadwal[$idpengajuan]->jadwal_id}},{{$idpengajuan}})" class="btn btn-xs btn-success tooltips" data-title="Klik Untuk Verifikasi Selesai Sidang" style="font-size:10px;"><i class="fa fa-check"></i> Verifikasi Selesai</a>
+                                            <br> --}}
+                                            {{-- <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-danger" style="font-size:10px;margin-top:5px"><i class="fa fa-list"></i> Form Penilaian</a>
+                                            <br> --}}
+                                            {{-- <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
                                             <br>
                                             <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
                                             <br>
@@ -179,7 +225,7 @@
                                             <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
                                             <br>
                                             <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
-                                            <br>
+                                            <br> --}}
                                         @endif
                                     @endif
                                 </td>

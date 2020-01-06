@@ -160,12 +160,12 @@
     {
         $('#loader').show();
         $('#data').load('{{url("data-pengajuan-sidang-data/".$jenis)}}',function(){
-            $('#sample_4').dataTable();
+            $('#sample_0').dataTable();
             $('#loader').hide();
             $('.tooltips').tooltip();
         });
         $('#data_old').load('{{url("data-pengajuan-sidang-data/".$jenis)}}/old',function(){
-            $('#sample_4').dataTable();
+            $('#sample_1').dataTable();
             $('#loader').hide();
             $('.tooltips').tooltip();
         });
@@ -333,6 +333,51 @@
         $('#pengajuan_id_s3').val(pengajuan_id);
         $('#ajax-atur-jadwal').modal('show');
     }
+
+    function ubahjadwalsidang(idpengajuan,mahasiswa_id,idjadwal)
+    {
+        // $('.datepicker').datepicker({
+        //     format: 'dd/mm/yyyy'
+        // });
+        $.ajax({
+            url : '{{url("/")}}/cek-jadwal-sidang/'+idpengajuan+'/'+mahasiswa_id+'/'+idjadwal,
+            success:function(res)
+            {
+                var url_update='{{url("/")}}/update-jadwal-sidang/'+idpengajuan+'/'+mahasiswa_id+'/'+idjadwal;
+                // $('#form-ubah-jadwal').attr('action',url_update);
+                // alert(res.jadwal.tanggal)
+                var tgl=res.jadwal.tanggal.split('-');
+                $('#dt-ubahjadwal').val(tgl[2]+'/'+tgl[1]+'/'+tgl[0])
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+                $('#waktu-ubah-jadwal').val(res.jadwal.waktu);
+                $('#ruangan-ubah-jadwal').val(res.jadwal.ruangan_id);
+                $('#ajax-atur-jadwal-sidang').modal('show');
+                $('#ok-ajax-sm-ubahjadwal').one('click',function(){
+                    $.ajax({
+                        url : url_update,
+                        data : $('#form-ubah-jadwal').serialize(),
+                        type : 'POST',
+                        cache: false,
+                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        success:function(res){
+                            if(res==1)
+                            {
+                                $('#ajax-atur-jadwal-sidang').modal('hide');
+                                loaddata();
+                                swal("Success!", "Ubah Data Jadwal Sidang Berhasil", "success");
+                            }
+                            else
+                            {
+                                swal("Gagal!", "Ubah Data Jadwal Sidang Gagal", "danger");
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    }
 </script>
 
 <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true">
@@ -447,6 +492,72 @@
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                 <button type="submit" class="btn green" id="ok-ajax-sm">OK</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ajax-atur-jadwal-sidang" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="horizontal-form" id="form-ubah-jadwal" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Tanggal</label>
+                                    <input type="text" name="datetime" placeholder="dd/mm/yyyy" class="form-control datepicker" id="dt-ubahjadwal"/>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                
+                                <div class="form-group has-success">
+                                    <label class="control-label">Waktu</label>
+                                    <select name="waktu" id="waktu-ubah-jadwal" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            $waktu=waktu();
+                                            foreach($waktu as $item)
+                                            {
+                                                echo '<option value="'.$item.'">'.$item.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                @php
+                                    $ruangan=\App\Model\MasterRuangan::with('departemen')->get();
+                                @endphp
+                                <div class="form-group has-success">
+                                    <label class="control-label">Ruangan</label>
+                                    <select name="ruangan" id="ruangan-ubah-jadwal" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            foreach($ruangan as $item)
+                                            {
+                                                echo '<option value="'.$item->id.'">'.$item->departemen->nama_departemen.' -- '.$item->nama_ruangan.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="ok-ajax-sm-ubahjadwal">OK</button>
             </div>
             </form>
         </div>

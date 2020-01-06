@@ -182,7 +182,7 @@ class JadwalController extends Controller
     
     public function pengajuan_sidang_staf_data($jenis,$old=null)
     {
-        
+        $st_old=($old==null ? 0 : 1);
         $user=Users::where('id',Auth::user()->id)->with('staf')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==1)
@@ -291,6 +291,7 @@ class JadwalController extends Controller
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
                     ->with('old',$old)
+                    ->with('st_old',$st_old)
                     ->with('piv_jad',$piv_jad)
                     ->with('kalamik',$kalamik)
                     ->with('piv',$piv);
@@ -306,6 +307,7 @@ class JadwalController extends Controller
                     ->with('jadwal',$jdwl)
                     ->with('jenis',$jenis)
                     ->with('old',$old)
+                    ->with('st_old',$st_old)
                     ->with('piv_jad',$piv_jad)
                     ->with('kalamik',$kalamik)
                     ->with('piv',$piv);
@@ -1108,5 +1110,39 @@ class JadwalController extends Controller
         else
             echo 0;
         
+    }
+
+    public function cek_jadwal_sidang($idpengajuan,$mahasiswa_id,$idjadwal)
+    {
+        $jadwal=Jadwal::find($idjadwal);
+        $pivotjadwal=PivotJadwal::where('jadwal_id',$idjadwal)->first();
+        $data['jadwal']=$jadwal;
+        $data['pivotjadwal']=$pivotjadwal;
+        return $data;
+    }
+
+    public function update_jadwal_sidang(Request $request,$idpengajuan,$mahasiswa_id,$idjadwal)
+    {
+        // return $request->all();
+        $tgl=$request->datetime; //":"05\/12\/2019",
+        $date=explode('/',$tgl);
+        $waktu = $request->waktu; //":"11.30",
+        $idruangan = $request->ruangan; //"ruangan":"38"
+
+        $jadwal=Jadwal::find($idjadwal);
+        $jadwal->ruangan_id=$idruangan;
+        $jadwal->tanggal = $tanggal=$date[2].'-'.$date[1].'-'.$date[0];
+        $jadwal->hari = date('D',strtotime($tanggal));
+        $jadwal->waktu = $waktu;
+        $jadwal->save();
+
+        $pivotjadwal=PivotJadwal::where('jadwal_id',$idjadwal)->first();
+        $pivotjadwal->ruangan_id=$idruangan;
+        $c=$pivotjadwal->save();
+
+        if($c)
+            echo 1;
+        else
+            echo 0;
     }
 }
