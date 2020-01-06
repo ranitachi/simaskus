@@ -538,7 +538,7 @@ function getFormFields($data)
 	}
 	function jab_copromotor()
 	{
-		$jab=['lektor','guru-besar'];
+		$jab=['lektor','guru-besar','lektor-kepala','professor','profesor'];
 		return $jab;
 	}
 	function departemeninggris($dept)
