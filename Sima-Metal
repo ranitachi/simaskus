@@ -2,7 +2,7 @@
 [ok] 2. Approve generate pemimbing dibuat masing2  => Untuk Metal..langsung Fix jika dosen sudah Aprrove
 3. sebelum penjadwalan pengajuan sidang semua proses pengajuan sidang dicut termasuk dosen
 4. Berita Acara Belum Terambil nilainya
-5. Ubah data Jadwal
+[OK] 5. Ubah data Jadwal
 6. verifikasi cukup sampai selesai sidang.
 7. ketua sidang bisa fleksibel
 8. rekap penguji/pemimbing
@@ -10,3 +10,55 @@
 10. kirim message direct
 
 dianika aprilia / danika.aprilia
+
+Masukan :
+- Mahasiswa Daftar Sidang -> Dosen ACC
+- Nama Pembimbing pada Form Pengajuan Penguji Hilang
+- Daftar Nama Dosen Seluruh Departemen
+- Jumlah Penguji Sesuai dengan inputan Quota
+- [ok] Cek jadwal pada saat edit jadwal, jika bentrok langsung disable
+- buat 1 tombol by pass untuk khusus s3 yang sudah mengambil tahap sebelumnya untuk akun sekretariat
+- 
+
+Alur Disertasi s3
+--------------------
+- 3 ujian :
+    - Proposal Riset    
+    - Hasil Riset
+    - Sidang Promosi
+        - (Pembimbing Sama)
+
+#- Departemen Mengajukan Ke Fakultas untuk SK Promotor & Co Promotor
+
+- Mahasiswa Registrasi
+- Mengisi calon promotor(wajib, 1) & co promotor(Opsional, maks 2)
+    - Promotor (Harus S3 & Min. Lektor Kepala)
+    - Co Promotor (Harus S3 & Min. Lektor)
+- 
+- Di Verifikasi Staf Sekretariat plus Upload SK Rektor
+- Setelah Verifikasi Mahasiswa Bisa Bimbingan 
+
+PROPOSAL RISET
+- Unggah Buku Ujian/Disertasi
+- Penguji harus (5, inc. Promotor & co Promotor)
+
+
+HASIL RISET
+- Unggah Buku Hasil Riset
+- Penguji harus min (7, inc. Promotor & co Promotor) , Max 8 (7, inc. Promotor & co Promotor)
+
+SIDANG PROMOSI
+- Unggah Buku Ujian
+- Unggah Bukti Publikasi
+    - Judul
+    - Penulis (Semua Nama Penulis)
+    - Posisi sbg Penulis (Penulis 1, Corresponding Author, Co Author)
+    - Alamat Publikasi
+    - Link/URL
+    - Unggah SOftcopy
+    - Form Dinamis (Lebih dari 1)
+-   
+
+OUTPUT :
+- print out yg di ttd Pak Arief
+- 

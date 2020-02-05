@@ -114,7 +114,7 @@
                                     @endif
                                     <br><br>
                                     @if ($stjadwal==1)
-                                        <a href="javascript:ubahjadwalsidang({{$idpengajuan}},{{$v->mahasiswa_id}},{{$jadwal[$idpengajuan]->id}})" class="btn btn-danger btn-xs pull-right" style="font-size:10px;"><i class="fa fa-edit"></i> Ubah Jadwal</a>
+                                        <a href="javascript:ubahjadwalsidang({{$idpengajuan}},{{$v->mahasiswa_id}},{{$jadwal[$idpengajuan]->id}},{{isset($jadwal[$idpengajuan]->ruangan_id) ? $jadwal[$idpengajuan]->ruangan_id : '-1'}})" class="btn btn-danger btn-xs pull-right" style="font-size:10px;"><i class="fa fa-edit"></i> Ubah Jadwal</a>
                                     @endif
                                 </td>
                                 
@@ -168,7 +168,7 @@
                             <td class="text-left">
                                 @if(count($jadwal)!=0)
                                         @if (isset($jadwal[$idpengajuan]->jadwal_id))
-                                            <div class="btn-group open">
+                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-success btn-xs btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> <i class="fa fa-list"></i> Aksi
                                                     <i class="fa fa-angle-down"></i>
                                                 </button>

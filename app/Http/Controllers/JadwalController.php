@@ -1112,13 +1112,70 @@ class JadwalController extends Controller
         
     }
 
-    public function cek_jadwal_sidang($idpengajuan,$mahasiswa_id,$idjadwal)
+    public function cek_jadwal_sidang($idpengajuan,$mahasiswa_id,$idjadwal,$tanggal=null,$ruangan_id)
     {
-        $jadwal=Jadwal::find($idjadwal);
-        $pivotjadwal=PivotJadwal::where('jadwal_id',$idjadwal)->first();
-        $data['jadwal']=$jadwal;
-        $data['pivotjadwal']=$pivotjadwal;
-        return $data;
+        // $jadwal=Jadwal::find($idjadwal);
+        // $pivotjadwal=PivotJadwal::where('jadwal_id',$idjadwal)->first();
+        // $data['jadwal']=$jadwal;
+        // $data['pivotjadwal']=$pivotjadwal;
+        // return $data;
+        if($tanggal==null)
+        {
+            $jadwal=Jadwal::join('pivot_jadwal','pivot_jadwal.jadwal_id','=','jadwals.id')
+                ->whereDate('jadwals.tanggal', '=', date('Y-m-d'))
+                ->orWhere('jadwals.id',$idjadwal)
+                ->get();
+
+            $tgl=0;
+        }
+        else
+        {
+            $jadwal=Jadwal::join('pivot_jadwal','pivot_jadwal.jadwal_id','=','jadwals.id')
+                ->whereDate('jadwals.tanggal', '=', $tanggal)
+                ->orWhere('jadwals.id',$idjadwal)
+                ->get();
+            $tgl=$tanggal;
+        }
+
+        $waktu=$det=array();
+        foreach($jadwal as $k=>$v)
+        {
+            $waktu[]=$v->waktu;
+            if($v->jadwal_id==$idjadwal)
+            {
+                $det=$v;
+            }
+        }
+        $jadwalruangwaktu=Jadwal::join('pivot_jadwal','pivot_jadwal.jadwal_id','=','jadwals.id')
+                ->whereDate('jadwals.tanggal', '=', $tanggal)
+                ->Where('jadwals.ruangan_id',$ruangan_id)
+                ->orderBy('jadwals.waktu')
+                ->get();
+        $wkt=array();
+        foreach($jadwalruangwaktu as $k=>$v)
+        {
+            if($v->waktu!='')
+            {
+                $wkt[]=$v->waktu;
+                $timestamp = strtotime($v->waktu) + 60*30;
+                $time = date('H.i', $timestamp);
+                $wkt[]=$time;
+                $timestamp = strtotime($v->waktu) + 60*60;
+                $time = date('H.i', $timestamp);
+                $wkt[]=$time;
+            }
+        }
+        // return $wkt;
+        // return $det;
+        return view('pages.staf.jadwal.form-ubah-jadwal')
+                ->with('det',$det)
+                ->with('wkt',$wkt)
+                ->with('waktusidang',$waktu)
+                ->with('idpengajuan',$idpengajuan)
+                ->with('tgl',$tgl)
+                ->with('ruangan_id',$ruangan_id)
+                ->with('mahasiswa_id',$mahasiswa_id)
+                ->with('idjadwal',$idjadwal);
     }
 
     public function update_jadwal_sidang(Request $request,$idpengajuan,$mahasiswa_id,$idjadwal)
