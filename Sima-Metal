@@ -18,7 +18,6 @@ Masukan :
 - Jumlah Penguji Sesuai dengan inputan Quota
 - [ok] Cek jadwal pada saat edit jadwal, jika bentrok langsung disable
 - buat 1 tombol by pass untuk khusus s3 yang sudah mengambil tahap sebelumnya untuk akun sekretariat
-- 
 
 Alur Disertasi s3
 --------------------
@@ -29,27 +28,36 @@ Alur Disertasi s3
         - (Pembimbing Sama)
 
 #- Departemen Mengajukan Ke Fakultas untuk SK Promotor & Co Promotor
-
+#- menu khusus untuk list SK promotor dan co promotor
 - Mahasiswa Registrasi
 - Mengisi calon promotor(wajib, 1) & co promotor(Opsional, maks 2)
     - Promotor (Harus S3 & Min. Lektor Kepala)
     - Co Promotor (Harus S3 & Min. Lektor)
-- 
 - Di Verifikasi Staf Sekretariat plus Upload SK Rektor
-- Setelah Verifikasi Mahasiswa Bisa Bimbingan 
+
 
 PROPOSAL RISET
-- Unggah Buku Ujian/Disertasi
-- Penguji harus (5, inc. Promotor & co Promotor)
+- Unggah Buku Ujian (PROPOSAL RISET) / PDF
+- Penguji harus (5, inc. Promotor & co Promotor) <- diajukan olek sekregariat departemen 
+    - penguji bisa dari non UI
 
 
 HASIL RISET
 - Unggah Buku Hasil Riset
 - Penguji harus min (7, inc. Promotor & co Promotor) , Max 8 (7, inc. Promotor & co Promotor)
+- Unggah publikasi conferensi internasional
+    - judul publikasi
+    - Author
+    - nama konferensi
+    - waktu
+    - lokasi
+    - URL
+    - index (ya/tidak) -> jika ya masukan link index
 
 SIDANG PROMOSI
 - Unggah Buku Ujian
-- Unggah Bukti Publikasi
+- Penguji harus min (7, inc. Promotor & co Promotor) , Max 8 (7, inc. Promotor & co Promotor)
+- Unggah Bukti Publikasi (Jurnal)
     - Judul
     - Penulis (Semua Nama Penulis)
     - Posisi sbg Penulis (Penulis 1, Corresponding Author, Co Author)
@@ -60,5 +68,22 @@ SIDANG PROMOSI
 -   
 
 OUTPUT :
-- print out yg di ttd Pak Arief
-- 
+- print out yg di ttd Pak Arief (dokumen memo untuk mencairkan keuangan penyelenggaraan sidang s3)
+
+AKUN KHUSUS ADMIN FAKULTAS
+- unggah SK promtor dan co promotor
+
+AKUN KHUSUS KEUANGAN FAKULTAS
+- cek data pengajuan penyelenggaraan sidang yg sudah di approve pak arief
+
+AKUN KHUSUS MANDIK
+- approval pengajuan sidang s3
+    - jika di approve masuk ke keuangan
+    - jika tidak masuk ke departemen dan mahasiswa beserta alasan
+
+
+PENGAJUAN SIDANG :
+- mahasiswa mengajukan sidang dengan dokumen, 
+- departemen memasukan nama penguji, penguji terima notifikasi
+- di setujui oleh promotor dan ketua departemen, 
+- setelah oke baru masuk ke pak arief
