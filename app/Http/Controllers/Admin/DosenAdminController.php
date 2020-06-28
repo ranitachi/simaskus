@@ -160,7 +160,15 @@ class DosenAdminController extends Controller
 
     public function destroy($id)
     {
-        $c=Dosen::find($id)->delete();
+        // $c=Dosen::find($id)->delete();
+
+        $get=Dosen::find($id);
+
+        $iduser=User::where('id_user',$id)->where('kat_user',2)->first();
+        $iduser->delete();
+
+        $c=$get->delete();
+
         return response()->json([$c]);
     }
 

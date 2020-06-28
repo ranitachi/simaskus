@@ -2,31 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Model\PengajuanSkripsi;
-use App\Model\JudulTugasAkhir;
+use DB;
+use PDF;
+use Auth;
+use App\Model\Staf;
 use App\Model\Dosen;
-use App\Model\MasterJenisPengajuan;
-use App\Model\Pengajuan;
 use App\Model\Users;
-use App\Model\Notifikasi;
-use App\Model\PivotBimbingan;
+use App\Model\Component;
 use App\Model\Mahasiswa;
-use App\Model\MasterRuangan;
+use App\Model\Pengajuan;
+use App\Model\PengujiKP;
+use App\Model\KelompokKP;
+use App\Model\Notifikasi;
+use App\Model\InformasiKP;
+use App\Model\ProgamStudi;
 use App\Model\TahunAjaran;
 use App\Model\KerjaPraktek;
-use App\Model\KelompokKP;
 use App\Model\PembimbingKP;
-use App\Model\ProgamStudi;
+use App\Model\MasterRuangan;
+use Illuminate\Http\Request;
 use App\Model\JadwalSidangKP;
-use App\Model\InformasiKP;
-use App\Model\PengujiKP;
 use App\Model\MasterPimpinan;
-use App\Model\Component;
+use App\Model\PivotBimbingan;
+use App\Model\JudulTugasAkhir;
 use App\Model\MasterDepartemen;
-use Auth;
-use PDF;
-use DB;
+use App\Model\PengajuanSkripsi;
+use App\Model\MasterJenisPengajuan;
+use App\Http\Controllers\Controller;
+
 class KerjaPraktekController extends Controller
 {
     //
@@ -317,7 +320,14 @@ class KerjaPraktekController extends Controller
     {
         $det=array();
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
-        $mhs=Mahasiswa::find(Auth::user()->id_user);
+
+        if($kat_user==1)
+            $mhs=Staf::find(Auth::user()->id_user);
+        elseif($kat_user==2)
+            $mhs=Dosen::find(Auth::user()->id_user);
+        elseif($kat_user==3)
+            $mhs=Mahasiswa::find(Auth::user()->id_user);
+        
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();
         $jenispengajuan=MasterJenisPengajuan::where('departemen_id',$mhs->departemen_id)->get();
@@ -432,8 +442,13 @@ class KerjaPraktekController extends Controller
             $jadwal[$vj->id_grup][]=$vj;
         }
 
-        $ruangan=MasterRuangan::where('departemen_id',$dept_id)->with('departemen')->get();
-        // return $grupkp;
+        $ruangans=MasterRuangan::where('departemen_id',$dept_id)->with('departemen')->get();
+        $ruangan=array();
+        foreach($ruangans as $k=>$v)
+        {
+            $ruangan[$v->id]=$v;
+        }
+        // return $idgrup;
         if($level==3)
         {
             return view('pages.mahasiswa.kerja-praktek.detail')
@@ -503,6 +518,7 @@ class KerjaPraktekController extends Controller
 
     public function proses(Request $request,$id)
     {
+        
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->with('dosen')->with('staf')->first();
         $dept_id=0;
         if(Auth::user()->kat_user==3)
@@ -788,6 +804,7 @@ class KerjaPraktekController extends Controller
 
     public function anggota_kelompok_proses(Request $request,$idgrup,$id)
     {
+        
         $dept_id=$request->dept_id;
         $url=$request->url;
         $idd=$request->id;

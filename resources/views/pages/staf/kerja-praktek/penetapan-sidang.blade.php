@@ -58,7 +58,7 @@
                     @if (count($jadwal)==0)
                         -
                     @else
-                        {{$ruangan[$jadwal[$idgrup][0]->ruangan_id]->nama_ruangan}}
+                        {{isset($ruangan[$jadwal[$idgrup][0]->ruangan_id]->nama_ruangan) ? $ruangan[$jadwal[$idgrup][0]->ruangan_id]->nama_ruangan : ''}}
                     @endif
                 </div>
             </div>

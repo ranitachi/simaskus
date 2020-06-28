@@ -245,6 +245,7 @@ Route::get('jadwal-sidang-dosen-data','Dosen\PengajuanSidangController@jadwal_si
 Route::get('form-nilai/{idjadwal}/{idpengajuan}','Dosen\PengajuanSidangController@form_nilai');
 
 Route::get('unduh-file/{dir}/{file}','HomeController@unduhfile')->middleware('auth');
+Route::get('lihat-file/{dir}/{file}','HomeController@lihatfile')->middleware('auth');
 Route::get('dokumen-verifikasi/{id}/{jns}','JadwalController@dokumen_verifikasi')->middleware('auth');
 
 Route::get('form-add-penguji','DosenController@formadd_penguji')->middleware('auth');
@@ -386,17 +387,28 @@ Route::get('staf-publikasi-ilmiah-verifikasi/{id}/{status}/{pimpinan?}','Admin\P
 
 Route::get('showgambar/{folder}/{filename}', function ($folder,$filename)
 {
-$file=$folder.'/'.$filename;
+    $file=$folder.'/'.$filename;
     //return Image::make(storage_path($file))->response();
     // return storage_path('app').'/public/'.$file;
     return response()->file(storage_path('app').'/public/'.$file);    
 });
+
+
 Route::get('izindosen','DashboardController@updateizindosen');
 Route::get('updatemulaikp','DashboardController@updatemulaikp');
 
 Route::get('secret','HomeController@secret');
 Route::get('logout_sso','HomeController@logout');
 
+
+Route::resource('pesan','PesanController');
+Route::get('pesan-terkirim','PesanController@terkirim')->name('pesan.terkirim');
+Route::get('pesan-draft','PesanController@draft')->name('pesan.draft');
+Route::get('pesan-trash','PesanController@trash')->name('pesan.trash');
+Route::get('pesan-kirim/{id}','PesanController@kirim')->name('pesan.kirim');
+Route::post('pesan-simpan-draft','PesanController@store_draft')->name('pesan.simpan-draft');
+
+Route::resource('pesan-lampiran','PesanLampiranController');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 

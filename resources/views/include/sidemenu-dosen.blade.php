@@ -28,6 +28,12 @@
         <span class="title">Profil</span>
     </a>
 </li>
+<li class="nav-item  {{Request::path()=='pesan' ? 'active' : ''}}">
+    <a href="{{url('pesan')}}" class="nav-link nav-toggle">
+        <i class="fa fa-envelope font-white"></i>
+        <span class="title">Kirim Pesan</span>
+    </a>
+</li>
 @if (Auth::user()->flag==1)
 <li class="nav-item  {{Request::path()=='notifikasi' ? 'active' : ''}}">
     <a href="{{url('notifikasi')}}" class="nav-link nav-toggle">
@@ -36,6 +42,7 @@
     </a>
     
 </li>
+
 @if ($pimpinan)
     <li class="nav-item  {{Request::path()=='dosen-publikasi-ilmiah' ? 'active' : ''}}">
         <a href="{{url('dosen-publikasi-ilmiah')}}" class="nav-link nav-toggle">

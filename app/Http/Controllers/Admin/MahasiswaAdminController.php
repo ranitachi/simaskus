@@ -152,7 +152,12 @@ class MahasiswaAdminController extends Controller
 
     public function destroy($id)
     {
-        $c=Mahasiswa::find($id)->delete();
+        $get=Mahasiswa::find($id);
+
+        $iduser=User::where('id_user',$id)->where('kat_user',3)->first();
+        $iduser->delete();
+
+        $c=$get->delete();
         return response()->json([$c]);
     }
 

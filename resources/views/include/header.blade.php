@@ -24,6 +24,44 @@
                             <!-- DOC: Remove "dropdown-hoverable" and add data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to the below A element with dropdown-toggle class -->
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <i class="icon-envelope"></i>
+                                    @php
+                                        $pesan=\App\Models\Pesan::where('id_user_untuk',Auth::user()->id)->where('status_baca',0)->orderBy('created_at','desc')->get();
+                                    @endphp
+                                    @if (count($pesan)>0)
+                                            <span class="badge badge-danger" id="label-notif"> {{count($pesan)}} </span>
+                                    @endif
+                                </a>
+                                <ul class="dropdown-menu" style="width:400px !important;max-width:400px !important;">
+                                    <li class="external">
+                                        <h3>
+                                            <span class="bold"></span> Pesan</h3>
+                                        {{-- <a href="page_user_profile_1.html">view all</a> --}}
+                                    </li>
+                                    <li>
+                                        <ul class="dropdown-menu-list scroller" style="height: 400px;" data-handle-color="#637283">
+                                            @foreach ($pesan as $item)
+                                                @php
+                                                    $waktu=\Carbon\Carbon::parse($item->created_at)->diffForHumans();
+                                                    $wkt=text_translate($waktu,'en','id');
+                                                    $ps=explode("<a",$item->judul);
+                                                    $pesan=$ps[0];
+                                                @endphp 
+                                                <li>
+                                                    <a href="{{url('pesan/'.$item->id)}}">
+                                                        <span class="time" style="max-width:none;background:lightcoral;color:white" id="time-waktu_{{$item->id}}">{{$wkt}}</span>
+                                                        <span class="details">
+                                                            <b>{{ $item->dari }}</b> : {!!$item->judul!!} </span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                                
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
                                     @php
                                         $notif=\App\Model\Notifikasi::where('to',Auth::user()->id)->where('flag_active',1)->orderBy('created_at','desc')->get();

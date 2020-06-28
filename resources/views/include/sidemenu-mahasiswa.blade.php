@@ -21,6 +21,12 @@
     </a>
     
 </li>
+<li class="nav-item  {{Request::path()=='pesan' ? 'active' : ''}}">
+    <a href="{{url('pesan')}}" class="nav-link nav-toggle">
+        <i class="fa fa-envelope font-white"></i>
+        <span class="title">Kirim Pesan</span>
+    </a>
+</li>
 <li class="heading">
     <h3 class="uppercase">Menu</h3>
 </li>

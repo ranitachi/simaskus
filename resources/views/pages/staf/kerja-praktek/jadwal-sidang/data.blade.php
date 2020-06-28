@@ -89,7 +89,7 @@
                                 <div class="col-sm-4">Waktu</div>
                                 <div class="col-sm-8">: {{($v[0]->waktu)}}</div>
                                 <div class="col-sm-4">Ruangan</div>
-                                <div class="col-sm-8">: {{$v[0]->ruangan->nama_ruangan}}</div>
+                                <div class="col-sm-8">: {{isset($v[0]->ruangan->nama_ruangan) ? $v[0]->ruangan->nama_ruangan : '-'}}</div>
                             </div>
                         @else    
                             @if ($st_sidang != 0)
@@ -101,7 +101,7 @@
                                     <div class="col-sm-4">Waktu</div>
                                     <div class="col-sm-8">: {{($v[0]->waktu)}}</div>
                                     <div class="col-sm-4">Ruangan</div>
-                                    <div class="col-sm-8">: {{$v[0]->ruangan->nama_ruangan}}</div>
+                                    <div class="col-sm-8">: {{isset($v[0]->ruangan->nama_ruangan) ? $v[0]->ruangan->nama_ruangan : '-'}}</div>
                                 </div>
                             @else
                                 <a href="#" class="btn btn-danger btn-xs">Menunggu Jadwal Di Publish</a>

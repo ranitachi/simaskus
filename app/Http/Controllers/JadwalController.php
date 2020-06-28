@@ -925,25 +925,28 @@ class JadwalController extends Controller
                     if($v!=-1)
                     {
                         $dosen=Users::where('id_user',$v)->where('kat_user',2)->with('dosen')->first();
-                        $penguji=new PengujiKP;
-                        $penguji->pivot_jadwal_id=$jadwalId;
-                        $penguji->grup_id=$idgrup;
-                        $penguji->penguji_id=$v;
-                        $penguji->status=1;
-                        $penguji->departemen_id=$dept_id;
-                        $penguji->save();
-
-                        $notif=new Notifikasi;
-                        $notif->title="Jadwal Menguji Sidang Kerja Praktek";
-                        $notif->from=Auth::user()->id_user;
-                        $notif->to=$dosen->id;
-                        $notif->flag_active=1;
-                        $notif->pesan="Anda Telah Dijadwal untuk Menguji Kerja Praktek Pada <br>
-                        Tanggal : ".$tanggal."<br>
-                        Waktu : ".$waktu."<br>
-                        Ruangan : ".$nruangan->nama_ruangan."<br>
-                        <a href='".url('jadwal-sidang-kp')."'>Klik Disini</a>";
-                        $notif->save();
+                        if(!$dosen)
+                        {
+                            $penguji=new PengujiKP;
+                            $penguji->pivot_jadwal_id=$jadwalId;
+                            $penguji->grup_id=$idgrup;
+                            $penguji->penguji_id=$v;
+                            $penguji->status=1;
+                            $penguji->departemen_id=$dept_id;
+                            $penguji->save();
+    
+                            $notif=new Notifikasi;
+                            $notif->title="Jadwal Menguji Sidang Kerja Praktek";
+                            $notif->from=Auth::user()->id_user;
+                            $notif->to=$dosen->id;
+                            $notif->flag_active=1;
+                            $notif->pesan="Anda Telah Dijadwal untuk Menguji Kerja Praktek Pada <br>
+                            Tanggal : ".$tanggal."<br>
+                            Waktu : ".$waktu."<br>
+                            Ruangan : ".$nruangan->nama_ruangan."<br>
+                            <a href='".url('jadwal-sidang-kp')."'>Klik Disini</a>";
+                            $notif->save();
+                        }
 
                     }
                 }

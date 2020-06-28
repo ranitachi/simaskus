@@ -39,6 +39,11 @@ class HomeController extends Controller
     {
         return response()->download(storage_path('app/' .$dir.'/'. $file));
     }
+    
+    public function lihatfile($dir,$file)
+    {
+        return response()->file(storage_path('app/' .$dir.'/'. $file));
+    }
 
     public function dataruangan()
     {

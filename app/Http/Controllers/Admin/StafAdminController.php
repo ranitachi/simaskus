@@ -111,7 +111,15 @@ class StafAdminController extends Controller
 
     public function destroy($id)
     {
-        $c=Staf::find($id)->delete();
+        // $c=Staf::find($id)->delete();
+
+        $get=Staf::find($id);
+
+        $iduser=User::where('id_user',$id)->where('kat_user',1)->first();
+        $iduser->delete();
+
+        $c=$get->delete();
+
         return response()->json([$c]);
     }
 }
