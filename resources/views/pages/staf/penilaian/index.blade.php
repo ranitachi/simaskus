@@ -141,9 +141,9 @@
                                                         @foreach ($penilaian as $v)
                                                     
                                                         @php
-                                                            if(isset($n2[$item['iddosen']][$v->c_id]))
+                                                            if(isset($n2[$item['iddosen']]))
                                                             {
-                                                                if(isset($n2[$item['iddosen']]))
+                                                                if(isset($n2[$item['iddosen']][$v->c_id]))
                                                                 {
                                                                     $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
                                                                     $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
