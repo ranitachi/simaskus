@@ -146,7 +146,9 @@
                                                 {{-- @if ($vv->status==0)
                                                         <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Penguji Belum Setuju"><i class="fa fa-exclamation-circle"></i> {{$vv->dosen->nama}}</a><br>
                                                     @else --}}
+                                                    @if (isset($vvv->dosen))
                                                         <a href="#" class="btn btn-xs btn-success" data-toggle="tooltip" title="Penguji Sudah Setuju" style="font-size:10px;"><i class="fa fa-user"></i> {{$vvv->dosen->nama}}</a><br>
+                                                    @endif
                                                     {{-- @endif --}}
                                             @endforeach
                                         @endif
