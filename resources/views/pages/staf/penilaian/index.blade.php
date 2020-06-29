@@ -153,6 +153,11 @@
                                                                     $hurufmutu=$n2[$item['iddosen']][$v->id]->huruf;
                                                                     $total=$n2[$item['iddosen']][$v->id]->total;
                                                                 }
+                                                                else
+                                                                {
+                                                                    $subtotal=0;
+                                                                    $nilai_angka=0;
+                                                                }
                                                             }
                                                             else
                                                             {
