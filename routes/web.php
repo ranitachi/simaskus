@@ -407,6 +407,7 @@ Route::get('pesan-draft','PesanController@draft')->name('pesan.draft');
 Route::get('pesan-trash','PesanController@trash')->name('pesan.trash');
 Route::get('pesan-kirim/{id}','PesanController@kirim')->name('pesan.kirim');
 Route::post('pesan-simpan-draft','PesanController@store_draft')->name('pesan.simpan-draft');
+Route::post('pesan-destroy','PesanController@destroy')->name('pesan.destroy');
 
 Route::resource('pesan-lampiran','PesanLampiranController');
 

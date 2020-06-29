@@ -202,4 +202,15 @@ class PesanController extends Controller
             ->with('draft',$draft)
             ->with('trash',$trash);
     }
+
+    public function destroy(Request $request)
+    {
+        // return $request->all();
+        foreach($request->hapuspesan as $idpesan=>$val)
+        {
+            $get=Pesan::find($idpesan);
+            $get->delete();
+        }
+        return redirect()->route('pesan.index')->with('success','Pesan Anda Telah Di Hapus');
+    }
 }
