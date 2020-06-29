@@ -16,7 +16,17 @@ class PublikasiController extends Controller
     public function index()
     {
         $mhs_id=Auth::user()->id_user;
-        $publikasi=Publikasi::with('mahasiswa')->get();
+        
+
+        $datauser=$this->datauser();
+        $data=$datauser['data'];
+        $dept_id=$data->departemen_id;
+
+        $publikasi=Publikasi::with('mahasiswa')
+                    ->whereHas('mahasiswa',function($query) use ($dept_id){
+                        $query->where('departemen_id',$dept_id);
+                    })->get();
+
         return view('pages.staf.publikasi.index')
             ->with('publikasi',$publikasi);
     }
