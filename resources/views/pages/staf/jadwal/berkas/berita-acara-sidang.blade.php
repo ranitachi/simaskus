@@ -136,12 +136,14 @@
                             @endphp
                         @endforeach     
                         @foreach ($penguji as $idx=>$item)
-                            <tr>
-                                <td align="center" style="padding:5px 10px;height:35px;">{{$no}}</td>
-                                <td align="left" style="padding:5px 10px;height:35px;">{{$item->dosen->nama}}</td>
-                                <td align="left" style="padding:5px 10px;height:35px;"></td>
-                                <td align="left" style="padding:5px 10px;height:35px;"></td>
-                            </tr>
+                            @if (isset($item->dosen->nama)) 
+                                <tr>
+                                    <td align="center" style="padding:5px 10px;height:35px;">{{$no}}</td>
+                                    <td align="left" style="padding:5px 10px;height:35px;">{{$item->dosen->nama}}</td>
+                                    <td align="left" style="padding:5px 10px;height:35px;"></td>
+                                    <td align="left" style="padding:5px 10px;height:35px;"></td>
+                                </tr>
+                            @endif
                             @php
                                 $no++;
                             @endphp
