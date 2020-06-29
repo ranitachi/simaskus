@@ -568,14 +568,17 @@ class JadwalController extends Controller
                             PivotPenguji::where('id', $vu->id)->update(['pivot_jadwal_id' => $jadw->id]);
 
                             $user=Users::where('id_user',$ku)->first();
-                            $notif=new Notifikasi;
-                            $notif->title="Jadwal Menguji Sidang";
-                            $notif->from=Auth::user()->id;
-                            $notif->to=$user->id;
-                            $notif->flag_active=1;
-                            $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
-                            <br>Ruangan : ".$r[1]." - ".$r[2];
-                            $notif->save();
+                            if($user)
+                            {
+                                $notif=new Notifikasi;
+                                $notif->title="Jadwal Menguji Sidang";
+                                $notif->from=Auth::user()->id;
+                                $notif->to=$user->id;
+                                $notif->flag_active=1;
+                                $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
+                                <br>Ruangan : ".$r[1]." - ".$r[2];
+                                $notif->save();
+                            }
                         }
                     
 
