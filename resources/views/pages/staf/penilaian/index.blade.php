@@ -143,10 +143,13 @@
                                                         @php
                                                             if(isset($n2[$item['iddosen']]))
                                                             {
-                                                                if(isset($n2[$item['iddosen']][$v->c_id]))
+                                                                if(isset($n2[$item['iddosen']][$v->id]))
                                                                 {
-                                                                    $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
-                                                                    $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
+                                                                    $nilai_angka=$n2[$item['iddosen']][$v->id]->nilai_angka;
+                                                                    $subtotal=$n2[$item['iddosen']][$v->id]->subtotal;
+                                                                    // $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
+                                                                    // $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
+
                                                                     $hurufmutu=$n2[$item['iddosen']][$v->id]->huruf;
                                                                     $total=$n2[$item['iddosen']][$v->id]->total;
                                                                 }
