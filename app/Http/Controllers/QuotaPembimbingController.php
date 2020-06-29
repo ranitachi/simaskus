@@ -420,43 +420,43 @@ class QuotaPembimbingController extends Controller
                 
         foreach ($dosen as $idx => $v)
         {
-            if(in_array($v->id,$dos_id))
-                $disable='disabled';
-            else
+            // if(in_array($v->id,$dos_id))
+            //     $disable='disabled';
+            // else
                 $disable='';
 
 
             if (isset($piv[$v->id]))
             {
-                if(count($piv[$v->id])>=$total)
-                    $disable='disabled';
-                else
-                {
-                     if($jenjang=='S1')
-                     {
-                         if(isset($piv_jenjang['S1']))
-                         {
-                             if(count($piv_jenjang['S1'])>=$qut_s1->quota)
-                                $disable='disabled';
-                         }
-                     }
-                     if($jenjang=='S2')
-                     {
-                         if(isset($piv_jenjang['S2']))
-                         {
-                             if(count($piv_jenjang['S2'])>=$qut_s2->quota)
-                                $disable='disabled';
-                         }
-                     }
-                     if($jenjang=='S3')
-                     {
-                         if(isset($piv_jenjang['S3']))
-                         {
-                             if(count($piv_jenjang['S3'])>=$qut_s3->quota)
-                                $disable='disabled';
-                         }
-                     }
-                }
+                // if(count($piv[$v->id])>=$total)
+                //     $disable='disabled';
+                // else
+                // {
+                //      if($jenjang=='S1')
+                //      {
+                //          if(isset($piv_jenjang['S1']))
+                //          {
+                //              if(count($piv_jenjang['S1'])>=$qut_s1->quota)
+                //                 $disable='disabled';
+                //          }
+                //      }
+                //      if($jenjang=='S2')
+                //      {
+                //          if(isset($piv_jenjang['S2']))
+                //          {
+                //              if(count($piv_jenjang['S2'])>=$qut_s2->quota)
+                //                 $disable='disabled';
+                //          }
+                //      }
+                //      if($jenjang=='S3')
+                //      {
+                //          if(isset($piv_jenjang['S3']))
+                //          {
+                //              if(count($piv_jenjang['S3'])>=$qut_s3->quota)
+                //                 $disable='disabled';
+                //          }
+                //      }
+                // }
                 $sel.='<option value="'.$v->id.'__'.$v->nama.'" '.$disable.'>['.count($piv[$v->id]).'] - '.$v->nama.' </option>';
             }
             else
