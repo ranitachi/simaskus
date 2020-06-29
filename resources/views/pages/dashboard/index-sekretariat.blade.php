@@ -322,7 +322,9 @@
                                         </td>
                                         <td>
                                             @foreach ($pnj[$item->judul_id] as $penguji_id=> $itm)
-                                                <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$penguji_id]->nama}}</div>
+                                                @if (isset($dos[$penguji_id]))
+                                                    <div style="border-bottom:3px;border-bottom:1px solid #ccc;">{{$dos[$penguji_id]->nama}}</div>
+                                                @endif
                                             @endforeach
                                         </td>
                                         <td>
