@@ -84,8 +84,8 @@ class PengajuanSkripsiController extends Controller
                         ->with('dospem_3')
                         ->orderBy('created_at')->get();
             
-            // return $status_pengajuan.'-'.Auth::user()->id_user;
-        }
+                    }
+                    // return $status_pengajuan.'-'.Auth::user()->id_user;
 
         $pivot=PivotBimbingan::all();
         $piv=array();

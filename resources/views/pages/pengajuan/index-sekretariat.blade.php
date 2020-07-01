@@ -241,13 +241,13 @@
                                                     {{-- <a href="javascript:editpembimbing({{$v->id}})" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a> --}}
                                                     <a href="{{url('edit-pembimbing/'.$v->id)}}" class="tooltips" title="Edit Data Pembimbing" data-style="default" data-container="body" data-original-title="Edit Data Pembimbing"><i class="fa fa-edit"></i>&nbsp;Edit Pembimbing</a>
                                                 </li>
-                                                @if ($st_pbb==1)
+                                                {{-- @if ($st_pbb==1) --}}
                                                     @if ($v->status_pengajuan==0)  
                                                         <li>  
                                                             <a href="javascript:verifikasi({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Verifikasi Pengajuan" data-style="default" data-container="body" data-original-title="Verifikasi Pengajuan"><i class="fa fa-check-square-o"></i>&nbsp;Verifikasi Pengajuan</a>
                                                         </li>
                                                     @endif
-                                                @endif
+                                                {{-- @endif --}}
                                             @endif
                                             @if ($jns=='pengajuan')
                                                 <li><a href="javascript:tolak({{$v->id}},'{{$v->jenis_id}}');" class="tooltips" title="Tolak Pengajuan" data-style="default" data-container="body" data-original-title="Tolak Pengajuan"><i class="fa fa-ban"></i>&nbsp;Tolak Pengajuan</a></li>
