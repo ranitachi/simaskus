@@ -4,7 +4,7 @@
         <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             @php
-                $cekpengajuan=\App\Model\Pengajuan::where('mahasiswa_id',Auth::user()->id_user)->where('status_pengajuan','!=',0)->get();
+                $cekpengajuan=\App\Model\Pengajuan::where('mahasiswa_id',Auth::user()->id_user)->whereNotIn('status_pengajuan',[0,2])->get();
                 // dd($cekpengajuan);
             @endphp
 

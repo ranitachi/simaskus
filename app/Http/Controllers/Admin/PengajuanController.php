@@ -34,7 +34,7 @@ class PengajuanController extends Controller
         $staf=Staf::where('id',Auth::user()->id_user)->first();
         $dept_id=$staf->departemen_id;
         // $idjenis=$mp[strtolower($jenis)];
-        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',0)
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('status_pengajuan',0)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('tahunajaran')
@@ -64,7 +64,7 @@ class PengajuanController extends Controller
         {
             $acc[$vs->pengajuan_id][$vs->dosen_id]=$vs;
         }
-        // return $acc;
+        // return $pengajuan;
         return view('pages.pengajuan.index-sekretariat',compact('jenis','pengajuan','piv','dept_id','kalender','jns','acc'));
     }
     public function setujui_pengajuan_bimbingan($pengajuan_id,$mahasiswa_id,$dosen_id)
@@ -127,7 +127,7 @@ class PengajuanController extends Controller
         $staf=Staf::where('id',Auth::user()->id_user)->first();
         $dept_id=$staf->departemen_id;
         // $idjenis=$mp[strtolower($jenis)];
-        $pengajuan=Pengajuan::where('departemen_id',$staf->departemen_id)->where('status_pengajuan',1)
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('status_pengajuan',1)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('tahunajaran')
@@ -137,6 +137,9 @@ class PengajuanController extends Controller
                 ->orderBy('created_at','desc')->get();
 
         $pivot=PivotBimbingan::all();
+
+        
+
         $piv=array();
         foreach($pivot as $k =>$v)
         {

@@ -22,6 +22,7 @@ class PengajuanSkripsiController extends Controller
     {
         $user=Users::where('id',Auth::user()->id)->with('mahasiswa')->first();
         $dept_id=0;
+
         if(Auth::user()->kat_user==3)
         {
             $dept_id=$user->mahasiswa->departemen_id;
@@ -29,6 +30,7 @@ class PengajuanSkripsiController extends Controller
         
         $status_pengajuan=0;
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
+
         return view('pages.mahasiswa.pengajuan.index')
             ->with('dosen',$dosen)
             ->with('status_pengajuan',$status_pengajuan)
@@ -81,7 +83,10 @@ class PengajuanSkripsiController extends Controller
                         ->with('dospem_2')
                         ->with('dospem_3')
                         ->orderBy('created_at')->get();
+            
+            // return $status_pengajuan.'-'.Auth::user()->id_user;
         }
+
         $pivot=PivotBimbingan::all();
         $piv=array();
         foreach($pivot as $k =>$v)
@@ -96,7 +101,7 @@ class PengajuanSkripsiController extends Controller
         {
             $kalender[$val->kategori_khusus]=$val;
         }
-        // return $kalender
+        // return $pengajuan;
         return view('pages.mahasiswa.pengajuan.data')
                     ->with('kalender',$kalender)
                     ->with('pengajuan',$pengajuan)
