@@ -117,7 +117,7 @@ class PengajuanSkripsiController extends Controller
         {
             $dept_id=$user->mahasiswa->departemen_id;
         }
-        $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->limit(2)->get();
+        $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->limit(4)->get();
         $mhs=Mahasiswa::find(Auth::user()->id_user);
         $dosen=Dosen::where('departemen_id',$mhs->departemen_id)->get();
         $judul=JudulTugasAkhir::all();

@@ -66,7 +66,7 @@
                                         <select class="bs-select form-control has-success" data-placeholder="Pilih Tahun Akademik" id="tahun_ajaran" name="tahun_ajaran">
                                             <option value="-1">-Pilih Tahun Akademik-</option>
                                             @foreach ($ta as $i => $v)
-                                                @if (strpos($v,date('Y'))!==false)
+                                                {{-- @if (strpos($v,date('Y'))!==false) --}}
                                                     @if ($id!=-1)
                                                         @if ($det->tahunajaran_id==$v->id)
                                                             <option value="{{$v->id}}" selected="selected">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>    
@@ -76,7 +76,7 @@
                                                     @else
                                                         <option value="{{$v->id}}">{{$v->tahun_ajaran}} : {{$v->jenis}}</option>
                                                     @endif
-                                                @endif
+                                                {{-- @endif --}}
                                             @endforeach
                                         </select>
                                     </div>
