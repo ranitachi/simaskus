@@ -199,12 +199,12 @@
                                             <input type="text" id="password" name="password" class="form-control input-circle" placeholder="Password"><small>*Kosongkan Jika Tidak Diganti</small>
                                         </div>
                                     @else
-                                        @if ($det->status_dosen=='Dosen UI')
+                                        {{-- @if ($det->status_dosen=='Dosen UI') --}}
                                             <div class="form-group has-success" id="div-pass">
                                                 <label class="control-label">Password</label>
                                                 <input type="text" id="password" name="password" class="form-control input-circle" placeholder="Password"><small>*Kosongkan Jika Tidak Diganti</small>
                                             </div>
-                                        @endif
+                                        {{-- @endif --}}
                                     @endif
                                 </div>
                                 <!--/span-->

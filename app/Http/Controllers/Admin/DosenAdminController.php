@@ -71,8 +71,8 @@ class DosenAdminController extends Controller
         $m->updated_at=date('Y-m-d H:i:s');
         $cr=$m->save();
 
-        if($status_dosen=='Dosen UI')
-        {
+        // if($status_dosen=='Dosen UI')
+        // {
             $user_id=$m->id;
             $user=new Users;
             $user->name=$request->nama;
@@ -85,7 +85,7 @@ class DosenAdminController extends Controller
             $user->created_at=date('Y-m-d H:i:s');
             $user->updated_at=date('Y-m-d H:i:s');
             $user->save();
-        }
+        // }
 
         if($cr)
             $pesan="Data Dosen Berhasil Di Simpan";
@@ -133,8 +133,8 @@ class DosenAdminController extends Controller
         }
         else
         {
-            if($status_dosen=='Dosen UI')
-            {
+            // if($status_dosen=='Dosen UI')
+            // {
                 $user_id=$id;
                 $user=new Users;
                 $user->name=$request->nama;
@@ -147,7 +147,7 @@ class DosenAdminController extends Controller
                 $user->created_at=date('Y-m-d H:i:s');
                 $user->updated_at=date('Y-m-d H:i:s');
                 $user->save();
-            }
+            // }
         }
 
         if($cr)

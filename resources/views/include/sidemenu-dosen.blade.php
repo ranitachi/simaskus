@@ -2,6 +2,8 @@
     $ds=\App\Model\Dosen::find(Auth::user()->id_user);
     $pimpinan=\App\Model\MasterPimpinan::where('dosen_id',Auth::user()->id_user)->where('status',1)->where('departemen_id',$ds->departemen_id)->first();
     $pimpinanfakultas=\App\Model\MasterPimpinan::where('dosen_id',Auth::user()->id_user)->where('status',1)->where('jabatan','like','%Manajer Pendidikan & Kepala PAF%')->first();
+
+    $st_dos_ui=$ds->status_dosen;
 @endphp
 <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
 <li class="sidebar-toggler-wrapper hide">
@@ -22,12 +24,14 @@
 <li class="heading">
     <h3 class="uppercase">Menu</h3>
 </li>
-<li class="nav-item {{Request::path()=='profil' ? 'active' : ''}}">
-    <a href="{{url('profil-dosen')}}" class="nav-link nav-toggle">
-        <i class="fa fa-user font-white"></i>
-        <span class="title">Profil</span>
-    </a>
-</li>
+@if (in_array($st_dos_ui,['Dosen UI','1']))
+    <li class="nav-item {{Request::path()=='profil' ? 'active' : ''}}">
+        <a href="{{url('profil-dosen')}}" class="nav-link nav-toggle">
+            <i class="fa fa-user font-white"></i>
+            <span class="title">Profil</span>
+        </a>
+    </li>
+@endif
 <li class="nav-item  {{Request::path()=='pesan' ? 'active' : ''}}">
     <a href="{{url('pesan')}}" class="nav-link nav-toggle">
         <i class="fa fa-envelope font-white"></i>
@@ -35,13 +39,13 @@
     </a>
 </li>
 @if (Auth::user()->flag==1)
-<li class="nav-item  {{Request::path()=='notifikasi' ? 'active' : ''}}">
-    <a href="{{url('notifikasi')}}" class="nav-link nav-toggle">
-        <i class="fa fa-bell font-white"></i>
-        <span class="title">Notifikasi</span>
-    </a>
-    
-</li>
+    <li class="nav-item  {{Request::path()=='notifikasi' ? 'active' : ''}}">
+        <a href="{{url('notifikasi')}}" class="nav-link nav-toggle">
+            <i class="fa fa-bell font-white"></i>
+            <span class="title">Notifikasi</span>
+        </a>
+        
+    </li>
 
 @if ($pimpinan)
     <li class="nav-item  {{Request::path()=='dosen-publikasi-ilmiah' ? 'active' : ''}}">
@@ -59,31 +63,31 @@
         </a>    
     </li>
 @endif
-<li class="nav-item  {{strpos(Request::url(),'bimbingan')!==false ? 'active' : ''}}">
-    <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="fa fa-th-large font-white"></i>
-        <span class="title">Bimbingan</span>
-        <span class="arrow"></span>
-    </a>
-    <ul class="sub-menu">
-        <li class="nav-item  {{Request::path()=='pengajuan-bimbingan' ? 'active' : ''}}">
-            <a href="{{url('pengajuan-bimbingan')}}" class="nav-link ">
-                <span class="title">Pengajuan Bimbingan</span>
-            </a>
-        </li>
-        <li class="nav-item  {{Request::path()=='daftar-bimbingan' || strpos(Request::url(),'bimbingan-detail')!==false ? 'active' : ''}}">
-            <a href="{{url('daftar-bimbingan')}}" class="nav-link ">
-                <span class="title">Data Bimbingan</span>
-            </a>
-        </li>
-        {{-- <li class="nav-item  {{Request::path()=='sidang-bimbingan' ? 'active' : ''}}">
-            <a href="{{url('sidang-bimbingan')}}" class="nav-link ">
-                <span class="title">Jadwal Sidang Bimbingan</span>
-            </a>
-        </li> --}}
-    </ul>
-</li>
-
+@if (in_array($st_dos_ui,['Dosen UI','1']))
+    <li class="nav-item  {{strpos(Request::url(),'bimbingan')!==false ? 'active' : ''}}">
+        <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-th-large font-white"></i>
+            <span class="title">Bimbingan</span>
+            <span class="arrow"></span>
+        </a>
+        <ul class="sub-menu">
+            <li class="nav-item  {{Request::path()=='pengajuan-bimbingan' ? 'active' : ''}}">
+                <a href="{{url('pengajuan-bimbingan')}}" class="nav-link ">
+                    <span class="title">Pengajuan Bimbingan</span>
+                </a>
+            </li>
+            <li class="nav-item  {{Request::path()=='daftar-bimbingan' || strpos(Request::url(),'bimbingan-detail')!==false ? 'active' : ''}}">
+                <a href="{{url('daftar-bimbingan')}}" class="nav-link ">
+                    <span class="title">Data Bimbingan</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item  {{Request::path()=='sidang-bimbingan' ? 'active' : ''}}">
+                <a href="{{url('sidang-bimbingan')}}" class="nav-link ">
+                    <span class="title">Jadwal Sidang Bimbingan</span>
+                </a>
+            </li> --}}
+        </ul>
+    </li>
 {{-- <li class="nav-item  {{strpos(Request::url(),'pengajuan-sidang')!==false ? 'active' : (strpos(Request::url(),'jadwal-sidang-dosen')!==false ? 'active' : '')}}">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="fa fa-th-list font-white"></i>
@@ -127,6 +131,7 @@
         </li>
     </ul>
 </li>
+@endif
 <li class="heading">
     <h3 class="uppercase">Penilaian</h3>
 </li>
@@ -137,19 +142,22 @@
         <span class="arrow"></span>
     </a>
     <ul class="sub-menu">
+        
         <li class="nav-item  {{Request::path()=='penilaian'  ? 'active' : ''}}">
             <a href="{{url('penilaian')}}" class="nav-link ">
                 <span class="title">Penguji</span>
             </a>
         </li>
+        @if (in_array($st_dos_ui,['Dosen UI','1']))
         <li class="nav-item  {{Request::path()=='penilaian-pembimbing'  ? 'active' : ''}}">
             <a href="{{url('penilaian-pembimbing')}}" class="nav-link ">
                 <span class="title">Pembimbing</span>
             </a>
         </li>
-        
+        @endif
     </ul>
 </li>
+@if (in_array($st_dos_ui,['Dosen UI','1']))
 <li class="heading">
     <h3 class="uppercase">Laporan</h3>
 </li>
@@ -182,5 +190,6 @@
         <span class="title">Izin Dosen</span>
     </a>
 </li>
+@endif
 @endif
 </ul>
