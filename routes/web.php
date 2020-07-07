@@ -129,6 +129,8 @@ Route::get('pengajuan-data/{id?}', 'Mahasiswa\PengajuanSkripsiController@data')-
 Route::get('pengajuan-hapus/{id}', 'Mahasiswa\PengajuanSkripsiController@destroy')->middleware('auth');
 Route::get('pengajuan-detail/{id}','Mahasiswa\PengajuanSkripsiController@detail')->middleware('auth');
 Route::get('data-bimbingan-mhs/{id?}','Mahasiswa\PengajuanSkripsiController@index_bimbingan_mhs')->middleware('auth');
+Route::get('cek-pengajuan-mahasiswa/{idmhs}','Mahasiswa\PengajuanSkripsiController@cek_pengajuan_mahasiswa')->middleware('auth');
+
 //----------Pengajuan S3
 Route::resource('pengajuan-disertasi','Mahasiswa\PengajuanS3Controller')->middleware('auth');
 Route::resource('pengajuan-s3','Mahasiswa\PengajuanS3Controller')->middleware('auth');

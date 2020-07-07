@@ -127,7 +127,9 @@ class PengajuanController extends Controller
         $staf=Staf::where('id',Auth::user()->id_user)->first();
         $dept_id=$staf->departemen_id;
         // $idjenis=$mp[strtolower($jenis)];
-        $pengajuan=Pengajuan::where('departemen_id',$dept_id)->where('status_pengajuan',1)
+        $pengajuan=Pengajuan::where('departemen_id',$dept_id)
+                ->where('status_pengajuan',1)
+                ->where('status_selesai',0)
                 ->with('jenispengajuan')
                 ->with('mahasiswa')
                 ->with('tahunajaran')

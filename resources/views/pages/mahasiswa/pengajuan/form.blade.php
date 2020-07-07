@@ -306,7 +306,7 @@
                                     </div>
                                 </div>
                         </div>
-                        
+                        <div class="row" id="dosen-sebelum"></div>
                         <div class="row">
                             @if ($mahasiswa->programstudi->jenjang=='S3')
                                 <div class="col-md-6"> 
@@ -425,6 +425,27 @@
     }
     function jenis(val)
     {
+        $.ajax({
+            url : '{{ url("/") }}/cek-pengajuan-mahasiswa/{{ Auth::user()->id_user }}',
+            dataType:'JSON',
+            success:function(res){
+                if(res.status)
+                {
+                    $('#detail').html(res.pesan);
+                    
+                    
+
+                    $('#modal-cek-pengajuan').modal('show')
+
+                    $('#pakaidata').on('click',function(){
+                        $('#judul_ind').val(res.data.judul_ind)
+                        $('#judul_eng').val(res.data.judul_eng)
+                        $('#dosen-sebelum').html(res.dosen);
+                        $('#modal-cek-pengajuan').modal('hide')
+                    })
+                }
+            }
+        })
         $('#jlh-pembimbing').load('{{url("jlh_pembimbing")}}/'+val,function(){
             
         });
@@ -502,5 +523,24 @@
         $('.modal-body').html("<img src='"+url+"' style='width:100%'>");
         $('#ajax').modal('show');
     }
+
+    
 </script>
+<div class="modal fade" id="modal-cek-pengajuan" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Data Pengajuan</h4>
+            </div>
+            <div class="modal-body">
+                <div id="detail"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn green">Tutup</button>
+                <button type="button" id="pakaidata" class="btn blue">Gunakan Data ini</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

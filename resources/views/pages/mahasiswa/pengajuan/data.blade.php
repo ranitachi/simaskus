@@ -4,18 +4,42 @@
         <div class="col-md-6">&nbsp;</div>
         <div class="col-md-6">
             @php
-                $cekpengajuan=\App\Model\Pengajuan::where('mahasiswa_id',Auth::user()->id_user)->whereNotIn('status_pengajuan',[0,2])->get();
+                $cekpengajuan=\App\Model\Pengajuan::where('mahasiswa_id',Auth::user()->id_user)
+                                ->whereNotIn('status_pengajuan',[0,2])
+                                ->get();
                 // dd($cekpengajuan);
             @endphp
 
             @if ($cekpengajuan->count()==0)
-            {{-- @if ($pengajuan->count()==0) --}}
                 @if (isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
-                <div class="btn-group pull-right">
-                    <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
-                        <i class="fa fa-plus"></i>
-                    </a>
-                </div>
+                    <div class="btn-group pull-right">
+                        <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                @endif
+            @else
+                @php
+                $stlulus=0;
+                foreach ($cekpengajuan as $item)
+                {
+                    if($item->status_pengajuan==1)
+                    {
+                        if($item->status_selesai==1)
+                        {
+                            $stlulus=1;
+                        }
+                    }
+                }
+                @endphp
+                @if ($stlulus==1)
+                    @if (isset($kalender['masa-pengajuan-mata-kuliah-khusus']))
+                        <div class="btn-group pull-right">
+                            <a href="{{url('pengajuan/-1')}}" id="sample_editable_1_new" class="btn sbold green"> Tambah Data
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    @endif
                 @endif
             @endif
         </div>

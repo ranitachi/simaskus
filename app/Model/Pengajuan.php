@@ -47,5 +47,15 @@ class Pengajuan extends Model
     {
         return $this->belongsTo('App\Model\Dosen','pembimbing_sebelumnya');
     }
+   
+    function datapembimbing()
+    {
+        return $this->hasMany('App\Model\PivotBimbingan','judul_id');
+    }
+    
+    function topik()
+    {
+        return $this->hasMany('App\Model\TopikPengajuan','pengajuan_id');
+    }
 
 }
