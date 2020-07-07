@@ -424,6 +424,26 @@
         //     }
         // });
     }
+
+    function selesai(jadwal_id,pengajuan_id)
+    {
+        swal({
+            title: "Apakah Anda Yakin",
+            text: "Ingin Memverifikasi Selesai Data Ini ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-info",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Tidak",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                location.href='{{url("pengajuan-selesai")}}/'+jadwal_id+'/'+pengajuan_id
+            } 
+        });
+    }
 </script>
 
 <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true">

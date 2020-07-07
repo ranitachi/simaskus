@@ -1,21 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Mahasiswa;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Model\PengajuanSkripsi;
-use App\Model\JudulTugasAkhir;
-use App\Model\Dosen;
-use App\Model\MasterJenisPengajuan;
-use App\Model\Pengajuan;
-use App\Model\Users;
-use App\Model\Notifikasi;
-use App\Model\PivotBimbingan;
-use App\Model\Mahasiswa;
-use App\Model\TahunAjaran;
-use App\Model\TopikPengajuan;
-use App\Model\KalenderAkademik;
 use Auth;
+use App\Model\Dosen;
+use App\Model\Users;
+use App\Model\Jadwal;
+use App\Model\Mahasiswa;
+use App\Model\Pengajuan;
+use App\Model\Notifikasi;
+use App\Model\TahunAjaran;
+use Illuminate\Http\Request;
+use App\Model\PivotBimbingan;
+use App\Model\TopikPengajuan;
+use App\Model\JudulTugasAkhir;
+use App\Model\KalenderAkademik;
+use App\Model\PengajuanSkripsi;
+use App\Model\MasterJenisPengajuan;
+use App\Http\Controllers\Controller;
+
 class PengajuanSkripsiController extends Controller
 {
     public function index()
@@ -469,5 +471,20 @@ class PengajuanSkripsiController extends Controller
         }
 
         return $data;
+    }
+
+    public function selesai_pengajuan($jadwal_id,$pengajuan_id)
+    {
+        $pengajuan=Pengajuan::find($pengajuan_id);
+        $pengajuan->status_selesai=1;
+        $pengajuan->status_pengajuan=100;
+        $pengajuan->save();
+
+        $jadwal=Jadwal::where('id',$jadwal_id)->first();
+        $jadwal->status_selesai=1;
+        $jadwal->save();
+
+        return redirect('data-jadwal/2')->with('status','Data Telah Selesai Dilaksanakan');
+
     }
 }

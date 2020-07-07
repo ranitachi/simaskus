@@ -984,6 +984,7 @@ class JadwalController extends Controller
 
                 $ruangan_id=$ruangan[$idgrup];
                 $nruangan=MasterRuangan::find($ruangan_id);
+                
                 $wkt=$waktu[$idgrup];
                 $insert=new JadwalSidangKP;
                 $insert->id_grup=$idgrup;

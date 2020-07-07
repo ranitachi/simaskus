@@ -130,6 +130,7 @@ Route::get('pengajuan-hapus/{id}', 'Mahasiswa\PengajuanSkripsiController@destroy
 Route::get('pengajuan-detail/{id}','Mahasiswa\PengajuanSkripsiController@detail')->middleware('auth');
 Route::get('data-bimbingan-mhs/{id?}','Mahasiswa\PengajuanSkripsiController@index_bimbingan_mhs')->middleware('auth');
 Route::get('cek-pengajuan-mahasiswa/{idmhs}','Mahasiswa\PengajuanSkripsiController@cek_pengajuan_mahasiswa')->middleware('auth');
+Route::get('pengajuan-selesai/{jadwal_id}/{pengajuan_id}','Mahasiswa\PengajuanSkripsiController@selesai_pengajuan')->middleware('auth');
 
 //----------Pengajuan S3
 Route::resource('pengajuan-disertasi','Mahasiswa\PengajuanS3Controller')->middleware('auth');
@@ -254,6 +255,8 @@ Route::get('form-add-penguji','DosenController@formadd_penguji')->middleware('au
 Route::post('add-penguji/{idpengajuan}','DosenController@add_penguji')->middleware('auth');
 // Route::post('add-penguji-staf/{idpengajuan}','DosenController@add_penguji_staf')->middleware('auth');
 
+
+
 Route::resource('izin-dosen','IzinDosenController')->middleware('auth');
 Route::get('izin-dosen-data','IzinDosenController@data')->middleware('auth');
 Route::get('izin-dosen-hapus/{id}','IzinDosenController@destroy')->middleware('auth');
@@ -340,6 +343,8 @@ Route::get('berita-acara-kp/{id}','KerjaPraktekController@berita_acara')->middle
 Route::get('penilaian-kp/{id}','KerjaPraktekController@penilaian_kp')->middleware('auth');
 Route::get('cetak-evaluasi-kp/{id}','KerjaPraktekController@cetak_evaluasi_kp')->middleware('auth');
 Route::get('selesai-kp/{id}','KerjaPraktekController@selesai_kp')->middleware('auth');
+
+
 
 // data-pengajuan-sidang-kp
 //Pengajuan Sidang
