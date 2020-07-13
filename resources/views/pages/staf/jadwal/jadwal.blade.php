@@ -20,8 +20,7 @@
             $no=1;
             @endphp
             @foreach ($pengajuan as $i => $v)
-            @if (count($jadwal) != 0)
-                
+            @if (count($jadwal) != 0)     
                 @if(isset($jadwal[$v->id]))
                     @if (isset($v->jenispengajuan->keterangan))
                         @if (isset($v->mahasiswa->nama))
@@ -208,26 +207,6 @@
                                                 </li>                                                                                                                                                              
                                                 </ul>
                                             </div>
-                                            {{-- <a href="javascript:selesai({{$jadwal[$idpengajuan]->jadwal_id}},{{$idpengajuan}})" class="btn btn-xs btn-success tooltips" data-title="Klik Untuk Verifikasi Selesai Sidang" style="font-size:10px;"><i class="fa fa-check"></i> Verifikasi Selesai</a>
-                                            <br> --}}
-                                            {{-- <a href="{{url('form-penilaian/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-danger" style="font-size:10px;margin-top:5px"><i class="fa fa-list"></i> Form Penilaian</a>
-                                            <br> --}}
-                                            {{-- <a href="{{url('berkas-sidang/daftar-hadir-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Daftar Hadir Sidang</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/undangan-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px"><i class="fa fa-download"></i> Undangan Sidang</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/berita-acara-sidang/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Berita Acara Sidang</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/form-nilai-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Penguji</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/form-nilai-pembimbing/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Nilai Pembimbing</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/form-catatan-penguji/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Form Catatan Penguji</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/lembar-penetapan-judul/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Lembar Penetapan Judul</a>
-                                            <br>
-                                            <a href="{{url('berkas-sidang/daftar-perbaikan/'.$jadwal[$idpengajuan]->jadwal_id.'/'.$idpengajuan)}}" target="_blank" class="btn btn-xs btn-info" style="font-size:10px;margin-top:5px;"><i class="fa fa-download"></i> Daftar Perbaikan</a>
-                                            <br> --}}
                                         @endif
                                     @endif
                                 </td>

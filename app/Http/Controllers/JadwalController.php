@@ -438,6 +438,48 @@ class JadwalController extends Controller
             }
             return redirect('data-jadwal/2')->with('status','Jadwal Sidang Berhasil Di Generate');
     }
+    public function atur_jadwal_sidang(Request $reqeuest, $dept_id)
+    {
+            // return $reqeuest->all();
+            list($tg1,$bl1,$th1)=explode('/',$reqeuest->datetime);
+            $date=$th1.'-'.$bl1.'-'.$tg1;
+            $waktu=$reqeuest->waktu; 
+            $ruangan_id=$reqeuest->ruangan; 
+            $idmhs=$reqeuest->mahasiswa_id_s;
+
+            $dept=MasterDepartemen::find($dept_id);
+        
+            $mhs=Mahasiswa::find($idmhs);
+            
+            $jadw=new Jadwal;
+            $jadw->ruangan_id=$ruangan_id;
+            $jadw->departemen_id=$dept_id;
+            $jadw->tanggal=$date;
+            $jadw->hari=date('D',strtotime($date));
+            $jadw->waktu=$waktu;
+            $jadw->save();
+            
+            $piv_jad=new PivotJadwal;
+            $piv_jad->jadwal_id=$jadw->id;
+            $piv_jad->ruangan_id=$ruangan_id;
+            $piv_jad->mahasiswa_id=$idmhs;
+            $piv_jad->judul_id=$reqeuest->pengajuan_id_s;
+            $piv_jad->status=0;
+            $piv_jad->save();
+            // foreach($p_uji[$vp->id] as $ku=>$vu)
+            // {
+                // $user=Users::where('id_user',$ku)->first();
+                // $notif=new Notifikasi;
+                // $notif->title="Jadwal Menguji Sidang";
+                // $notif->from=Auth::user()->id;
+                // $notif->to=$user->id;
+                // $notif->flag_active=1;
+                // $notif->pesan="Anda Mendapatkan Jadwal Menguji Sidang Mahasiswa :<u>".$mhs->name."</u> <br>Pada Tanggal : <u>".tgl_indo($date)." </u>
+                // <br>Ruangan : ".$r[1]." - ".$r[2];
+                // $notif->save();
+            // }
+        return redirect('data-jadwal/2')->with('status','Jadwal Sidang Berhasil Di Buat');
+    }
     public function generate(Request $reqeuest, $dept_id)
     {
         // return $request->

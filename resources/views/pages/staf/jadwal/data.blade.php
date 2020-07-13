@@ -14,15 +14,15 @@
                     }
                 @endphp 
 
-                @if (isset($kalender['masa-pelaksanaan-sidang']))
+                {{-- @if (isset($kalender['masa-pelaksanaan-sidang'])) --}}
                     <a href="javascript:generate(-1)" id="sample_editable_1_new" class="btn btn-sm sbold blue"> Generate Jadwal
                         <i class="fa fa-calendar"></i>
                     </a>
-                @else
+                {{-- @else
                     <a href="{{url('kalender-akademik')}}" id="sample_editable_1_new" class="btn btn-sm sbold red tooltips" data-style="default" data-container="body" data-original-title="Jadwal Pelaksanaan Sidang Belum Di Atur Pada Kalender Akademik"> Generate Jadwal
                         <i class="fa fa-calendar"></i>
                     </a>
-                @endif
+                @endif --}}
             </div>
         </div>
         <div class="col-md-6">
@@ -258,6 +258,8 @@
                             @if ($adapenguji==1)
                                 <a class="btn btn-info btn-xs" href="javascript:aturjadwals3('{{$v->mahasiswa_id}}','{{$v->id}}')"><i class="fa fa-calendar"></i> Atur Jadwal</a>
                             @endif
+                        @else
+                            {{-- <a class="btn btn-info btn-xs" href="javascript:aturjadwalsidang('{{$v->mahasiswa_id}}','{{$v->id}}')"><i class="fa fa-calendar"></i> Atur Jadwal</a> --}}
                         @endif
                     </td>
                    

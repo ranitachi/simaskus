@@ -326,12 +326,21 @@
     }
     function aturjadwals3(mahasiswa_id,pengajuan_id)
     {
-        $('#daterpicker').datepicker({
-            format: 'DD/MM/YYYY'
+        $('#datepicker-sidang').datepicker({
+            format: 'dd/mm/yyyy',
         });
         $('#mahasiswa_id_s3').val(mahasiswa_id);
         $('#pengajuan_id_s3').val(pengajuan_id);
         $('#ajax-atur-jadwal').modal('show');
+    }
+    function aturjadwalsidang(mahasiswa_id,pengajuan_id)
+    {
+        $('#datepicker-sidang-s').datepicker({
+            format: 'dd/mm/yyyy',
+        });
+        $('#mahasiswa_id_s').val(mahasiswa_id);
+        $('#pengajuan_id_s').val(pengajuan_id);
+        $('#ajax-atur-jadwal-s').modal('show');
     }
 
     function getkonten(idpengajuan,mahasiswa_id,idjadwal,ruangan_id,tanggal=null)
@@ -382,47 +391,6 @@
                         }
                     });
                 });
-        // $('.datepicker').datepicker({
-        //     format: 'dd/mm/yyyy'
-        // });
-        // $.ajax({
-        //     url : '{{url("/")}}/cek-jadwal-sidang/'+idpengajuan+'/'+mahasiswa_id+'/'+idjadwal,
-        //     success:function(res)
-        //     {
-        //         var url_update='{{url("/")}}/update-jadwal-sidang/'+idpengajuan+'/'+mahasiswa_id+'/'+idjadwal;
-        //         // $('#form-ubah-jadwal').attr('action',url_update);
-        //         // alert(res.jadwal.tanggal)
-        //         var tgl=res.jadwal.tanggal.split('-');
-        //         $('#dt-ubahjadwal').val(tgl[2]+'/'+tgl[1]+'/'+tgl[0])
-        //         $('.datepicker').datepicker({
-        //             format: 'dd/mm/yyyy'
-        //         });
-        //         $('#waktu-ubah-jadwal').val(res.jadwal.waktu);
-        //         $('#ruangan-ubah-jadwal').val(res.jadwal.ruangan_id);
-        //         $('#ajax-atur-jadwal-sidang').modal('show');
-        //         $('#ok-ajax-sm-ubahjadwal').one('click',function(){
-        //             $.ajax({
-        //                 url : url_update,
-        //                 data : $('#form-ubah-jadwal').serialize(),
-        //                 type : 'POST',
-        //                 cache: false,
-        //                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        //                 success:function(res){
-        //                     if(res==1)
-        //                     {
-        //                         $('#ajax-atur-jadwal-sidang').modal('hide');
-        //                         loaddata();
-        //                         swal("Success!", "Ubah Data Jadwal Sidang Berhasil", "success");
-        //                     }
-        //                     else
-        //                     {
-        //                         swal("Gagal!", "Ubah Data Jadwal Sidang Gagal", "danger");
-        //                     }
-        //                 }
-        //             });
-        //         });
-        //     }
-        // });
     }
 
     function selesai(jadwal_id,pengajuan_id)
@@ -507,11 +475,11 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <input type="hidden" nama="mahasiswa_id_s3" id="mahasiswa_id_s3">
-                                <input type="hidden" nama="pengajuan_id_s3" id="pengajuan_id_s3">
+                                <input type="hidden" name="mahasiswa_id_s3" id="mahasiswa_id_s3">
+                                <input type="hidden" name="pengajuan_id_s3" id="pengajuan_id_s3">
                                 <div class="form-group has-success">
                                     <label class="control-label">Tanggal</label>
-                                    <input type="text" name="datetime" placeholder="dd/mm/yyyy" class="form-control" id="datepicker"/>
+                                    <input type="text" name="datetime" placeholder="dd/mm/yyyy" class="form-control" id="datepicker-sidang" autocomplete="off"/>
                                 </div>
                                 
                             </div>
@@ -534,7 +502,9 @@
                             </div>
                             <div class="col-md-12">
                                 @php
-                                    $ruangan=\App\Model\MasterRuangan::where('ruang_sidang_promosi',1)->with('departemen')->get();
+                                    
+                                        $ruangan=\App\Model\MasterRuangan::where('ruang_sidang_promosi',1)->with('departemen')->get();
+                                    
                                 @endphp
                                 <div class="form-group has-success">
                                     <label class="control-label">Ruangan</label>
@@ -558,6 +528,75 @@
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                 <button type="submit" class="btn green" id="ok-ajax-sm">OK</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ajax-atur-jadwal-s" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form action="{{url('atur-jadwal-sidang/'.$dept_id) }}" class="horizontal-form" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="hidden" name="mahasiswa_id_s" id="mahasiswa_id_s">
+                                <input type="hidden" name="pengajuan_id_s" id="pengajuan_id_s">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Tanggal</label>
+                                    <input type="text" name="datetime" placeholder="dd/mm/yyyy" class="form-control" id="datepicker-sidang-s" autocomplete="off"/>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-4">
+                                
+                                <div class="form-group has-success">
+                                    <label class="control-label">Waktu</label>
+                                    <select name="waktu" id="waktu" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            $waktu=waktu();
+                                            foreach($waktu as $item)
+                                            {
+                                                echo '<option value="'.$item.'">'.$item.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                @php
+                                    $ruangan=\App\Model\MasterRuangan::where('departemen_id',$dept_id)->with('departemen')->get();
+                                @endphp
+                                <div class="form-group has-success">
+                                    <label class="control-label">Ruangan</label>
+                                    <select name="ruangan" id="ruangan" class="form-control">
+                                        <option value="0">Pilih</option>
+                                        @php
+                                            
+                                            foreach($ruangan as $item)
+                                            {
+                                                echo '<option value="'.$item->id.'">'.$item->departemen->nama_departemen.' -- '.$item->nama_ruangan.'</option>';
+                                            }
+                                        @endphp
+                                    </select>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="submit" class="btn green">OK</button>
             </div>
             </form>
         </div>
