@@ -138,20 +138,20 @@
                                                         $total=0;
                                                         $hurufmutu='';
                                                     @endphp
-                                                        @foreach ($penilaian as $v)
+                                                    @foreach ($penilaian as $v)
                                                     
                                                         @php
                                                             if(isset($n2[$item['iddosen']]))
                                                             {
-                                                                if(isset($n2[$item['iddosen']][$v->id]))
+                                                                if(isset($n2[$item['iddosen']][$v->c_id]))
                                                                 {
-                                                                    $nilai_angka=$n2[$item['iddosen']][$v->id]->nilai_angka;
-                                                                    $subtotal=$n2[$item['iddosen']][$v->id]->subtotal;
+                                                                    $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
+                                                                    $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
                                                                     // $nilai_angka=$n2[$item['iddosen']][$v->c_id]->nilai_angka;
                                                                     // $subtotal=$n2[$item['iddosen']][$v->c_id]->subtotal;
 
-                                                                    $hurufmutu=$n2[$item['iddosen']][$v->id]->huruf;
-                                                                    $total=$n2[$item['iddosen']][$v->id]->total;
+                                                                    $hurufmutu=$n2[$item['iddosen']][$v->c_id]->huruf;
+                                                                    // $total=$n2[$item['iddosen']][$v->c_id]->total;
                                                                 }
                                                                 else
                                                                 {
@@ -213,8 +213,8 @@
     function formnilai(id,pengajuan_id,dosen_id)
     {
         $('.modal-title').text('Form Nilai');
-        $('.modal-body').load('{{url("form-nilai-dosen-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id);
-        $('#ajax').modal('show');
+        $('.modal-body-nilai').load('{{url("form-nilai-dosen-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id);
+        $('#ajax-nilai').modal('show');
 
         $('#ok').on('click',function(){
             $('#simpan-nilai').submit();
@@ -223,7 +223,7 @@
     function daftarperbaikan(id,pengajuan_id,dosen_id)
     {
         $('.modal-title').text('Form Daftar Perbaikan');
-        $('.modal-body').load('{{url("daftar-perbaikan-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id,function(){
+        $('.modal-body-nilai').load('{{url("daftar-perbaikan-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id,function(){
             var startDate = new Date();
             startDate.setDate(startDate.getDate(new Date()));
             
@@ -234,7 +234,7 @@
             });
             $('.date-picker').datepicker('setStartDate', startDate);
         });
-        $('#ajax').modal('show');
+        $('#ajax-nilai').modal('show');
 
         $('#ok').on('click',function(){
             $('#daftar-perbaikan').submit();
@@ -243,8 +243,8 @@
     function penetapanjudul(id,pengajuan_id,dosen_id)
     {
         $('.modal-title').text('Form Penetapan Judul');
-        $('.modal-body').load('{{url("penetapan-judul-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id);
-        $('#ajax').modal('show');
+        $('.modal-body-nilai').load('{{url("penetapan-judul-staf")}}/'+id+'/'+pengajuan_id+'/'+dosen_id);
+        $('#ajax-nilai').modal('show');
 
         $('#ok').on('click',function(){
             $('#penetapan-judul').submit();
@@ -258,14 +258,14 @@
         font-size: 11px !important;
     }
 </style>
-<div class="modal fade" id="ajax" role="basic" aria-hidden="true">
+<div class="modal fade" id="ajax-nilai" role="basic" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body modal-body-nilai">
                 <img src="{{asset('assets/global/img/loading-spinner-grey.gif')}}" alt="" class="loading">
                 <span> &nbsp;&nbsp;Loading... </span>
             </div>

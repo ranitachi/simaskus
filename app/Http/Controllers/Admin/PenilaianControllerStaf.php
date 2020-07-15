@@ -114,7 +114,7 @@ class PenilaianControllerStaf extends Controller
                 $penilaian=$pen;
 
         }
-        // return ($penilaian);
+        // return ($n2);
         return view('pages.staf.penilaian.index',
             compact('pengajuan','jad','jadwal','penilaian','uji','n','n2','idjadwal','idpengajuan','dos','perb','penp'));
     }

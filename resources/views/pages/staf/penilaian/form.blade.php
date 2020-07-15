@@ -60,8 +60,8 @@
                                             {
                                                 $nilai_angka=$n[$v->c_id]->nilai_angka;
                                                 $subtotal=$n[$v->c_id]->subtotal;
-                                                $hurufmutu=$n[$v->id]->huruf;
-                                                $total=$n[$v->id]->total;
+                                                $hurufmutu=$n[$v->c_id]->huruf;
+                                                $total=$n[$v->c_id]->total;
                                             }
                                             else
                                             {
@@ -80,7 +80,7 @@
                                                 <input type="hidden" id="persen_{{$k}}" value="{{count($uji)!=0 ? $v->bobot_penguji : $v->bobot_component}}" name="persen[{{$v->c_id}}]">
                                             </th>
                                             <th class="text-center"style="width:20%"> 
-                                                <input type="number" min="0" max="100" id="total_{{$k}}" name="subtotal[{{$v->c_id}}]" class="form-control input-circle jlh" placeholder=""  readonly style="text-align:center;" value="{{$subtotal}}">
+                                                <input type="number" min="0" max="100" id="total_{{$k}}" name="subtotal[{{$v->c_id}}]" class="form-control input-circle jlh-nilai jlh" placeholder=""  readonly style="text-align:center;" value="{{$subtotal}}">
                                             </th>
                                         </tr>
                                     @endforeach
@@ -146,6 +146,7 @@
     </div>
 @include('include.script')
 <script>
+    // hitungjlh();
     function simpan(jadwal_id,pengajuan_id)
     {
         //alert(jadwal_id+'=='+pengajuan_id)
@@ -179,13 +180,15 @@
     function hitungjlh()
     {
         var total=0;
-        $('input.jlh').each(function(i){
+        // $('input.jlh').each(function(i){
+        $('input.jlh-nilai').each(function(i){
             if($(this).val()=='')
                 var n=0;
             else
                 var n = parseFloat($(this).val());
             
             total+=n;
+            // alert(n)
         });
         $('#total').val(total.toFixed(2));
 
