@@ -420,6 +420,7 @@ Route::post('pesan-destroy','PesanController@destroy')->name('pesan.destroy');
 Route::resource('pesan-lampiran','PesanLampiranController');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Route::get('cekstatus_fix', 'Controller@cekstatus_fix');
 
 Route::post('regis-dosen-staf','HomeController@regis_dosen_staf');
 Route::get('refresh-csrf', function(){

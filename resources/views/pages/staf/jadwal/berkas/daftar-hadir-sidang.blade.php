@@ -24,7 +24,7 @@
             </table>
             <div>&nbsp;</div>
             <div style="padding: 0px 50px 0px;">
-                <h3 style="text-align:center">DAFTAR HADIR PENGUJI<br>UJIAN SIDANG<br>{{strtoupper($pengajuan->departemen->nama_departemen)}}</h3>
+                <h3 style="text-align:center">DAFTAR HADIR PENGUJI dan PEMBIMBING<br>UJIAN SIDANG<br>{{strtoupper($pengajuan->departemen->nama_departemen)}}</h3>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 
@@ -76,17 +76,19 @@
                     <table border="1" align="left" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
                         <tr align='center'>
                             <th align="center" style="padding:15px;height:35px;">No</font></th>
-                            <th align="center" style="padding:15px;height:35px;">Nama Penguji</th>
+                            <th align="center" style="padding:15px;height:35px;">Nama</th>
+                            <th align="center" style="padding:15px;height:35px;">Status</th>
                             <th align="center" style="padding:15px;height:35px;">Tanda Tangan</th>
                         </tr>
                         @php
                             $no=1;
                         @endphp
                         @foreach ($pembimbing as $idx=>$item)
-                                @if ($item->status==1 && $item->status_fix==1)
+                            @if ($item->status==1 && $item->status_fix==1)
                                     <tr>
                                         <td align="center" style="padding:15px;height:35px;">{{$no}}</td>
                                         <td align="left" style="padding:15px;height:35px;">{{$item->dosen->nama}}</td>
+                                        <td align="left" style="padding:15px;height:35px;">Pembimbing</td>
                                         <td align="left" style="padding:15px;height:35px;"></td>
                                     </tr>
                                 @php
@@ -98,6 +100,7 @@
                             <tr>
                                 <td align="center" style="padding:15px;height:35px;">{{$no}}</td>
                                 <td align="left" style="padding:15px;height:35px;">{{$item->dosen->nama}}</td>
+                                <td align="left" style="padding:15px;height:35px;">Penguji</td>
                                 <td align="left" style="padding:15px;height:35px;"></td>
                             </tr>
                             @php

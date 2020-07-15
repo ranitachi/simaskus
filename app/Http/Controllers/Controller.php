@@ -7,6 +7,8 @@ use App\User;
 use App\Model\Staf;
 use App\Model\Dosen;
 use App\Model\Mahasiswa;
+use App\Model\PivotJadwal;
+use App\Model\PivotBimbingan;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -37,5 +39,22 @@ class Controller extends BaseController
         }
 
         return ['data'=>$data, 'user'=>$user]; 
+    }
+
+    public function cekstatus_fix()
+    {
+        $jadwal=PivotJadwal::all();
+        foreach($jadwal as $k=>$v)
+        {
+            $judul_id=$v->judul_id;
+            $mahasiswa_id=$v->mahasiswa_id;
+            $bimbingan=PivotBimbingan::where('judul_id',$judul_id)->where('mahasiswa_id',$mahasiswa_id)->get();
+            foreach($bimbingan as $ipb=>$vpb)
+            {
+                $vpb->status_fix=1;
+                $vpb->save();
+                echo $vpb->id.'<br>';
+            }
+        }
     }
 }

@@ -108,7 +108,9 @@
                 <table border="0" width="100%">
                     <tr>
                         <td width="50%">&nbsp;</td>
-                        <td align="left">Ketua {{$departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br><u>{{$pimpinan['ketua-departemen']->dosen->nama}}</u><br>NIP. {{$pimpinan['ketua-departemen']->dosen->nip}}</td>
+                        <td align="left">Ketua {{$departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br>
+                            <u>{{ isset($pimpinan['ketua-departemen']->dosen->nama) ? $pimpinan['ketua-departemen']->dosen->nama : '________________________________'}}</u>
+                            <br>NIP. {{isset($pimpinan['ketua-departemen']->dosen->nip) ? $pimpinan['ketua-departemen']->dosen->nip : ''}}</td>
                     </tr>
                 </table>	
                 

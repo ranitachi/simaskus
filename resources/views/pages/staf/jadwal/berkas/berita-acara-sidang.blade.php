@@ -102,15 +102,15 @@
                 <table border="0" width="100%">
                     <tr>
                         <td align="left"><br>Ketua {{$pengajuan->departemen->nama_departemen}},<br />Fakultas Teknik Universitas Indonesia<br><br><br><br><br>
-                            <u>{{$pimpinan['ketua-departemen']->dosen->nama}}</u>
-                            <br>NIP. {{$pimpinan['ketua-departemen']->dosen->nip}}</td>
+                            <u>{{isset($pimpinan['ketua-departemen']->dosen->nama) ? $pimpinan['ketua-departemen']->dosen->nama : '______________________________'}}</u>
+                            <br>NIP. {{isset($pimpinan['ketua-departemen']->dosen->nip) ? $pimpinan['ketua-departemen']->dosen->nip : ''}}</td>
                         <td width="10%">&nbsp;</td>
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>
-                                @if (isset($pembimbing[0]->dosen))
+                            Ketua Sidang Ujian Skripsi,<br><br><br><br><br><u>______________________________</u><br>NIP.
+                                {{-- @if (isset($pembimbing[0]->dosen))
                                     {{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}
-                                @endif
+                                @endif --}}
                             </td>
                     </tr>
                 </table>	

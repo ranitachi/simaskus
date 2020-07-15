@@ -560,8 +560,7 @@ class JadwalController extends Controller
         // dd($p_jdwl);
         foreach($tgl as $tg)
         {
-            $idpengajuan=array_search(array_rand($idpeng),$idpeng);
-            
+            $idpengajuan=array_search(array_rand($idpeng),$idpeng);   
             // echo $idpengajuan.'-';
         }
         // return $p_uji;
@@ -571,6 +570,15 @@ class JadwalController extends Controller
             {
                 if(isset($p_uji[$vp->id]))
                 {
+                    $pembimbing=PivotBimbingan::where('mahasiswa_id',$vpp->mahasiswa_id)
+                                ->where('judul_id',$vp->id)
+                                ->get();
+                    foreach($pembimbing as $kpb=>$vpb)
+                    {
+                        $vpb->status_fix=1;
+                        $vpb->save();
+                    } 
+
                     // $p_aju=Pengajuan::find($vp->id);
                     $vp->status_pengajuan=2;
                     $vp->save();
@@ -876,7 +884,14 @@ class JadwalController extends Controller
         $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('jenispengajuan')->with('mahasiswa')->with('departemen')->first();
 
         $penguji=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
-        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)->where('status_fix',1)->where('judul_id',$pengajuan_id)->with('mahasiswa')->with('dosen')->orderBy('id')->get();
+        
+        $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)
+                        ->where('status_fix',1)
+                        ->where('judul_id',$pengajuan_id)
+                        ->with('mahasiswa')
+                        ->with('dosen')
+                        ->orderBy('id')->get();
+                        
         $pimp=MasterPimpinan::where('departemen_id',$pengajuan->departemen_id)->with(['dosen','departemen'])->get();
         $pimpinan=array();
         $departemen=MasterDepartemen::find($pengajuan->departemen_id);

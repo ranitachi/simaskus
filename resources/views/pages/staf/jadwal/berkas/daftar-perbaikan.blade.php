@@ -120,13 +120,16 @@
                 <table border="0" width="100%">
                     <tr>
                         <td align="left"><br>Dosen Pembimbing <br><br><br><br><br>
-                            <u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                            {{-- <u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}} --}}
+                            <u>______________________________</u><br>NIP.
+                        </td>
                         <td width="10%">&nbsp;</td>
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
                             {{-- Ketua Sidang Ujian {{(str_replace('Pembimbing','Presentasi',$pengajuan->jenispengajuan->jenis))}},<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}} --}}
-                            Ketua Sidang Ujian ,<br><br><br><br><br><u>{{$pembimbing[0]->dosen->nama}}
-                            </u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                            Ketua Sidang Ujian ,<br><br><br><br><br><u>______________________________</u><br>NIP.
+                                {{-- {{$pembimbing[0]->dosen->nama}}
+                            </u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td> --}}
                     </tr>
                 </table>	
                 <div style="border-bottom:2px solid #ddd;">&nbsp;</div>
@@ -143,7 +146,9 @@
                          <table border="0" width="100%">
                             <tr>
                                 <td align="left"><br>Menyetujui<br>Dosen Pembimbing <br><br><br><br><br>
-                                    <u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}</td>
+                                    <u>______________________________</u><br>NIP.
+                                    {{-- <u>{{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}} --}}
+                                </td>
                                 <td width="10%">&nbsp;</td>
                                 <td align="left">
                                     Depok, {{tgl_indo(date('Y-m-d'))}}<br>

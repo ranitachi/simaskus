@@ -106,10 +106,10 @@
                         
                         <td align="left">
                             Depok, {{tgl_indo(date('Y-m-d'))}}<br>
-                            Ketua Sidang Ujian,<br><br><br><br><br><u>
-                                @if (isset($pembimbing[0]->dosen))
+                            Ketua Sidang Ujian,<br><br><br><br><br><u>______________________________</u><br>NIP.
+                                {{-- @if (isset($pembimbing[0]->dosen))
                                     {{$pembimbing[0]->dosen->nama}}</u><br>NIP. {{$pembimbing[0]->dosen->nip}}
-                                @endif
+                                @endif --}}
                             </td>
                     </tr>
                 </table>	
