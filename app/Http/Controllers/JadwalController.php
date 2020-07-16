@@ -570,7 +570,7 @@ class JadwalController extends Controller
             {
                 if(isset($p_uji[$vp->id]))
                 {
-                    $pembimbing=PivotBimbingan::where('mahasiswa_id',$vpp->mahasiswa_id)
+                    $pembimbing=PivotBimbingan::where('mahasiswa_id',$vp->mahasiswa_id)
                                 ->where('judul_id',$vp->id)
                                 ->get();
                     foreach($pembimbing as $kpb=>$vpb)
