@@ -65,6 +65,13 @@
 @section('footscript')
 <script>
     $(document).ready(function(){
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $('#loader').show();
         loaddata();
         $('#pesan-alert').hide();
@@ -106,6 +113,29 @@
             });
         }
     });
+    function gantipenguji(idpengajuan,idmahasiswa,idjadwal)
+    {
+        $('#mahasiswa_id_ganti_modal').val(idmahasiswa)
+        $('#pengajuan_id_ganti_modal').val(idpengajuan)
+        $('#jadwal_id_ganti_modal').val(idjadwal)
+        $('#gantipenguji').modal('show');
+
+        $('#ok-edit-penguji').on('click',function(){
+            $.ajax({
+                url : '{{ url("simpan-ganti-penguji") }}',
+                type : 'POST',
+                data : $('#form-ganti-penguji').serialize(),
+                dataType : 'JSON',
+                success:function(res){
+                    loaddata();
+                    swal("Sukses!", "Pergantian Data Penguji Berhasil", "success");
+                    $('#gantipenguji').modal('hide');
+                    $('#dosen_id_ganti').val( "" );
+                    $("#dosen_id_ganti").trigger("change");
+                }
+            });
+        })
+    }
     function setujumanager(idpengajuan,idmahasiswa)
     {
         swal({
@@ -655,6 +685,43 @@
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
                 <button type="button" class="btn green" id="ok-ajax-sm-dosen">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="gantipenguji" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form action="" class="horizontal-form" id="form-ganti-penguji" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-success">
+                                    <input type="hidden" name="mahasiswa_id" id="mahasiswa_id_ganti_modal">
+                                    <input type="hidden" name="pengajuan_id" id="pengajuan_id_ganti_modal">
+                                    <input type="hidden" name="jadwal_id" id="jadwal_id_ganti_modal">
+                                    <label class="control-label">Pilih Penguji (* Pilih Sesuai dengan urutan)</label>
+                                    <select class="select2 form-control has-success col-md-12" data-placeholder="Pilih Penguji" id="dosen_id_ganti" name="dosen_id[]" multiple>
+                                        <option value="-1">-Pilih Penguji-</option>
+                                        @foreach ($dosen as $k=>$v)
+                                            <option value="{{$v->id}}">{{$v->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
+                <button type="button" class="btn green" id="ok-edit-penguji">SImpan</button>
             </div>
         </div>
     </div>

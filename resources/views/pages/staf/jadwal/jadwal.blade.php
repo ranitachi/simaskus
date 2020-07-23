@@ -150,10 +150,14 @@
                                                     @endif
                                                     {{-- @endif --}}
                                             @endforeach
+                                            <div class="text-center" style="margin-top:10px;">
+                                                <a href="javascript:gantipenguji({{ $idpengajuan }},{{ $v->mahasiswa->id }},{{ $jadwal[$idpengajuan]->id }})" class="btn btn-xs btn-info" style="font-size:10px;"><i class="fa fa-edit"></i> Ganti Penguji</a>
+                                            </div>
                                         @endif
                                     @else
                                         <a href="#" class="btn btn-xs btn-info" style="font-size:10px;">Belum Ditentukan</a>
                                     @endif
+                                    
                                 @endif
                                 <br>
                                 <br>

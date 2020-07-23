@@ -254,6 +254,7 @@ Route::get('dokumen-verifikasi/{id}/{jns}','JadwalController@dokumen_verifikasi'
 
 Route::get('form-add-penguji','DosenController@formadd_penguji')->middleware('auth');
 Route::post('add-penguji/{idpengajuan}','DosenController@add_penguji')->middleware('auth');
+
 // Route::post('add-penguji-staf/{idpengajuan}','DosenController@add_penguji_staf')->middleware('auth');
 
 
@@ -357,7 +358,7 @@ Route::get('pengajuan-sidang-kp-verifikasi/{id}','JadwalController@pengajuan_sid
 Route::get('publish-kp/{idjadwal}','JadwalController@publish_kp')->middleware('auth');
 Route::get('hapusjadwalkp/{idjadwal}','JadwalController@hapusjadwalkp')->middleware('auth');
 Route::post('jadwal-sidang-kp-simpan/{all_one}/{id}/{idkp?}/{submit?}','JadwalController@simpan_jadwal_sidang_kp')->middleware('auth');
-
+Route::post('simpan-ganti-penguji','JadwalController@simpan_ganti_penguji')->middleware('auth');
 
 
 //Acc Sidang

@@ -50,6 +50,7 @@
                     $('#radio1003').attr('checked', 'checked');
                 });
             })
+            
         </script>
     </body>
     @yield('footscript')

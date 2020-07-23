@@ -156,6 +156,7 @@ class JadwalController extends Controller
             $piv[$v->mahasiswa_id][$v->dosen_id]=$v;
         }
         $ta=TahunAjaran::orderBy('tahun_ajaran', 'desc')->orderBy('jenis')->get();
+
         $dosen=Dosen::where('departemen_id',$dept_id)->get();
 
 
@@ -1265,5 +1266,35 @@ class JadwalController extends Controller
             echo 1;
         else
             echo 0;
+    }
+
+    public function simpan_ganti_penguji(Request $request)
+    {
+        // return $request->all();
+        $mahasiswa_id = $request->mahasiswa_id;
+        $pengajuan_id = $request->pengajuan_id;
+        $jadwal_id = $request->jadwal_id;
+        $dosen_id = $request->dosen_id;
+
+        $pivotpenguji=PivotPenguji::where('pivot_jadwal_id',$jadwal_id)->get();
+        foreach($pivotpenguji as $index=>$value)
+        {
+            $value->delete();
+        }
+
+        $res=array();
+        foreach($dosen_id as $item)
+        {
+            $pivot = new PivotPenguji;
+            $pivot->pivot_jadwal_id	 = $jadwal_id;
+            $pivot->penguji_id = $item;
+            $pivot->mahasiswa_id = $mahasiswa_id;
+            $pivot->pengajuan_id = $pengajuan_id;
+            $pivot->save();
+
+            $res[]=$pivot;
+        }
+
+        return $res;
     }
 }
