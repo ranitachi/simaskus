@@ -884,8 +884,13 @@ class JadwalController extends Controller
 
         $pengajuan=Pengajuan::where('id',$pengajuan_id)->with('jenispengajuan')->with('mahasiswa')->with('departemen')->first();
 
-        $penguji=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
-        
+        $pengujis=PivotPenguji::where('pengajuan_id',$pengajuan_id)->with('dosen')->get();
+        $penguji=array();
+        foreach($pengujis as $k=>$v)
+        {
+            $penguji[$v->penguji_id]=$v;
+        }
+
         $pembimbing=PivotBimbingan::where('mahasiswa_id',$pengajuan->mahasiswa_id)
                         ->where('status_fix',1)
                         ->where('judul_id',$pengajuan_id)
